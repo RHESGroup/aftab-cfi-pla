@@ -3,3 +3,5 @@ transcript
 sw/build/*
 sw/apps/CMakeFiles/*
 vsim/work/*
+modelsim/
+synth/
