@@ -32,7 +32,7 @@ ARCHITECTURE behavioral OF recShadowStack IS
 		(
 			clk, rst          : IN STD_LOGIC;
 			call, ret   : IN STD_LOGIC;
-			comp, MSB       : IN STD_LOGIC;
+			comp, LSB       : IN STD_LOGIC;
 			stackWrEn, ptrInc, ptrdec, exception : OUT STD_LOGIC
 		);
 	END COMPONENT;
@@ -62,7 +62,7 @@ ARCHITECTURE behavioral OF recShadowStack IS
 	SIGNAL outShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL inShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL ptr  : STD_LOGIC_VECTOR(stack_len_add-1 DOWNTO 0);
-	SIGNAL stackWrEn, push, pop, en, comp, MSB : STD_LOGIC;
+	SIGNAL stackWrEn, push, pop, en, comp, LSB : STD_LOGIC;
 	SIGNAL ctrl_exeptionFlag, ptr_exeptionFlag, pointerFlagF, pointerFlagE, ptr_rst	: STD_LOGIC;
 BEGIN
 
@@ -84,7 +84,7 @@ BEGIN
 		PORT MAP(
 			clk, rst,
 			funcCall, funcRet,
-			comp, MSB,
+			comp, LSB,
 			stackWrEn, push, pop, ctrl_exeptionFlag
 		);	
 	mux : mux2
@@ -100,10 +100,10 @@ BEGIN
 	comp <= '1' WHEN outShadowStack (30 DOWNTO 0) = addr(31 DOWNTO 1)	ELSE '0';
 	--check1 <= outShadowStack(30 DOWNTO 0);
 	--check2 <= addr(31 DOWNTO 1);
-	MSB <= outShadowStack (31);
-	inShadowStack <= comp & retAddPC (31 DOWNTO 1);
+	LSB <= outShadowStack (31);
+	inShadowStack <= retAddPC (31 DOWNTO 1) & comp;
 	ptr_exeptionFlag <= pointerFlagF WHEN funcCall='1' ELSE
-						pointerFlagE WHEN (funcRet ='1' and MSB ='0') ELSE
+						pointerFlagE WHEN (funcRet ='1' and LSB ='0') ELSE
 						'0';
 	stackException <= ctrl_exeptionFlag OR ptr_exeptionFlag;
 	ptr_rst<= rst OR ctrl_exeptionFlag;
@@ -118,7 +118,7 @@ ENTITY stackCtrl IS
 	(
 		clk, rst          : IN STD_LOGIC;
 		call, ret   : IN STD_LOGIC;
-		comp, MSB       : IN STD_LOGIC;
+		comp, LSB       : IN STD_LOGIC;
 		stackWrEn, ptrInc, ptrdec, exception : OUT STD_LOGIC
 		);
 END stackCtrl;
@@ -136,7 +136,7 @@ BEGIN
 		END IF;
 	END PROCESS;
 	
-	PROCESS (p_state, call, ret, comp, MSB ) 
+	PROCESS (p_state, call, ret, comp, LSB ) 
 	BEGIN		
 		n_state <= normal;
 		CASE p_state IS
@@ -147,7 +147,7 @@ BEGIN
 						n_state <= init;
 				 END IF;
 			WHEN normal =>
-				 IF (MSB = '0') THEN
+				 IF (LSB = '0') THEN
 					IF ( call = '1' and comp = '1') THEN
 						n_state <= recursive;
 					ELSIF ( call = '1' and comp = '0') THEN
@@ -169,9 +169,9 @@ BEGIN
 					n_state <= recursive;
 				END IF;
 			WHEN check_recursive =>
-				IF (MSB = '0') THEN
+				IF (LSB = '0') THEN
 					n_state <= normal;
-				ELSIF (MSB = '1' ) THEN
+				ELSIF (LSB = '1' ) THEN
 					n_state <= recursive;
 				END IF;
 			WHEN OTHERS => 
@@ -179,7 +179,7 @@ BEGIN
 		END CASE;
 	END PROCESS;
 	
-	PROCESS (p_state, call, ret, comp, MSB ) 
+	PROCESS (p_state, call, ret, comp, LSB ) 
 	BEGIN		
 		ptrInc <='0'; 
 		ptrdec <='0'; 
