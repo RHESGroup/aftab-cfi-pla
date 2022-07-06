@@ -380,60 +380,60 @@ BEGIN
 	END PROCESS;
 END behavioral;							
 ----**----**----**----**----**----**----**----**----**----**----**----**----**----**----**
-LIBRARY IEEE;
-USE IEEE.STD_LOGIC_1164.ALL;
-USE IEEE.NUMERIC_STD.ALL;
+-- LIBRARY IEEE;
+-- USE IEEE.STD_LOGIC_1164.ALL;
+-- USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY tb_recShadowStack IS
+-- ENTITY tb_recShadowStack IS
 
-END tb_recShadowStack;
+-- END tb_recShadowStack;
 
-ARCHITECTURE tb OF tb_recShadowStack IS
+-- ARCHITECTURE tb OF tb_recShadowStack IS
 	
-	COMPONENT recShadowStack IS
-	GENERIC (
-		addr_len      : INTEGER := 32;
-		stack_len_add : INTEGER := 3
-	);
-	PORT (
-		clk, rst          : IN STD_LOGIC;
-		funcCall, funcRet : IN STD_LOGIC;
-		retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
-		retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
-		stackException    : OUT STD_LOGIC
-	);
-	END COMPONENT;
+	-- COMPONENT recShadowStack IS
+	-- GENERIC (
+		-- addr_len      : INTEGER := 32;
+		-- stack_len_add : INTEGER := 3
+	-- );
+	-- PORT (
+		-- clk, rst          : IN STD_LOGIC;
+		-- funcCall, funcRet : IN STD_LOGIC;
+		-- retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
+		-- retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
+		-- stackException    : OUT STD_LOGIC
+	-- );
+	-- END COMPONENT;
 	
-	SIGNAL  clk, rst 		  : STD_LOGIC :='1';
-	SIGNAL	funcCall, funcRet : STD_LOGIC :='0';
-	SIGNAL	retAddPC          : STD_LOGIC_VECTOR(31 DOWNTO 0);
-	SIGNAL	retAddSysStack    : STD_LOGIC_VECTOR(31 DOWNTO 0); 
-	SIGNAL	stackException    : STD_LOGIC;
+	-- SIGNAL  clk, rst 		  : STD_LOGIC :='1';
+	-- SIGNAL	funcCall, funcRet : STD_LOGIC :='0';
+	-- SIGNAL	retAddPC          : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	-- SIGNAL	retAddSysStack    : STD_LOGIC_VECTOR(31 DOWNTO 0); 
+	-- SIGNAL	stackException    : STD_LOGIC;
 
-BEGIN 
-	UUT: recShadowStack 
-	GENERIC MAP(
-		32, 4
-	)
-	PORT MAP(
-		clk, rst,
-		funcCall, funcRet,
-		retAddPC ,
-		retAddSysStack,
-		stackException 
-	);
+-- BEGIN 
+	-- UUT: recShadowStack 
+	-- GENERIC MAP(
+		-- 32, 4
+	-- )
+	-- PORT MAP(
+		-- clk, rst,
+		-- funcCall, funcRet,
+		-- retAddPC ,
+		-- retAddSysStack,
+		-- stackException 
+	-- );
 	
 	
-	clk <= NOT clk AFTER 1 ns;
-	rst <= '0' after 10 ns;
-	retAddPC <= "01010101010010011010101101010101" , "01101101010010110101011001010101" AFTER 40 ns, "01010101101001000110101101010101" AFTER 50 ns, "01010101010010110101011100010101" AFTER 60 ns, "01010101010010110101011011010101" AFTER 80 ns, "01010100100001011010101101010101" AFTER 120 ns, "01010100101001111010001101110101" AFTER 220 ns;
-	retAddSysStack <=  "01010100100001011010101101010101", "01010101010010110101011011010101" AFTER 140 ns, "01010101010010110101011100010101" AFTER 142 ns,  "01010101101001000110101101010101" AFTER 160 ns,
-	"01010100101001111010001101110101" AFTER 180 ns,
-	"01101101010010110101011001010101" AFTER 230 ns, "01010101010010011010101101010101" AFTER 240 ns;
-	funcCall <= '1' After 11 ns, '0' After 20 ns, '1' After 28 ns, '0' After 38 ns, '1' After 45 ns, '0' After 47 ns, '1' After 55 ns, '0' After 57 ns, '1' After 61 ns, '0' After 68 ns, '1' After 81 ns, '0' After 83 ns, '1' After 118 ns, '0' After 130 ns, '1' After 250 ns, '0' After 260 ns;
-	funcRet <= '1' After 130 ns, '0' After 200 ns, '1' After 228 ns, '0' After 245 ns;
+	-- clk <= NOT clk AFTER 1 ns;
+	-- rst <= '0' after 10 ns;
+	-- retAddPC <= "01010101010010011010101101010101" , "01101101010010110101011001010101" AFTER 40 ns, "01010101101001000110101101010101" AFTER 50 ns, "01010101010010110101011100010101" AFTER 60 ns, "01010101010010110101011011010101" AFTER 80 ns, "01010100100001011010101101010101" AFTER 120 ns, "01010100101001111010001101110101" AFTER 220 ns;
+	-- retAddSysStack <=  "01010100100001011010101101010101", "01010101010010110101011011010101" AFTER 140 ns, "01010101010010110101011100010101" AFTER 142 ns,  "01010101101001000110101101010101" AFTER 160 ns,
+	-- "01010100101001111010001101110101" AFTER 180 ns,
+	-- "01101101010010110101011001010101" AFTER 230 ns, "01010101010010011010101101010101" AFTER 240 ns;
+	-- funcCall <= '1' After 11 ns, '0' After 20 ns, '1' After 28 ns, '0' After 38 ns, '1' After 45 ns, '0' After 47 ns, '1' After 55 ns, '0' After 57 ns, '1' After 61 ns, '0' After 68 ns, '1' After 81 ns, '0' After 83 ns, '1' After 118 ns, '0' After 130 ns, '1' After 250 ns, '0' After 260 ns;
+	-- funcRet <= '1' After 130 ns, '0' After 200 ns, '1' After 228 ns, '0' After 245 ns;
 	
 	
-END tb;
+-- END tb;
 
 
