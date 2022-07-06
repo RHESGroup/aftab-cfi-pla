@@ -107,6 +107,7 @@ BEGIN
 						'0';
 	stackException <= ctrl_exeptionFlag OR ptr_exeptionFlag;
 	ptr_rst<= rst OR ctrl_exeptionFlag;
+	
 END behavioral;
 ----**----**----**----**----**----**----**----**----**----**----**----**----**----**----**
 LIBRARY IEEE;
