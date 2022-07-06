@@ -695,7 +695,7 @@ BEGIN
 		interruptStartAddressVectored => interruptStartAddressVectored
 		);
 	----------*************-----------		
-	cfiStack : ENTITY WORK.nestedRecShadowStack 
+	cfiStack : ENTITY WORK.recShadowStack 
 		GENERIC MAP( 13, 4 )
 		PORT MAP(
 		clk =>	clk,
