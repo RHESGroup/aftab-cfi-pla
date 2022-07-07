@@ -110,6 +110,8 @@ ENTITY aftab_datapath IS
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
+		timerDes                       : IN STD_LOGIC;
+		timerEn                        : IN STD_LOGIC;
 		zero     					   : OUT  STD_LOGIC;
 		----------*************-----------
 		--CSR and Interrupt inputs and outputs
@@ -237,6 +239,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL cfiExceptionFlag 			 : STD_LOGIC;
 	SIGNAL stackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL labelExceptionFlag 			 : STD_LOGIC;
+	SIGNAL timerException   			 : STD_LOGIC;
 	----------*************-----------
 
 BEGIN
@@ -718,9 +721,17 @@ BEGIN
 			labelIn => inst (31 DOWNTO 12), 
 			exceptoin => labelExceptionFlag
 		);
-	
-	
+	cfiTimer : ENTITY WORK.timerAlart
+		GENERIC MAP( 5 )
+		PORT MAP(
+			clk =>	clk,
+			rst =>	rst,
+			en => timerEn,
+			des => timerDes,
+			timerException => timerException
+		);
+		
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
-	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag;
+	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag OR timerException;
 	----------*************-----------
 END ARCHITECTURE behavioral;
