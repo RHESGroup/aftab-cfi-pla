@@ -178,7 +178,7 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL selDst                         : STD_LOGIC;
 	SIGNAL selSrc                         : STD_LOGIC;
 	SIGNAL selConf_PLA                    : STD_LOGIC;
-	SIGNAL timerDes                       : STD_LOGIC;
+	SIGNAL timerDis                       : STD_LOGIC;
 	SIGNAL timerEn                        : STD_LOGIC;
 	----------*************-----------
 BEGIN
@@ -254,7 +254,7 @@ BEGIN
 			selDst                         => selDst,
 			selSrc                         => selSrc,
 			selConf_PLA					   => selConf_PLA,
-			timerDes                       => timerDes,
+			timerDis                       => timerDis,
 			timerEn                        => timerEn,
 			zero     					   => zero,
 			----------*************-----------
@@ -384,7 +384,7 @@ BEGIN
 	selDst                         => selDst,
 	selSrc 						   => selSrc,
 	selConf_PLA 				   => selConf_PLA,
-	timerDes                       => timerDes,
+	timerDis                       => timerDis,
 	timerEn                        => timerEn,
 	----------*************-----------
 	interruptRaise                 => interruptRaise,

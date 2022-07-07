@@ -103,7 +103,7 @@ ENTITY aftab_controller IS
 		selDst                         : OUT STD_LOGIC;
 		selSrc                         : OUT STD_LOGIC;
 		selConf_PLA                    : OUT STD_LOGIC;
-		timerDes                       : OUT STD_LOGIC;
+		timerDis                       : OUT STD_LOGIC;
 		timerEn                        : OUT STD_LOGIC;
 		----------*************-----------
 				--- Interrupts
@@ -440,7 +440,7 @@ BEGIN
 		selSrc 					       <= '0'; 
 		selDst					       <= '0';
 		selConf_PLA				       <= '0';
-		timerDes                       <= '0';
+		timerDis                       <= '0';
 		timerEn                        <= '0';
 		----------*************-----------
 		selPC                          <= '0';
@@ -734,7 +734,7 @@ BEGIN
 				timerEn  <= '1'; 
 			WHEN afterJump =>
 				selDst    <= '1';	
-				timerDes  <= '1';	
+				timerDis  <= '1';	
 			WHEN setConfPLA =>
 				selConf_PLA  <= '1';			 
 			----------*************-----------	
@@ -957,7 +957,7 @@ BEGIN
 				selSrc 					       <= '0'; 
 				selDst					       <= '0';
 				selConf_PLA					   <= '0';
-				timerDes                       <= '0';
+				timerDis                       <= '0';
 				timerEn                        <= '0';
 				----------*************-----------
 				selPC                          <= '0';

@@ -110,7 +110,7 @@ ENTITY aftab_datapath IS
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
-		timerDes                       : IN STD_LOGIC;
+		timerDis                       : IN STD_LOGIC;
 		timerEn                        : IN STD_LOGIC;
 		zero     					   : OUT  STD_LOGIC;
 		----------*************-----------
@@ -727,7 +727,7 @@ BEGIN
 			clk =>	clk,
 			rst =>	rst,
 			en => timerEn,
-			des => timerDes,
+			des => timerDis,
 			timerException => timerException
 		);
 		
