@@ -240,6 +240,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL stackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL labelExceptionFlag 			 : STD_LOGIC;
 	SIGNAL timerException   			 : STD_LOGIC;
+	SIGNAL maskInterrupt     			 : STD_LOGIC;
 	----------*************-----------
 
 BEGIN
@@ -681,10 +682,10 @@ BEGIN
 	loadMisalignedOut  <= '0'; --not used
 	storeMisalignedOut <= '0'; --not used
 	dividedByZeroOut   <= dividedByZeroFlag;
-	
-	interruptRaise <= interruptRaiseTemp;
-	exceptionRaise <= exceptionRaiseTemp;
-	
+	----------*************-----------
+	interruptRaise <= interruptRaiseTemp AND NOT(maskInterrupt);
+	exceptionRaise <= exceptionRaiseTemp AND NOT(maskInterrupt);
+	----------*************-----------
 	causeCodeTemp <= causeCode(31) & causeCode (4 DOWNTO 0);
 	interruptStartAddressGenerator : ENTITY WORK.aftab_isagu
 		GENERIC
@@ -727,7 +728,8 @@ BEGIN
 			clk =>	clk,
 			rst =>	rst,
 			en => timerEn,
-			des => timerDis,
+			dis => timerDis,
+			maskInterrupt => maskInterrupt,
 			timerException => timerException
 		);
 		

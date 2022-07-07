@@ -8,7 +8,8 @@ ENTITY timerAlart IS
 	);
 	PORT (
 		clk, rst          : IN STD_LOGIC;
-		en, des           : IN STD_LOGIC;
+		en, dis           : IN STD_LOGIC;
+		maskInterrupt     : OUT STD_LOGIC;
 		timerException    : OUT STD_LOGIC
 	);
 END timerAlart;
@@ -25,7 +26,7 @@ BEGIN
 	BEGIN
 		timerException <= '0';
 		IF (clk = '1' AND clk'EVENT) THEN
-			IF (rst = '1' or des = '1') THEN
+			IF (rst = '1' or dis = '1') THEN
 				timer <= (others =>'0');
 				flag <= '0';
 			ELSIF (timer = check) THEN 
@@ -39,6 +40,8 @@ BEGIN
 			END IF;
 		END IF;
 	END PROCESS;
+
+	maskInterrupt <= flag;
 	
 END behavioral;
 
@@ -59,7 +62,7 @@ END behavioral;
 	-- );
 	-- PORT (
 		-- clk, rst          : IN STD_LOGIC;
-		-- en, des           : IN STD_LOGIC;
+		-- en, dis           : IN STD_LOGIC;
 		-- timerException    : OUT STD_LOGIC
 	-- );
 	-- end component;
@@ -73,7 +76,7 @@ END behavioral;
 		-- 5
 	-- )
 	-- PORT MAP(
-		-- clk, rst,en, des ,timerException  
+		-- clk, rst,en, dis ,timerException  
 	-- );
 	
 	-- clk <= not(clk) after 1 ns;
