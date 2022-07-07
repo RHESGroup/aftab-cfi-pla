@@ -94,7 +94,7 @@ def removeTerms(_chart,terms): # Removes minterms which are already covered from
                 del _chart[j]
             except KeyError:
                 pass
-def main(mt, dc):
+def quine_mccluskey(mt, dc):
   #mt = [int(i) for i in input("Enter the minterms: ").strip().split()]
   #dc = [int(i) for i in input("Enter the don't cares(If any): ").strip().split()]
   mt.sort()
@@ -184,5 +184,5 @@ def main(mt, dc):
     return False
 
 mt = [324, 54, 87, 67, 97]
-main(mt , [])
+quine_mccluskey (mt , [])
 
