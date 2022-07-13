@@ -7,13 +7,13 @@ Original file is located at
     https://colab.research.google.com/drive/1G3mJNkqCHYBbOKjGaFFGwgu1t1_EEEtZ
 """
 
-def new_gen_group_sizes(n, k, m, j, flag, numNeq): 
+def new_gen_group_sizes(n, k, m, j, flag, numNeq, bits): 
   # n: problem size, k: number of new primes in each group, m: array of configuration, j: inner index of m and k array, flag: the config with redandant primes, numeq: number of unused element in "flag" and the past ones.
   # n: init with problem size, k: init with [], m: init with [], j: init with 0, flag: init with 0, numeq: init with 0.
   k.append(0)
   #print("n : ", n)
-  for i in range (1,21):
-    k[j] = 2**(20 - i)
+  for i in range (1,bits+1):
+    k[j] = 2**(bits - i)
     if (k[j] == n):
       #print("k[j] == n : ", k[j])
       m.append(i)
@@ -21,7 +21,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
     elif (k[j]< n):
       #print("k[j]< n : ", k[j])
       m.append(i)
-      return new_gen_group_sizes(n-k[j], k, m, j+1, flag, numNeq)
+      return new_gen_group_sizes(n-k[j], k, m, j+1, flag, numNeq, bits)
     elif (j > 1 and flag == 0):
       #print("j > 1 and flag == 0", k[j])
       if (k[j] < n*2-1):
@@ -48,7 +48,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
             if (addprimes < n): # or eq
               m.append(i)
               k[j] = addprimes
-              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p)
+              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p, bits)
           elif(j>3 and overlapStart == 3):
             addprimes = k[j]-lapp 
             if (addprimes == n):
@@ -58,7 +58,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
             if (addprimes < n): # or eq
               m.append(i)
               k[j] = addprimes
-              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p)
+              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p, bits)
           elif(j<3 and overlapStart == 3):
             for a in range(j-1):
               if (m[j] <= overlapStart):
@@ -73,7 +73,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
             if (addprimes < n): # or eq
               m.append(i)
               k[j] = addprimes
-              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p)
+              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p, bits)
           elif(j>1 and overlapStart == 2):
             lapp+= 2**p
             addprimes = k[j]-lapp 
@@ -84,7 +84,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
             if (addprimes < n): # or eq
               m.append(i)
               k[j] = addprimes
-              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p)
+              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p, bits)
           elif(j==0):
             addprimes = k[j]-lapp 
             if (addprimes == n):
@@ -94,7 +94,7 @@ def new_gen_group_sizes(n, k, m, j, flag, numNeq):
             if (addprimes < n): # or eq
               m.append(i)
               k[j] = addprimes
-              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p)
+              return new_gen_group_sizes(n-addprimes, k, m, j+1, j, p, bits)
       flag = 10
   #print(m)
 
@@ -673,10 +673,15 @@ def call_groups(primes,x,y):
 
   return res
 
-def mk_gr (x, flag, numNeq):
-  int_primes = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
+import random
+
+def mk_gr (x, flag, numNeq, bits):
+  int_primes = list(range((bits)))
+  #int_primes = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
   #ind_primes = [ 'a', 'c','e', 'g', 'i', 'k', 'm', 'o', 'b', 'd', 'f', 'h', 'j', 'l', 'n', 'p']
   # 0 is the least significant bit and 20 is the most significant bit
+  #int_primes = random.shuffle(l)
+  random.shuffle(int_primes)
   m = []
   notm = []
   notVal = 0
@@ -686,7 +691,7 @@ def mk_gr (x, flag, numNeq):
     res = res[::-1]
     if (flag == 0 or flag > i):
       m.append(int_primes[0:x[i]])
-      notm.append(int_primes[x[i]:20])
+      notm.append(int_primes[x[i]:bits])
       for j in range (0, len(res)):
         if res[j] == 1:
           m[i][j] = "~"+ str(m[i][j])
@@ -694,13 +699,13 @@ def mk_gr (x, flag, numNeq):
           m[i].pop(j)
           #print(m[i][j])
     elif (flag == i ):
-      min = 20-(numNeq+x[i])-1
-      max = 20-numNeq-1
+      min = bits-(numNeq+x[i])-1
+      max = bits-numNeq-1
       notVal = x[i]
       z1 = m[i-1]
       #print(min,i)
       m.append(m[i-1][min:notVal] + int_primes[notVal:max])
-      notm.append(int_primes[0:min]+int_primes[max:20])
+      notm.append(int_primes[0:min]+int_primes[max:bits])
       """if (20-(numNeq-x[i]) < 3):
         a = 3- (20-(numNeq-x[i]))
       for j in range (0, len(res)):
@@ -711,7 +716,7 @@ def mk_gr (x, flag, numNeq):
           #print(m[i][j])"""
     else:
       m.append(int_primes[0:x[i]])
-      notm.append(int_primes[x[i]:20])
+      notm.append(int_primes[x[i]:bits])
       if (notVal != 0):
         m[i][notVal] = "~"+ str(m[i][notVal])
         #print(m[i][notVal])
@@ -725,10 +730,11 @@ def mk_gr (x, flag, numNeq):
           #print(m[i][j])
   return m, notm
 
-num, groups, flag, numNeq = new_gen_group_sizes (10, [], [], 0, 0, 0)
+bits =12
+num, groups, flag, numNeq = new_gen_group_sizes (10, [], [], 0, 0, 0, bits)
 #[1024, 512, 376, 64, 16, 8]
 #callenge = [20-x for x in groups]
-group_indexing, challenge_indexing = mk_gr( groups, flag, numNeq)
+group_indexing, challenge_indexing = mk_gr( groups, flag, numNeq, bits)
 #print(len(group_indexing), len(challenge_indexing))
 #print(flag)
 primes = []
