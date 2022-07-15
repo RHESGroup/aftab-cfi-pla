@@ -18,12 +18,13 @@ def brecking(x):
     return powers
 def rebrecking(x):
   powers = brecking(x)
-  while len(powers) < 8:
-    if powers[-1] > 1 :
-      powers.append((powers[-1])/2)
-      powers.append((powers[-2])/2)
-      powers.sort()
-      powers.pop()
+  if (x > 8):
+    while len(powers) < 8:
+      if powers[-1] > 1 :
+        powers.append((powers[-1])/2)
+        powers.append((powers[-2])/2)
+        powers.sort()
+        powers.pop()
   return powers
 
 import numpy as np
@@ -600,6 +601,22 @@ def call_groups(primes,x,y):
     #print(len(res))
 
   return res
+
+import math
+def gen_number(num , bits):
+  x = rebrecking(num)
+  x = [int(a) for a in x]
+  #print(x)
+  y = [int(bits-math.log2(a)) for a in x]
+  #print (y)
+  #primes = list(reversed(range((bits))))
+  primes = list(range((bits)))
+  m, n = mk_gr (primes, y, 0, 0, bits)
+  #print(m)
+  #print(n)
+  l = call_groups(primes,m,n)
+  return(l)
+
 import random
 def mk_gr (int_primes, x, flag, numNeq, bits):
   #int_primes = [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19]
@@ -629,23 +646,6 @@ def mk_gr (int_primes, x, flag, numNeq, bits):
         m[i].pop(j)
         #print(m[i][j])
   return m, notm
-  
-  
-import math
-def gen_number(num , bits):
-  x = rebrecking(num)
-  x = [int(a) for a in x]
-  #print(x)
-  y = [int(bits-math.log2(a)) for a in x]
-  #print (y)
-  #primes = list(reversed(range((bits))))
-  primes = list(range((bits)))
-  m, n = mk_gr (primes, y, 0, 0, bits)
-  #print(m)
-  #print(n)
-  l = call_groups(primes,m,n)
-  quine_mccluskey(l)
-  return(l)
 
 
 
@@ -824,8 +824,9 @@ def quine_mccluskey(mt):
     return True
   else:
     return False
-    
-    
-    
 
-l= gen_number(49 , 20) #(number of signatures, bit widths)
+l= gen_number(7 , 20)
+quine_mccluskey(l)
+l.sort()
+print(l)
+
