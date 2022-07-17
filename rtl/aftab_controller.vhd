@@ -52,6 +52,7 @@ ENTITY aftab_controller IS
 		gt                             : IN  STD_LOGIC;
 		----------*************-----------
 		zero                      	   : IN  STD_LOGIC;
+		prv                      	   : IN  STD_LOGIC;
 		----------*************-----------		
 		IR                             : IN  STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 		muxCode                        : OUT STD_LOGIC_VECTOR (11 DOWNTO 0);
@@ -103,8 +104,8 @@ ENTITY aftab_controller IS
 		selDst                         : OUT STD_LOGIC;
 		selSrc                         : OUT STD_LOGIC;
 		selConf_PLA                    : OUT STD_LOGIC;
-		timerDis                       : OUT STD_LOGIC;
-		timerEn                        : OUT STD_LOGIC;
+		-- timerDis                       : OUT STD_LOGIC;
+		-- timerEn                        : OUT STD_LOGIC;
 		----------*************-----------
 				--- Interrupts
 		interruptRaise                 : IN  STD_LOGIC;
@@ -183,7 +184,8 @@ ARCHITECTURE behavioral OF aftab_controller IS
 		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,  --Interrupt Exit States                                                                                     --mret and uret instructions
 		ecall   ,
           ----------*************-----------                                                                                                                               --ecall instruction
-		beforeJump, afterJump, setConfPLA
+		beforeJump, afterJump, loadConf1, loadConf2, getConf
+
 		----------*************-----------
 	);
 	SIGNAL p_state, n_state      : state;
@@ -197,8 +199,10 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT jTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "101001001100";
 	CONSTANT bTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010101010100";
 	----------*************-----------
-	CONSTANT checkcfi            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000000";
-	SIGNAL   rd			         : STD_LOGIC_VECTOR(4 DOWNTO 0);  	--- UType to extend the label bits. Also func3 can be used 
+	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000001";
+	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000010";
+	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000100";
+	--SIGNAL   rd			         : STD_LOGIC_VECTOR(4 DOWNTO 0);  	--- UType to extend the label bits. Also func3 can be used 
 	----------*************-----------
 	CONSTANT Loads               : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000011";
 	CONSTANT Stores              : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0100011";
@@ -213,7 +217,7 @@ ARCHITECTURE behavioral OF aftab_controller IS
 BEGIN
 
 	----------*************-----------
-	rd              <= IR(11 DOWNTO 7);
+	--rd              <= IR(11 DOWNTO 7);
 	----------*************-----------
 	func3           <= IR(14 DOWNTO 12);
 	func7           <= IR(31 DOWNTO 25);
@@ -226,7 +230,8 @@ BEGIN
 							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
 							   modeTvec, dividedByZeroOut, mirror, mretOrUretBar, 
 							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
-							   validAccessCSR, readOnlyCSR
+							   validAccessCSR, readOnlyCSR, 
+							   prv -- added by Mahboobe
 							   ) 
 	BEGIN
 		n_state <= fetch;
@@ -253,14 +258,12 @@ BEGIN
 				ELSIF (opcode = Stores) THEN
 					n_state <= storeInstr1;--store
 				----------*************-----------
-				ELSIF (opcode = checkcfi) THEN
-					IF (rd = "00001") THEN
+				ELSIF (opcode = cfes) THEN
 						n_state <= beforeJump;   
-					ELSIF (rd = "00000")THEN
+				ELSIF (opcode = cfed) THEN
 						n_state <= afterJump;  
-					ELSIF (rd = "10000")THEN
-						n_state <= setConfPLA;
-					END IF;
+				ELSIF (opcode = cflc AND prv = '1') THEN
+						n_state <= loadConf1;
 				----------*************-----------
 				ELSIF ((opcode = Arithmetic)) THEN
 					IF (func7(0) = '1') THEN
@@ -362,9 +365,21 @@ BEGIN
 			WHEN beforeJump =>
 				n_state <= fetch;
 			WHEN afterJump =>
-				n_state <= fetch;	
-			WHEN setConfPLA =>
-				n_state <= fetch;				    --add other states?
+				n_state <= fetch;					
+			WHEN loadConf1 =>
+				n_state <= loadConf2;
+			WHEN loadConf2 =>
+				IF (loadMisalignedOut = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= getConf;
+				END IF;
+			WHEN getConf =>
+				IF (completeDARU = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= getConf;
+				END IF;
 			----------*************-----------	
 				--JAL
 			WHEN JAL =>
@@ -431,7 +446,8 @@ BEGIN
 							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
 							   modeTvec, dividedByZeroOut, mirror, mretOrUretBar, 
 							   previousPRV, delegationMode, ldMieUieField, ldMieReg, 
-							   validAccessCSR, readOnlyCSR
+							   validAccessCSR, readOnlyCSR, 
+							   zero -- added by Mahboobe
 							   ) 
 	BEGIN
 		----------*************-----------
@@ -440,8 +456,8 @@ BEGIN
 		selSrc 					       <= '0'; 
 		selDst					       <= '0';
 		selConf_PLA				       <= '0';
-		timerDis                       <= '0';
-		timerEn                        <= '0';
+		--timerDis                       <= '0';
+		--timerEn                        <= '0';
 		----------*************-----------
 		selPC                          <= '0';
 		selI4                          <= '0';
@@ -731,12 +747,33 @@ BEGIN
 			----------*************-----------
 			WHEN beforeJump =>
 				selSrc   <= '1'; 
-				timerEn  <= '1'; 
+				--timerEn  <= '1'; 
 			WHEN afterJump =>
 				selDst    <= '1';	
-				timerDis  <= '1';	
-			WHEN setConfPLA =>
-				selConf_PLA  <= '1';			 
+				--timerDis  <= '1';	
+			WHEN loadConf1 =>
+				MuxCode      <= iTypeImm;
+				ldADR        <= '1';
+				selJL        <= '1';
+				selP1        <= '1';
+				ldPC         <= '1';
+				selI4<= '1';
+				dataInstrBar <= '1';
+			WHEN loadConf2 =>
+				--checkMisalignedDARU <= '1';
+				selADR          <= '1';
+				startDARU       <= NOT(loadMisalignedOut);
+				ldFlags         <= '1';
+				dataInstrBar    <= '1';
+				nBytes          <= func3(1) & (func3(1) OR func3(0)); --nByte = 00 => Load Byte , nByte = 01 => Load Half, nByte = 11 => Load Word
+			WHEN getConf =>
+				load		<= func3(2) OR func3(1);
+				dataInstrBar <= '1';
+				IF (completeDARU = '1') THEN
+					selConf_PLA <= '1';
+				ELSE
+					selConf_PLA <= '0';
+				END IF;	
 			----------*************-----------	
 			WHEN JAL =>
 				muxCode      <= jTypeImm;
@@ -957,8 +994,8 @@ BEGIN
 				selSrc 					       <= '0'; 
 				selDst					       <= '0';
 				selConf_PLA					   <= '0';
-				timerDis                       <= '0';
-				timerEn                        <= '0';
+				-- timerDis                       <= '0';
+				-- timerEn                        <= '0';
 				----------*************-----------
 				selPC                          <= '0';
 				selI4                          <= '0';

@@ -110,9 +110,10 @@ ENTITY aftab_datapath IS
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
-		timerDis                       : IN STD_LOGIC;
-		timerEn                        : IN STD_LOGIC;
+		--timerDis                       : IN STD_LOGIC;
+		--timerEn                        : IN STD_LOGIC;
 		zero     					   : OUT  STD_LOGIC;
+		prv     					   : OUT  STD_LOGIC;
 		----------*************-----------
 		--CSR and Interrupt inputs and outputs
 		selCSR                         : IN  STD_LOGIC;
@@ -239,7 +240,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL cfiExceptionFlag 			 : STD_LOGIC;
 	SIGNAL stackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL labelExceptionFlag 			 : STD_LOGIC;
-	SIGNAL timerException   			 : STD_LOGIC;
+	--SIGNAL timerException   			 : STD_LOGIC;
 	SIGNAL maskInterrupt     			 : STD_LOGIC;
 	----------*************-----------
 
@@ -700,14 +701,14 @@ BEGIN
 		);
 	----------*************-----------		
 	cfiStack : ENTITY WORK.recShadowStack 
-		GENERIC MAP( 13, 4 )
+		GENERIC MAP( 32, 4 )
 		PORT MAP(
 		clk =>	clk,
 		rst =>	rst,
 		funcCall =>	funcCall,
 		funcRet =>	funcRet,
-		retAddPC =>	 inc4PC (12 DOWNTO 0), ---- func in instruction mem?
-		retAddSysStack =>	outPC(12 DOWNTO 0),
+		retAddPC =>	 inc4PC , ---- func in instruction mem?
+		retAddSysStack =>	outPC ,
 		stackException  =>	stackExceptionFlag
 		);
 	
@@ -719,21 +720,26 @@ BEGIN
 			enSource => selSrc,
 			enDes => selDst,
 			enconfig => selConf_PLA,
-			labelIn => inst (31 DOWNTO 12), 
+			labelIn => inst (31 DOWNTO 12),
+			congigIn => dataDARU,
+			indexing => inst (10 DOWNTO 7),
+			maskInterrupt => maskInterrupt,
 			exceptoin => labelExceptionFlag
 		);
-	cfiTimer : ENTITY WORK.timerAlart
-		GENERIC MAP( 5 )
-		PORT MAP(
-			clk =>	clk,
-			rst =>	rst,
-			en => timerEn,
-			dis => timerDis,
-			maskInterrupt => maskInterrupt,
-			timerException => timerException
-		);
+		
+	-- cfiTimer : ENTITY WORK.timerAlart
+		-- GENERIC MAP( 5 )
+		-- PORT MAP(
+			-- clk =>	clk,
+			-- rst =>	rst,
+			-- en => selSrc,
+			-- dis => selDst,
+			-- maskInterrupt => maskInterrupt,
+			-- timerException => timerException
+		-- );
 		
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
-	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag OR timerException;
+	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag; -- OR timerException;
+	prv <= '1' WHEN curPRV = "11" ELSE '0';
 	----------*************-----------
 END ARCHITECTURE behavioral;

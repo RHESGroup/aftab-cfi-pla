@@ -47,7 +47,7 @@ ARCHITECTURE behavioral OF recShadowStack IS
 		);
 	END COMPONENT;
 	COMPONENT mux2 IS
-	GENERIC (stack_len_add : INTEGER := 3);
+	GENERIC (stack_len_add : INTEGER := 32);
 	PORT (
 		sel  : IN STD_LOGIC;
 		a, b : IN STD_LOGIC_VECTOR (stack_len_add-1 DOWNTO 0);
@@ -57,12 +57,13 @@ ARCHITECTURE behavioral OF recShadowStack IS
 	
 	
 	--SIGNAL in_reg    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
-	SIGNAL addr    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	--SIGNAL check1, check2    : STD_LOGIC_VECTOR(addr_len-2 DOWNTO 0);
+	
+	SIGNAL addr    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL outShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL inShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL ptr  : STD_LOGIC_VECTOR(stack_len_add-1 DOWNTO 0);
-	SIGNAL stackWrEn, push, pop, en, comp, LSB : STD_LOGIC;
+	SIGNAL stackWrEn, push, pop, comp, LSB : STD_LOGIC;
 	SIGNAL ctrl_exeptionFlag, ptr_exeptionFlag, pointerFlagF, pointerFlagE, ptr_rst	: STD_LOGIC;
 BEGIN
 
@@ -95,13 +96,12 @@ BEGIN
 			retAddPC,
 			addr
 		);
-	--in_reg <= retAddPC WHEN (clk = 1 and rising_edge'clk and en = '1') ELSE in_reg;
-	en <= push OR pop;	
-	comp <= '1' WHEN outShadowStack (30 DOWNTO 0) = addr(31 DOWNTO 1)	ELSE '0';
-	--check1 <= outShadowStack(30 DOWNTO 0);
+		
+	comp <= '1' WHEN (outShadowStack(addr_len-1 DOWNTO 1) = addr(addr_len-1 DOWNTO 1))	ELSE '0';
+	--check1 <= outShadowStack(31 DOWNTO 1);
 	--check2 <= addr(31 DOWNTO 1);
-	LSB <= outShadowStack (31);
-	inShadowStack <= retAddPC (31 DOWNTO 1) & comp;
+	LSB <= outShadowStack (addr_len-1);
+	inShadowStack <= retAddPC (addr_len-1 DOWNTO 1) & comp;
 	ptr_exeptionFlag <= pointerFlagF WHEN funcCall='1' ELSE
 						pointerFlagE WHEN (funcRet ='1' and LSB ='0') ELSE
 						'0';
@@ -147,7 +147,9 @@ BEGIN
 						n_state <= init;
 				 END IF;
 			WHEN normal =>
-				 IF (LSB = '0') THEN
+				 IF ( ret = '1' and comp = '0') THEN
+					n_state <= init;
+				 ELSIF (LSB = '0') THEN
 					IF ( call = '1' and comp = '1') THEN
 						n_state <= recursive;
 					ELSIF ( call = '1' and comp = '0') THEN
@@ -169,7 +171,9 @@ BEGIN
 					n_state <= recursive;
 				END IF;
 			WHEN check_recursive =>
-				IF (LSB = '0') THEN
+				IF (comp = '0') THEN
+					n_state <= init;
+				ELSIF (LSB = '0') THEN
 					n_state <= normal;
 				ELSIF (LSB = '1' ) THEN
 					n_state <= recursive;
@@ -282,10 +286,10 @@ ARCHITECTURE behavioral OF stack IS
 BEGIN
 	PROCESS (clk, rst)
 	BEGIN
-		IF (clk = '1' AND clk'event) THEN
-			IF (rst = '1') THEN
-				mem <= (OTHERS => (OTHERS => '0'));
-			ELSIF (en = '1') THEN
+		IF (rst = '1') THEN
+			mem <= (OTHERS => (OTHERS => '0'));
+		ELSIF (clk = '1' AND clk'event) THEN
+			IF (en = '1') THEN
 				mem(to_integer(unsigned(ptr))) <= dataIn;
 			END IF;
 		END IF;
@@ -312,14 +316,12 @@ ARCHITECTURE behavioral OF pointer IS
 	CONSTANT fullCheck  : STD_LOGIC_VECTOR (stack_len_add - 1 DOWNTO 0) := (OTHERS => '1');
 	CONSTANT emptyCheck : STD_LOGIC_VECTOR (stack_len_add - 1 DOWNTO 0) := (OTHERS => '0');
 BEGIN
-	PROCESS (clk)
+	PROCESS (clk, rst)
 	BEGIN
-		pointerFlagF <= '0';
-		pointerFlagE <= '0';
-		IF (clk = '1' AND clk'EVENT) THEN
-			IF (rst = '1') THEN
-				ptr  <= emptyCheck;
-			ELSIF (push = '1') THEN
+		IF (rst = '1') THEN
+			ptr  <= emptyCheck;
+		ELSIF (clk = '1' AND clk'EVENT) THEN
+			IF (push = '1') THEN
 				IF (ptr = fullCheck) THEN ---- can be compared with anything the values to somewhere else.
 					pointerFlagF <= '1';
 				ELSE 
@@ -332,6 +334,8 @@ BEGIN
 					ptr <= std_logic_vector(to_unsigned(to_integer(unsigned(ptr)) - 1, stack_len_add));
 				END IF;
 			ELSE
+				pointerFlagF <= '0';
+				pointerFlagE <= '0';
 				ptr <= ptr;
 			END IF;
 		END IF;
@@ -381,60 +385,60 @@ BEGIN
 	END PROCESS;
 END behavioral;							
 ----**----**----**----**----**----**----**----**----**----**----**----**----**----**----**
--- LIBRARY IEEE;
--- USE IEEE.STD_LOGIC_1164.ALL;
--- USE IEEE.NUMERIC_STD.ALL;
+LIBRARY IEEE;
+USE IEEE.STD_LOGIC_1164.ALL;
+USE IEEE.NUMERIC_STD.ALL;
 
--- ENTITY tb_recShadowStack IS
+ENTITY tb_recShadowStack IS
 
--- END tb_recShadowStack;
+END tb_recShadowStack;
 
--- ARCHITECTURE tb OF tb_recShadowStack IS
+ARCHITECTURE tb OF tb_recShadowStack IS
 	
-	-- COMPONENT recShadowStack IS
-	-- GENERIC (
-		-- addr_len      : INTEGER := 32;
-		-- stack_len_add : INTEGER := 3
-	-- );
-	-- PORT (
-		-- clk, rst          : IN STD_LOGIC;
-		-- funcCall, funcRet : IN STD_LOGIC;
-		-- retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
-		-- retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
-		-- stackException    : OUT STD_LOGIC
-	-- );
-	-- END COMPONENT;
+	COMPONENT recShadowStack IS
+	GENERIC (
+		addr_len      : INTEGER := 32;
+		stack_len_add : INTEGER := 3
+	);
+	PORT (
+		clk, rst          : IN STD_LOGIC;
+		funcCall, funcRet : IN STD_LOGIC;
+		retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
+		retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
+		stackException    : OUT STD_LOGIC
+	);
+	END COMPONENT;
 	
-	-- SIGNAL  clk, rst 		  : STD_LOGIC :='1';
-	-- SIGNAL	funcCall, funcRet : STD_LOGIC :='0';
-	-- SIGNAL	retAddPC          : STD_LOGIC_VECTOR(31 DOWNTO 0);
-	-- SIGNAL	retAddSysStack    : STD_LOGIC_VECTOR(31 DOWNTO 0); 
-	-- SIGNAL	stackException    : STD_LOGIC;
+	SIGNAL  clk, rst 		  : STD_LOGIC :='1';
+	SIGNAL	funcCall, funcRet : STD_LOGIC :='0';
+	SIGNAL	retAddPC          : STD_LOGIC_VECTOR(31 DOWNTO 0);
+	SIGNAL	retAddSysStack    : STD_LOGIC_VECTOR(31 DOWNTO 0); 
+	SIGNAL	stackException    : STD_LOGIC;
 
--- BEGIN 
-	-- UUT: recShadowStack 
-	-- GENERIC MAP(
-		-- 32, 4
-	-- )
-	-- PORT MAP(
-		-- clk, rst,
-		-- funcCall, funcRet,
-		-- retAddPC ,
-		-- retAddSysStack,
-		-- stackException 
-	-- );
+BEGIN 
+	UUT: recShadowStack 
+	GENERIC MAP(
+		32, 4
+	)
+	PORT MAP(
+		clk, rst,
+		funcCall, funcRet,
+		retAddPC ,
+		retAddSysStack,
+		stackException 
+	);
 	
 	
-	-- clk <= NOT clk AFTER 1 ns;
-	-- rst <= '0' after 10 ns;
-	-- retAddPC <= "01010101010010011010101101010101" , "01101101010010110101011001010101" AFTER 40 ns, "01010101101001000110101101010101" AFTER 50 ns, "01010101010010110101011100010101" AFTER 60 ns, "01010101010010110101011011010101" AFTER 80 ns, "01010100100001011010101101010101" AFTER 120 ns, "01010100101001111010001101110101" AFTER 220 ns;
-	-- retAddSysStack <=  "01010100100001011010101101010101", "01010101010010110101011011010101" AFTER 140 ns, "01010101010010110101011100010101" AFTER 142 ns,  "01010101101001000110101101010101" AFTER 160 ns,
-	-- "01010100101001111010001101110101" AFTER 180 ns,
-	-- "01101101010010110101011001010101" AFTER 230 ns, "01010101010010011010101101010101" AFTER 240 ns;
-	-- funcCall <= '1' After 11 ns, '0' After 20 ns, '1' After 28 ns, '0' After 38 ns, '1' After 45 ns, '0' After 47 ns, '1' After 55 ns, '0' After 57 ns, '1' After 61 ns, '0' After 68 ns, '1' After 81 ns, '0' After 83 ns, '1' After 118 ns, '0' After 130 ns, '1' After 250 ns, '0' After 260 ns;
-	-- funcRet <= '1' After 130 ns, '0' After 200 ns, '1' After 228 ns, '0' After 245 ns;
+	clk <= NOT clk AFTER 1 ns;
+	rst <= '0' after 10 ns;
+	retAddPC <= "01010101010010011010101101010101" , "01101101010010110101011001010101" AFTER 40 ns, "01010101101001000110101101010101" AFTER 50 ns, "01010101010010110101011100010101" AFTER 60 ns, "01010101010010110101011011010101" AFTER 80 ns, "01010100100001011010101101010101" AFTER 120 ns, "01010100101001111010001101110101" AFTER 220 ns;
+	retAddSysStack <=  "01010100100001011010101101010101", "01010101010010110101011011010101" AFTER 100 ns, "01010101010010110101011100010101" AFTER 142 ns,  "01010101101001000110101101010101" AFTER 160 ns,
+	"01010100101001111010001101110101" AFTER 180 ns,
+	"01101101010010110101011001010101" AFTER 230 ns, "01010101010010011010101101010101" AFTER 240 ns;
+	funcCall <= '1' After 11 ns, '0' After 20 ns, '1' After 28 ns, '0' After 38 ns, '1' After 45 ns, '0' After 47 ns, '1' After 55 ns, '0' After 57 ns, '1' After 61 ns, '0' After 68 ns, '1' After 81 ns, '0' After 83 ns, '1' After 118 ns, '0' After 130 ns, '1' After 250 ns, '0' After 260 ns;
+	funcRet <= '1' After 100 ns, '0' After 104 ns,'1' After 130 ns, '0' After 200 ns, '1' After 228 ns, '0' After 245 ns;
 	
 	
--- END tb;
+END tb;
 
 
