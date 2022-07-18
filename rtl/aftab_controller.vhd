@@ -199,9 +199,9 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT jTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "101001001100";
 	CONSTANT bTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010101010100";
 	----------*************-----------
-	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000001";
-	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000010";
-	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000100";
+	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101111";
+	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0110111";
+	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101011";
 	--SIGNAL   rd			         : STD_LOGIC_VECTOR(4 DOWNTO 0);  	--- UType to extend the label bits. Also func3 can be used 
 	----------*************-----------
 	CONSTANT Loads               : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000011";
