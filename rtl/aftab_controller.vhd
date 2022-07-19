@@ -576,7 +576,9 @@ BEGIN
 					opcode = ImmediateArithmetic OR opcode = JumpAndLink OR
 					opcode = JumpAndLinkRegister OR opcode = Branch OR
 					opcode = LoadUpperImmediate OR opcode = AddUpperImmediatePC OR
-					opcode = SystemAndCSR) THEN
+					opcode = SystemAndCSR OR opcode = cfes OR opcode = cfed) THEN
+					illegalInstrFlag <= '0';
+				ELSIF (opcode = cflc AND prv = '1') THEN
 					illegalInstrFlag <= '0';
 				ELSE
 					illegalInstrFlag <= '1';
