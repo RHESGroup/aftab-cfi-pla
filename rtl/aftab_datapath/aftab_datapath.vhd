@@ -727,19 +727,8 @@ BEGIN
 			exceptoin => labelExceptionFlag
 		);
 		
-	-- cfiTimer : ENTITY WORK.timerAlart
-		-- GENERIC MAP( 5 )
-		-- PORT MAP(
-			-- clk =>	clk,
-			-- rst =>	rst,
-			-- en => selSrc,
-			-- dis => selDst,
-			-- maskInterrupt => maskInterrupt,
-			-- timerException => timerException
-		-- );
-		
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
-	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag; -- OR timerException;
+	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag; 
 	prv <= '1' WHEN curPRV = "11" ELSE '0';
 	----------*************-----------
 END ARCHITECTURE behavioral;
