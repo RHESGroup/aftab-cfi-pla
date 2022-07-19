@@ -700,7 +700,7 @@ BEGIN
 		interruptStartAddressVectored => interruptStartAddressVectored
 		);
 	----------*************-----------		
-	cfiStack : ENTITY WORK.recShadowStack 
+	cfiStack : ENTITY WORK.aftab_sh_stack 
 		GENERIC MAP( 32, 4 )
 		PORT MAP(
 		clk =>	clk,
@@ -712,7 +712,7 @@ BEGIN
 		stackException  =>	stackExceptionFlag
 		);
 	
-	cfilabel : ENTITY WORK.aftab_CFI_lable 
+	cfilabel : ENTITY WORK.aftab_cfi_checker 
 		GENERIC MAP(20, 8)
 		PORT MAP(
 			clk =>	clk,
