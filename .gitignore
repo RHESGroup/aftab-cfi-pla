@@ -6,3 +6,5 @@ vsim/work/*
 modelsim/
 synth/
 cfi jump label gen/Pseudo Code.docx
+tb/tb_new_shadow.vhd
+tb/tb_check_pla.vhd
