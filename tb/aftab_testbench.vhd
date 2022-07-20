@@ -74,12 +74,12 @@ BEGIN
 		PORT MAP(
 			clk        => clk, 
 			rst        => rst, 
-			memRead    => memRead, 
-			memWrite   => memWrite, 
+			memReady   => memReady,
 			memDataIn  => dataBusIn, 
-			memDataOut => dataBusOut, 
+			memDataOut => dataBusOut,
+			memRead    => memRead, 
+			memWrite   => memWrite,   
 			memAddr    => memAddr, 
-			memReady   => memReady, 
 			----
 			machineExternalInterrupt => machineExternalInterrupt, 
 			machineTimerInterrupt    => machineTimerInterrupt,   
