@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY CFI_lable_ctrl IS
+ENTITY cfi_label_ctrl IS
 	PORT 
 	(
 		clk            : IN STD_LOGIC;
@@ -10,9 +10,9 @@ ENTITY CFI_lable_ctrl IS
 		enDes   	   : IN STD_LOGIC; 
 		enOut          : OUT STD_LOGIC
 	);
-END ENTITY CFI_lable_ctrl;
+END ENTITY cfi_label_ctrl;
 --
-ARCHITECTURE ctrl OF CFI_lable_ctrl IS
+ARCHITECTURE ctrl OF cfi_label_ctrl IS
 	TYPE state IS (init, checkLab);
 	SIGNAL p_state, n_state      : state;
 BEGIN

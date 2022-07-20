@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY timerAlart IS
+ENTITY timer_alart IS
 	GENERIC (
 		len      : INTEGER := 4
 	);
@@ -12,9 +12,9 @@ ENTITY timerAlart IS
 		maskInterrupt     : OUT STD_LOGIC;
 		timerException    : OUT STD_LOGIC
 	);
-END timerAlart;
+END timer_alart;
 
-ARCHITECTURE behavioral OF timerAlart IS
+ARCHITECTURE behavioral OF timer_alart IS
 
 	SIGNAL timer    : STD_LOGIC_VECTOR(len-1 DOWNTO 0);
 	CONSTANT check    : STD_LOGIC_VECTOR(len-1 DOWNTO 0):= "1100"; --- 12, 13 cycles are needed, 8 for fetch 4 or 5 between instruction needed to be recheck after simulation(value must be equl to anything -1)
