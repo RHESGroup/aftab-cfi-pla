@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY aftab_cfi_checker IS
+ENTITY aftab_CFI_lable IS
 	GENERIC (len : INTEGER := 20;
 			groups	: INTEGER := 8);
 	PORT 
@@ -17,10 +17,10 @@ ENTITY aftab_cfi_checker IS
 		maskInterrupt   : OUT STD_LOGIC;
 		exceptoin		: OUT STD_LOGIC
 	);
-END ENTITY aftab_cfi_checker;
+END ENTITY aftab_CFI_lable;
 --
-ARCHITECTURE behavioral OF aftab_cfi_checker IS
-	COMPONENT cfi_label_ctrl IS
+ARCHITECTURE behavioral OF aftab_CFI_lable IS
+	COMPONENT aftab_CFI_lable_ctrl IS
 		PORT 
 		(
 			clk            : IN STD_LOGIC;
@@ -29,7 +29,7 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 			enOut          : OUT STD_LOGIC
 		);
 	END COMPONENT;
-	COMPONENT cfi_label_calc IS
+	COMPONENT aftab_CFI_lable_calc IS
 		GENERIC (len : INTEGER := 20;
 				 groups	: INTEGER := 8);
 		PORT 
@@ -45,7 +45,7 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 		);
 	END COMPONENT;
 
-	COMPONENT timer_alart IS
+	COMPONENT timerAlart IS
 	GENERIC (
 		len      : INTEGER := 4
 	);
@@ -61,19 +61,19 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 
 BEGIN
 	
-	ctrl : cfi_label_ctrl 
+	ctrl : aftab_CFI_lable_ctrl 
 		PORT MAP
 		(
 			clk, rst, enDes, enOut
 		);
-	lab_gen : cfi_label_calc 
+	lab_gen : aftab_CFI_lable_calc 
 		GENERIC MAP(len, groups)
 		PORT MAP
 		(
 			clk, rst, enSource, enDes, enconfig, labelIn, congigIn, indexing, plaOut
 		);
 		
-	timer : timer_alart 
+	timer : timerAlart 
 	GENERIC MAP( 4 )
 	PORT MAP(
 		clk, rst, enSource, enDes, maskInterrupt, timerException

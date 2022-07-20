@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY CFI_label_calc IS
+ENTITY CFI_lable_calc IS
 	GENERIC (len : INTEGER := 20;
 			 groups	: INTEGER := 8);
 	PORT 
@@ -18,9 +18,9 @@ ENTITY CFI_label_calc IS
 	);
 	
 	
-END ENTITY CFI_label_calc;
+END ENTITY CFI_lable_calc;
 --
-ARCHITECTURE behavioral OF CFI_label_calc IS
+ARCHITECTURE behavioral OF CFI_lable_calc IS
 	COMPONENT aftab_register IS
 		GENERIC
 			(len : INTEGER := 32);
