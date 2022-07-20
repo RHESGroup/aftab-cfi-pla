@@ -253,8 +253,6 @@ BEGIN
 			selDst                         => selDst,
 			selSrc                         => selSrc,
 			selConf_PLA					   => selConf_PLA,
-			-- timerDis                       => timerDis,
-			-- timerEn                        => timerEn,
 			zero     					   => zero,
 			prv     					   => prv,
 			----------*************-----------
