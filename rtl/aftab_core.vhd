@@ -173,7 +173,6 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL selMideleg_CSR                 : STD_LOGIC;
 	----------*************-----------
 	SIGNAL zero                      	  : STD_LOGIC;
-	SIGNAL load_cfi                       : STD_LOGIC;
 	SIGNAL funcCall                       : STD_LOGIC;
 	SIGNAL funcRet	                      : STD_LOGIC;
 	SIGNAL selDst                         : STD_LOGIC;
@@ -249,7 +248,6 @@ BEGIN
 			completeDARU                   => completeDARU,
 			completeAAU                    => completeAAU,
 			----------*************-----------
-			load_cfi 					   => load_cfi,
 			funcCall 					   => funcCall,
 			funcRet  					   => funcRet,
 			selDst                         => selDst,
@@ -380,7 +378,6 @@ BEGIN
 	selAAL                         => selAAL,
 	selAAH                         => selAAH,
 	----------*************-----------
-	load_cfi                       => load_cfi,
 	funcCall                       => funcCall,
 	funcRet	                       => funcRet,
 	selDst                         => selDst,
