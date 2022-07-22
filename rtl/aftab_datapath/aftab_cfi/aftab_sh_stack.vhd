@@ -9,7 +9,7 @@ ENTITY aftab_sh_stack IS
 	);
 	PORT (
 		clk, rst          : IN STD_LOGIC;
-		funcCall, funcRet : IN STD_LOGIC;
+		funcCall, funcRet, load_cfi : IN STD_LOGIC;
 		retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 		retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
 		stackException    : OUT STD_LOGIC
@@ -27,7 +27,7 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 			ptrOut            : OUT STD_LOGIC_VECTOR(stack_len_add - 1 DOWNTO 0)
 		);
 	END COMPONENT;
-	COMPONENT stackCtrl IS
+	COMPONENT stack_ctrl IS
 		PORT
 		(
 			clk, rst          : IN STD_LOGIC;
@@ -46,6 +46,19 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 			dataOut                    		   : OUT STD_LOGIC_VECTOR(bitwidth-1 DOWNTO 0)
 		);
 	END COMPONENT;
+	COMPONENT aftab_register IS
+	GENERIC
+		(len : INTEGER := 32);
+	PORT
+	(
+		clk    : IN  STD_LOGIC;
+		rst    : IN  STD_LOGIC;
+		zero   : IN  STD_LOGIC;
+		load   : IN  STD_LOGIC;
+		inReg  : IN  STD_LOGIC_VECTOR(len - 1 DOWNTO 0);
+		outReg : OUT STD_LOGIC_VECTOR(len - 1 DOWNTO 0)
+	);
+	END COMPONENT;
 	COMPONENT mux2 IS
 	GENERIC (stack_len_add : INTEGER := 32);
 	PORT (
@@ -55,14 +68,19 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 	);
 	END COMPONENT;
 	
-	SIGNAL addr    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
+	SIGNAL addr, reg_addr    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL outShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL inShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL ptr  : STD_LOGIC_VECTOR(stack_len_add-1 DOWNTO 0);
 	SIGNAL stackWrEn, push, pop, comp, LSB : STD_LOGIC;
 	SIGNAL ctrl_exeptionFlag, ptr_exeptionFlag, pointerFlagF, pointerFlagE, ptr_rst	: STD_LOGIC;
 BEGIN
-
+	addr_reg : aftab_register
+	GENERIC MAP(32)
+	PORT MAP
+	(
+		clk, rst,'0', load_cfi, retAddPC, reg_addr
+	);
 	shadowStack : stack
 		GENERIC MAP(
 		addr_len,
@@ -77,7 +95,7 @@ BEGIN
 			push, pop, pointerFlagF, pointerFlagE,
 			ptr
 		);
-	ctrl : stackCtrl
+	ctrl : stack_ctrl
 		PORT MAP(
 			clk, rst,
 			funcCall, funcRet,
@@ -89,15 +107,14 @@ BEGIN
 		PORT MAP(
 			funcCall,
 			retAddSysStack,
-			retAddPC,
+			reg_addr,
 			addr
 		);
 		
 	comp <= '1' WHEN (outShadowStack(addr_len-1 DOWNTO 1) = addr(addr_len-1 DOWNTO 1))	ELSE '0';
 	LSB <= outShadowStack (addr_len-1);
-	inShadowStack <= retAddPC (addr_len-1 DOWNTO 1) & comp;
-	ptr_exeptionFlag <= pointerFlagF WHEN funcCall='1' ELSE
-						pointerFlagE WHEN (funcRet ='1' and LSB ='0') ELSE
+	inShadowStack <= reg_addr (addr_len-1 DOWNTO 1) & comp;
+	ptr_exeptionFlag <= pointerFlagE WHEN (funcRet ='1' and LSB ='0') ELSE
 						'0';
 	stackException <= ctrl_exeptionFlag OR ptr_exeptionFlag;
 	ptr_rst<= rst OR ctrl_exeptionFlag;
