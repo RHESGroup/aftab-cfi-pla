@@ -114,6 +114,40 @@ add wave -noupdate -group EXCEPTIONS /aftab_testbench/core/datapathAFTAB/instrMi
 
 add wave -noupdate -group EXC_ADDRESS_GENERATOR /aftab_testbench/core/datapathAFTAB/interruptStartAddressGenerator/*
 
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/clk
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/rst
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/regIR/outReg
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enconfig
+add wave -noupdate -group CFI_LABEL -radix unsigned /aftab_testbench/core/datapathAFTAB/cfilabel/indexing
+add wave -noupdate -group CFI_LABEL -radix hexadecimal /aftab_testbench/core/datapathAFTAB/cfilabel/congigin
+add wave -noupdate -group CFI_LABEL -radix hexadecimal /aftab_testbench/core/datapathAFTAB/cfilabel/labelin
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enSource
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enDes
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/maskinterrupt
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enOut
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/exceptoin_s
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/timerException
+add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/exceptoin
+
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/clk 
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/rst 
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/funcCall  
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/funcRet
+add wave -noupdate -group SHADOW_STACK -radix unsigned /aftab_testbench/core/datapathAFTAB/cfiStack/retAddPC
+add wave -noupdate -group SHADOW_STACK -radix unsigned /aftab_testbench/core/datapathAFTAB/cfiStack/retAddSysStack 
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/pop   
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/push
+add wave -noupdate -group SHADOW_STACK -radix unsigned /aftab_testbench/core/datapathAFTAB/cfiStack/shadowStack/mem
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/outShadowstack  
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/addr 
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ptr_exeptionFlag  
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl_exeptionFlag   
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/stackException 
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/ptrInc
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/ptrdec
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/p_state
+add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/n_state
+
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/adr
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 

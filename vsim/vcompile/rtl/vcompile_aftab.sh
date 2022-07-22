@@ -144,6 +144,22 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_error_det
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_datapath.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu.vhd  || goto error
 
+echo "${Green}Compiling component: ${Brown} CFI ${NC}"
+echo "${NC}"
+
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/timer_alart.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/stack_ctrl.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/stack.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/pointer.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/pla_andor.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/mux2.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/decoder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/cfi_label_ctrl.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/cfi_label_calc.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/pla_plus_wrapper.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_sh_stack.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_checker.vhd || goto error
+
 echo "${Green}Compiling component: ${Brown} Datapath and Controller ${NC}"
 echo "${NC}"
 
