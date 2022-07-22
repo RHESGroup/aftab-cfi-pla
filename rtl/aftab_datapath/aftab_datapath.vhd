@@ -105,13 +105,12 @@ ENTITY aftab_datapath IS
 		completeDARU                   : OUT STD_LOGIC;
 		completeAAU                    : OUT STD_LOGIC;
 		----------*************-----------
+		load_cfi 					   : IN  STD_LOGIC;
 		funcCall 					   : IN  STD_LOGIC;
 		funcRet  					   : IN  STD_LOGIC;
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
-		--timerDis                       : IN STD_LOGIC;
-		--timerEn                        : IN STD_LOGIC;
 		zero     					   : OUT  STD_LOGIC;
 		prv     					   : OUT  STD_LOGIC;
 		----------*************-----------
@@ -707,6 +706,7 @@ BEGIN
 		rst =>	rst,
 		funcCall =>	funcCall,
 		funcRet =>	funcRet,
+		load_cfi => load_cfi,
 		retAddPC =>	 inc4PC , ---- func in instruction mem?
 		retAddSysStack =>	outPC ,
 		stackException  =>	stackExceptionFlag
