@@ -99,6 +99,7 @@ ENTITY aftab_controller IS
 		selAAL                         : OUT STD_LOGIC;
 		selAAH                         : OUT STD_LOGIC;
 		----------*************-----------
+		load_cfi	                   : OUT STD_LOGIC;   --- I need to change this
 		funcCall                       : OUT STD_LOGIC;
 		funcRet	                       : OUT STD_LOGIC;
 		selDst                         : OUT STD_LOGIC;
@@ -199,8 +200,8 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT jTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "101001001100";
 	CONSTANT bTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010101010100";
 	----------*************-----------
-	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101111";
-	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0110111";
+	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1101011";
+	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0011111";
 	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101011";
 	----------*************-----------
 	CONSTANT Loads               : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000011";
@@ -452,11 +453,10 @@ BEGIN
 		----------*************-----------
 		funcRet 					   <= '0'; 
 		funcCall					   <= '0';
+		load_cfi 					   <= '0'; 
 		selSrc 					       <= '0'; 
 		selDst					       <= '0';
 		selConf_PLA				       <= '0';
-		--timerDis                       <= '0';
-		--timerEn                        <= '0';
 		----------*************-----------
 		selPC                          <= '0';
 		selI4                          <= '0';
@@ -560,6 +560,7 @@ BEGIN
 					startDARU           <= '1';
 					ldFlags             <= '1';
 					checkMisalignedDARU <= '1';
+					load_cfi			<= '1';
 				END IF;
 			WHEN getInstr =>
 				dataInstrBar <= '0';
@@ -990,6 +991,7 @@ BEGIN
 				ldUser                        <= NOT(delegationMode(0));
 			WHEN OTHERS =>
 				----------*************-----------
+				load_cfi 					   <= '0'; 
 				funcRet 					   <= '0'; 
 				funcCall					   <= '0';
 				selSrc 					       <= '0'; 
