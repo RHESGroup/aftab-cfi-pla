@@ -119,7 +119,7 @@ add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel
 add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/regIR/outReg
 add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enconfig
 add wave -noupdate -group CFI_LABEL -radix unsigned /aftab_testbench/core/datapathAFTAB/cfilabel/indexing
-add wave -noupdate -group CFI_LABEL -radix hexadecimal /aftab_testbench/core/datapathAFTAB/cfilabel/congigin
+add wave -noupdate -group CFI_LABEL -radix hexadecimal /aftab_testbench/core/datapathAFTAB/cfilabel/configin
 add wave -noupdate -group CFI_LABEL -radix hexadecimal /aftab_testbench/core/datapathAFTAB/cfilabel/labelin
 add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enSource
 add wave -noupdate -group CFI_LABEL /aftab_testbench/core/datapathAFTAB/cfilabel/enDes
@@ -159,6 +159,7 @@ run $var ns
 # run 10000 ns
 # force platformInterruptSignals(15) 0
 # run 100000 ns
+
 
 
 
