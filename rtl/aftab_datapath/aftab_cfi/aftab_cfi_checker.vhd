@@ -12,7 +12,7 @@ ENTITY aftab_cfi_checker IS
 		enSource, enDes : IN STD_LOGIC;
 		enconfig 		: IN STD_LOGIC;
 		labelIn         : IN STD_LOGIC_VECTOR  (len - 1 DOWNTO 0);
-		congigIn        : IN STD_LOGIC_VECTOR  (31 DOWNTO 0);
+		configIn        : IN STD_LOGIC_VECTOR  (31 DOWNTO 0);
 		indexing  		: IN  STD_LOGIC_VECTOR (3 DOWNTO 0);
 		maskInterrupt   : OUT STD_LOGIC;
 		exceptoin		: OUT STD_LOGIC
@@ -20,7 +20,7 @@ ENTITY aftab_cfi_checker IS
 END ENTITY aftab_cfi_checker;
 --
 ARCHITECTURE behavioral OF aftab_cfi_checker IS
-	COMPONENT cfi_label_ctrl IS
+	COMPONENT aftab_cfi_label_ctrl IS
 		PORT 
 		(
 			clk            : IN STD_LOGIC;
@@ -29,7 +29,7 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 			enOut          : OUT STD_LOGIC
 		);
 	END COMPONENT;
-	COMPONENT cfi_label_calc IS
+	COMPONENT aftab_cfi_label_calc IS
 		GENERIC (len : INTEGER := 20;
 				 groups	: INTEGER := 8);
 		PORT 
@@ -39,13 +39,13 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 			enSource, enDes : IN STD_LOGIC;
 			enconfig 		: IN STD_LOGIC;
 			labelIn         : IN STD_LOGIC_VECTOR  (len - 1 DOWNTO 0);
-			congigIn        : IN STD_LOGIC_VECTOR  (31 DOWNTO 0);
+			configIn        : IN STD_LOGIC_VECTOR  (31 DOWNTO 0);
 			indexing  		: IN  STD_LOGIC_VECTOR (3 DOWNTO 0);
 			outpla     		 : OUT STD_LOGIC
 		);
 	END COMPONENT;
 
-	COMPONENT timer_alart IS
+	COMPONENT aftab_cfi_timer IS
 	GENERIC (
 		len      : INTEGER := 4
 	);
@@ -61,19 +61,19 @@ ARCHITECTURE behavioral OF aftab_cfi_checker IS
 
 BEGIN
 	
-	ctrl : cfi_label_ctrl 
+	ctrl : aftab_cfi_label_ctrl 
 		PORT MAP
 		(
 			clk, rst, enDes, enOut
 		);
-	lab_gen : cfi_label_calc 
+	lab_gen : aftab_cfi_label_calc 
 		GENERIC MAP(len, groups)
 		PORT MAP
 		(
-			clk, rst, enSource, enDes, enconfig, labelIn, congigIn, indexing, plaOut
+			clk, rst, enSource, enDes, enconfig, labelIn, configIn, indexing, plaOut
 		);
 		
-	timer : timer_alart 
+	timer : aftab_cfi_timer 
 	GENERIC MAP( 4 )
 	PORT MAP(
 		clk, rst, enSource, enDes, maskInterrupt, timerException

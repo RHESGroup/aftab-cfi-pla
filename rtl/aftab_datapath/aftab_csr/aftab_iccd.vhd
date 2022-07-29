@@ -71,7 +71,7 @@ END ENTITY aftab_iccd;
 --
 ARCHITECTURE behavioral OF aftab_iccd IS
 	SIGNAL interRaiseTemp, exceptionRaiseTemp : STD_LOGIC;
-	SIGNAL tempIllegalInstr, tempInstrAddrMisaligned, 
+	SIGNAL tempIllegalInstr, tempInstrAddrMisaligned, cfiExceptionFlag,
 		   tempStoreAddrMisaligned,	tempLoadAddrMisaligned, 
 		   tempDividedByZero, tempEcallFlag, interRaiseReserved : STD_LOGIC;
 	SIGNAL currentPRV, delegationReg : STD_LOGIC_VECTOR(1 DOWNTO 0);
@@ -108,6 +108,7 @@ BEGIN
 	user                      <= NOT(currentPRV(1)) AND NOT(currentPRV(0));
 	machine                   <= currentPRV(1) AND currentPRV(0);
 	--Exception Flags
+	cfiExceptionFlag		  <= tempFlags(6);
 	tempEcallFlag             <= tempFlags(5);
 	tempDividedByZero         <= tempFlags(4);
 	tempIllegalInstr          <= tempFlags(3);
@@ -116,7 +117,7 @@ BEGIN
 	tempStoreAddrMisaligned   <= tempFlags(0);
 	exceptionRaiseTemp        <= ((tempIllegalInstr OR tempInstrAddrMisaligned) OR 
 								  (tempStoreAddrMisaligned OR tempLoadAddrMisaligned)) OR 
-								  (tempDividedByZero OR tempEcallFlag);
+								  (tempDividedByZero OR tempEcallFlag) OR cfiExceptionFlag;
 	exceptionRaise            <= exceptionRaiseTemp;
 	--Interrupt Source
 	interRaiseMachineExternal <= (user OR (machine AND mieFieldCC)) AND 
@@ -148,11 +149,15 @@ BEGIN
 	interruptRaise <= interRaiseTemp;
 	causeCodeGeneration : PROCESS (exceptionRaiseTemp, tempIllegalInstr, tempInstrAddrMisaligned, 
 									tempStoreAddrMisaligned, tempLoadAddrMisaligned, tempDividedByZero, 
-									tempEcallFlag, interRaiseTemp, mipCC
+									tempEcallFlag, interRaiseTemp, mipCC, cfiExceptionFlag
 								   )
 	BEGIN
 		IF (exceptionRaiseTemp = '1') THEN
-			IF    (tempIllegalInstr = '1') THEN
+			----------*************-----------
+			IF (cfiExceptionFlag = '1') THEN
+				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(24, len - 1));
+			----------*************-----------
+			ELSIF (tempIllegalInstr = '1') THEN
 				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(2, len - 1));
 			ELSIF (tempInstrAddrMisaligned = '1') THEN
 				causeCode <= '0' & STD_LOGIC_VECTOR(to_unsigned(0, len - 1));
@@ -219,13 +224,15 @@ BEGIN
 		END IF;
 	END PROCESS;
 	delegationCheck : PROCESS (exceptionRaiseTemp, interRaiseTemp, tempIllegalInstr, 
-							   tempInstrAddrMisaligned, tempStoreAddrMisaligned, 
+							   tempInstrAddrMisaligned, tempStoreAddrMisaligned, cfiExceptionFlag,
 							   tempLoadAddrMisaligned, tempDividedByZero, tempEcallFlag, 
 							   mipCC, machine, user, medelegCSR, midelegCSR
 							   )
 	BEGIN
 		IF (exceptionRaiseTemp = '1') THEN
 			IF    (tempIllegalInstr = '1' AND user = '1' AND medelegCSR(2) = '1') THEN
+				delegationReg <= "00";
+			ELSIF (cfiExceptionFlag = '1' AND user = '1' AND medelegCSR(0) = '1') THEN
 				delegationReg <= "00";
 			ELSIF (tempInstrAddrMisaligned = '1' AND user = '1' AND medelegCSR(0) = '1') THEN
 				delegationReg <= "00";

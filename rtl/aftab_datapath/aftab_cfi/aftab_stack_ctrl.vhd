@@ -1,7 +1,7 @@
 LIBRARY IEEE;
 USE IEEE.std_logic_1164.ALL;
 USE IEEE.std_logic_unsigned.ALL;
-ENTITY stack_ctrl IS
+ENTITY aftab_stack_ctrl IS
 	PORT
 	(
 		clk, rst          : IN STD_LOGIC;
@@ -9,9 +9,9 @@ ENTITY stack_ctrl IS
 		comp, LSB       : IN STD_LOGIC;
 		stackWrEn, ptrInc, ptrDec, exception : OUT STD_LOGIC
 		);
-END stack_ctrl;
+END aftab_stack_ctrl;
 --
-ARCHITECTURE ctrl OF stack_ctrl IS
+ARCHITECTURE ctrl OF aftab_stack_ctrl IS
 	TYPE state IS (init, normal, ret_s, ptr_dec, wr_stack, recursive, check_recursive);
 	SIGNAL p_state, n_state      : state;
 BEGIN	

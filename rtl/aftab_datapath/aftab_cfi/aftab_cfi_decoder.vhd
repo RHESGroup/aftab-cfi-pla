@@ -1,14 +1,14 @@
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-ENTITY decoder IS  ---- support up to 10 for 32'b
+ENTITY aftab_cfi_decoder IS  ---- support up to 10 for 32'b
 	PORT
 	(
 		input  		: IN  STD_LOGIC_VECTOR (3 DOWNTO 0);
 		en          : IN  STD_LOGIC;
 		output      : OUT  STD_LOGIC_VECTOR (15 DOWNTO 0)
 	);
-END ENTITY decoder;
-ARCHITECTURE behavioral OF decoder IS
+END ENTITY aftab_cfi_decoder;
+ARCHITECTURE behavioral OF aftab_cfi_decoder IS
 SIGNAL output_b      : STD_LOGIC_VECTOR (15 DOWNTO 0);
 BEGIN
 

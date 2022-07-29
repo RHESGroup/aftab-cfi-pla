@@ -99,14 +99,13 @@ ENTITY aftab_controller IS
 		selAAL                         : OUT STD_LOGIC;
 		selAAH                         : OUT STD_LOGIC;
 		----------*************-----------
-		load_cfi	                   : OUT STD_LOGIC;   --- I need to change this
+		loadCFI	                   : OUT STD_LOGIC;   --- I need to change this
 		funcCall                       : OUT STD_LOGIC;
 		funcRet	                       : OUT STD_LOGIC;
 		selDst                         : OUT STD_LOGIC;
 		selSrc                         : OUT STD_LOGIC;
 		selConf_PLA                    : OUT STD_LOGIC;
-		-- timerDis                       : OUT STD_LOGIC;
-		-- timerEn                        : OUT STD_LOGIC;
+		rstSFIFlag                     : OUT STD_LOGIC;
 		----------*************-----------
 				--- Interrupts
 		interruptRaise                 : IN  STD_LOGIC;
@@ -201,7 +200,7 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT bTypeImm            : STD_LOGIC_VECTOR(11 DOWNTO 0) := "010101010100";
 	----------*************-----------
 	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1101011";
-	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0011111";
+	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1111011";
 	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101011";
 	----------*************-----------
 	CONSTANT Loads               : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000011";
@@ -246,7 +245,9 @@ BEGIN
 					n_state <= getInstr;
 				END IF;
 			WHEN getInstr =>
-				IF (completeDARU = '1') THEN
+				IF (exceptionRaise = '1') THEN
+					n_state <= checkDelegation;
+				ELSIF (completeDARU = '1') THEN
 					n_state <= decode;
 				ELSE
 					n_state <= getInstr;
@@ -440,7 +441,7 @@ BEGIN
 			WHEN OTHERS => n_state <= fetch;
 		END CASE;
 	END PROCESS;
-	ControlSignalsDecoder : PROCESS (p_state, completeDARU, 
+	ControlSignalsaftab_decoder : PROCESS (p_state, completeDARU, 
 							   completeDAWU, completeAAU, opcode, func3, func7,
 							   func12, lt, eq, gt, exceptionRaise, instrMisalignedOut,
 							   storeMisalignedOut, interruptRaise, loadMisalignedOut, 
@@ -453,10 +454,11 @@ BEGIN
 		----------*************-----------
 		funcRet 					   <= '0'; 
 		funcCall					   <= '0';
-		load_cfi 					   <= '0'; 
+		loadCFI 					   <= '0'; 
 		selSrc 					       <= '0'; 
 		selDst					       <= '0';
 		selConf_PLA				       <= '0';
+		rstSFIFlag 						<= '0';
 		----------*************-----------
 		selPC                          <= '0';
 		selI4                          <= '0';
@@ -560,11 +562,15 @@ BEGIN
 					startDARU           <= '1';
 					ldFlags             <= '1';
 					checkMisalignedDARU <= '1';
-					load_cfi			<= '1';
+					loadCFI			<= '1';
 				END IF;
 			WHEN getInstr =>
+				IF (exceptionRaise = '1') THEN
+					ldValueCSR     <= "111";
+					ldCntCSR       <= '1';
+					selMedeleg_CSR <= '1';
 				dataInstrBar <= '0';
-				IF (completeDARU = '1') THEN
+				ELSIF (completeDARU = '1') THEN
 					ldIR <= '1';
 				ELSE
 					ldIR <= '0';
@@ -749,10 +755,12 @@ BEGIN
 			----------*************-----------
 			WHEN beforeJump =>
 				selSrc   <= '1'; 
-				--timerEn  <= '1'; 
+				selI4 	<= '1';
+				ldPC         <= '1';
 			WHEN afterJump =>
-				selDst    <= '1';	
-				--timerDis  <= '1';	
+			 	selI4 	<= '1';
+				ldPC         <= '1';
+				selDst    <= '1';		
 			WHEN loadConf1 =>
 				MuxCode      <= iTypeImm;
 				ldADR        <= '1';
@@ -991,12 +999,13 @@ BEGIN
 				ldUser                        <= NOT(delegationMode(0));
 			WHEN OTHERS =>
 				----------*************-----------
-				load_cfi 					   <= '0'; 
+				loadCFI 					   <= '0'; 
 				funcRet 					   <= '0'; 
 				funcCall					   <= '0';
 				selSrc 					       <= '0'; 
 				selDst					       <= '0';
 				selConf_PLA					   <= '0';
+				rstSFIFlag 						<= '0';
 				-- timerDis                       <= '0';
 				-- timerEn                        <= '0';
 				----------*************-----------
@@ -1093,3 +1102,4 @@ BEGIN
 		END IF;
 	END PROCESS sequential;
 END behavioral;
+

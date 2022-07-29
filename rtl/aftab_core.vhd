@@ -173,12 +173,13 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL selMideleg_CSR                 : STD_LOGIC;
 	----------*************-----------
 	SIGNAL zero                      	  : STD_LOGIC;
-	SIGNAL load_cfi                       : STD_LOGIC;
+	SIGNAL loadCFI                       : STD_LOGIC;
 	SIGNAL funcCall                       : STD_LOGIC;
 	SIGNAL funcRet	                      : STD_LOGIC;
 	SIGNAL selDst                         : STD_LOGIC;
 	SIGNAL selSrc                         : STD_LOGIC;
 	SIGNAL selConf_PLA                    : STD_LOGIC;
+	SIGNAL rstSFIFlag                    : STD_LOGIC;
 	SIGNAL prv                            : STD_LOGIC;
 	----------*************-----------
 BEGIN
@@ -249,12 +250,13 @@ BEGIN
 			completeDARU                   => completeDARU,
 			completeAAU                    => completeAAU,
 			----------*************-----------
-			load_cfi 					   => load_cfi,
+			loadCFI 					   => loadCFI,
 			funcCall 					   => funcCall,
 			funcRet  					   => funcRet,
 			selDst                         => selDst,
 			selSrc                         => selSrc,
 			selConf_PLA					   => selConf_PLA,
+			rstSFIFlag					   => rstSFIFlag,
 			zero     					   => zero,
 			prv     					   => prv,
 			----------*************-----------
@@ -380,12 +382,13 @@ BEGIN
 	selAAL                         => selAAL,
 	selAAH                         => selAAH,
 	----------*************-----------
-	load_cfi                       => load_cfi,
+	loadCFI                       => loadCFI,
 	funcCall                       => funcCall,
 	funcRet	                       => funcRet,
 	selDst                         => selDst,
 	selSrc 						   => selSrc,
 	selConf_PLA 				   => selConf_PLA,
+	rstSFIFlag 				   => rstSFIFlag,
 	-- timerDis                       => timerDis,
 	-- timerEn                        => timerEn,
 	----------*************-----------
@@ -446,3 +449,4 @@ BEGIN
 	);
 	interruptProcessing <= mipCCLdDisable;
 END ARCHITECTURE procedural;
+

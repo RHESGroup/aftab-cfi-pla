@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY stack IS
+ENTITY aftab_stack IS
 	GENERIC (bitwidth : INTEGER := 8;
 			depthbit : INTEGER := 8);
 	PORT (
@@ -11,8 +11,8 @@ ENTITY stack IS
 		dataIn                     		   : IN STD_LOGIC_VECTOR(bitwidth-1 DOWNTO 0);
 		dataOut                    		   : OUT STD_LOGIC_VECTOR(bitwidth-1 DOWNTO 0)
 	);
-END stack;
-ARCHITECTURE behavioral OF stack IS
+END aftab_stack;
+ARCHITECTURE behavioral OF aftab_stack IS
 	TYPE memory IS ARRAY(2**depthbit -1 DOWNTO 0) OF STD_LOGIC_VECTOR(bitwidth-1 DOWNTO 0);
 	
 	SIGNAL mem : memory;

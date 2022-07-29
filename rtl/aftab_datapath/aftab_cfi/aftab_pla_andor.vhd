@@ -6,7 +6,7 @@
 -------------------------------------
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
-ENTITY pla_andor IS
+ENTITY  aftab_pla_andor IS
 	GENERIC
 		(N : INTEGER := 20;
 		 M : INTEGER := 8);
@@ -23,24 +23,19 @@ ENTITY pla_andor IS
 		configreg_7 : IN  STD_LOGIC_VECTOR (2 * N - 1 DOWNTO 0);
 		f			: OUT STD_LOGIC
 	);
-END ENTITY pla_andor;
-ARCHITECTURE behavioral OF pla_andor IS
+END ENTITY  aftab_pla_andor;
+ARCHITECTURE behavioral OF  aftab_pla_andor IS
 	TYPE config_matrix IS ARRAY (0 TO M - 1) OF STD_LOGIC_VECTOR(2 * N - 1 DOWNTO 0);
 	SIGNAL and_signal  : config_matrix;
 	SIGNAL configreg   : config_matrix;
 	TYPE or_matrix IS ARRAY (0 TO M - 1) OF STD_LOGIC_VECTOR(9 DOWNTO 0);
 	SIGNAL or_signal_1 : or_matrix;
-	SIGNAL unused_1	   : or_matrix;
 	SIGNAL notin       : STD_LOGIC_VECTOR (N - 1 DOWNTO 0);
 	SIGNAL or_signal   : STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
 	SIGNAL or_signal_21: STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
 	SIGNAL or_signal_22: STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
-	SIGNAL unused      : STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
-	SIGNAL unused_21   : STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
-	SIGNAL unused_22   : STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
-	SIGNAL ors_unused  : STD_LOGIC_VECTOR (M - 1 DOWNTO 0);
-	SIGNAL ors_unused_1: STD_LOGIC;
-	SIGNAL ors_unused_2: STD_LOGIC;
+	SIGNAL f_1: STD_LOGIC;
+	SIGNAL f_2: STD_LOGIC;
 BEGIN
 
 	configreg(0) <= configreg_0;
@@ -82,23 +77,9 @@ BEGIN
 		 --or_signal(I) <= AND (and_signal(I));--reduction and
     END GENERATE behavioral_and;
 	
-	behavioral_unused_and_gates: 
-    FOR I IN 0 TO M - 1 GENERATE
-       behavioral_first_level: 
-	    FOR J IN 0 TO 9 GENERATE
-			first_level_orx:
-			 unused_1(I)(J) <= configreg(I)(4 * J) OR configreg(I)(4 * J + 1) OR configreg(I)(4 * J + 2) OR configreg(I)(4 * J + 3);
-		END GENERATE behavioral_first_level;
-		unused_21(I) <= unused_1(I)(0) OR unused_1(I)(1) OR unused_1(I)(2) OR unused_1(I)(3);
-		unused_22(I) <= unused_1(I)(4) OR unused_1(I)(5) OR unused_1(I)(6) OR unused_1(I)(7);
-		unused(I) 	 <= unused_21(I) OR unused_22(I) OR unused_1(I)(8) OR unused_1(I)(9); 
-		 --unused(I) <= OR (configreg(I));	--reduction or
-    END GENERATE behavioral_unused_and_gates;
-	
-	ors_unused   <= or_signal AND unused;
-	ors_unused_1 <= ors_unused(0) OR ors_unused(1) OR ors_unused(2) OR ors_unused(3);
-	ors_unused_2 <= ors_unused(4) OR ors_unused(5) OR ors_unused(6) OR ors_unused(7);
-	f 			 <= ors_unused_1  OR ors_unused_2;
-	--f <= OR (or_signal AND unused);			--reduction or
+	f_1 <= or_signal(0) OR or_signal(1) OR or_signal(2) OR or_signal(3);
+	f_2 <= or_signal(4) OR or_signal(5) OR or_signal(6) OR or_signal(7);
+	f 			 <= f_1  OR f_2;
+	--f <= OR (or_signal);			--reduction or
 
 END ARCHITECTURE behavioral;

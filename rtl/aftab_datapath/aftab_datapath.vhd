@@ -105,12 +105,13 @@ ENTITY aftab_datapath IS
 		completeDARU                   : OUT STD_LOGIC;
 		completeAAU                    : OUT STD_LOGIC;
 		----------*************-----------
-		load_cfi 					   : IN  STD_LOGIC;
+		loadCFI 					   : IN  STD_LOGIC;
 		funcCall 					   : IN  STD_LOGIC;
 		funcRet  					   : IN  STD_LOGIC;
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
+		rstSFIFlag                    : IN STD_LOGIC;
 		zero     					   : OUT  STD_LOGIC;
 		prv     					   : OUT  STD_LOGIC;
 		----------*************-----------
@@ -197,7 +198,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL aauResult                     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL bsuResult                     : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL outADR                        : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
-	SIGNAL outMux2                       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
+	SIGNAL outaftab_mux2                       : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL inPC                          : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL outPC                         : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
 	SIGNAL inc4PC                        : STD_LOGIC_VECTOR (len - 1 DOWNTO 0);
@@ -239,6 +240,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL cfiExceptionFlag 			 : STD_LOGIC;
 	SIGNAL stackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL labelExceptionFlag 			 : STD_LOGIC;
+	SIGNAL cfiExceptionReg 			 : STD_LOGIC;
 	--SIGNAL timerException   			 : STD_LOGIC;
 	SIGNAL maskInterrupt     			 : STD_LOGIC;
 	----------*************-----------
@@ -314,7 +316,7 @@ BEGIN
 		MAP(
 		Cin       => '0',
 		A         => immediate,
-		B         => outMux2,
+		B         => outaftab_mux2,
 		addResult => addResult,
 		carryOut  => OPEN);
 	---	mux1 :
@@ -336,7 +338,7 @@ BEGIN
 		inReg  => inPC,
 		outReg => outPC);
 		
-	mux2 : ENTITY WORK.aftab_multiplexer
+	aftab_mux2 : ENTITY WORK.aftab_multiplexer
 		GENERIC
 		MAP(len => len)
 		PORT
@@ -345,7 +347,7 @@ BEGIN
 		b  => outPC,
 		s0 => selJL,
 		s1 => selPC,
-		w  => outMux2);
+		w  => outaftab_mux2);
 	regADR : ENTITY WORK.aftab_register
 		GENERIC
 		MAP(len => len)
@@ -469,7 +471,7 @@ BEGIN
 			GENERIC MAP(len => len)
 			PORT MAP(
 				a => outADR,
-				b => outMux2,
+				b => outaftab_mux2,
 				s0 => selADR, 
 				s1 => selPCJ, 
 				w => addrIn);
@@ -675,7 +677,7 @@ BEGIN
 	exceptionSources   <= cfiExceptionFlag & ecallFlag & dividedByZeroFlag & 
 						  illegalInstrFlag & instrMisalignedFlag & 
 						  '0' & '0';
-	exceptionldFlags <= ldFlags OR cfiExceptionFlag;
+	exceptionldFlags <= ldFlags;-- OR cfiExceptionReg;
 	----------*************-----------
 	-- exceptionSources   <= ecallFlag & dividedByZeroFlag & illegalInstrFlag & instrMisalignedFlag &  '0' & '0';
 	instrMisalignedOut <= instrMisalignedFlag;
@@ -706,7 +708,7 @@ BEGIN
 		rst =>	rst,
 		funcCall =>	funcCall,
 		funcRet =>	funcRet,
-		load_cfi => load_cfi,
+		loadCFI => loadCFI,
 		retAddPC =>	 inc4PC , ---- func in instruction mem?
 		retAddSysStack =>	outPC ,
 		stackException  =>	stackExceptionFlag
@@ -721,14 +723,20 @@ BEGIN
 			enDes => selDst,
 			enconfig => selConf_PLA,
 			labelIn => inst (31 DOWNTO 12),
-			congigIn => dataDARU,
+			configIn => dataDARU,
 			indexing => inst (10 DOWNTO 7),
 			maskInterrupt => maskInterrupt,
 			exceptoin => labelExceptionFlag
 		);
-		
+
+	cfiExceptionReg <= 	cfiExceptionFlag WHEN cfiExceptionFlag='1' ELSE 
+						'0' WHEN rstSFIFlag ='1' ELSE
+						cfiExceptionReg;
+						
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
 	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag; 
 	prv <= '1' WHEN curPRV = "11" ELSE '0';
 	----------*************-----------
 END ARCHITECTURE behavioral;
+
+

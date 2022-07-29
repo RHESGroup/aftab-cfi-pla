@@ -9,7 +9,7 @@ ENTITY aftab_sh_stack IS
 	);
 	PORT (
 		clk, rst          : IN STD_LOGIC;
-		funcCall, funcRet, load_cfi : IN STD_LOGIC;
+		funcCall, funcRet, loadCFI : IN STD_LOGIC;
 		retAddPC          : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 		retAddSysStack    : IN STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0); 
 		stackException    : OUT STD_LOGIC
@@ -18,7 +18,7 @@ END aftab_sh_stack;
 
 ARCHITECTURE behavioral OF aftab_sh_stack IS
 	
-	COMPONENT pointer IS
+	COMPONENT aftab_pointer IS
 		GENERIC (stack_len_add : INTEGER := 3);
 		PORT (
 			clk, rst          : IN STD_LOGIC;
@@ -27,7 +27,7 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 			ptrOut            : OUT STD_LOGIC_VECTOR(stack_len_add - 1 DOWNTO 0)
 		);
 	END COMPONENT;
-	COMPONENT stack_ctrl IS
+	COMPONENT aftab_stack_ctrl IS
 		PORT
 		(
 			clk, rst          : IN STD_LOGIC;
@@ -36,7 +36,7 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 			stackWrEn, ptrInc, ptrdec, exception : OUT STD_LOGIC
 		);
 	END COMPONENT;
-	COMPONENT stack IS
+	COMPONENT aftab_stack IS
 		GENERIC (bitwidth : INTEGER := 8;
 				depthbit : INTEGER := 8);
 		PORT (
@@ -59,7 +59,7 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 		outReg : OUT STD_LOGIC_VECTOR(len - 1 DOWNTO 0)
 	);
 	END COMPONENT;
-	COMPONENT mux2 IS
+	COMPONENT aftab_mux2 IS
 	GENERIC (stack_len_add : INTEGER := 32);
 	PORT (
 		sel  : IN STD_LOGIC;
@@ -79,30 +79,30 @@ BEGIN
 	GENERIC MAP(32)
 	PORT MAP
 	(
-		clk, rst,'0', load_cfi, retAddPC, reg_addr
+		clk, rst,'0', loadCFI, retAddPC, reg_addr
 	);
-	shadowStack : stack
+	shadowStack : aftab_stack
 		GENERIC MAP(
 		addr_len,
 		stack_len_add)
 		PORT MAP(
 			clk, rst, stackWrEn, ptr, inShadowStack, outShadowStack
 		);
-	ptr_m : pointer
+	ptr_m : aftab_pointer
 		GENERIC MAP(stack_len_add)
 		PORT MAP(
 			clk, ptr_rst,
 			push, pop, pointerFlagF, pointerFlagE,
 			ptr
 		);
-	ctrl : stack_ctrl
+	ctrl : aftab_stack_ctrl
 		PORT MAP(
 			clk, rst,
 			funcCall, funcRet,
 			comp, LSB,
 			stackWrEn, push, pop, ctrl_exeptionFlag
 		);	
-	mux : mux2
+	mux : aftab_mux2
 		GENERIC MAP(addr_len)
 		PORT MAP(
 			funcCall,

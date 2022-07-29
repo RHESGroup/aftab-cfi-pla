@@ -2,7 +2,7 @@ LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
 USE IEEE.NUMERIC_STD.ALL;
 
-ENTITY pointer IS
+ENTITY aftab_pointer IS
 	GENERIC (stack_len_add : INTEGER := 3);
 	PORT (
 		clk, rst          : IN STD_LOGIC;
@@ -10,9 +10,9 @@ ENTITY pointer IS
 		pointerFlagF, pointerFlagE          : OUT STD_LOGIC;
 		ptrOut            : OUT STD_LOGIC_VECTOR(stack_len_add - 1 DOWNTO 0)
 	);
-END pointer;
+END aftab_pointer;
 
-ARCHITECTURE behavioral OF pointer IS
+ARCHITECTURE behavioral OF aftab_pointer IS
 	SIGNAL ptr        : STD_LOGIC_VECTOR (stack_len_add - 1 DOWNTO 0);
 	CONSTANT fullCheck  : STD_LOGIC_VECTOR (stack_len_add - 1 DOWNTO 0) := (OTHERS => '1');
 	CONSTANT emptyCheck : STD_LOGIC_VECTOR (stack_len_add - 1 DOWNTO 0) := (OTHERS => '0');
