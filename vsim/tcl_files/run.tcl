@@ -156,6 +156,18 @@ add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cf
 add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/data_from_reg_file 
 add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/data_from_daru 
 add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/stackException 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/comp 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/ptr 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/shadowStack/mem
+add wave -color "light blue" -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/dawu/addrin
+add wave -color "light blue" -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/dawu/datain
+add wave -color "light blue" -noupdate -group -radix unsigned INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/dawu/addrOut
+add wave -color "light blue" -noupdate -group -radix unsigned INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/daru/addrOut
+add wave -color "light blue" -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/daru/memData
+add wave -color "light blue" -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/daru/dataOut
+add wave -color "yellow" -noupdate {/aftab_testbench/memory/mem[284:330]}
+
+
 
 
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/adr
@@ -163,6 +175,7 @@ add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 
 
 run $var ns
+WaveRestoreZoom {0 2000ns} [eval simtime]
 # uncomment here if you want to debug interrupts
 # run 13000 ns 
 # force platformInterruptSignals(15) 1

@@ -270,9 +270,9 @@ BEGIN
 						n_state <= afterJump;  
 				ELSIF (opcode = cflc AND prv = '1') THEN
 						n_state <= loadConf1;
-				ELSIF (opcode = cfpush) THEN
-					n_state <= loadInstrpop1;--pop
 				ELSIF (opcode = cfpop) THEN
+					n_state <= loadInstrpop1;--pop
+				ELSIF (opcode = cfpush) THEN
 					n_state <= storeInstrpush1;--push
 				----------*************-----------
 				ELSIF ((opcode = Arithmetic)) THEN

@@ -681,7 +681,7 @@ BEGIN
 	exceptionSources   <= cfiExceptionFlag & ecallFlag & dividedByZeroFlag & 
 						  illegalInstrFlag & instrMisalignedFlag & 
 						  '0' & '0';
-	exceptionldFlags <= ldFlags;-- OR cfiExceptionReg;
+	exceptionldFlags <= ldFlags OR cfiExceptionFlag;
 	----------*************-----------
 	-- exceptionSources   <= ecallFlag & dividedByZeroFlag & illegalInstrFlag & instrMisalignedFlag &  '0' & '0';
 	instrMisalignedOut <= instrMisalignedFlag;
@@ -745,10 +745,6 @@ BEGIN
 			maskInterrupt => maskInterrupt,
 			exceptoin => labelExceptionFlag
 		);
-
-	cfiExceptionReg <= 	cfiExceptionFlag WHEN cfiExceptionFlag ='1' ELSE 
-						'0' WHEN rstSFIFlag ='1' ELSE
-						cfiExceptionReg;
 						
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
 	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag OR intrrStackExceptionFlag; 

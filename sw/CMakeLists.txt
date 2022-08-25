@@ -213,7 +213,8 @@ set( SUB_DIRS "test_add"
               "test_asm_logical_shift_lui" 
               "test_machine" 
               "test_machine_user"
-              "test_asm_csr") 
+              "test_asm_csr"
+			  "test_cfi") 
 
 set( CLEAN_TARGETS "")
 

@@ -257,6 +257,7 @@ add_subdirectory(test_asm_logical_shift_lui)
 add_subdirectory(test_machine)
 add_subdirectory(test_machine_user)
 add_subdirectory(test_asm_csr)
+add_subdirectory(test_cfi)
 
 
 # if(${ARDUINO_LIB})
