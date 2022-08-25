@@ -102,6 +102,9 @@ ENTITY aftab_controller IS
 		loadCFI	                   : OUT STD_LOGIC;   --- I need to change this
 		funcCall                       : OUT STD_LOGIC;
 		funcRet	                       : OUT STD_LOGIC;
+		intrrpush                      : OUT STD_LOGIC;
+		intrrpop                       : OUT STD_LOGIC;
+		LW		                       : OUT STD_LOGIC;
 		selDst                         : OUT STD_LOGIC;
 		selSrc                         : OUT STD_LOGIC;
 		selConf_PLA                    : OUT STD_LOGIC;
@@ -184,7 +187,7 @@ ARCHITECTURE behavioral OF aftab_controller IS
 		retEpc, retReadMstatus, retUpdateMstatus, retUpdateUstatus,  --Interrupt Exit States                                                                                     --mret and uret instructions
 		ecall   ,
           ----------*************-----------                                                                                                                               --ecall instruction
-		beforeJump, afterJump, loadConf1, loadConf2, getConf
+		beforeJump, afterJump, loadConf1, loadConf2, getConf, loadInstrpop1, loadInstrpop2, getDatapop, storeInstrpush1, storeInstrpush2, putDatapush
 
 		----------*************-----------
 	);
@@ -202,6 +205,8 @@ ARCHITECTURE behavioral OF aftab_controller IS
 	CONSTANT cfes            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1101011";
 	CONSTANT cfed            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1111011";
 	CONSTANT cflc            : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0101011";
+	CONSTANT cfpush          : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0001011";
+	CONSTANT cfpop           : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "1011011";
 	----------*************-----------
 	CONSTANT Loads               : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0000011";
 	CONSTANT Stores              : STD_LOGIC_VECTOR(6 DOWNTO 0)  := "0100011";
@@ -265,6 +270,10 @@ BEGIN
 						n_state <= afterJump;  
 				ELSIF (opcode = cflc AND prv = '1') THEN
 						n_state <= loadConf1;
+				ELSIF (opcode = cfpush) THEN
+					n_state <= loadInstrpop1;--pop
+				ELSIF (opcode = cfpop) THEN
+					n_state <= storeInstrpush1;--push
 				----------*************-----------
 				ELSIF ((opcode = Arithmetic)) THEN
 					IF (func7(0) = '1') THEN
@@ -380,6 +389,36 @@ BEGIN
 					n_state <= fetch;
 				ELSE
 					n_state <= getConf;
+				END IF;	
+				--CFI pop
+			WHEN loadInstrpop1 =>
+				n_state <= loadInstrpop2;
+			WHEN loadInstrpop2 =>
+				IF (loadMisalignedOut = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= getDatapop;
+				END IF;
+			WHEN getDatapop =>
+				IF (completeDARU = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= getDatapop;
+				END IF;
+				--CFI push
+			WHEN storeInstrpush1 =>
+				n_state <= storeInstrpush2;
+			WHEN storeInstrpush2 =>
+				IF (storeMisalignedOut = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= putDatapush;
+				END IF;
+			WHEN putDatapush =>
+				IF (completeDAWU = '1') THEN
+					n_state <= fetch;
+				ELSE
+					n_state <= putDatapush;
 				END IF;
 			----------*************-----------	
 				--JAL
@@ -454,6 +493,9 @@ BEGIN
 		----------*************-----------
 		funcRet 					   <= '0'; 
 		funcCall					   <= '0';
+		intrrpush 					   <= '0'; 
+		intrrpop					   <= '0';
+		LW							   <= '0';
 		loadCFI 					   <= '0'; 
 		selSrc 					       <= '0'; 
 		selDst					       <= '0';
@@ -784,6 +826,54 @@ BEGIN
 				ELSE
 					selConf_PLA <= '0';
 				END IF;	
+			WHEN loadInstrpop1 =>
+				MuxCode      <= iTypeImm;
+				ldADR        <= '1';
+				selJL        <= '1';
+				selP1        <= '1';
+				ldPC         <= '1';
+				selI4        <= '1';
+				dataInstrBar <= '1';
+			WHEN loadInstrpop2 =>
+				--checkMisalignedDARU <= '1';
+				selADR          <= '1';
+				startDARU       <= NOT(loadMisalignedOut);
+				ldFlags         <= '1';
+				dataInstrBar    <= '1';
+				nBytes          <= func3(1) & (func3(1) OR func3(0)); --nByte = 00 => Load Byte , nByte = 01 => Load Half, nByte = 11 => Load Word
+				LW <= '1';
+			WHEN getDatapop =>
+				ldByteSigned <= NOT(func3(2)) AND NOT(func3(1)) AND NOT(func3(0));
+				--ldHalfSigned <= NOT(func3(2)) AND func3(0); -- modified Gianluca
+				ldHalfSigned <= NOT(func3(2)) and  NOT(func3(1)) and func3(0);
+				load         <= func3(2) OR func3(1);
+				dataInstrBar <= '1';
+				IF (completeDARU = '1') THEN
+					intrrpop <= '1';
+					writeRegFile <= '1';
+					selDARU      <= '1';
+				ELSE
+					writeRegFile <= '0';
+					selDARU      <= '0';
+					intrrpop <= '0';
+				END IF;
+				--store
+			WHEN storeInstrpush1 =>
+				muxCode <= sTypeImm;
+				ldADR   <= '1';
+				selJL   <= '1';
+				selP1   <= '1'; -- added Gianluca
+				ldDR    <= '1';
+				ldPC    <= '1';
+				selI4   <= '1';
+				intrrpush	 <= '1';
+			WHEN storeInstrpush2 =>
+				checkMisalignedDAWU <= '1';
+				ldFlags             <= '1';
+				selADR              <= '1';
+				startDAWU           <= NOT(storeMisalignedOut);
+				nBytes              <= func3(1) & (func3(1) OR func3(0));
+			WHEN putDatapush =>
 			----------*************-----------	
 			WHEN JAL =>
 				muxCode      <= jTypeImm;
@@ -1002,6 +1092,9 @@ BEGIN
 				loadCFI 					   <= '0'; 
 				funcRet 					   <= '0'; 
 				funcCall					   <= '0';
+				intrrpop 					   <= '0'; 
+				intrrpush					   <= '0';
+				LW							   <= '0';
 				selSrc 					       <= '0'; 
 				selDst					       <= '0';
 				selConf_PLA					   <= '0';

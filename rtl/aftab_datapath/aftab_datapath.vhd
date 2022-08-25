@@ -108,6 +108,9 @@ ENTITY aftab_datapath IS
 		loadCFI 					   : IN  STD_LOGIC;
 		funcCall 					   : IN  STD_LOGIC;
 		funcRet  					   : IN  STD_LOGIC;
+		intrrpush 					   : IN  STD_LOGIC;
+		intrrpop  					   : IN  STD_LOGIC;
+		LW		  					   : IN  STD_LOGIC;
 		selDst                         : IN STD_LOGIC;
 		selSrc                         : IN STD_LOGIC;
 		selConf_PLA                    : IN STD_LOGIC;
@@ -237,6 +240,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 	SIGNAL validAddressCSR               : STD_LOGIC;
 	----------*************-----------
 	SIGNAL exceptionldFlags 			 : STD_LOGIC;
+	SIGNAL intrrStackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL cfiExceptionFlag 			 : STD_LOGIC;
 	SIGNAL stackExceptionFlag 			 : STD_LOGIC;
 	SIGNAL labelExceptionFlag 			 : STD_LOGIC;
@@ -713,6 +717,19 @@ BEGIN
 		retAddSysStack =>	outPC ,
 		stackException  =>	stackExceptionFlag
 		);
+		
+	cfiIntrrStack : ENTITY WORK.aftab_push_sh_stack 
+		GENERIC MAP( 32, 3 )
+		PORT MAP(
+		clk =>	clk,
+		rst =>	rst,
+		intrrpush =>	intrrpush,
+		intrrpop =>	intrrpop,
+		LW =>	LW,
+		data_from_reg_file =>	p2, -----dataDAWU
+		data_from_daru =>	dataDARU,
+		stackException  =>	intrrStackExceptionFlag
+		);
 	
 	cfilabel : ENTITY WORK.aftab_cfi_checker 
 		GENERIC MAP(20, 8)
@@ -729,12 +746,12 @@ BEGIN
 			exceptoin => labelExceptionFlag
 		);
 
-	cfiExceptionReg <= 	cfiExceptionFlag WHEN cfiExceptionFlag='1' ELSE 
+	cfiExceptionReg <= 	cfiExceptionFlag WHEN cfiExceptionFlag ='1' ELSE 
 						'0' WHEN rstSFIFlag ='1' ELSE
 						cfiExceptionReg;
 						
 	zero <= '1' WHEN inst (11 DOWNTO 7) = "00000" ELSE '0';
-	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag; 
+	cfiExceptionFlag <= stackExceptionFlag OR labelExceptionFlag OR intrrStackExceptionFlag; 
 	prv <= '1' WHEN curPRV = "11" ELSE '0';
 	----------*************-----------
 END ARCHITECTURE behavioral;

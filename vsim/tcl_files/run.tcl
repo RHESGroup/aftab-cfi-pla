@@ -148,6 +148,16 @@ add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiSt
 add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/p_state
 add wave -noupdate -group SHADOW_STACK /aftab_testbench/core/datapathAFTAB/cfiStack/ctrl/n_state
 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/clk 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/rst 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/intrrpush 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/intrrpop 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/LW 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/data_from_reg_file 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/data_from_daru 
+add wave -noupdate -group INTERRUPT_STACK /aftab_testbench/core/datapathAFTAB/cfiIntrrStack/stackException 
+
+
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/rw/adr
 add wave -noupdate -group MEMORY -radix hexadecimal /aftab_testbench/memory/mem
 

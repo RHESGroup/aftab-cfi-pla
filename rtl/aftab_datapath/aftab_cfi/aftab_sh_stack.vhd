@@ -97,7 +97,7 @@ BEGIN
 		);
 	ctrl : aftab_stack_ctrl
 		PORT MAP(
-			clk, rst,
+			clk, ptr_rst,
 			funcCall, funcRet,
 			comp, LSB,
 			stackWrEn, push, pop, ctrl_exeptionFlag

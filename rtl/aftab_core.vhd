@@ -176,6 +176,9 @@ ARCHITECTURE procedural OF aftab_core IS
 	SIGNAL loadCFI                       : STD_LOGIC;
 	SIGNAL funcCall                       : STD_LOGIC;
 	SIGNAL funcRet	                      : STD_LOGIC;
+	SIGNAL LW		                      : STD_LOGIC;
+	SIGNAL intrrpush	                  : STD_LOGIC;
+	SIGNAL intrrpop	                      : STD_LOGIC;
 	SIGNAL selDst                         : STD_LOGIC;
 	SIGNAL selSrc                         : STD_LOGIC;
 	SIGNAL selConf_PLA                    : STD_LOGIC;
@@ -253,6 +256,9 @@ BEGIN
 			loadCFI 					   => loadCFI,
 			funcCall 					   => funcCall,
 			funcRet  					   => funcRet,
+			intrrpush 					   => intrrpush,
+			intrrpop  					   => intrrpop,
+			LW  						   => LW,
 			selDst                         => selDst,
 			selSrc                         => selSrc,
 			selConf_PLA					   => selConf_PLA,
@@ -385,6 +391,9 @@ BEGIN
 	loadCFI                       => loadCFI,
 	funcCall                       => funcCall,
 	funcRet	                       => funcRet,
+	intrrpush 					   => intrrpush,
+	intrrpop  					   => intrrpop,
+	LW		  					   => LW,
 	selDst                         => selDst,
 	selSrc 						   => selSrc,
 	selConf_PLA 				   => selConf_PLA,

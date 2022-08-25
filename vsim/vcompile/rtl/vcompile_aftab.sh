@@ -159,6 +159,7 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_label_calc.
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pla_plus_wrapper.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_sh_stack.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_checker.vhd || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_push_sh_stack.vhd || goto error
 
 echo "${Green}Compiling component: ${Brown} Datapath and Controller ${NC}"
 echo "${NC}"
