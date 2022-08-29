@@ -233,7 +233,7 @@ BEGIN
 							   prv -- added by Mahboobe
 							   ) 
 	BEGIN
-		n_state <= fetch;
+		n_state <= fetch;		
 		CASE p_state IS
 				--fetch
 			WHEN fetch =>
@@ -241,12 +241,16 @@ BEGIN
 					n_state <= checkDelegation;
 				ELSIF (instrMisalignedOut = '1') THEN
 					n_state <= fetch;
+				--IF (instrMisalignedOut = '1') THEN
+					--n_state <= fetch;
+				--ELSIF (exceptionCFIRaise = '1') THEN
+				--	n_state <= fetch;
 				ELSE
 					n_state <= getInstr;
 				END IF;
 			WHEN getInstr =>
 				IF (exceptionRaise = '1') THEN
-					n_state <= checkDelegation;
+					n_state <= fetch;
 				ELSIF (completeDARU = '1') THEN
 					n_state <= decode;
 				ELSE
@@ -254,7 +258,9 @@ BEGIN
 				END IF;
 				--decode
 			WHEN decode =>
-				IF (opcode = Loads) THEN
+				IF (exceptionRaise = '1') THEN
+					n_state <= fetch;
+				ELSIF (opcode = Loads) THEN
 					n_state <= loadInstr1;--load
 				ELSIF (opcode = Stores) THEN
 					n_state <= storeInstr1;--store
@@ -311,13 +317,13 @@ BEGIN
 			WHEN loadInstr1 =>
 				n_state <= loadInstr2;
 			WHEN loadInstr2 =>
-				IF (loadMisalignedOut = '1') THEN
+				IF (exceptionRaise = '1' OR loadMisalignedOut = '1') THEN
 					n_state <= fetch;
 				ELSE
 					n_state <= getData;
 				END IF;
 			WHEN getData =>
-				IF (completeDARU = '1') THEN
+				IF (exceptionRaise = '1' OR completeDARU = '1') THEN
 					n_state <= fetch;
 				ELSE
 					n_state <= getData;
@@ -332,7 +338,7 @@ BEGIN
 					n_state <= putData;
 				END IF;
 			WHEN putData =>
-				IF (completeDAWU = '1') THEN
+				IF (exceptionRaise = '1' OR completeDAWU = '1') THEN
 					n_state <= fetch;
 				ELSE
 					n_state <= putData;
@@ -554,6 +560,8 @@ BEGIN
 					zeroCntCSR     <= '1';
 					mipCCLdDisable <= '1';
 					selMideleg_CSR <= '1';
+				--ELSIF (exceptionCFIRaise = '1') THEN
+					--NULL;
 				ELSE
 					nBytes              <= "11";
 					selPCJ              <= '1';
