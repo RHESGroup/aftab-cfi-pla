@@ -36,11 +36,13 @@ BEGIN
 			ELSIF (timer = check) THEN 
 				timerException <= '1';
 				timer <= (others =>'0');
+				flag <= '0';
 			ELSIF (en = '1') THEN 
 				timer <= (others =>'0');   ---- to make sure it starts from 0
 				flag <= '1';
 			ELSIF (flag = '1') THEN
 				timer <= std_logic_vector(to_unsigned(to_integer(unsigned(timer)) + 1, len));
+				flag <= '1';
 			END IF;
 		END IF;
 	END PROCESS;

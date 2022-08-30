@@ -686,7 +686,7 @@ BEGIN
 	dividedByZeroOut   <= dividedByZeroFlag;
 	----------*************-----------
 	interruptRaise <= interruptRaiseTemp AND NOT(maskInterrupt);
-	exceptionRaise <= exceptionRaiseTemp AND NOT(maskInterrupt);
+	exceptionRaise <= exceptionRaiseTemp;
 	----------*************-----------
 	causeCodeTemp <= causeCode(31) & causeCode (4 DOWNTO 0);
 	interruptStartAddressGenerator : ENTITY WORK.aftab_isagu
