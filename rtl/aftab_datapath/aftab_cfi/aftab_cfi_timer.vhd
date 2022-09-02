@@ -17,7 +17,7 @@ END aftab_cfi_timer;
 ARCHITECTURE behavioral OF aftab_cfi_timer IS
 
 	SIGNAL timer    : STD_LOGIC_VECTOR(len-1 DOWNTO 0);
-	CONSTANT check    : STD_LOGIC_VECTOR(len-1 DOWNTO 0):= "1100"; --- 12, 13 cycles are needed, 8 for fetch 4 or 5 between instruction needed to be recheck after simulation(value must be equl to anything -1)
+	CONSTANT check    : STD_LOGIC_VECTOR(len-1 DOWNTO 0):= "1111";
 	SIGNAL flag		: STD_LOGIC;
 	
 BEGIN
