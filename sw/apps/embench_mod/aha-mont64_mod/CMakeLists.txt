@@ -1,0 +1,1 @@
+add_application(aha-mont64_mod aha-mont64_mod.s)

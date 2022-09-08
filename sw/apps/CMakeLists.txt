@@ -37,9 +37,9 @@
 set(UTILS_DIR ${CMAKE_SOURCE_DIR}/utils)
 
 # Added by Simone Peraccini 29 October 2021
-set(BOOT_MODE "crt0_boot_M")     
+# set(BOOT_MODE "crt0_boot_M")     
 # set(BOOT_MODE "crt0_boot_MU")
-# set(BOOT_MODE "crt0_boot_MU_test_csr")
+set(BOOT_MODE "crt0_boot_embench")     
 
 
 set(SIM_TIME_NS 1000000 CACHE STRING "Simulation time.")
@@ -82,6 +82,10 @@ macro(add_application NAME SOURCE_FILES)
   #     )
   # endif()
 
+  include_directories(
+    ${CMAKE_SOURCE_DIR}/support/inc
+  )
+
   # changed inserted boot code - modified Gianluca Roascio 28/06/2021
   #add_executable(${NAME}.elf $<TARGET_OBJECTS:crt0> ${SOURCE_FILES})
   add_executable(${NAME}.elf $<TARGET_OBJECTS:${BOOT_MODE}> ${SOURCE_FILES}) # Boot object substituted with ${BOOT_MODE}.  Simone Peraccini 29 Ottobre 2021
@@ -120,6 +124,7 @@ macro(add_application NAME SOURCE_FILES)
 
   # # link libraries
   # target_link_libraries(${NAME}.elf ${ARG_LIBS} ${ARDUINO_SEP} ${ARDUINO_CORE} ${BEEBS_LIB_NAME} bench ${MATH_FNS_LIB} string sys m)
+  target_link_libraries(${NAME}.elf support)
 
   # this specifies the testbench to use for simulation
   if(ARG_TB)
@@ -256,8 +261,9 @@ add_subdirectory(test_asm_data_transfer)
 add_subdirectory(test_asm_logical_shift_lui)
 add_subdirectory(test_machine)
 add_subdirectory(test_machine_user)
-add_subdirectory(test_asm_csr)
 
+add_subdirectory(embench)
+add_subdirectory(embench_mod)
 
 # if(${ARDUINO_LIB})
 #   add_subdirectory(Arduino_tests)

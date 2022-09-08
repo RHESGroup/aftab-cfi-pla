@@ -1,0 +1,1 @@
+add_application(aha-mont64 mont64.c)

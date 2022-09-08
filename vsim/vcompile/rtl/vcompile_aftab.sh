@@ -144,21 +144,26 @@ vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_error_det
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu_datapath.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_dawu/aftab_dawu.vhd  || goto error
 
-echo "${Green}Compiling component: ${Brown} CFI ${NC}"
+echo "${Green}Compiling component: ${Brown} PLA ${NC}"
 echo "${NC}"
 
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pla_andor.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_decoder.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pla_plus_wrapper.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_timer.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_stack_ctrl.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_label_calc.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_label_ctrl.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_checker.vhd || goto error
+
+echo "${Green}Compiling component: ${Brown} Shadow Stack ${NC}"
+echo "${NC}"
+
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_mux2.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_stack.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pointer.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pla_andor.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_mux2.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_decoder.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_label_ctrl.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_label_calc.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_pla_plus_wrapper.vhd  || goto error
+vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_stack_ctrl.vhd  || goto error
 vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_sh_stack.vhd  || goto error
-vcom -2008 -work work ${RTL_PATH}/aftab_datapath/aftab_cfi/aftab_cfi_checker.vhd || goto error
+
 
 echo "${Green}Compiling component: ${Brown} Datapath and Controller ${NC}"
 echo "${NC}"

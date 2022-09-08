@@ -117,7 +117,7 @@ set(LDSCRIPT_BOOT "link.boot.ld" )
 
 # set(PULP_PC_ANALYZE "pulp-pc-analyze" CACHE PATH "path to pulp pc analyze binary")
 
-set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra -Wall -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -fdata-sections -ffunction-sections -fdiagnostics-color=always")
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra -Wall -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -fno-data-sections -fno-function-sections -fdiagnostics-color=always")
 set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT} -nostartfiles -Wl,--gc-sections")
 set(BOOT_LINKER_FLAGS      "-L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT_BOOT} -nostartfiles -Wl,--gc-sections")
 
@@ -139,7 +139,7 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  # else()
    set(crt0_boot_M  "ref/crt0.boot_M.S")   # Added by Simone 29 October 2021
    set(crt0_boot_MU "ref/crt0.boot_MU.S")  # 
-   set(crt0_boot_MU_test_csr "ref/crt0.boot_MU_test_csr.S") 
+   set(crt0_boot_embench "ref/crt0.boot_embench.S")  # 
  # endif()
 
  # include_directories(libs/sys_lib/inc)
@@ -156,10 +156,11 @@ set(VSIM "vsim" CACHE FILEPATH "Path to the vsim executable")
  set_source_files_properties(${crt0} PROPERTIES LANGUAGE C)
  add_library(crt0_boot_M OBJECT ${crt0_boot_M})
  add_library(crt0_boot_MU OBJECT ${crt0_boot_MU})  # Added by Simone 29 October 2021
- add_library(crt0_boot_MU_test_csr OBJECT ${crt0_boot_MU_test_csr})  # Added by Simone 29 October 2021
+ add_library(crt0_boot_embench OBJECT ${crt0_boot_embench})
+
  set_target_properties(crt0_boot_M PROPERTIES COMPILE_FLAGS "-DBOOT_M")
  set_target_properties(crt0_boot_MU PROPERTIES COMPILE_FLAGS "-DBOOT_MU") # Added by Simone 29 October 2021
- set_target_properties(crt0_boot_MU_test_csr PROPERTIES COMPILE_FLAGS "-DBOOT_MU_test_csr") # Added by Simone 29 October 2021
+ set_target_properties(crt0_boot_embench PROPERTIES COMPILE_FLAGS "-DBOOT_EM")
 
 
 ################################################################################
@@ -177,10 +178,18 @@ add_custom_target(gen_test_instr
   WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
   ${USES_TERMINAL})
 
-add_custom_target(gen_test_csr
-  COMMAND python3 "test_asm_csr_generator.py"
+
+
+add_custom_target(all_embench
+  COMMAND python3 "build_all_embench.py"
   WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
   ${USES_TERMINAL})
+
+add_custom_target(all_embench_mod
+  COMMAND python3 "build_all_embench_mod.py"
+  WORKING_DIRECTORY ${AFTAB_MODELSIM_DIRECTORY}/../sw/utils
+  ${USES_TERMINAL})
+
 
 ################################################################################
 
@@ -204,6 +213,7 @@ add_custom_target(gen_test_csr
 # endif()
 
 add_subdirectory(apps)
+add_subdirectory(support)
 
 set( SUB_DIRS "test_add"
               "test_dummy"
@@ -213,17 +223,73 @@ set( SUB_DIRS "test_add"
               "test_asm_logical_shift_lui" 
               "test_machine" 
               "test_machine_user"
-              "test_asm_csr") 
+
+              "embench/aha-mont64"
+              "embench/crc32"
+              "embench/cubic"
+              "embench/edn"
+              "embench/huffbench"
+              "embench/matmult-int"
+              "embench/md5sum"
+              "embench/minver"
+              "embench/nbody"
+              "embench/nettle-aes"
+              "embench/nettle-sha256"
+              "embench/nsichneu"
+              "embench/picojpeg"
+              "embench/primecount"
+              "embench/qrduino"
+              "embench/sglib-combined"
+              "embench/slre"
+              "embench/st"
+              "embench/statemate"
+              "embench/tarfind"
+              "embench/ud"
+              "embench/wikisort"
+
+              "embench_mod/aha-mont64_mod"
+              "embench_mod/crc32_mod"
+              "embench_mod/cubic_mod"
+              "embench_mod/edn_mod"
+              "embench_mod/huffbench_mod"
+              "embench_mod/matmult-int_mod"
+              "embench_mod/md5sum_mod"
+              "embench_mod/minver_mod"
+              "embench_mod/nbody_mod"
+              "embench_mod/nettle-aes_mod"
+              "embench_mod/nettle-sha256_mod"
+              "embench_mod/nsichneu_mod"
+              "embench_mod/picojpeg_mod"
+              "embench_mod/primecount_mod"
+              "embench_mod/qrduino_mod"
+              "embench_mod/sglib-combined_mod"
+              "embench_mod/slre_mod"
+              "embench_mod/st_mod"
+              "embench_mod/statemate_mod"
+              "embench_mod/tarfind_mod"
+              "embench_mod/ud_mod"
+              "embench_mod/wikisort_mod"
+              )
 
 set( CLEAN_TARGETS "")
 
 foreach( dir  ${SUB_DIRS})
+ list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.bin" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.elf" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.s19" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.read" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/${dir}.lst" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/transcript" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/vsim.wlf" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/vsim.log" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/dram_dump.txt" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/flash_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/l2_ram.slm" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/l2_ram_cut0_hi.slm" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/l2_ram_cut0_lo.slm" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/l2_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/spi_stim.txt" )
+ list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/tcdm_bank0.slm" )
 endforeach( )
 
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_TARGETS}")
