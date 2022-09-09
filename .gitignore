@@ -11,3 +11,4 @@ tb/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_new_shadow.vhd
 doc/aftab_datapath.pdf.docx
+*.jpg
