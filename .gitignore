@@ -11,10 +11,11 @@ tb/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_new_shadow.vhd
 doc/aftab_datapath.pdf.docx
-
-synthesis and comparison/base device.jpg
-synthesis and comparison/device.jpg
-synthesis and comparison/resource-aftab.jpg
-synthesis and comparison/resource-aftab_pla.jpg
-synthesis and comparison/resource-aftab_pla2.jpg
-synthesis and comparison/resource-aftab_pla3.jpg
+synth_comp/base device.jpg
+synth_comp/device.jpg
+synth_comp/resource-aftab.jpg
+synth_comp/resource-aftab_2.jpg
+synth_comp/resource-aftab_pla.jpg
+synth_comp/resource-aftab_pla3.jpg
+synth_comp/resource-aftab_pla2.jpg
+synth_comp/timing.jpg
