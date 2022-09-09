@@ -1,1 +1,1 @@
-<img src="comparison.jpg" style="color:#ffffff" width="900px" />
+<img src="comparison.jpg" style="color:#ffffff" width="1000px" />
