@@ -24,20 +24,20 @@ lab0: 	mv	a0,s6
 	sw	s3,4(s2) # 102004 <encode>
 	sw	s4,0(s0) # 102000 <size>
 	jal	ra,init_heap_beebs
-	cfed 7967
+	cfed 6688
 	lw	a1,0(s0)
 	li	a0,1
 	addi	s1,s1,-1
 	jal	ra,initeccsize
-	cfed 6692
+	cfed 6371
 	lw	a2,0(s0)
 	lw	a1,4(s2)
 	lw	a0,36(s5) # 102024 <strinbuf>
 	jal	ra,memcpy
 	jal	ra,initframe
-	cfed 7519
+	cfed 7867
 	jal	ra,qrencode
-	cfed 7417
+	cfed 733
 	jal	ra,freeframe
 	jal	ra,freeecc
 	bnez	s1,lab0
@@ -77,20 +77,20 @@ lab2: 	mv	a0,s7
 	sw	s4,4(s2) # 102004 <encode>
 	sw	s5,0(s0) # 102000 <size>
 	jal	ra,init_heap_beebs
-	cfed 1311
+	cfed 3626
 	lw	a1,0(s0)
 	li	a0,1
 	addi	s1,s1,1
 	jal	ra,initeccsize
-	cfed 3587
+	cfed 5423
 	lw	a2,0(s0)
 	lw	a1,4(s2)
 	lw	a0,36(s6) # 102024 <strinbuf>
 	jal	ra,memcpy
 	jal	ra,initframe
-	cfed 3448
+	cfed 6608
 	jal	ra,qrencode
-	cfed 4196
+	cfed 6714
 	jal	ra,freeframe
 	jal	ra,freeecc
 	bne	s1,s3,lab2
@@ -104,9 +104,9 @@ lab2: 	mv	a0,s7
 	lw	s6,16(sp)
 	lw	s7,12(sp)
 	addi	sp,sp,48
-	cfes 3906
+	cfes 2767
 	ret
-lab1:	cfes 7654
+lab1:	cfes 2191
  	ret
 warm_caches:
 	j	benchmark_body.isra.0
@@ -141,7 +141,7 @@ verify_benchmark:
 	beqz	a5,lab3
 	lw	ra,44(sp)
 	addi	sp,sp,48
-	cfes 1786
+	cfes 7737
 	ret
 lab3: 	lui	a0,0x100
 	mv	a0,a0
@@ -149,7 +149,7 @@ lab3: 	lui	a0,0x100
 	lw	ra,44(sp)
 	snez	a0,a0
 	addi	sp,sp,48
-	cfes 1055
+	cfes 2876
 	ret
 main:
 	addi	sp,sp,-32
@@ -158,16 +158,16 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 6554
-	cfed 6554
+	cfed 2194
+	cfed 2194
 	jal	ra,start_trigger
 	jal	ra,benchmark
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 5543
-	cfed 5543
+	cfed 5234
+	cfed 5234
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32
@@ -200,7 +200,7 @@ init_heap_beebs:
 	sw	a1,12(a5) # 10200c <heap_end>
 	lui	a5,0x102
 	sw	zero,8(a5) # 102008 <heap_requested>
-	cfes 7667
+	cfes 1340
 	ret
 lab4: 	lui	a3,0x102
 	lui	a2,0x102
@@ -270,7 +270,7 @@ lab11: 	beqz	a5,lab10
 	jal	ra,memset
 	lw	ra,12(sp)
 	addi	sp,sp,16
-	cfes 3674
+	cfes 5848
 	ret
 lab9: 	li	a6,4
 	sub	a6,a6,a7
@@ -282,7 +282,7 @@ lab9: 	li	a6,4
 	bgeu	a4,a3,lab11
 lab8: 	li	a5,0
 lab10: 	mv	a0,a5
-	cfes 5231
+	cfes 7965
 	ret
 realloc_beebs:
 	mv	a5,a0
@@ -571,8 +571,8 @@ initframe:
 	sw	s5,212(sp)
 	sw	s8,200(sp)
 	jal	ra,calloc_beebs
-	cfed 1803
-	cfed 1803
+	cfed 4742
+	cfed 4742
 	lbu	a5,41(s0)
 	lui	s9,0x102
 	sw	a0,52(s9) # 102034 <framebase>
@@ -586,8 +586,8 @@ initframe:
 	addi	a0,a0,7
 	srli	a0,a0,0x3
 	jal	ra,calloc_beebs
-	cfed 1679
-	cfed 1679
+	cfed 1184
+	cfed 1184
 	lbu	a5,41(s0)
 	sw	a0,48(s11) # 102030 <framask>
 	addi	a0,a5,1
@@ -3272,7 +3272,7 @@ lab156: 	lw	ra,236(sp)
 	lw	s10,192(sp)
 	lw	s11,188(sp)
 	addi	sp,sp,240
-	cfes 122
+	cfes 2738
 	ret
 lab148: 	lbu	t5,40(s10)
 	addi	a5,a5,-10
@@ -3634,7 +3634,7 @@ lab178: 	jal	ra,malloc_beebs
 	addi	sp,sp,32
 	add	a0,a5,a4
 	addi	a0,a0,-3
-	cfes 5529
+	cfes 6091
 	ret
 initeccsize:
 	lui	a4,0x102
@@ -4315,7 +4315,7 @@ lab252: 	lw	ra,60(sp)
 	lw	s10,16(sp)
 	lw	s11,12(sp)
 	addi	sp,sp,64
-	cfes 3371
+	cfes 3548
 	ret
 lab253: 	mv	a0,t3
 	mv	a2,s7
@@ -4516,7 +4516,7 @@ lab360: 	lbu	a1,25(s4)
 lab280: 	mv	a2,s8
 	mv	a0,s7
 	jal	ra,appendrs
-	cfed 7313
+	cfed 3257
 	lbu	a1,25(s4)
 	lbu	a3,24(s5)
 	lbu	a5,27(s0)
@@ -4534,7 +4534,7 @@ lab282: 	zext.b	a1,a5
 	mv	a2,s8
 	mv	a0,s7
 	jal	ra,appendrs
-	cfed 4899
+	cfed 1819
 	lbu	a1,25(s4)
 	lbu	a3,24(s5)
 	lbu	t1,26(s3)
@@ -5159,7 +5159,7 @@ lab349: 	lw	ra,76(sp)
 	lw	s10,32(sp)
 	lw	s11,28(sp)
 	addi	sp,sp,80
-	cfes 2763
+	cfes 6363
 	ret
 lab313: 	jal	ra,badruns
 	srai	a4,s2,0x1f

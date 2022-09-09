@@ -282,7 +282,7 @@ lab46: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab45: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 3339
+	cfed 4385
 	lw	s1,12(s1)
 	bnez	s1,lab46
 lab44: 	lw	a5,0(s0)
@@ -322,7 +322,7 @@ lab55: 	lw	ra,60(sp)
 	lw	s10,16(sp)
 	lw	s11,12(sp)
 	addi	sp,sp,64
-	cfes 4623
+	cfes 2279
 	ret
 lab43: 	mv	s11,s10
 	beqz	s1,lab44
@@ -332,7 +332,7 @@ lab57: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab56: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 4014
+	cfed 7695
 	lw	s1,12(s1)
 	bnez	s1,lab57
 	j	lab44
@@ -349,7 +349,7 @@ lab61: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab60: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 5798
+	cfed 7971
 	lw	s1,12(s1)
 	bnez	s1,lab61
 lab59: 	lw	a5,0(s0)
@@ -368,7 +368,7 @@ lab65: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab64: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 7451
+	cfed 6893
 	lw	s1,12(s1)
 	bnez	s1,lab65
 	j	lab59
@@ -385,7 +385,7 @@ lab70: 	lw	a0,8(s3)
 	addi	s1,s1,1
 lab69: 	mv	a2,s1
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 601
+	cfed 3614
 	lw	s3,12(s3)
 	bnez	s3,lab70
 lab68: 	lw	a5,0(s0)
@@ -410,7 +410,7 @@ lab77: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab76: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 5390
+	cfed 4131
 	lw	s1,12(s1)
 	bnez	s1,lab77
 lab75: 	lw	a5,0(s0)
@@ -430,7 +430,7 @@ lab81: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab80: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 6160
+	cfed 2394
 	lw	s1,12(s1)
 	bnez	s1,lab81
 	j	lab75
@@ -457,7 +457,7 @@ lab89: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab88: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 2276
+	cfed 3331
 	lw	s1,12(s1)
 	bnez	s1,lab89
 lab87: 	lw	a5,0(s0)
@@ -491,7 +491,7 @@ lab100: 	lw	a0,8(s3)
 	addi	s1,s1,1
 lab99: 	mv	a2,s1
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 1566
+	cfed 6729
 	lw	s3,12(s3)
 	bnez	s3,lab100
 lab98: 	lw	a5,0(s0)
@@ -511,7 +511,7 @@ lab104: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab103: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 7988
+	cfed 6501
 	lw	s1,12(s1)
 	bnez	s1,lab104
 	j	lab87
@@ -528,7 +528,7 @@ lab108: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab107: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 6651
+	cfed 480
 	lw	s1,12(s1)
 	bnez	s1,lab108
 lab106: 	lw	a5,0(s0)
@@ -547,7 +547,7 @@ lab112: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab111: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 2101
+	cfed 6980
 	lw	s1,12(s1)
 	bnez	s1,lab112
 	j	lab106
@@ -564,7 +564,7 @@ lab117: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab116: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 8123
+	cfed 5855
 	lw	s1,12(s1)
 	bnez	s1,lab117
 lab115: 	lw	a5,0(s0)
@@ -584,7 +584,7 @@ lab121: 	lw	a0,8(s1)
 	addi	s11,s11,1
 lab120: 	mv	a2,s11
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 2454
+	cfed 5502
 	lw	s1,12(s1)
 	bnez	s1,lab121
 	j	lab115
@@ -607,17 +607,17 @@ sglib___rbtree_delete_rightmost_leaf:
 	beqz	a4,lab125
 	addi	a0,a0,12
 	jal	ra,sglib___rbtree_delete_rightmost_leaf
-	cfed 5415
-	cfed 5415
-	cfed 5415
-	cfed 5415
+	cfed 4630
+	cfed 4630
+	cfed 4630
+	cfed 4630
 	bnez	a0,lab126
 lab136: lab141: 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s2,16(sp)
 	lw	s3,12(sp)
 	addi	sp,sp,32
-	cfes 1548
+	cfes 534
 	ret
 lab123: 	sw	s2,0(a1)
 	lw	a5,8(s2)
@@ -640,7 +640,7 @@ lab137: 	lw	s0,24(sp)
 	lw	s2,16(sp)
 	lw	s3,12(sp)
 	addi	sp,sp,32
-	cfes 2757
+	cfes 3433
 	ret
 lab131: 	lbu	a0,4(a5)
 	seqz	a0,a0
@@ -678,7 +678,7 @@ lab128: 	sb	zero,4(a5)
 	lw	s3,12(sp)
 	li	a0,0
 	addi	sp,sp,32
-	cfes 7738
+	cfes 2998
 	ret
 lab130: 	sw	zero,0(a0)
 	lbu	a0,4(s1)
@@ -689,7 +689,7 @@ lab130: 	sw	zero,0(a0)
 	lw	s3,12(sp)
 	seqz	a0,a0
 	addi	sp,sp,32
-	cfes 158
+	cfes 7243
 	ret
 lab125: 	sw	a0,0(a1)
 	lw	a5,8(a0)
@@ -748,7 +748,7 @@ lab143: 	lw	s2,8(s0)
 	bgeu	a1,s2,lab147
 lab146: 	addi	a0,s2,8
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 7342
+	cfed 8184
 	lbu	a5,4(s2)
 	beqz	a5,lab148
 lab162: 	bnez	a5,lab149
@@ -790,7 +790,7 @@ lab144: 	lw	s2,12(s0)
 	bgeu	a1,s2,lab156
 lab155: 	addi	a0,s2,8
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 8013
+	cfed 4308
 	lbu	a5,4(s2)
 	beqz	a5,lab157
 lab167: 	bnez	a5,lab149
@@ -831,11 +831,11 @@ lab149: 	lw	ra,12(sp)
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	sp,sp,16
-	cfes 812
+	cfes 959
 	ret
 lab147: 	addi	a0,s2,12
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 7725
+	cfed 187
 	lbu	a5,4(s2)
 	bnez	a5,lab162
 	lw	a5,8(s0)
@@ -869,7 +869,7 @@ lab165: 	beqz	a3,lab162
 	j	lab162
 lab156: 	addi	a0,s2,12
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 3977
+	cfed 5484
 	lbu	a5,4(s2)
 	bnez	a5,lab167
 	lw	a5,12(s0)
@@ -1954,7 +1954,7 @@ lab394: 	mv	a0,s0
 	lw	s3,12(sp)
 	lw	s4,8(sp)
 	addi	sp,sp,32
-	cfes 5073
+	cfes 6080
 	ret
 lab379: 	sw	s0,0(a0)
 	bnez	s0,lab383
@@ -2131,18 +2131,18 @@ sglib___rbtree_delete_recursive:
 	bgeu	a1,s1,lab405
 lab403: 	addi	a0,s1,8
 	jal	ra,sglib___rbtree_delete_recursive
-	cfed 4806
+	cfed 2912
 	bnez	a0,lab406
 lab402: 	li	a0,0
 lab411: 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	addi	sp,sp,32
-	cfes 969
+	cfes 532
 	ret
 lab405: 	bgeu	s1,a1,lab407
 lab404: 	addi	a0,s1,12
 	jal	ra,sglib___rbtree_delete_recursive
-	cfed 2347
+	cfed 6447
 	beqz	a0,lab402
 	mv	a0,s0
 	lw	s0,24(sp)
@@ -2157,10 +2157,10 @@ lab407: 	lw	a4,8(s1)
 	addi	a1,sp,12
 	addi	a0,a4,12
 	jal	ra,sglib___rbtree_delete_rightmost_leaf
-	cfed 117
-	cfed 117
-	cfed 117
-	cfed 117
+	cfed 5237
+	cfed 5237
+	cfed 5237
+	cfed 5237
 	bnez	a0,lab410
 	lw	a4,12(s1)
 	lw	a5,12(sp)
@@ -2235,7 +2235,7 @@ sglib_rbtree_add:
 	bgeu	a1,s0,lab419
 lab418: 	addi	a0,s0,8
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 2269
+	cfed 801
 	lbu	a5,4(s0)
 	lw	a1,0(s1)
 	beqz	a5,lab420
@@ -2246,7 +2246,7 @@ lab421: 	lw	ra,12(sp)
 	ret
 lab419: 	addi	a0,s0,12
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 6583
+	cfed 297
 	lbu	a5,4(s0)
 	lw	a1,0(s1)
 	bnez	a5,lab421
@@ -2371,7 +2371,7 @@ sglib_rbtree_delete:
 	bgeu	a1,s1,lab437
 lab435: 	addi	a0,s1,8
 	jal	ra,sglib___rbtree_delete_recursive
-	cfed 2157
+	cfed 3349
 	bnez	a0,lab438
 lab440: lab447: lab441: lab434: 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -2381,7 +2381,7 @@ lab440: lab447: lab441: lab434: 	lw	ra,28(sp)
 lab437: 	bgeu	s1,a1,lab439
 lab436: 	addi	a0,s1,12
 	jal	ra,sglib___rbtree_delete_recursive
-	cfed 1528
+	cfed 3363
 	beqz	a0,lab440
 	mv	a0,s0
 	jal	ra,sglib___rbtree_fix_right_deletion_discrepancy
@@ -2395,10 +2395,10 @@ lab439: 	lw	a4,8(s1)
 	addi	a1,sp,12
 	addi	a0,a4,12
 	jal	ra,sglib___rbtree_delete_rightmost_leaf
-	cfed 1733
-	cfed 1733
-	cfed 1733
-	cfed 1733
+	cfed 7586
+	cfed 7586
+	cfed 7586
+	cfed 7586
 	bnez	a0,lab444
 	lw	a5,12(s1)
 	lw	a4,12(sp)
@@ -2500,7 +2500,7 @@ lab463: 	sw	a4,0(a2)
 	mv	a1,a4
 	mv	a0,s0
 	jal	ra,sglib___rbtree_delete_recursive
-	cfed 4219
+	cfed 3929
 	lw	a5,0(s0)
 	li	a0,1
 	beqz	a5,lab466
@@ -2531,7 +2531,7 @@ lab467: 	sw	zero,0(a2)
 	sw	zero,12(a1)
 	sw	zero,8(a1)
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 4910
+	cfed 4012
 	lw	a5,0(s0)
 	li	a0,1
 	sb	zero,4(a5)
@@ -2645,7 +2645,7 @@ lab478: 	lw	ra,44(sp)
 	lw	s6,16(sp)
 	lw	s7,12(sp)
 	addi	sp,sp,48
-	cfes 5071
+	cfes 347
 	ret
 lab480: 	addi	a4,a4,32
 	slli	a4,a4,0x2
@@ -2871,7 +2871,7 @@ lab508: 	lui	a5,0x100
 	lui	a1,0x2
 	addi	a0,a5,480 # 1001e0 <heap>
 	jal	ra,init_heap_beebs
-	cfed 4631
+	cfed 1905
 	lw	s0,12(sp)
 	sw	zero,480(s5) # 1021e0 <the_list>
 	mv	s3,s0
@@ -3075,7 +3075,7 @@ lab561: 	li	a0,16
 	sw	zero,8(a0)
 	addi	a0,sp,40
 	jal	ra,sglib___rbtree_add_recursive.constprop.0
-	cfed 5143
+	cfed 7135
 	lw	a3,40(sp)
 	sb	zero,4(a3)
 lab563: 	addi	s3,s3,4
@@ -3155,7 +3155,7 @@ lab497: 	lw	ra,1196(sp)
 	lw	s10,1152(sp)
 	lw	s11,1148(sp)
 	addi	sp,sp,1200
-	cfes 3528
+	cfes 2434
 	ret
 lab562: 	lw	a4,8(a4)
 	bnez	a4,lab564
@@ -3217,7 +3217,7 @@ lab585: 	lw	a4,0(a3)
 	add	a5,a5,a4
 	sw	a5,36(sp)
 	jal	ra,sglib__rbtree_it_compute_current_elem
-	cfed 673
+	cfed 4894
 	lw	a3,480(sp)
 	bnez	a3,lab585
 	lw	a5,16(sp)
@@ -3228,7 +3228,7 @@ lab585: 	lw	a4,0(a3)
 	j	lab497
 lab533: 	addi	a0,sp,44
 	jal	ra,sglib_hashed_ilist_it_next
-	cfed 2021
+	cfed 3406
 	beqz	a0,lab540
 	lw	s2,48(sp)
 	lw	s0,52(sp)
@@ -3293,7 +3293,7 @@ lab590: 	li	a5,1
 	ret
 lab593: 	mv	a0,s3
 	jal	ra,sglib__rbtree_it_compute_current_elem
-	cfed 1486
+	cfed 4315
 	lw	ra,28(sp)
 	lw	s0,24(sp)
 	lw	a0,0(s3)
@@ -3540,7 +3540,7 @@ sglib_rbtree_it_next:
 	sw	ra,12(sp)
 	mv	s0,a0
 	jal	ra,sglib__rbtree_it_compute_current_elem
-	cfed 707
+	cfed 7106
 	lw	a0,0(s0)
 	lw	ra,12(sp)
 	lw	s0,8(sp)
@@ -3564,7 +3564,7 @@ lab636: 	lw	a0,8(s0)
 	addi	s1,s1,1
 lab635: 	mv	a2,s1
 	jal	ra,sglib___rbtree_consistency_check_recursive
-	cfed 7391
+	cfed 5976
 	lw	s0,12(s0)
 	bnez	s0,lab636
 lab634: 	lw	ra,28(sp)
@@ -3586,7 +3586,7 @@ lab640: 	addi	a4,a4,1
 	lw	a3,0(a5)
 	beq	a3,a4,lab640
 lab639: 	li	a0,0
-	cfes 4748
+	cfes 5312
 	ret
 lab637: 	addi	sp,sp,-16
 	lui	a2,0x102
@@ -3616,7 +3616,7 @@ lab642: 	li	a0,0
 lab646: 	lw	s0,8(sp)
 	lw	s1,4(sp)
 	addi	sp,sp,16
-	cfes 6847
+	cfes 6365
 	ret
 lab645: 	lui	a0,0x100
 	addi	a0,a0,480 # 1001e0 <heap>
@@ -3642,16 +3642,16 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 7349
+	cfed 5422
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 7965
+	cfed 5336
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 2504
-	cfed 2504
+	cfed 8136
+	cfed 8136
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32
@@ -3684,7 +3684,7 @@ init_heap_beebs:
 	sw	a1,488(a5) # 1021e8 <heap_end>
 	lui	a5,0x102
 	sw	zero,484(a5) # 1021e4 <heap_requested>
-	cfes 6397
+	cfes 976
 	ret
 lab647: 	lui	a3,0x102
 	lui	a2,0x102

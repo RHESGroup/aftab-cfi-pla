@@ -1305,7 +1305,7 @@ lab19: 	remu	a4,a3,a1
 	sw	a5,0(a4)
 	addi	a0,a0,4
 	bne	a6,a3,lab19
-lab18:	cfes 0x443ac
+lab18:	cfes 0xd6193
  	ret
 lab16: 	addi	sp,sp,-16
 	li	a0,1
@@ -1451,7 +1451,7 @@ lab32: 	jal	ra,_aes_set_key.constprop.0
 	li	a1,8
 	sw	s2,500(s1)
 	jal	ra,_aes_set_key
-	cfed 0xb374b
+	cfed 0x0b17c
 	mv	a2,s0
 	mv	a1,s0
 	li	a0,14
@@ -1477,7 +1477,7 @@ lab32: 	jal	ra,_aes_set_key.constprop.0
 	lw	s7,12(sp)
 	li	a0,0
 	addi	sp,sp,48
-	cfes 0x50ed8
+	cfes 0x07659
 	ret
 benchmark_body.isra.0:
 	blez	a0,lab33
@@ -1511,7 +1511,7 @@ lab34: 	jal	ra,_aes_set_key.constprop.0
 	li	a1,8
 	sw	s2,500(s1)
 	jal	ra,_aes_set_key
-	cfed 0xf384a
+	cfed 0x5fe4b
 	mv	a2,s0
 	mv	a1,s0
 	li	a0,14
@@ -1537,9 +1537,9 @@ lab34: 	jal	ra,_aes_set_key.constprop.0
 	lw	s7,12(sp)
 	lw	s8,8(sp)
 	addi	sp,sp,48
-	cfes 0x4d157
+	cfes 0x748c9
 	ret
-lab33:	cfes 0x8d157
+lab33:	cfes 0xb48c9
  	ret
 aes_invert_key:
 	addi	sp,sp,-16
@@ -1579,7 +1579,7 @@ lab38: 	sw	s1,0(s0)
 	mv	a2,s2
 	mv	a0,s1
 	jal	ra,_aes_set_key
-	cfed 0x3384a
+	cfed 0x9fe4b
 	mv	a2,s2
 	mv	a1,s2
 	mv	a0,s1
@@ -1687,11 +1687,11 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x6aa9f
-	cfed 0x6aa9f
+	cfed 0x41715
+	cfed 0x41715
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x26c1f
+	cfed 0x59cb6
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

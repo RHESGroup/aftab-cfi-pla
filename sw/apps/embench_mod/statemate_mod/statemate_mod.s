@@ -42,7 +42,7 @@ lab8: 	lbu	a2,74(a3) # 10004a <A_FH_TUERMODUL_CTRL_next_state>
 lab7: 	lbu	a4,6(a5)
 	sb	a3,5(a5)
 	sb	a4,7(a5)
-	cfes 0x56844
+	cfes 0xce516
 	ret
 lab5: 	lui	a4,0x100
 	lbu	a4,80(a4) # 100050 <step>
@@ -57,7 +57,7 @@ lab24: 	sb	zero,81(a3) # 100051 <stable>
 	lbu	a4,6(a5)
 	sb	a3,5(a5)
 	sb	a4,7(a5)
-	cfes 0xefd03
+	cfes 0x680dd
 	ret
 lab4: 	lui	a4,0x100
 	lw	a4,220(a4) # 1000dc <FH_TUERMODUL_CTRL__N>
@@ -1150,8 +1150,8 @@ lab103: 	lui	a1,0x100
 	mv	s6,t0
 	beqz	t5,lab107
 	jal	ra,generic_FH_TUERMODUL_CTRL.part.0
-	cfed 0x7b493
-	cfed 0x7b493
+	cfed 0x0b1b1
+	cfed 0x0b1b1
 	lui	a4,0x100
 	lbu	a2,140(a4) # 10008c <FH_TUERMODUL__SFHA_ZENTRAL>
 	lui	a4,0x100
@@ -1497,7 +1497,7 @@ lab108: 	lw	ra,92(sp)
 	lw	s10,48(sp)
 	lw	s11,44(sp)
 	addi	sp,sp,96
-	cfes 0x1b0a2
+	cfes 0x285d4
 	ret
 lab102: 	lbu	a2,113(s3)
 	j	lab113
@@ -1710,7 +1710,7 @@ lab139: 	li	a1,0
 	sb	zero,73(s1) # 100049 <WIEDERHOLSPERRE_FH_TUERMODUL_CTRL_next_state>
 	jal	ra,interface
 	jal	ra,FH_DU
-	cfed 0x1a1c3
+	cfed 0x143c1
 	bnez	s0,lab139
 	lw	ra,60(sp)
 	lw	s0,56(sp)
@@ -1727,7 +1727,7 @@ lab139: 	li	a1,0
 	lw	s11,12(sp)
 	li	a0,0
 	addi	sp,sp,64
-	cfes 0xda8dc
+	cfes 0x2f519
 	ret
 benchmark_body.isra.0:
 	blez	a0,lab140
@@ -1792,7 +1792,7 @@ lab141: 	li	a1,0
 	sb	zero,74(s2) # 10004a <A_FH_TUERMODUL_CTRL_next_state>
 	jal	ra,interface
 	jal	ra,FH_DU
-	cfed 0x5a1c3
+	cfed 0x543c1
 	bne	s0,s1,lab141
 	lw	ra,60(sp)
 	lw	s0,56(sp)
@@ -1808,9 +1808,9 @@ lab141: 	li	a1,0
 	lw	s10,16(sp)
 	lw	s11,12(sp)
 	addi	sp,sp,64
-	cfes 0x79890
+	cfes 0x3bdf6
 	ret
-lab140:	cfes 0xb9890
+lab140:	cfes 0x7bdf6
  	ret
 warm_caches:
 	j	benchmark_body.isra.0
@@ -1915,11 +1915,11 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x3b9d5
-	cfed 0x3b9d5
+	cfed 0x80b9f
+	cfed 0x80b9f
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x108ba
+	cfed 0xc3d75
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

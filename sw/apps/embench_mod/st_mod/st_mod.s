@@ -316,7 +316,7 @@ lab0: 	lw	ra,124(sp)
 	lw	s10,80(sp)
 	lw	s11,76(sp)
 	addi	sp,sp,128
-	cfes 0x07304
+	cfes 0x0eb8f
 	ret
 lab5: 	mv	a0,s2
 	mv	a1,s1
@@ -639,7 +639,7 @@ lab23: 	lw	a1,4(s1)
 	lw	s11,76(sp)
 	li	a0,0
 	addi	sp,sp,128
-	cfes 0x5e25e
+	cfes 0x6d979
 	ret
 lab17: 	mv	a0,s6
 	mv	a1,s2
@@ -1001,7 +1001,7 @@ lab29: 	lw	ra,12(sp)
 	lw	s3,0(sp)
 	li	a0,0
 	addi	sp,sp,16
-	cfes 0x80ba6
+	cfes 0x0e8ea
 	ret
 lab30: 	lui	a5,0x100
 	lw	a2,1600(a5) # 100640 <Coef>
@@ -1021,7 +1021,7 @@ lab30: 	lui	a5,0x100
 	lw	s3,0(sp)
 	slti	a0,a0,0
 	addi	sp,sp,16
-	cfes 0xc0ba6
+	cfes 0x4e8ea
 	ret
 main:
 	addi	sp,sp,-32
@@ -1030,16 +1030,16 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x3326b
+	cfed 0x25468
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x1c311
+	cfed 0x0667e
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 0x399c9
-	cfed 0x399c9
+	cfed 0xa570d
+	cfed 0xa570d
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32

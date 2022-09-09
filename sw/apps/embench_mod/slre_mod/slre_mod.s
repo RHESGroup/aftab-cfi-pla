@@ -185,7 +185,7 @@ lab23: 	mv	a5,s1
 	mv	a1,s6
 	sw	t3,16(sp)
 	jal	ra,bar
-	cfed 2191
+	cfed 2546
 	lw	t3,16(sp)
 	mv	s8,a0
 	blez	a0,lab21
@@ -229,7 +229,7 @@ lab19: 	li	a5,63
 	mv	a0,t3
 	sw	t4,16(sp)
 	jal	ra,bar
-	cfed 509
+	cfed 1104
 	lw	t4,16(sp)
 	not	a5,a0
 	srai	a5,a5,0x1f
@@ -314,7 +314,7 @@ lab39: 	lw	ra,108(sp)
 	mv	a0,s10
 	lw	s10,64(sp)
 	addi	sp,sp,112
-	cfes 418
+	cfes 3488
 	ret
 lab36: 	addi	s9,t4,2
 lab91: 	add	a5,s2,s8
@@ -391,7 +391,7 @@ lab94: 	lw	a0,36(sp)
 	mv	a2,s5
 	sw	t3,16(sp)
 	jal	ra,bar
-	cfed 6000
+	cfed 2099
 	sw	a0,28(sp)
 	lw	a5,24(sp)
 	lw	t3,16(sp)
@@ -444,7 +444,7 @@ lab61: 	li	a5,42
 	add	a2,a2,s4
 	add	a0,s2,a0
 	jal	ra,bar
-	cfed 5072
+	cfed 3741
 	sw	a0,28(sp)
 	lbu	a4,0(s9)
 	blez	a0,lab68
@@ -507,7 +507,7 @@ lab74: 	mv	a3,s9
 	addi	t4,t4,1
 	j	lab74
 lab73: 	jal	ra,bar
-	cfed 849
+	cfed 5341
 	lw	a3,44(sp)
 	bgez	a0,lab75
 	lw	a5,28(sp)
@@ -540,7 +540,7 @@ lab82: 	mv	a0,t3
 	mv	a1,s6
 	sw	t3,16(sp)
 	jal	ra,bar
-	cfed 2746
+	cfed 1927
 	lw	t3,16(sp)
 	mv	s8,a0
 	blez	a0,lab79
@@ -599,7 +599,7 @@ lab80: 	lw	a2,12(sp)
 	mv	a1,s7
 	sw	t3,16(sp)
 	jal	ra,bar
-	cfed 297
+	cfed 3765
 	sw	a0,28(sp)
 	lw	t3,16(sp)
 	bltz	a0,lab89
@@ -656,7 +656,7 @@ lab101: 	mv	a4,s5
 	mv	a3,s2
 	mv	a2,s3
 	jal	ra,bar
-	cfed 5203
+	cfed 4803
 	bgtz	a0,lab98
 lab100: 	addi	a4,s0,1
 	bge	s0,a5,lab98
@@ -676,7 +676,7 @@ lab97: 	add	a7,s0,a7
 	mv	a3,s2
 	mv	a2,s3
 	jal	ra,bar
-	cfed 319
+	cfed 908
 	blez	a0,lab100
 lab98: 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -833,7 +833,7 @@ lab147: 	mv	a4,s0
 	mv	a3,s4
 	mv	a2,s8
 	jal	ra,bar
-	cfed 3287
+	cfed 7560
 	bgtz	a0,lab126
 lab129: 	addi	a5,s1,1
 	bge	s1,a3,lab127
@@ -853,7 +853,7 @@ lab125: 	add	a5,s1,a4
 	mv	a3,s4
 	mv	a2,s8
 	jal	ra,bar
-	cfed 7801
+	cfed 3001
 	blez	a0,lab129
 lab126: 	add	a0,a0,s5
 lab139: 	lw	s0,72(sp)
@@ -869,7 +869,7 @@ lab139: 	lw	s0,72(sp)
 	lw	s10,32(sp)
 	lw	s11,28(sp)
 	addi	sp,sp,80
-	cfes 3414
+	cfes 7006
 	ret
 lab103: 	sub	a1,s9,s7
 	addi	a1,a1,-1
@@ -1038,13 +1038,13 @@ lab152: 	jal	ra,strlen
 	mv	a0,s0
 	mv	a2,a2
 	jal	ra,foo
-	cfed 4968
+	cfed 7771
 	addi	sp,sp,416
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
 	lw	s1,2020(sp)
 	addi	sp,sp,2032
-	cfes 6848
+	cfes 7975
 	ret
 lab151: 	lbu	a3,1(s0)
 	li	a4,63
@@ -1083,7 +1083,7 @@ lab154: 	jal	ra,strlen
 lab153: 	addi	a2,sp,8
 	mv	a1,s1
 	jal	ra,slre_match.constprop.0
-	cfed 4125
+	cfed 2048
 	lw	a5,4(sp)
 	addi	s0,s0,4
 	add	a5,a0,a5
@@ -1100,7 +1100,7 @@ lab153: 	addi	a2,sp,8
 	lw	s4,24(sp)
 	lw	s5,20(sp)
 	addi	sp,sp,48
-	cfes 5641
+	cfes 4377
 	ret
 benchmark_body.isra.0:
 	addi	sp,sp,-48
@@ -1127,7 +1127,7 @@ lab157: 	jal	ra,strlen
 lab156: 	addi	a2,sp,8
 	mv	a1,s1
 	jal	ra,slre_match.constprop.0
-	cfed 881
+	cfed 1975
 	lw	a5,4(sp)
 	addi	s0,s0,4
 	add	a5,a0,a5
@@ -1145,7 +1145,7 @@ lab155: 	lw	ra,44(sp)
 	lw	s5,20(sp)
 	lw	s6,16(sp)
 	addi	sp,sp,48
-	cfes 2661
+	cfes 4241
 	ret
 slre_match:
 	addi	sp,sp,-2032
@@ -1186,7 +1186,7 @@ lab159: 	jal	ra,strlen
 	mv	a2,s1
 	mv	a0,s0
 	jal	ra,foo
-	cfed 5369
+	cfed 7498
 	addi	sp,sp,416
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
@@ -1227,10 +1227,10 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 1763
+	cfed 98
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 407
+	cfed 5555
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

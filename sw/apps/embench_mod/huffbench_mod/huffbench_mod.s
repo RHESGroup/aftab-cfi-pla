@@ -89,11 +89,11 @@ lab7: 	slli	a1,a5,0x3
 	sub	a1,a1,a5
 	bgeu	t1,a3,lab11
 lab6: 	sw	t2,0(a1)
-	cfes 7719
+	cfes 897
 	ret
 lab8: 	mv	a1,a7
 	sw	t2,0(a1)
-	cfes 7637
+	cfes 4565
 	ret
 compdecomp.constprop.0:
 	lui	t0,0xfffff
@@ -245,8 +245,8 @@ lab18: 	lw	a4,12(sp)
 	sw	a5,1024(a4)
 	mv	a1,s8
 	jal	ra,heap_adjust.constprop.0
-	cfed 5472
-	cfed 5472
+	cfed 2576
+	cfed 2576
 	lw	a5,12(sp)
 	lw	a3,8(sp)
 	slli	a4,s5,0x2
@@ -278,8 +278,8 @@ lab18: 	lw	a4,12(sp)
 	addi	s4,s4,-1
 	addi	s9,s9,-4
 	jal	ra,heap_adjust.constprop.0
-	cfed 2169
-	cfed 2169
+	cfed 7612
+	cfed 7612
 	addi	s6,s6,-4
 	bne	s4,s7,lab18
 lab17: 	li	a5,257
@@ -428,7 +428,7 @@ lab26: 	lui	t0,0x1
 	lw	s9,1988(sp)
 	lw	s10,1984(sp)
 	addi	sp,sp,2032
-	cfes 93
+	cfes 5743
 	ret
 lab27: 	addi	t3,t3,1
 	bne	t3,s1,lab33
@@ -625,7 +625,7 @@ benchmark_body.constprop.0:
 	addi	s1,s1,1584 # 102630 <__func__.0+0x204>
 lab58: 	addi	a0,s4,512 # 100200 <heap>
 	jal	ra,init_heap_beebs
-	cfed 6379
+	cfed 7673
 	mv	a5,s3
 	mv	a4,s2
 lab57: 	lw	a0,4(a5)
@@ -642,7 +642,7 @@ lab57: 	lw	a0,4(a5)
 	bne	a5,s1,lab57
 	addi	s0,s0,-1
 	jal	ra,compdecomp.constprop.0
-	cfed 3067
+	cfed 275
 	bnez	s0,lab58
 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -652,7 +652,7 @@ lab57: 	lw	a0,4(a5)
 	lw	s4,8(sp)
 	li	a0,0
 	addi	sp,sp,32
-	cfes 1999
+	cfes 5397
 	ret
 benchmark_body.isra.0:
 	blez	a0,lab59
@@ -675,7 +675,7 @@ benchmark_body.isra.0:
 	addi	s2,s2,1584 # 102630 <__func__.0+0x204>
 lab61: 	addi	a0,s5,512 # 100200 <heap>
 	jal	ra,init_heap_beebs
-	cfed 2431
+	cfed 6068
 	mv	a5,s4
 	mv	a4,s3
 lab60: 	lw	a6,4(a5)
@@ -692,7 +692,7 @@ lab60: 	lw	a6,4(a5)
 	bne	a5,s2,lab60
 	addi	s0,s0,1
 	jal	ra,compdecomp.constprop.0
-	cfed 3345
+	cfed 6778
 	bne	s0,s1,lab61
 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -702,9 +702,9 @@ lab60: 	lw	a6,4(a5)
 	lw	s4,8(sp)
 	lw	s5,4(sp)
 	addi	sp,sp,32
-	cfes 331
+	cfes 64
 	ret
-lab59:	cfes 5116
+lab59:	cfes 4429
  	ret
 compdecomp:
 	addi	sp,sp,-2032
@@ -860,8 +860,8 @@ lab69: 	lw	a4,12(sp)
 	sw	a5,1024(a4)
 	mv	a1,s8
 	jal	ra,heap_adjust.constprop.0
-	cfed 2325
-	cfed 2325
+	cfed 325
+	cfed 325
 	lw	a5,12(sp)
 	lw	a3,8(sp)
 	slli	a4,s5,0x2
@@ -893,8 +893,8 @@ lab69: 	lw	a4,12(sp)
 	addi	s4,s4,-1
 	addi	s9,s9,-4
 	jal	ra,heap_adjust.constprop.0
-	cfed 2584
-	cfed 2584
+	cfed 3467
+	cfed 3467
 	addi	s6,s6,-4
 	bne	s4,s7,lab69
 lab68: 	li	a5,257
@@ -1230,7 +1230,7 @@ verify_benchmark:
 	lw	ra,12(sp)
 	seqz	a0,a0
 	addi	sp,sp,16
-	cfes 2190
+	cfes 1037
 	ret
 initialise_benchmark:
 	ret
@@ -1245,16 +1245,16 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 5869
-	cfed 5869
+	cfed 2044
+	cfed 2044
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 5134
+	cfed 3544
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 3250
+	cfed 3601
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32
@@ -1287,7 +1287,7 @@ init_heap_beebs:
 	sw	a1,516(a5) # 102204 <heap_end>
 	lui	a5,0x102
 	sw	zero,512(a5) # 102200 <heap_requested>
-	cfes 4122
+	cfes 7168
 	ret
 lab110: 	lui	a3,0x102
 	lui	a2,0x102

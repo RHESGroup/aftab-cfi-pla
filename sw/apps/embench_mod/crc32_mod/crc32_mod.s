@@ -22,9 +22,9 @@ lab1: 	jal	ra,rand_beebs
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	sp,sp,16
-	cfes 0xb2b58
+	cfes 0xd1302
 	ret
-lab0:	cfes 0x34a37
+lab0:	cfes 0x595b1
  	ret
 benchmark_body.constprop.0:
 	addi	sp,sp,-32
@@ -59,7 +59,7 @@ lab3: 	xor	a5,s0,a0
 	lw	s3,12(sp)
 	srli	a0,a0,0x11
 	addi	sp,sp,32
-	cfes 0xf76d5
+	cfes 0x10a66
 	ret
 crc32pseudo:
 	addi	sp,sp,-16
@@ -106,11 +106,11 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x46e4f
-	cfed 0x46e4f
+	cfed 0x220ad
+	cfed 0x220ad
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x041b1
+	cfed 0xeabf8
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

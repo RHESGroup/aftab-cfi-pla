@@ -48,10 +48,10 @@ lab2: 	li	a2,0
 	mv	a0,s3
 	sw	zero,-1780(s4) # 10090c <jpeg_off>
 	jal	ra,pjpeg_decode_init
-lab1:	cfed 203
- 	cfed 7813
-	cfed 7813
-	cfed 7813
+lab1:	cfed 1041
+ 	cfed 3482
+	cfed 3482
+	cfed 3482
 	bne	a0,s0,lab1
 	addi	s1,s1,-1
 	bnez	s1,lab2
@@ -63,7 +63,7 @@ lab1:	cfed 203
 	lw	s4,8(sp)
 	li	a0,0
 	addi	sp,sp,32
-	cfes 6836
+	cfes 7888
 	ret
 benchmark_body.isra.0:
 	blez	a0,lab3
@@ -85,10 +85,10 @@ lab5: 	li	a2,0
 	mv	a0,s4
 	sw	zero,-1780(s5) # 10090c <jpeg_off>
 	jal	ra,pjpeg_decode_init
-lab4:	cfed 1487
- 	cfed 175
-	cfed 175
-	cfed 175
+lab4:	cfed 5910
+ 	cfed 3709
+	cfed 3709
+	cfed 3709
 	bne	a0,s0,lab4
 	addi	s1,s1,1
 	bne	s1,s2,lab5
@@ -100,9 +100,9 @@ lab4:	cfed 1487
 	lw	s4,8(sp)
 	lw	s5,4(sp)
 	addi	sp,sp,32
-	cfes 5221
+	cfes 1787
 	ret
-lab3:	cfes 3459
+lab3:	cfes 6694
  	ret
 verify_benchmark:
 	addi	sp,sp,-16
@@ -151,11 +151,11 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 5108
-	cfed 5108
+	cfed 3146
+	cfed 3146
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 3876
+	cfed 6156
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
@@ -1375,7 +1375,7 @@ lab101: 	lw	ra,12(sp)
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	sp,sp,16
-	cfes 6266
+	cfes 8102
 	ret
 lab99: 	lui	a4,0x101
 	lui	a5,0x101
@@ -1410,7 +1410,7 @@ lab100: 	lbu	a5,-1696(s1)
 	lw	s2,0(sp)
 	addi	a0,a0,217
 	addi	sp,sp,16
-	cfes 4188
+	cfes 8060
 	ret
 getBits.constprop.1:
 	addi	sp,sp,-32
@@ -1426,8 +1426,8 @@ getBits.constprop.1:
 	sll	a5,s0,a5
 	sh	a5,-1698(s2)
 	jal	ra,getChar
-	cfed 3486
-	cfed 3486
+	cfed 3648
+	cfed 3648
 	lhu	a5,-1698(s2)
 	lbu	a4,-1700(s3)
 	li	s1,8
@@ -1458,15 +1458,15 @@ lab103: 	mv	a0,s0
 	lw	s2,16(sp)
 	lw	s3,12(sp)
 	addi	sp,sp,32
-	cfes 2874
+	cfes 6203
 	ret
 lab102: 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
 	sll	a5,a5,a4
 	sh	a5,-1698(s2)
 	jal	ra,getChar
-	cfed 6113
-	cfed 6113
+	cfed 1608
+	cfed 1608
 	lhu	a5,-1698(s2)
 	lbu	a4,-1700(s3)
 	or	a5,a5,a0
@@ -1504,7 +1504,7 @@ lab107: 	addi	a4,a4,-1
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	sp,sp,16
-	cfes 6767
+	cfes 6570
 	ret
 lab104: 	lui	a4,0x101
 	lui	a5,0x101
@@ -1552,7 +1552,7 @@ lab105: 	addi	a5,a5,-2
 	lw	s2,0(sp)
 	lw	s1,4(sp)
 	addi	sp,sp,16
-	cfes 707
+	cfes 3506
 	ret
 huffDecode:
 	addi	sp,sp,-80
@@ -1615,8 +1615,8 @@ lab111: 	slli	s9,a1,0x10
 	srli	s9,s9,0x10
 	bnez	a4,lab113
 	jal	ra,getChar
-	cfed 4991
-	cfed 4991
+	cfed 1808
+	cfed 1808
 	mv	a2,a0
 	beq	a0,s1,lab114
 lab115: 	lbu	a4,-1700(s8)
@@ -1628,8 +1628,8 @@ lab115: 	lbu	a4,-1700(s8)
 	j	lab113
 lab114: 	sw	a0,12(sp)
 	jal	ra,getChar
-	cfed 4764
-	cfed 4764
+	cfed 5714
+	cfed 5714
 	lw	a2,12(sp)
 	beqz	a0,lab115
 	lbu	a5,-1695(s5) # 100961 <gInBufOfs>
@@ -1661,7 +1661,7 @@ lab116: 	lw	s0,72(sp)
 	lw	s10,32(sp)
 	lw	s11,28(sp)
 	addi	sp,sp,80
-	cfes 6842
+	cfes 2625
 	ret
 lab112: 	add	a5,s0,s10
 	slli	s10,s10,0x1
@@ -1676,8 +1676,8 @@ lab112: 	add	a5,s0,s10
 	lbu	a0,0(s2)
 	j	lab116
 lab108: 	jal	ra,getChar
-	cfed 2749
-	cfed 2749
+	cfed 7628
+	cfed 7628
 	li	a5,255
 	mv	s3,a0
 	beq	a0,a5,lab117
@@ -1689,8 +1689,8 @@ lab119: 	lbu	a4,-1700(s8)
 	zext.b	a4,a4
 	j	lab118
 lab117: 	jal	ra,getOctet.part.0
-	cfed 451
-	cfed 451
+	cfed 3038
+	cfed 3038
 	j	lab119
 getBits.constprop.2:
 	addi	sp,sp,-48
@@ -1724,14 +1724,14 @@ lab125: 	sub	a5,a5,s1
 	lw	s4,24(sp)
 	srli	a0,a0,0x10
 	addi	sp,sp,48
-	cfes 1294
+	cfes 3757
 	ret
 lab120: 	sll	a4,s0,a4
 	addi	s2,a0,-8
 	sh	a4,-1698(s4)
 	jal	ra,getChar
-	cfed 7909
-	cfed 7909
+	cfed 6762
+	cfed 6762
 	li	a5,255
 	zext.b	s2,s2
 	beq	a0,a5,lab122
@@ -1751,8 +1751,8 @@ lab126: 	lbu	a4,-1700(s3)
 lab121: 	sll	a5,a5,a4
 	sh	a5,-1698(s4)
 	jal	ra,getChar
-	cfed 264
-	cfed 264
+	cfed 2396
+	cfed 2396
 	li	a5,255
 	beq	a0,a5,lab124
 lab127: 	lbu	a4,-1700(s3)
@@ -1768,14 +1768,14 @@ lab127: 	lbu	a4,-1700(s3)
 	j	lab125
 lab122: 	sw	a0,12(sp)
 	jal	ra,getOctet.part.0
-	cfed 505
-	cfed 505
+	cfed 4673
+	cfed 4673
 	lw	a0,12(sp)
 	j	lab126
 lab124: 	sw	a0,12(sp)
 	jal	ra,getOctet.part.0
-	cfed 5194
-	cfed 5194
+	cfed 6965
+	cfed 6965
 	lw	a0,12(sp)
 	j	lab127
 processMarkers:
@@ -1834,7 +1834,7 @@ lab177: 	bltu	a5,a1,lab132
 	bltu	a5,a1,lab133
 	bne	a1,a5,lab134
 	jal	ra,getBits.constprop.1
-	cfed 7354
+	cfed 3571
 	li	a4,1
 	bgeu	a4,a0,lab135
 	addi	a5,a0,-2
@@ -2404,8 +2404,8 @@ lab189: 	sh	t1,28(s6)
 lab136: 	sll	a4,a5,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 3573
-	cfed 3573
+	cfed 3103
+	cfed 3103
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	or	a5,a5,a0
@@ -2419,8 +2419,8 @@ lab136: 	sll	a4,a5,a4
 lab130: 	sll	a5,a5,a4
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 5631
-	cfed 5631
+	cfed 1582
+	cfed 1582
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	a3,s0,0x8
@@ -2439,8 +2439,8 @@ lab130: 	sll	a5,a5,a4
 lab128: 	sll	a5,a5,a4
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 7072
-	cfed 7072
+	cfed 7810
+	cfed 7810
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	s0,s0,0x8
@@ -2475,7 +2475,7 @@ lab181: 	lw	s0,200(sp)
 	lw	s10,160(sp)
 	lw	s11,156(sp)
 	addi	sp,sp,208
-	cfes 4374
+	cfes 5928
 	ret
 lab133: 	addi	a5,a1,59
 	li	a4,1
@@ -2496,7 +2496,7 @@ lab132: 	li	a5,219
 	li	a5,221
 	bne	a1,a5,lab179
 	jal	ra,getBits.constprop.1
-	cfed 8122
+	cfed 1477
 	li	a5,4
 	beq	a0,a5,lab184
 lab135: 	lhu	a5,-1698(s5)
@@ -2504,7 +2504,7 @@ lab135: 	lhu	a5,-1698(s5)
 	j	lab137
 lab183: 	bne	a1,a5,lab180
 lab179: 	jal	ra,getBits.constprop.1
-	cfed 2672
+	cfed 93
 	li	a4,1
 	bgeu	a4,a0,lab135
 	addi	a5,a0,-2
@@ -2532,8 +2532,8 @@ lab186: 	zext.b	a4,a1
 lab185: 	sll	a5,a5,a4
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 932
-	cfed 932
+	cfed 52
+	cfed 52
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	addi	s0,s0,-1
@@ -2554,8 +2554,8 @@ lab178: 	li	a0,18
 lab157: 	sll	a5,a5,a4
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 3315
-	cfed 3315
+	cfed 4262
+	cfed 4262
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	add	a2,s0,s11
@@ -2644,8 +2644,8 @@ lab152: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 1519
-	cfed 1519
+	cfed 3131
+	cfed 3131
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2669,8 +2669,8 @@ lab153: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 1131
-	cfed 1131
+	cfed 6546
+	cfed 6546
 	lhu	a6,-1698(s5)
 	lw	a3,16(sp)
 	lbu	a5,-1700(s9)
@@ -2694,8 +2694,8 @@ lab154: 	sll	a5,s2,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 5496
-	cfed 5496
+	cfed 2674
+	cfed 2674
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	lw	a3,16(sp)
@@ -2712,8 +2712,8 @@ lab151: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 3532
-	cfed 3532
+	cfed 5654
+	cfed 5654
 	lhu	a6,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,64(sp)
@@ -2730,8 +2730,8 @@ lab150: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 5586
-	cfed 5586
+	cfed 7682
+	cfed 7682
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2748,8 +2748,8 @@ lab149: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 4974
-	cfed 4974
+	cfed 2265
+	cfed 2265
 	lhu	a6,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,56(sp)
@@ -2765,8 +2765,8 @@ lab149: 	sll	a5,a3,a5
 lab140: 	sll	a4,s4,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 558
-	cfed 558
+	cfed 6734
+	cfed 6734
 	lhu	a4,-1698(s5)
 	lbu	a5,-1700(s9)
 	or	s3,a4,a0
@@ -2788,8 +2788,8 @@ lab141: 	sll	a5,s3,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 3843
-	cfed 3843
+	cfed 4295
+	cfed 4295
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2811,8 +2811,8 @@ lab142: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 5992
-	cfed 5992
+	cfed 3034
+	cfed 3034
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2836,8 +2836,8 @@ lab143: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 7118
-	cfed 7118
+	cfed 7816
+	cfed 7816
 	lhu	a6,-1698(s5)
 	lw	a3,16(sp)
 	lbu	a5,-1700(s9)
@@ -2861,8 +2861,8 @@ lab144: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 7986
-	cfed 7986
+	cfed 2582
+	cfed 2582
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2886,8 +2886,8 @@ lab145: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 210
-	cfed 210
+	cfed 2527
+	cfed 2527
 	lhu	a6,-1698(s5)
 	lw	a3,16(sp)
 	lbu	a5,-1700(s9)
@@ -2911,8 +2911,8 @@ lab146: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 42
-	cfed 42
+	cfed 5411
+	cfed 5411
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2936,8 +2936,8 @@ lab147: 	sll	a5,a3,a5
 	sw	a3,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 6607
-	cfed 6607
+	cfed 1112
+	cfed 1112
 	lhu	a6,-1698(s5)
 	lw	a3,16(sp)
 	lbu	a5,-1700(s9)
@@ -2961,8 +2961,8 @@ lab148: 	sll	a5,s2,a5
 	sw	a4,16(sp)
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 3280
-	cfed 3280
+	cfed 1131
+	cfed 1131
 	lhu	a3,-1698(s5)
 	lbu	a5,-1700(s9)
 	lw	a4,16(sp)
@@ -2978,8 +2978,8 @@ lab139: 	sll	a4,a5,a4
 	sw	a5,16(sp)
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 6379
-	cfed 6379
+	cfed 7961
+	cfed 7961
 	lhu	a3,-1698(s5)
 	lbu	a4,-1700(s9)
 	lw	a5,16(sp)
@@ -2992,7 +2992,7 @@ lab139: 	sll	a4,a5,a4
 	srli	s4,s4,0x10
 	j	lab219
 lab182: 	jal	ra,getBits.constprop.1
-	cfed 5627
+	cfed 4196
 	li	a4,1
 	bgeu	a4,a0,lab135
 	addi	a5,a0,-2
@@ -3066,8 +3066,8 @@ lab221: 	mv	a5,s2
 lab224: 	sll	a4,s2,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 570
-	cfed 570
+	cfed 5686
+	cfed 5686
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	s7,s2,0x8
@@ -3108,8 +3108,8 @@ lab236: 	addi	a5,a5,1196 # 1004ac <gQuant0>
 lab230: 	sll	a4,s2,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 4815
-	cfed 4815
+	cfed 7650
+	cfed 7650
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	s7,s2,0x8
@@ -3130,8 +3130,8 @@ lab230: 	sll	a4,s2,a4
 lab220: 	sll	a5,s4,a5
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 6331
-	cfed 6331
+	cfed 4790
+	cfed 4790
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	or	s2,a5,a0
@@ -3175,8 +3175,8 @@ lab238: 	slli	s11,s11,0x8
 lab234: 	sll	a4,s2,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 4353
-	cfed 4353
+	cfed 2376
+	cfed 2376
 	lhu	a4,-1698(s5)
 	lbu	a5,-1700(s9)
 	or	s6,a4,a0
@@ -3190,8 +3190,8 @@ lab234: 	sll	a4,s2,a4
 lab235: 	sll	a5,s6,a5
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 2601
-	cfed 2601
+	cfed 4698
+	cfed 4698
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	s6,s6,0x8
@@ -3241,8 +3241,8 @@ lab240: 	addi	a5,a4,-8
 	sll	a4,s2,a4
 	sh	a4,-1698(s5)
 	jal	ra,getChar
-	cfed 2339
-	cfed 2339
+	cfed 6171
+	cfed 6171
 	lhu	a4,-1698(s5)
 	lbu	a6,-1700(s9)
 	or	s6,a4,a0
@@ -3256,8 +3256,8 @@ lab240: 	addi	a5,a4,-8
 lab241: 	sll	a5,s6,a6
 	sh	a5,-1698(s5)
 	jal	ra,getChar
-	cfed 5475
-	cfed 5475
+	cfed 3158
+	cfed 3158
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
 	srai	s6,s6,0x8
@@ -3275,7 +3275,7 @@ lab241: 	sll	a5,s6,a6
 	bne	s1,s11,lab240
 	j	lab228
 lab184: 	jal	ra,getBits.constprop.1
-	cfed 2447
+	cfed 5413
 	lui	a3,0x101
 	lhu	a5,-1698(s5)
 	lbu	a4,-1700(s9)
@@ -3312,7 +3312,7 @@ lab248: 	sh	a5,-1698(s0)
 	srli	a0,s2,0x8
 	lw	s2,16(sp)
 	addi	sp,sp,32
-	cfes 5092
+	cfes 5243
 	ret
 lab244: 	lui	s5,0x101
 	lbu	a4,-1696(s5) # 100960 <gInBufLeft>
@@ -3370,8 +3370,8 @@ lab249: 	lbu	a4,-1696(s5)
 	beqz	a4,lab251
 	beqz	s1,lab252
 lab247: 	jal	ra,getOctet.part.0
-lab252:	cfed 3164
-	cfed 3164
+lab252:	cfed 585
+	cfed 585
  	li	a5,255
 	j	lab251
 pjpeg_decode_mcu:
@@ -3411,7 +3411,7 @@ lab253: 	lw	ra,108(sp)
 	mv	a0,s6
 	lw	s6,80(sp)
 	addi	sp,sp,112
-	cfes 6245
+	cfes 1270
 	ret
 lab254: 	lui	s2,0x101
 	lhu	a4,-1724(s2) # 100944 <gRestartInterval>
@@ -3463,7 +3463,7 @@ lab257: 	bnez	a5,lab258
 	addi	a0,s7,1504
 	addi	a1,s7,1584
 	jal	ra,huffDecode
-	cfed 6103
+	cfed 6100
 	mv	s1,a0
 	andi	a0,a0,15
 	li	a4,0
@@ -3506,7 +3506,7 @@ lab345: 	li	s6,15
 	li	s2,63
 lab267: 	mv	a0,s4
 	jal	ra,huffDecode
-	cfed 6735
+	cfed 3568
 	mv	s9,a0
 	andi	a0,a0,15
 	bnez	a0,lab264
@@ -3539,7 +3539,7 @@ lab268: 	lui	a4,0x101
 	addi	a2,a2,-876 # 100c94 <config_mem_words+0x28>
 	add	a4,a4,a2
 	lw	a4,0(a4)
-	cfes 3760
+	cfes 7619
 	jr	a4
 lab255: 	lui	s1,0x101
 	lhu	a5,-1728(s1) # 100940 <gRestartsLeft>
@@ -3751,7 +3751,7 @@ lab302: 	sb	a4,256(s7)
 lab264: 	srli	s9,s9,0x4
 	zext.b	s9,s9
 	jal	ra,getBits.constprop.2
-	cfed 2871
+	cfed 6998
 	beqz	s9,lab303
 	add	s1,s1,s9
 	bge	s2,s1,lab304
@@ -3763,13 +3763,13 @@ lab273: 	mv	s6,a5
 lab258: 	addi	a0,s7,1408
 	addi	a1,s7,1488
 	jal	ra,huffDecode
-	cfed 6933
+	cfed 6400
 	mv	s1,a0
 	andi	a0,a0,15
 	li	a4,0
 	beqz	a0,lab305
 lab259: 	jal	ra,getBits.constprop.2
-	cfed 3361
+	cfed 1666
 	mv	a4,a0
 	j	lab305
 lab261: 	beqz	a5,lab306
@@ -3899,7 +3899,7 @@ lab310: 	zext.b	s6,s6
 lab307: 	mv	a1,s2
 	mv	a0,s3
 	jal	ra,huffDecode
-	cfed 7597
+	cfed 2631
 	andi	s9,a0,15
 	mv	s6,a0
 	beqz	s9,lab310
@@ -3907,7 +3907,7 @@ lab307: 	mv	a1,s2
 	mv	a0,s9
 	zext.b	s6,s6
 	jal	ra,getBits.constprop.2
-	cfed 3424
+	cfed 5452
 	bnez	s6,lab311
 lab329: 	zext.b	a5,a5
 	slli	a5,a5,0x1
@@ -4514,7 +4514,7 @@ lab317: 	lui	a5,0x101
 	addi	a4,a4,-832 # 100cc0 <config_mem_words+0x54>
 	add	a5,a5,a4
 	lw	a5,0(a5)
-	cfes 4695
+	cfes 3905
 	jr	a5
 	lui	a5,0x100
 	addi	a0,s7,384
@@ -4645,12 +4645,12 @@ lab348: 	slli	s0,s0,0x10
 	srli	s0,s0,0x10
 	beqz	s0,lab347
 lab346: 	jal	ra,getChar
-	cfed 1714
-	cfed 1714
+	cfed 2578
+	cfed 2578
 	bne	a0,s3,lab348
 	li	s3,255
-lab350: 	cfed 6347
-	cfed 6347
+lab350: 	cfed 948
+	cfed 948
 	bne	a0,s3,lab349
 	addi	s0,s0,-1
 	slli	s0,s0,0x10
@@ -5378,10 +5378,10 @@ lab349: 	lui	a3,0x101
 	sb	a4,-1700(a5) # 10095c <gBitsLeft>
 	sh	a2,-1728(s1)
 	jal	ra,getBits.constprop.0
-	cfed 4400
+	cfed 658
 	li	a0,1
 	jal	ra,getBits.constprop.0
-	cfed 5593
+	cfed 3585
 	lhu	a5,-1728(s1)
 	j	lab270
 pjpeg_decode_init:
@@ -5446,10 +5446,10 @@ pjpeg_decode_init:
 	sb	a5,-1700(s3) # 10095c <gBitsLeft>
 	sh	zero,-1698(s4) # 10095e <gBitBuf>
 	jal	ra,getBits.constprop.0
-	cfed 647
+	cfed 729
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 6002
+	cfed 5389
 	lbu	s9,-1771(s0)
 	beqz	s9,lab424
 lab432: 	lw	s0,88(sp)
@@ -5466,15 +5466,15 @@ lab432: 	lw	s0,88(sp)
 	mv	a0,s9
 	lw	s9,52(sp)
 	addi	sp,sp,96
-	cfes 1560
+	cfes 4567
 	ret
 lab424: 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 1887
+	cfed 6819
 	mv	s6,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 7790
+	cfed 3608
 	zext.b	s6,s6
 	li	a5,255
 	zext.b	s10,a0
@@ -5509,8 +5509,8 @@ lab430: 	lbu	a4,-1700(s3)
 lab426: 	sll	a5,a5,a4
 	sh	a5,-1698(s4)
 	jal	ra,getChar
-	cfed 3711
-	cfed 3711
+	cfed 4730
+	cfed 4730
 	lhu	a5,-1698(s4)
 	lbu	a4,-1700(s3)
 	addi	s9,s9,-1
@@ -5536,7 +5536,7 @@ lab434: 	beqz	a4,lab432
 lab425: 	li	a5,216
 	bne	s10,a5,lab433
 lab438: 	jal	ra,processMarkers
-	cfed 6254
+	cfed 1726
 	mv	s9,a0
 	bnez	a0,lab434
 	lbu	a4,31(sp)
@@ -5554,15 +5554,15 @@ lab431: 	srli	a5,a5,0x8
 lab436: 	li	s9,17
 	j	lab434
 lab437: 	jal	ra,getBits.constprop.1
-	cfed 7764
+	cfed 1945
 	mv	s6,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 4761
+	cfed 5509
 	li	a4,8
 	bne	a0,a4,lab439
 	jal	ra,getBits.constprop.1
-	cfed 5506
+	cfed 34
 	addi	a3,a0,-1
 	lui	a5,0x101
 	slli	a4,a3,0x10
@@ -5571,7 +5571,7 @@ lab437: 	jal	ra,getBits.constprop.1
 	lui	s7,0x4
 	bgeu	a4,s7,lab440
 	jal	ra,getBits.constprop.1
-	cfed 1254
+	cfed 1443
 	addi	a3,a0,-1
 	lui	a5,0x101
 	slli	a4,a3,0x10
@@ -5580,7 +5580,7 @@ lab437: 	jal	ra,getBits.constprop.1
 	bgeu	a4,s7,lab441
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 2884
+	cfed 2759
 	zext.b	a4,a0
 	lui	a5,0x101
 	sb	a4,-1705(a5) # 100957 <gCompsInFrame>
@@ -5616,7 +5616,7 @@ lab471: 	srai	s2,s2,0xc
 	sb	s2,0(a5)
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 7041
+	cfed 1302
 	lw	a5,0(sp)
 	add	a4,a5,s9
 	zext.b	a5,a0
@@ -5629,7 +5629,7 @@ lab471: 	srai	s2,s2,0xc
 	bgeu	s9,a3,lab448
 lab445: 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 5080
+	cfed 786
 	lbu	a3,-1700(s3)
 	lui	a5,0x101
 	addi	a5,a5,-1708 # 100954 <gCompIdent>
@@ -5644,8 +5644,8 @@ lab445: 	li	a0,0
 	sw	a4,4(sp)
 	sh	a3,-1698(s4)
 	jal	ra,getChar
-	cfed 1276
-	cfed 1276
+	cfed 837
+	cfed 837
 	lhu	a3,-1698(s4)
 	lbu	a5,-1700(s3)
 	lw	a4,4(sp)
@@ -5727,7 +5727,7 @@ lab470: 	lhu	a4,-1704(a4) # 100958 <gImageYSize>
 	lui	a5,0x101
 	sh	a3,-1754(a5) # 100926 <gNumMCUSRemaining>
 	jal	ra,processMarkers
-	cfed 6224
+	cfed 4411
 	mv	s9,a0
 	bnez	a0,lab434
 	lbu	a4,31(sp)
@@ -5735,11 +5735,11 @@ lab470: 	lhu	a4,-1704(a4) # 100958 <gImageYSize>
 	li	s9,18
 	bne	a4,a5,lab434
 	jal	ra,getBits.constprop.1
-	cfed 846
+	cfed 5101
 	mv	s7,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 6998
+	cfed 1843
 	zext.b	a5,a0
 	addi	a2,s7,-3
 	slli	a4,a5,0x1
@@ -5761,11 +5761,11 @@ lab470: 	lhu	a4,-1704(a4) # 100958 <gImageYSize>
 	li	s10,0
 	addi	s8,a5,-1740 # 100934 <gCompACTab>
 lab459: 	jal	ra,getBits.constprop.0
-	cfed 5295
+	cfed 2071
 	mv	s2,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	cfed 2744
+	cfed 5647
 	lui	a5,0x101
 	lbu	a4,-1705(a5) # 100957 <gCompsInFrame>
 	addi	a3,s11,-2
@@ -5807,13 +5807,13 @@ lab475: 	lbu	a3,-1729(a3) # 10093f <gCompsInScan>
 	li	a0,0
 	mv	s2,a7
 	jal	ra,getBits.constprop.0
-	cfed 966
+	cfed 4312
 	zext.b	a5,a0
 	lui	a4,0x101
 	li	a0,0
 	sb	a5,-1773(a4) # 100913 <spectral_start>
 	jal	ra,getBits.constprop.0
-	cfed 1058
+	cfed 7615
 	lbu	a5,-1700(s3)
 	zext.b	a4,a0
 	lui	a3,0x101
@@ -5846,7 +5846,7 @@ lab463: 	slli	s2,s2,0x10
 	li	a0,0
 	srli	s2,s2,0x10
 	jal	ra,getBits.constprop.0
-	cfed 7425
+	cfed 1066
 	bnez	s2,lab463
 lab462: 	lui	a5,0x101
 	lbu	a3,-1729(a5) # 10093f <gCompsInScan>
@@ -5951,10 +5951,10 @@ lab472: 	zext.b	a5,a5
 	li	a0,1
 	sb	a5,-1700(s3)
 	jal	ra,getBits.constprop.0
-	cfed 6963
+	cfed 2559
 	li	a0,1
 	jal	ra,getBits.constprop.0
-	cfed 3780
+	cfed 7550
 	lbu	s9,-1771(s0)
 	bnez	s9,lab432
 	lui	a5,0x101
@@ -6017,8 +6017,8 @@ lab439: 	li	s9,7
 lab446: 	sll	a5,s2,a5
 	sh	a5,-1698(s4)
 	jal	ra,getChar
-	cfed 4432
-	cfed 4432
+	cfed 2009
+	cfed 2009
 	lhu	a5,-1698(s4)
 	lbu	a4,-1700(s3)
 	or	a5,a5,a0
@@ -6092,8 +6092,8 @@ lab461: 	sll	a5,a4,a5
 	sw	a4,12(sp)
 	sh	a5,-1698(s4)
 	jal	ra,getChar
-	cfed 7160
-	cfed 7160
+	cfed 5458
+	cfed 5458
 	lhu	a5,-1698(s4)
 	lbu	a3,-1700(s3)
 	li	a2,4
@@ -6113,8 +6113,8 @@ lab460: 	sll	a5,a3,a5
 	sw	a3,12(sp)
 	sh	a5,-1698(s4)
 	jal	ra,getChar
-	cfed 5104
-	cfed 5104
+	cfed 4471
+	cfed 4471
 	lhu	a4,-1698(s4)
 	lbu	a5,-1700(s3)
 	li	a2,4
