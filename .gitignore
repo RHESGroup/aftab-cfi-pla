@@ -11,4 +11,8 @@ tb/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_check_pla.vhd
 rtl/aftab_datapath/aftab_cfi/tb_new_shadow.vhd
 doc/aftab_datapath.pdf.docx
-*.jpg
+
+synthesis and comparison/base device.jpg
+synthesis and comparison/device.jpg
+synthesis and comparison/resource-aftab.jpg
+synthesis and comparison/resource-aftab_pla.jpg
