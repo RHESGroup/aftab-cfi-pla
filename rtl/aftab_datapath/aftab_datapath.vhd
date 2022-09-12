@@ -702,7 +702,7 @@ BEGIN
 		);
 	----------*************-----------		
 	cfiStack : ENTITY WORK.aftab_sh_stack 
-		GENERIC MAP( 32, 4 )
+		GENERIC MAP( 32, 7 )
 		PORT MAP(
 		clk =>	clk,
 		rst =>	rst,
