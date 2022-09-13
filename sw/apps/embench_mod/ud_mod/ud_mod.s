@@ -582,7 +582,6 @@ lab20: 	sw	a4,168(s0) # 1000a8 <a+0xa8>
 	lw	s9,4(sp)
 	lw	s10,0(sp)
 	addi	sp,sp,48
-	cfes 0x6d678
 	ret
 benchmark_body.isra.0:
 	addi	sp,sp,-64
@@ -685,7 +684,6 @@ lab21: 	lw	ra,60(sp)
 	lw	s10,16(sp)
 	lw	s11,12(sp)
 	addi	sp,sp,64
-	cfes 0x254d4
 	ret
 verify_benchmark:
 	lui	a5,0x100
@@ -716,7 +714,6 @@ lab23: 	lw	a0,4(a5)
 	lw	s0,88(sp)
 	seqz	a0,a0
 	addi	sp,sp,96
-	cfes 0x6b1a1
 	ret
 initialise_benchmark:
 	ret
@@ -905,15 +902,12 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x4619a
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x623b7
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 0x804cd
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32

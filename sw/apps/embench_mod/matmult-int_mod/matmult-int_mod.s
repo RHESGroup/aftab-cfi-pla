@@ -106,7 +106,6 @@ lab2: 	addi	a5,a5,4
 	lw	s11,12(sp)
 	li	a0,0
 	addi	sp,sp,64
-	cfes 0x0b079
 	ret
 benchmark_body.isra.0:
 	blez	a0,lab7
@@ -213,10 +212,8 @@ lab10: 	addi	a5,a5,4
 	lw	s10,16(sp)
 	lw	s11,12(sp)
 	addi	sp,sp,64
-	cfes 0x0f135
 	ret
-lab7:	cfes 0x4f135
- 	ret
+lab7: 	ret
 values_match:
 	sub	a0,a0,a1
 	seqz	a0,a0
@@ -361,7 +358,6 @@ lab25: 	lw	a0,4(a5)
 	lw	ra,1612(sp)
 	seqz	a0,a0
 	addi	sp,sp,1616
-	cfes 0xc3044
 	ret
 main:
 	addi	sp,sp,-32
@@ -370,16 +366,12 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x63bba
-	cfed 0x63bba
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x27c76
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 0x2fcab
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32

@@ -1659,7 +1659,6 @@ lab7: 	lw	s7,0(sp)
 	sw	a4,24(a2)
 	sw	a5,28(a2)
 	addi	sp,sp,208
-	cfes 4808
 	ret
 sha256_update:
 	addi	sp,sp,-32
@@ -1688,7 +1687,6 @@ sha256_update:
 	mv	a1,s4
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
-	cfed 370
 	lw	a5,32(s0)
 	lw	a3,36(s0)
 	addi	s3,s3,-64
@@ -1710,7 +1708,6 @@ lab8: 	li	a5,63
 lab11: 	mv	a2,s5
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
-	cfed 6946
 	lw	a5,32(s0)
 	lw	a3,36(s0)
 	addi	s1,s1,64
@@ -1732,7 +1729,6 @@ lab12: 	lw	ra,28(sp)
 	lw	s4,8(sp)
 	lw	s5,4(sp)
 	addi	sp,sp,32
-	cfes 858
 	ret
 lab9: 	mv	a2,a1
 	mv	a1,s1
@@ -1834,7 +1830,6 @@ lab18: 	jal	ra,memset
 	sw	a4,144(sp)
 	sw	a5,148(sp)
 	jal	ra,_nettle_sha256_compress
-	cfed 2218
 	lw	a5,48(sp)
 	lw	t1,48(sp)
 	srli	s10,a5,0x10
@@ -2026,7 +2021,6 @@ lab15: 	lui	a5,0x100
 	li	a5,0
 	sw	a5,80(sp)
 	jal	ra,sha256_update
-	cfed 7238
 	lw	a2,152(sp)
 	li	a5,63
 	bltu	a5,a2,lab16
@@ -2050,7 +2044,6 @@ lab15: 	lui	a5,0x100
 	addi	s3,a5,32
 	mv	a2,s3
 	jal	ra,_nettle_sha256_compress
-	cfed 7646
 	li	a2,56
 	addi	a0,sp,88
 	j	lab18
@@ -2068,7 +2061,6 @@ lab14: 	lw	ra,220(sp)
 	lw	s10,176(sp)
 	lw	s11,172(sp)
 	addi	sp,sp,224
-	cfes 4417
 	ret
 lab16: 	li	a0,1
 	jal	ra,exit
@@ -2163,7 +2155,6 @@ lab23: 	jal	ra,memset
 	sw	a4,144(sp)
 	sw	a5,148(sp)
 	jal	ra,_nettle_sha256_compress
-	cfed 7572
 	lw	a5,48(sp)
 	lw	t1,48(sp)
 	srli	s10,a5,0x10
@@ -2354,7 +2345,6 @@ lab19: 	lui	a5,0x100
 	li	a5,0
 	sw	a5,80(sp)
 	jal	ra,sha256_update
-	cfed 1962
 	lw	a2,152(sp)
 	li	a5,63
 	bltu	a5,a2,lab21
@@ -2378,7 +2368,6 @@ lab19: 	lui	a5,0x100
 	addi	s3,a5,32
 	mv	a2,s3
 	jal	ra,_nettle_sha256_compress
-	cfed 7162
 	li	a2,56
 	addi	a0,sp,88
 	j	lab23
@@ -2397,7 +2386,6 @@ lab20: 	lw	ra,220(sp)
 	lw	s11,172(sp)
 	li	a0,0
 	addi	sp,sp,224
-	cfes 7548
 	ret
 lab21: 	li	a0,1
 	jal	ra,exit
@@ -2480,7 +2468,6 @@ lab26: 	jal	ra,memset
 	mv	a1,s4
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
-	cfed 6531
 	mv	a2,s0
 	mv	a1,s1
 	mv	a0,s3
@@ -2514,7 +2501,6 @@ lab25: 	li	a5,64
 	mv	a0,s0
 	mv	a1,s4
 	jal	ra,_nettle_sha256_compress
-	cfed 7437
 	mv	a0,s4
 	li	a2,56
 	j	lab26
@@ -2585,10 +2571,8 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 236
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 7550
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

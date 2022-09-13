@@ -67,7 +67,6 @@ lab1: 	lw	a1,4(a5)
 	lui	s3,0x101
 	sw	a5,-1016(s3) # 100c08 <h3>
 	jal	ra,calloc_beebs
-	cfed 0x6bbac
 	mv	a2,s1
 	mv	a1,s2
 	mv	s0,a0
@@ -220,7 +219,6 @@ benchmark_body.constprop.0:
 	addi	s10,s10,-1016 # c08 <start_trigger>
 lab11: 	mv	a0,s11
 	jal	ra,init_heap_beebs
-	cfed 0x43881
 	li	a0,1000
 	jal	ra,malloc_beebs
 	li	a5,0
@@ -281,7 +279,6 @@ lab10: 	sb	a5,0(a4)
 	lw	s11,28(sp)
 	xor	a0,a5,a0
 	addi	sp,sp,80
-	cfes 0x2ee4b
 	ret
 benchmark_body.constprop.1.isra.0:
 	blez	a0,lab12
@@ -315,7 +312,6 @@ benchmark_body.constprop.1.isra.0:
 lab14: 	mv	a0,a5
 	mv	a1,s7
 	jal	ra,init_heap_beebs
-	cfed 0x82650
 	li	a0,1000
 	jal	ra,malloc_beebs
 	li	a5,0
@@ -369,10 +365,8 @@ lab13: 	sb	a5,0(a4)
 	lw	s10,32(sp)
 	lw	s11,28(sp)
 	addi	sp,sp,80
-	cfes 0x2661d
 	ret
-lab12:	cfes 0x6661d
- 	ret
+lab12: 	ret
 initialise_benchmark:
 	ret
 warm_caches:
@@ -392,11 +386,8 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x4b369
-	cfed 0x4b369
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x43d6c
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
@@ -433,7 +424,6 @@ init_heap_beebs:
 	sw	a1,-996(a5) # 100c1c <heap_end>
 	lui	a5,0x101
 	sw	zero,-1000(a5) # 100c18 <heap_requested>
-	cfes 0xaf336
 	ret
 lab15: 	lui	a3,0x101
 	lui	a2,0x101
@@ -514,7 +504,6 @@ lab20: 	li	a6,4
 	bgeu	a4,a3,lab22
 lab19: 	li	a5,0
 lab21: 	mv	a0,a5
-	cfes 0x85dda
 	ret
 realloc_beebs:
 	mv	a5,a0

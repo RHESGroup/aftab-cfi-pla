@@ -93,7 +93,6 @@ lab4: 	li	a1,0
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0x62d9a
 	lw	t1,124(sp)
 	lui	t3,0x100
 	sw	s2,4(sp)
@@ -123,7 +122,6 @@ lab4: 	li	a1,0
 	mv	s3,s7
 	sw	t1,20(t3)
 	jal	ra,SolveCubic
-	cfed 0xe2d9a
 	lw	t1,124(sp)
 	lui	t3,0x100
 	lw	t2,132(sp)
@@ -143,7 +141,6 @@ lab4: 	li	a1,0
 	sw	t1,24(t3) # 100018 <res1>
 	sw	t2,28(t3)
 	jal	ra,SolveCubic
-	cfed 0x645e9
 	lui	a5,0x100
 	lw	a6,672(a5) # 1002a0 <init_jk+0x68>
 	lw	a7,676(a5)
@@ -157,7 +154,6 @@ lab4: 	li	a1,0
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0xe45e9
 	li	a5,2
 	sw	a5,28(sp)
 	sw	s6,16(sp)
@@ -177,7 +173,6 @@ lab1: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0x5e950
 	lui	a6,0x100
 	lw	a7,700(a6) # 1002bc <init_jk+0x84>
 	lw	a6,696(a6)
@@ -190,7 +185,6 @@ lab1: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0xde950
 	lui	a5,0x100
 	lw	a2,704(a5) # 1002c0 <init_jk+0x88>
 	lw	a3,708(a5)
@@ -239,7 +233,6 @@ lab0: 	lw	s6,16(sp)
 	lw	s11,524(sp)
 	li	a0,0
 	addi	sp,sp,576
-	cfes 0xd9ff5
 	ret
 lab2: 	li	s10,1
 	j	lab5
@@ -339,7 +332,6 @@ lab12: 	li	a1,0
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0x5b277
 	lw	t1,140(sp)
 	lui	t3,0x100
 	sw	s2,4(sp)
@@ -369,7 +361,6 @@ lab12: 	li	a1,0
 	mv	s3,s7
 	sw	t1,20(t3)
 	jal	ra,SolveCubic
-	cfed 0xdb277
 	lw	t1,140(sp)
 	lui	t3,0x100
 	lw	t2,148(sp)
@@ -389,7 +380,6 @@ lab12: 	li	a1,0
 	sw	t1,24(t3) # 100018 <res1>
 	sw	t2,28(t3)
 	jal	ra,SolveCubic
-	cfed 0x6b21e
 	lui	a5,0x100
 	lw	a6,672(a5) # 1002a0 <init_jk+0x68>
 	lw	a7,676(a5)
@@ -403,7 +393,6 @@ lab12: 	li	a1,0
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0xeb21e
 	li	a5,2
 	sw	a5,40(sp)
 	sw	s6,28(sp)
@@ -423,7 +412,6 @@ lab9: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0x66695
 	lui	a6,0x100
 	lw	a7,700(a6) # 1002bc <init_jk+0x84>
 	lw	a6,696(a6)
@@ -436,7 +424,6 @@ lab9: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	sw	s2,4(sp)
 	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	cfed 0xe6695
 	lui	a5,0x100
 	lw	a2,704(a5) # 1002c0 <init_jk+0x88>
 	lw	a3,708(a5)
@@ -485,7 +472,6 @@ lab7: 	lw	ra,588(sp)
 	lw	s10,544(sp)
 	lw	s11,540(sp)
 	addi	sp,sp,592
-	cfes 0xec12b
 	ret
 lab10: 	li	s10,1
 	j	lab13
@@ -596,10 +582,8 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x030fb
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x95231
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
@@ -1473,7 +1457,6 @@ lab19: 	lw	s0,296(sp)
 	lw	s10,256(sp)
 	lw	s11,252(sp)
 	addi	sp,sp,304
-	cfes 0x06883
 	ret
 lab17: 	lw	a2,304(sp)
 	lw	a4,20(sp)

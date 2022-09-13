@@ -239,7 +239,6 @@ lab1: 	lw	ra,108(sp)
 	lw	s10,64(sp)
 	lw	s11,60(sp)
 	addi	sp,sp,112
-	cfes 0x384ee
 	ret
 benchmark_body.constprop.0:
 	addi	sp,sp,-112
@@ -553,8 +552,7 @@ benchmark_body.constprop.0:
 	jal	ra,__subdf3
 	sw	a0,48(s10)
 	sw	a1,52(s10)
-lab2: 	cfed 0x99909
-	mv	a2,a0
+lab2: 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s9
 	mv	a1,s8
@@ -591,7 +589,6 @@ lab2: 	cfed 0x99909
 	lw	s11,60(sp)
 	slti	a0,a0,0
 	addi	sp,sp,112
-	cfes 0x83a54
 	ret
 benchmark_body.isra.0:
 	addi	sp,sp,-176
@@ -877,7 +874,6 @@ lab5: 	mv	a1,s8
 	sw	a0,48(s10)
 	sw	a1,52(s10)
 lab4: 	jal	ra,bodies_energy.constprop.0
-	cfed 0x36de8
 	bnez	s11,lab4
 	lw	a5,4(sp)
 	lw	a4,16(sp)
@@ -898,7 +894,6 @@ lab3: 	lw	ra,172(sp)
 	lw	s10,128(sp)
 	lw	s11,124(sp)
 	addi	sp,sp,176
-	cfes 0x1fc56
 	ret
 offset_momentum:
 	beqz	a1,lab6
@@ -1642,7 +1637,6 @@ verify_benchmark:
 	lw	s4,8(sp)
 	slti	a0,a0,0
 	addi	sp,sp,32
-	cfes 0x3218a
 	ret
 lab13: 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -1652,10 +1646,8 @@ lab13: 	lw	ra,28(sp)
 	lw	s4,8(sp)
 	li	a0,0
 	addi	sp,sp,32
-	cfes 0x7218a
 	ret
 lab12: 	li	a0,0
-	cfes 0xb218a
 	ret
 main:
 	addi	sp,sp,-32
@@ -1664,17 +1656,12 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x11c37
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x6b882
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 0x3f703
-	cfed 0x3f703
-	cfed 0x3f703
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32

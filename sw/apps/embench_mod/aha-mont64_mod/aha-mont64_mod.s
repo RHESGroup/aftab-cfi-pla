@@ -153,7 +153,6 @@ lab11: 	or	a3,a3,a2
 	sub	a5,a6,a5
 	sub	a1,a5,a1
 	addi	sp,sp,16
-	cfes 0x22b39
 	ret
 lab10: 	bgeu	a1,a4,lab11
 lab9: 	li	a0,0
@@ -462,7 +461,6 @@ lab28: 	bne	t3,s3,lab30
 	mv	a4,s11
 	mv	a5,s0
 	jal	ra,montmul
-	cfed 0x5cd46
 	lw	a6,40(sp)
 	lw	a7,44(sp)
 	mv	a2,a0
@@ -470,7 +468,6 @@ lab28: 	bne	t3,s3,lab30
 	mv	a4,s11
 	mv	a5,s0
 	jal	ra,montmul
-	cfed 0x9cd46
 	lw	a6,40(sp)
 	lw	a7,44(sp)
 	mv	a2,a0
@@ -478,7 +475,6 @@ lab28: 	bne	t3,s3,lab30
 	mv	a5,s0
 	mv	a4,s11
 	jal	ra,montmul
-	cfed 0xdcd46
 	lw	t3,32(sp)
 	lw	t4,36(sp)
 	mul	a2,a1,t3
@@ -545,7 +541,6 @@ lab36: lab37: 	bnez	s10,lab35
 	lw	s10,64(sp)
 	lw	s11,60(sp)
 	addi	sp,sp,112
-	cfes 0x0b7c7
 	ret
 lab34: 	bne	s4,a3,lab36
 	mul	a5,s7,s11
@@ -752,7 +747,6 @@ main:
 	jal	ra,warm_caches
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 0x340b8
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)

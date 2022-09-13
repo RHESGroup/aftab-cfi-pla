@@ -280,7 +280,6 @@ lab11: 	lw	ra,108(sp)
 	lw	s10,64(sp)
 	lw	s11,60(sp)
 	addi	sp,sp,112
-	cfes 7369
 	ret
 lab8: 	lw	a1,0(s2)
 	lw	a2,0(s10)
@@ -509,7 +508,6 @@ lab35: 	lw	ra,44(sp)
 	lw	s4,24(sp)
 	lw	s5,20(sp)
 	addi	sp,sp,48
-	cfes 1604
 	ret
 lab29: 	blt	a5,s3,lab37
 	lui	s0,0x100
@@ -546,8 +544,7 @@ lab28: 	add	s2,a1,a3
 	sub	s4,s0,s2
 	blt	s4,s3,lab38
 	j	lab29
-lab27:	cfes 2566
- 	ret
+lab27: 	ret
 lab30: 	lui	s5,0x100
 	mv	s5,s5
 	slli	s4,s4,0x3
@@ -901,8 +898,6 @@ lab54: 	beq	t4,t6,lab69
 	sw	s5,-56(s9)
 	sw	t4,-52(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 1183
-	cfed 1183
 	lw	t6,28(sp)
 	add	s2,s11,s5
 	mv	s0,s5
@@ -926,9 +921,7 @@ lab46: 	lw	a3,52(sp)
 	sw	s11,-8(s9)
 	sw	a3,-4(s9)
 	jal	ra,Rotate.constprop.0
-lab47:	cfed 384
-	cfed 384
- 	lw	a3,100(sp)
+lab47: 	lw	a3,100(sp)
 	lw	a2,44(sp)
 	lw	a4,88(sp)
 	lw	a5,72(sp)
@@ -972,7 +965,6 @@ lab145: 	addi	a5,a5,-1
 	lw	s10,272(sp)
 	lw	s11,268(sp)
 	addi	sp,sp,320
-	cfes 7837
 	ret
 lab40: 	mv	t1,t4
 	blt	t4,t3,lab75
@@ -1106,8 +1098,6 @@ lab92: 	addi	a7,s2,1
 lab90: 	sw	a7,-32(s9)
 	sw	t1,-28(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 3989
-	cfed 3989
 	add	a6,s2,s4
 	addi	s4,s4,1
 lab91: 	addi	s2,s2,-1
@@ -1134,8 +1124,6 @@ lab94: 	sw	s5,-40(s9)
 	sw	s1,-36(s9)
 	sub	s5,s1,s2
 	jal	ra,Rotate.constprop.0
-	cfed 2632
-	cfed 2632
 	addi	s2,s2,1
 lab95: 	addi	s1,s1,1
 	addi	s4,s4,8
@@ -1322,8 +1310,6 @@ lab128: 	lui	a0,0x100
 	sw	s4,-24(s9)
 	sw	s0,-20(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 5462
-	cfed 5462
 	sw	s3,-92(s9)
 	sw	s4,-96(s9)
 	addi	s3,s3,-1
@@ -1463,8 +1449,6 @@ lab146: 	mv	a2,s0
 	sw	a2,-80(s9)
 	sw	s2,-76(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 5362
-	cfed 5362
 	bge	s1,s0,lab145
 	lw	s1,104(sp)
 lab149: 	sw	s0,-76(s9)
@@ -1477,8 +1461,6 @@ lab149: 	sw	s0,-76(s9)
 	mv	a0,a0
 	sw	s1,-80(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 3656
-	cfed 3656
 	blt	s1,s0,lab149
 	j	lab145
 lab138: 	slli	a4,a4,0x3
@@ -1494,8 +1476,6 @@ lab147: 	addi	s3,s3,1
 	sub	s1,s1,s3
 	sw	s0,-80(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 5216
-	cfed 5216
 	bge	s0,s1,lab145
 	mv	a6,s0
 	j	lab150
@@ -1504,8 +1484,6 @@ lab143: 	addi	s1,s1,1
 	add	s2,s2,s1
 	sw	s0,-68(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 163
-	cfed 163
 	bge	s2,s0,lab141
 	lw	a3,104(sp)
 	slli	a4,s2,0x3
@@ -1527,8 +1505,6 @@ lab142: 	sub	s1,a3,a6
 	sw	s2,-72(s9)
 	sw	a3,-68(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 5973
-	cfed 5973
 	bge	s1,s3,lab141
 lab152: 	sw	s1,-72(s9)
 	mv	a2,s1
@@ -1540,8 +1516,6 @@ lab152: 	sw	s1,-72(s9)
 	mv	a0,a0
 	sw	s0,-68(s9)
 	jal	ra,Rotate.constprop.0
-	cfed 7841
-	cfed 7841
 	blt	s1,s0,lab152
 	j	lab141
 lab106: 	lw	a3,136(sp)
@@ -1701,7 +1675,6 @@ lab168: 	li	a1,400
 	li	a1,400
 	mv	a0,s4
 	jal	ra,WikiSort.constprop.0
-	cfed 623
 	addi	s3,s3,4
 	addi	a5,sp,48
 	bne	s3,a5,lab169
@@ -1715,7 +1688,6 @@ lab168: 	li	a1,400
 	lw	s6,48(sp)
 	li	a0,0
 	addi	sp,sp,80
-	cfes 1767
 	ret
 benchmark_body.isra.0:
 	lui	a5,0x101
@@ -1773,7 +1745,6 @@ lab171: 	li	a1,400
 	li	a1,400
 	mv	a0,s4
 	jal	ra,WikiSort.constprop.0
-	cfed 4010
 	bne	s3,s5,lab172
 	addi	s9,s9,1
 	bne	s9,s8,lab173
@@ -1789,7 +1760,6 @@ lab170: 	lw	ra,92(sp)
 	lw	s8,56(sp)
 	lw	s9,52(sp)
 	addi	sp,sp,96
-	cfes 2629
 	ret
 Rotate.constprop.1:
 	addi	sp,sp,-48
@@ -1889,7 +1859,6 @@ lab174: 	lw	ra,44(sp)
 	lw	s4,24(sp)
 	lw	s5,20(sp)
 	addi	sp,sp,48
-	cfes 916
 	ret
 lab176: 	blt	a5,s4,lab183
 	slli	s0,s2,0x3
@@ -2031,7 +2000,6 @@ lab191: 	lw	ra,60(sp)
 	mv	a0,s1
 	lw	s1,52(sp)
 	addi	sp,sp,64
-	cfes 6769
 	ret
 lab189: 	bge	s1,s0,lab188
 	mv	s7,s0
@@ -2091,7 +2059,6 @@ lab195: 	lw	ra,60(sp)
 	mv	a0,s1
 	lw	s1,52(sp)
 	addi	sp,sp,64
-	cfes 5891
 	ret
 lab193: 	bge	s1,s0,lab192
 	mv	s7,s0
@@ -2156,7 +2123,6 @@ lab196: 	lw	ra,76(sp)
 	lw	s7,44(sp)
 	lw	s8,40(sp)
 	addi	sp,sp,80
-	cfes 2406
 	ret
 lab198: 	lw	a4,24(sp)
 	slli	s2,s2,0x3
@@ -2608,7 +2574,6 @@ lab232: 	mv	a2,s0
 	sub	s1,s1,s3
 	sw	s0,-76(s2)
 	jal	ra,InsertionSort
-	cfed 7759
 	bge	s0,s6,lab231
 lab233: 	add	s0,s5,a5
 	add	s1,s1,s4
@@ -2620,7 +2585,6 @@ lab233: 	add	s0,s5,a5
 lab230: 	sw	a5,-80(s2)
 	sw	s0,-76(s2)
 	jal	ra,InsertionSort
-	cfed 8128
 	blt	s0,s6,lab233
 lab231: 	lw	a4,132(sp)
 	li	a5,16
@@ -2780,7 +2744,6 @@ lab256: 	sw	s6,-112(s8)
 	mv	a0,s11
 	sw	s2,-108(s8)
 	jal	ra,BinaryFirst
-	cfed 864
 	mv	a6,a0
 	sub	s6,s2,a0
 	add	s4,s7,s0
@@ -2837,7 +2800,6 @@ lab246: 	lw	t1,40(sp)
 	sw	a6,36(sp)
 	sw	t1,40(sp)
 	jal	ra,WikiMerge.constprop.1
-	cfed 3244
 	li	a5,512
 	lw	a6,36(sp)
 	blt	a5,s7,lab248
@@ -3014,8 +2976,7 @@ lab237: 	lw	a3,32(sp)
 	sw	s9,-72(s8)
 	sw	a3,-68(s8)
 	jal	ra,Rotate.constprop.1
-lab238:	cfed 3729
- 	lw	a5,32(sp)
+lab238: 	lw	a5,32(sp)
 	lw	a4,96(sp)
 	bge	a5,a4,lab269
 lab277: 	j	lab270
@@ -3107,7 +3068,6 @@ lab251: 	lw	a6,76(sp)
 	sw	s9,-120(s8)
 	sw	s5,-116(s8)
 	jal	ra,WikiMerge.constprop.1
-	cfed 3792
 	lw	a5,32(sp)
 	lw	a4,96(sp)
 	blt	a5,a4,lab277
@@ -3218,7 +3178,6 @@ lab289: 	addi	a3,s0,1
 	sw	a3,-44(s8)
 	add	s0,s2,s1
 	jal	ra,Rotate.constprop.1
-	cfed 5616
 	addi	s1,s1,1
 lab290: 	addi	s2,s2,-1
 	mv	s4,s5
@@ -3263,7 +3222,6 @@ lab293: 	mv	a2,s1
 	sw	s3,-36(s8)
 	sub	s1,s3,s2
 	jal	ra,Rotate.constprop.1
-	cfed 4293
 	addi	s2,s2,1
 lab294: 	addi	s3,s3,1
 	mv	s5,s0
@@ -3323,7 +3281,6 @@ lab239: 	slli	a2,a5,0x3
 	sw	s3,-88(s8)
 	sw	a6,-84(s8)
 	jal	ra,WikiMerge.constprop.1
-	cfed 4285
 	j	lab238
 lab285: 	mv	s1,a5
 	lw	a5,104(sp)
@@ -3476,7 +3433,6 @@ lab327: lab326: 	mv	a2,s3
 	sw	s3,-88(s8)
 	sw	s1,-84(s8)
 	jal	ra,BinaryFirst
-	cfed 6056
 	mv	s3,a0
 	mv	a2,s9
 	mv	a3,a0
@@ -3488,7 +3444,6 @@ lab327: lab326: 	mv	a2,s3
 	sub	s2,s3,s0
 	sw	s3,-52(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 951
 	mv	a2,s9
 	add	a1,s2,s9
 	mv	a4,s10
@@ -3497,7 +3452,6 @@ lab327: lab326: 	mv	a2,s3
 	sw	s9,-96(s8)
 	sw	s0,-92(s8)
 	jal	ra,BinaryLast
-	cfed 587
 	mv	s9,a0
 	blt	a0,s3,lab327
 	j	lab238
@@ -3509,7 +3463,6 @@ lab278: 	lw	a1,52(sp)
 	sw	a2,-132(s8)
 	lw	s0,124(sp)
 	jal	ra,InsertionSort
-	cfed 4650
 	lw	a5,108(sp)
 	mv	s2,s0
 	mv	s1,a5
@@ -3585,7 +3538,6 @@ lab333: 	sub	s0,s0,s1
 	sw	s1,-8(s8)
 	sw	s2,-4(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 45
 	bge	s1,s0,lab332
 	lw	s1,100(sp)
 lab336: 	mv	a3,s0
@@ -3597,7 +3549,6 @@ lab336: 	mv	a3,s0
 	mv	a0,s11
 	sw	s1,-8(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 1009
 	blt	s1,s0,lab336
 	j	lab332
 lab330: 	addi	s3,s3,1
@@ -3605,7 +3556,6 @@ lab330: 	addi	s3,s3,1
 	add	s2,s2,s3
 	sw	s1,-12(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 2697
 	bge	s2,s1,lab328
 	lw	a3,100(sp)
 	slli	a4,s2,0x3
@@ -3627,7 +3577,6 @@ lab329: 	mv	a1,s0
 	sw	s2,-16(s8)
 	sw	a3,-12(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 2450
 	bge	s0,s3,lab328
 lab338: 	mv	a2,s0
 	li	a5,512
@@ -3638,7 +3587,6 @@ lab338: 	mv	a2,s0
 	mv	a0,s11
 	sw	s1,-12(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 4189
 	blt	s0,s1,lab338
 	j	lab328
 lab334: 	addi	s4,s4,1
@@ -3646,7 +3594,6 @@ lab334: 	addi	s4,s4,1
 	sub	s2,s2,s4
 	sw	s1,-8(s8)
 	jal	ra,Rotate.constprop.1
-	cfed 4597
 	bge	s1,s2,lab332
 	mv	s0,s1
 	j	lab339
@@ -3834,7 +3781,6 @@ lab354: 	lw	a0,4(a5)
 	lw	ra,2028(sp)
 	seqz	a0,a0
 	addi	sp,sp,2032
-	cfes 2208
 	ret
 initialise_benchmark:
 	ret
@@ -3849,15 +3795,12 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 614
 	jal	ra,start_trigger
 	jal	ra,benchmark
-	cfed 4611
 	sw	a0,12(sp)
 	jal	ra,stop_trigger
 	lw	a0,12(sp)
 	jal	ra,verify_benchmark
-	cfed 4751
 	lw	ra,28(sp)
 	seqz	a0,a0
 	addi	sp,sp,32

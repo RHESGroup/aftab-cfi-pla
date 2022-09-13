@@ -59,10 +59,8 @@ lab9: 	jal	ra,countPrimes
 	lw	s0,8(sp)
 	lw	s1,4(sp)
 	addi	sp,sp,16
-	cfes 0x44735
 	ret
-lab8:	cfes 0xc4735
- 	ret
+lab8: 	ret
 warm_caches:
 	j	benchmark_body.isra.0
 benchmark:
@@ -82,8 +80,6 @@ main:
 	jal	ra,initialise_benchmark
 	li	a0,0
 	jal	ra,warm_caches
-	cfed 0x29f1a
-	cfed 0x29f1a
 	jal	ra,start_trigger
 	jal	ra,benchmark
 	sw	a0,12(sp)
