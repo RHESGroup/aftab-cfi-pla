@@ -13,15 +13,18 @@ countPrimes:
 	li	a0,1
 	li	t1,1
 	li	t3,41
-lab6: 	bge	a4,a5,lab0
+lab6: 	mul	a5,a7,a7
+	bge	a4,a5,lab0
 	addi	a7,a7,-1
 	mv	a1,sp
 	addi	a2,sp,168
 	li	a6,0
-lab5: 	blt	a7,a3,lab1
+lab5: 	lw	a3,0(a1)
+	blt	a7,a3,lab1
 	lw	a5,0(a2)
 	bge	a5,a4,lab2
-lab3: 	blt	a5,a4,lab3
+lab3: 	add	a5,a5,a3
+	blt	a5,a4,lab3
 	sw	a5,0(a2)
 lab2: 	beq	a4,a5,lab4
 	addi	a6,a6,1
@@ -53,7 +56,8 @@ benchmark_body.isra.0:
 	sw	ra,12(sp)
 	mv	s1,a0
 	li	s0,0
-lab9: 	jal	ra,countPrimes
+lab9: 	addi	s0,s0,1
+	jal	ra,countPrimes
 	bne	s0,s1,lab9
 	lw	ra,12(sp)
 	lw	s0,8(sp)

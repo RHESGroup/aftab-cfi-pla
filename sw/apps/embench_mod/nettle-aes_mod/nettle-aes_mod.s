@@ -31,7 +31,8 @@ _nettle_aes_encrypt.part.0:
 	mv	a0,a4
 	add	s1,s0,s3
 	sw	a5,0(sp)
-lab3: 	lbu	t0,5(a1)
+lab3: 	lbu	t2,1(a1)
+	lbu	t0,5(a1)
 	lbu	t6,9(a1)
 	lbu	t5,13(a1)
 	lbu	s7,0(a1)
@@ -83,7 +84,8 @@ lab3: 	lbu	t0,5(a1)
 	addi	s4,s0,16
 	mv	t1,a5
 	mv	t5,a7
-lab2: 	zext.b	s6,a4
+lab2: 	srli	s7,a3,0x18
+	zext.b	s6,a4
 	zext.b	t2,t5
 	srli	t0,a4,0x18
 	zext.b	s8,t1
@@ -200,7 +202,8 @@ lab2: 	zext.b	s6,a4
 	mv	a5,t1
 	mv	a7,t5
 	mv	s11,s3
-lab4: 	srli	t6,a4,0x8
+lab4: 	srli	s7,a3,0x18
+	srli	t6,a4,0x8
 	srli	s6,a5,0x18
 	srli	t5,a7,0x8
 	srli	s5,a4,0x18
@@ -372,7 +375,8 @@ _nettle_aes_decrypt.part.0:
 	mv	a0,a4
 	add	s1,s0,s3
 	sw	a5,0(sp)
-lab8: 	lbu	t0,5(a1)
+lab8: 	lbu	t2,1(a1)
+	lbu	t0,5(a1)
 	lbu	t6,9(a1)
 	lbu	t5,13(a1)
 	lbu	s7,0(a1)
@@ -424,7 +428,8 @@ lab8: 	lbu	t0,5(a1)
 	addi	t2,s0,16
 	mv	t1,a4
 	mv	t3,a5
-lab7: 	zext.b	s6,t3
+lab7: 	srli	s7,t3,0x18
+	zext.b	s6,t3
 	zext.b	s4,a7
 	srli	t0,a3,0x18
 	zext.b	s8,t1
@@ -541,7 +546,8 @@ lab7: 	zext.b	s6,t3
 	mv	a4,t1
 	mv	a5,t3
 	mv	s11,s3
-lab9: 	srli	t6,a3,0x8
+lab9: 	srli	s7,a5,0x18
+	srli	t6,a3,0x8
 	srli	s6,a7,0x18
 	srli	t5,a4,0x8
 	srli	s5,a3,0x18
@@ -731,7 +737,8 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	addi	s7,s7,255 # ffff00ff <_stack+0xffee80ff>
 	addi	s6,s6,-1 # ff00ffff <_stack+0xfef07fff>
 	addi	s5,s5,-1 # ffffff <_stack+0xef7fff>
-lab11: 	lw	a1,4(s3) # 100004 <plaintext+0x4>
+lab11: 	lw	a0,0(sp)
+	lw	a1,4(s3) # 100004 <plaintext+0x4>
 	lw	a3,8(s3)
 	lw	a4,0(s3)
 	xor	a1,a0,a1
@@ -746,7 +753,8 @@ lab11: 	lw	a1,4(s3) # 100004 <plaintext+0x4>
 	mv	a4,a2
 	mv	a2,a3
 	mv	a3,a4
-lab10: 	srli	s0,a3,0x18
+lab10: 	mv	a4,s10
+	srli	s0,a3,0x18
 	zext.b	t2,a1
 	zext.b	t6,a2
 	zext.b	t4,a3
@@ -1139,7 +1147,8 @@ _aes_set_key.constprop.0:
 	addi	a1,a1,-1260 # 101b14 <_aes_encrypt_table>
 	li	t4,60
 	j	lab12
-lab15: 	srli	a4,a5,0x18
+lab15: 	bne	t1,t5,lab13
+	srli	a4,a5,0x18
 	srli	a3,a5,0x8
 	zext.b	a6,a5
 	add	a4,a1,a4
@@ -1219,7 +1228,8 @@ _aes_set_key:
 	add	t5,a3,a7
 	mv	a0,a2
 	mv	t3,a2
-lab17: 	lbu	t1,2(a3)
+lab17: 	lbu	a5,3(a3)
+	lbu	t1,2(a3)
 	lbu	t4,0(a3)
 	lbu	a4,1(a3)
 	slli	a5,a5,0x18
@@ -1243,7 +1253,8 @@ lab17: 	lbu	t1,2(a3)
 	li	t5,4
 	addi	t1,t1,-1260 # 101b14 <_aes_encrypt_table>
 	j	lab19
-lab20: 	slli	a5,a5,0x18
+lab20: 	srli	a4,a5,0x8
+	slli	a5,a5,0x18
 	or	a5,a5,a4
 	srli	a4,a5,0x18
 	srli	a2,a5,0x8
@@ -1268,7 +1279,8 @@ lab20: 	slli	a5,a5,0x18
 	or	a4,a4,a2
 	xor	a5,a4,a5
 	addi	t3,t3,1
-lab21: 	add	a4,a0,a7
+lab21: 	lw	a2,0(a0)
+	add	a4,a0,a7
 	addi	a3,a3,1
 	xor	a5,a5,a2
 	sw	a5,0(a4)
@@ -1347,7 +1359,8 @@ _nettle_aes_invert:
 	add	a4,a2,a6
 	mv	a5,a1
 	add	a0,a0,a1
-lab26: 	addi	a4,a4,-16
+lab26: 	lw	a2,0(a4)
+	addi	a4,a4,-16
 	mv	a3,a5
 	sw	a2,0(a5)
 	lw	a2,20(a4)
@@ -1358,12 +1371,14 @@ lab26: 	addi	a4,a4,-16
 	lw	a2,28(a4)
 	sw	a2,-4(a5)
 	bne	a0,a3,lab26
-lab31: 	bgeu	a5,a7,lab27
+lab31: 	li	a5,4
+	bgeu	a5,a7,lab27
 	addi	a0,a1,16
 	add	a1,a1,a6
 	lui	a6,0x100
 	addi	a6,a6,1544 # 100608 <rcon.0>
-lab28: 	addi	a0,a0,4
+lab28: 	lw	a5,0(a0)
+	addi	a0,a0,4
 	srli	a2,a5,0x18
 	srli	a3,a5,0x6
 	slli	a2,a2,0x2
@@ -1394,12 +1409,14 @@ lab28: 	addi	a0,a0,4
 	xor	a5,a4,a5
 	sw	a5,-4(a0)
 	bne	a1,a0,lab28
-lab29: lab25: 	beqz	a7,lab29
+lab29: 	ret
+lab25: 	beqz	a7,lab29
 	slli	a6,a0,0x4
 	mv	a4,a1
 	add	a5,a1,a6
 	li	a3,0
-lab30: 	lw	a2,0(a4)
+lab30: 	lw	a0,0(a5)
+	lw	a2,0(a4)
 	addi	a5,a5,-16
 	sw	a0,0(a4)
 	sw	a2,16(a5)
@@ -1442,7 +1459,8 @@ benchmark_body.constprop.0:
 	lui	s7,0x101
 	li	s2,14
 	addi	s0,s1,504
-lab32: 	jal	ra,_aes_set_key.constprop.0
+lab32: 	sw	s2,256(s1)
+	jal	ra,_aes_set_key.constprop.0
 	jal	ra,_nettle_aes_encrypt.part.0.constprop.0
 	mv	a3,s5
 	li	a0,14
@@ -1500,7 +1518,8 @@ benchmark_body.isra.0:
 	lui	s8,0x101
 	li	s2,14
 	addi	s0,s1,504
-lab34: 	jal	ra,_aes_set_key.constprop.0
+lab34: 	sw	s2,256(s1)
+	jal	ra,_aes_set_key.constprop.0
 	jal	ra,_nettle_aes_encrypt.part.0.constprop.0
 	mv	a3,s6
 	li	a0,14
@@ -1569,7 +1588,8 @@ aes_set_decrypt_key:
 	bltu	a5,a1,lab37
 	li	s1,10
 	li	a1,4
-lab38: 	sw	s1,0(s0)
+lab38: 	addi	s2,s0,4
+	sw	s1,0(s0)
 	mv	a2,s2
 	mv	a0,s1
 	jal	ra,_aes_set_key
@@ -1650,7 +1670,8 @@ verify_benchmark:
 	addi	a6,a3,744
 	addi	t3,a3,256
 	li	a0,1
-lab43: 	lbu	t1,0(a1)
+lab43: 	lbu	a4,0(a3)
+	lbu	t1,0(a1)
 	lbu	a5,0(a2) # 100000 <plaintext>
 	lbu	a7,0(a6)
 	sub	a4,a4,t1

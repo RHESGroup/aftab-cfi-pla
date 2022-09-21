@@ -27,7 +27,8 @@ _nettle_write_be32:
 	slli	a3,a6,0x2
 	mv	a5,a2
 	add	a3,a1,a3
-lab1: 	addi	a5,a5,4
+lab1: 	lbu	a4,3(a5)
+	addi	a5,a5,4
 	addi	a1,a1,4
 	sb	a4,-4(a1)
 	lhu	a4,-2(a5)
@@ -38,7 +39,8 @@ lab1: 	addi	a5,a5,4
 	lw	a4,-4(a5)
 	sb	a4,-1(a1)
 	bne	a3,a1,lab1
-lab5: 	slli	a6,a6,0x2
+lab5: 	beqz	a0,lab2
+	slli	a6,a6,0x2
 	add	a2,a2,a6
 	li	a4,2
 	lw	a5,0(a2)
@@ -296,7 +298,8 @@ _nettle_sha256_compress:
 	mv	t3,s4
 	mv	s0,s10
 	addi	s1,sp,96
-lab6: 	slli	s4,t6,0x1a
+lab6: 	lw	s11,0(s1)
+	slli	s4,t6,0x1a
 	slli	t2,t6,0x15
 	lw	s7,0(s0)
 	srli	a6,t6,0x6
@@ -604,7 +607,8 @@ lab6: 	slli	s4,t6,0x1a
 	bne	s0,t1,lab6
 	addi	a6,s10,256
 	sw	a6,56(sp)
-lab7: 	lw	s7,0(sp)
+lab7: 	lw	s10,28(sp)
+	lw	s7,0(sp)
 	srli	s9,t6,0x6
 	slli	s1,s10,0x19
 	srli	s6,s7,0x11
@@ -1705,7 +1709,8 @@ lab8: 	li	a5,63
 	lui	s5,0x100
 	add	s2,s1,s2
 	addi	s5,s5,152 # 100098 <K>
-lab11: 	mv	a2,s5
+lab11: 	mv	a1,s1
+	mv	a2,s5
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
 	lw	a5,32(s0)
@@ -1718,10 +1723,12 @@ lab11: 	mv	a2,s5
 	sw	a5,36(s0)
 	bne	s2,s1,lab11
 	andi	s3,s3,63
-lab13: 	mv	a1,s2
+lab13: 	mv	a2,s3
+	mv	a1,s2
 	mv	a0,s4
 	jal	ra,memcpy
-lab12: 	lw	ra,28(sp)
+lab12: 	sw	s3,104(s0)
+	lw	ra,28(sp)
 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s2,16(sp)
@@ -1778,9 +1785,11 @@ benchmark_body.isra.0:
 	lui	a5,0x100
 	addi	s11,a5,88 # 100058 <buffer>
 	j	lab15
-lab17: 	sub	a2,a5,a2
+lab17: 	lui	s3,0x100
+	sub	a2,a5,a2
 	addi	s3,s3,152 # 100098 <K>
-lab18: 	jal	ra,memset
+lab18: 	li	a1,0
+	jal	ra,memset
 	lw	a3,80(sp)
 	lw	a2,84(sp)
 	lw	a5,152(sp)
@@ -2103,9 +2112,11 @@ benchmark_body.constprop.0:
 	sw	a4,36(sp)
 	addi	s11,a5,88 # 100058 <buffer>
 	j	lab19
-lab22: 	sub	a2,a5,a2
+lab22: 	lui	s3,0x100
+	sub	a2,a5,a2
 	addi	s3,s3,152 # 100098 <K>
-lab23: 	jal	ra,memset
+lab23: 	li	a1,0
+	jal	ra,memset
 	lw	a3,80(sp)
 	lw	a2,84(sp)
 	lw	a5,152(sp)
@@ -2418,7 +2429,8 @@ sha256_digest:
 	sub	a2,a5,a2
 	lui	s2,0x100
 	addi	s5,s5,152 # 100098 <K>
-lab26: 	jal	ra,memset
+lab26: 	li	a1,0
+	jal	ra,memset
 	lw	a3,32(s0)
 	lw	a6,36(s0)
 	lw	a5,104(s0)

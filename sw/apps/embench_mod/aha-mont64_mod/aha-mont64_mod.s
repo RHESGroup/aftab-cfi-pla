@@ -33,7 +33,8 @@ modul64:
 	sw	s0,12(sp)
 	li	t3,0
 	li	t0,64
-lab2: 	slli	a6,a1,0x1
+lab2: 	srli	a7,a0,0x1f
+	slli	a6,a1,0x1
 	or	a6,a7,a6
 	srai	t1,a1,0x1f
 	srli	t4,a2,0x1f
@@ -126,7 +127,8 @@ montmul:
 	mv	a1,a3
 	mv	a6,a2
 	beq	t4,a7,lab4
-lab12: 	xor	a3,a1,a0
+lab12: 	xor	a2,a6,t3
+	xor	a3,a1,a0
 	or	a3,a3,a2
 	seqz	a3,a3
 	li	a2,1
@@ -141,7 +143,8 @@ lab5: 	and	a3,a3,a2
 lab7: 	li	a0,1
 	bltu	a6,a5,lab9
 	beq	a5,a6,lab10
-lab11: 	or	a3,a3,a2
+lab11: 	or	a2,a2,a0
+	or	a3,a3,a2
 	zext.b	a3,a3
 	neg	a0,a3
 	lw	s0,12(sp)
@@ -221,11 +224,13 @@ benchmark_body.constprop.0:
 	add	a5,a4,a5
 	sw	a5,12(sp)
 	sw	a3,8(sp)
-lab35: 	lw	a6,24(sp)
+lab35: 	lw	a2,8(sp)
+	lw	a6,24(sp)
 	lw	a4,28(sp)
 	lw	a3,12(sp)
 	li	a7,0
-lab15: 	slli	a5,a3,0x1
+lab15: 	srli	a1,a4,0x1f
+	slli	a5,a3,0x1
 	or	a5,a1,a5
 	srai	a0,a3,0x1f
 	srli	t1,a2,0x1f
@@ -272,7 +277,8 @@ lab13: 	bne	a7,s3,lab15
 	mul	a4,a4,a4
 	add	a3,a2,a3
 	add	a2,a1,a3
-lab18: 	slli	a3,a2,0x1
+lab18: 	srli	a1,a5,0x1f
+	slli	a3,a2,0x1
 	or	a3,a1,a3
 	srai	a0,a2,0x1f
 	srli	t1,a4,0x1f
@@ -319,7 +325,8 @@ lab16: 	bne	a7,s3,lab18
 	mul	a5,a5,a5
 	add	a4,a4,a2
 	add	s4,a3,a4
-lab21: 	slli	a4,s4,0x1
+lab21: 	srli	a3,s1,0x1f
+	slli	a4,s4,0x1
 	or	a4,a3,a4
 	srai	a2,s4,0x1f
 	srli	a0,a5,0x1f
@@ -352,7 +359,8 @@ lab19: 	bne	s2,s3,lab21
 	li	a4,1
 	li	a5,0
 	j	lab22
-lab24: 	or	a4,t6,t5
+lab24: 	addi	s2,s2,-1
+	or	a4,t6,t5
 	mv	a5,t4
 	beqz	s2,lab23
 lab22: 	xor	a0,s0,a5
@@ -395,7 +403,8 @@ lab23: 	sw	a4,32(sp)
 	mv	a1,s8
 	li	a4,0
 	li	a6,0
-lab27: 	slli	a5,a1,0x1
+lab27: 	srli	a3,a0,0x1f
+	slli	a5,a1,0x1
 	or	a5,a3,a5
 	srli	a2,a4,0x1f
 	srai	a3,a1,0x1f
@@ -428,7 +437,8 @@ lab25: 	bne	a7,s3,lab27
 	mv	a3,s5
 	li	a4,0
 	li	t1,0
-lab30: 	slli	a5,a3,0x1
+lab30: 	srli	a6,a2,0x1f
+	slli	a5,a3,0x1
 	or	a5,a6,a5
 	srli	a7,a4,0x1f
 	srai	a6,a3,0x1f
@@ -497,7 +507,8 @@ lab28: 	bne	t3,s3,lab30
 	mul	a0,a0,t3
 	add	a3,a3,a1
 	add	a3,a2,a3
-lab33: 	slli	a4,a3,0x1
+lab33: 	srli	a2,a5,0x1f
+	slli	a4,a3,0x1
 	or	a4,a2,a4
 	srli	a1,a0,0x1f
 	srai	a2,a3,0x1f
@@ -526,7 +537,9 @@ lab32: 	mv	a5,t3
 	add	a6,t4,a7
 lab31: 	bne	s2,s3,lab33
 	beq	s1,a5,lab34
-lab36: lab37: 	bnez	s10,lab35
+lab36: 	li	a0,1
+lab37: 	addi	s10,s10,-1
+	bnez	s10,lab35
 	lw	ra,108(sp)
 	lw	s0,104(sp)
 	lw	s1,100(sp)
@@ -570,12 +583,14 @@ benchmark_body.isra.0:
 	mv	s2,a0
 	li	s1,0
 	lui	s0,0x80000
-lab42: 	li	a2,0
+lab42: 	li	a7,64
+	li	a2,0
 	li	a3,0
 	li	a4,1
 	li	a5,0
 	j	lab39
-lab41: 	mv	a4,a6
+lab41: 	addi	a7,a7,-1
+	mv	a4,a6
 	add	a5,a1,a0
 	mv	a3,t5
 	beqz	a7,lab40
@@ -650,7 +665,8 @@ xbinGCD:
 	li	a6,1
 	li	a7,0
 	j	lab44
-lab46: 	or	a6,s7,s6
+lab46: 	or	t3,s3,t5
+	or	a6,s7,s6
 	mv	a7,s5
 	beqz	t3,lab45
 lab44: 	xor	t4,a7,a3

@@ -77,7 +77,8 @@ benchmark_body.constprop.0:
 	lui	a5,0x100
 	mv	a5,a5
 	sw	a5,108(sp)
-lab4: 	li	a1,0
+lab4: 	li	a2,384
+	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
 	lw	s0,40(sp)
@@ -157,12 +158,15 @@ lab4: 	li	a1,0
 	li	a5,2
 	sw	a5,28(sp)
 	sw	s6,16(sp)
-lab6: 	lw	s0,36(sp)
+lab6: 	lw	s1,32(sp)
+	lw	s0,36(sp)
 	li	s10,2
 	li	s8,1
-lab5: 	lw	s6,24(sp)
+lab5: 	lw	s11,20(sp)
+	lw	s6,24(sp)
 	li	s5,2
-lab1: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
+lab1: 	lui	a6,0x100
+	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	lw	a6,688(a6)
 	mv	a4,s11
 	mv	a5,s6
@@ -316,7 +320,8 @@ benchmark_body.isra.0:
 	lui	a5,0x100
 	mv	a5,a5
 	sw	a5,124(sp)
-lab12: 	li	a1,0
+lab12: 	li	a2,384
+	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
 	lw	s0,56(sp)
@@ -396,12 +401,15 @@ lab12: 	li	a1,0
 	li	a5,2
 	sw	a5,40(sp)
 	sw	s6,28(sp)
-lab14: 	lw	s0,48(sp)
+lab14: 	lw	s1,44(sp)
+	lw	s0,48(sp)
 	li	s10,2
 	li	s8,1
-lab13: 	lw	s6,36(sp)
+lab13: 	lw	s11,32(sp)
+	lw	s6,36(sp)
 	li	s5,2
-lab9: 	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
+lab9: 	lui	a6,0x100
+	lw	a7,692(a6) # 1002b4 <init_jk+0x7c>
 	lw	a6,688(a6)
 	mv	a4,s11
 	mv	a5,s6
@@ -492,7 +500,8 @@ verify_benchmark:
 	li	a5,3
 	li	s0,0
 	beq	a4,a5,lab15
-lab16: 	mv	a0,s0
+lab16: 	lw	ra,28(sp)
+	mv	a0,s0
 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s2,16(sp)
@@ -1444,7 +1453,8 @@ lab18: 	lui	a5,0x100
 	lw	a5,308(sp)
 	sw	a0,0(a5)
 	sw	a1,4(a5)
-lab19: 	lw	s0,296(sp)
+lab19: 	lw	ra,300(sp)
+	lw	s0,296(sp)
 	lw	s1,292(sp)
 	lw	s2,288(sp)
 	lw	s3,284(sp)

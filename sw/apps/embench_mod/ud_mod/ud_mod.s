@@ -24,7 +24,8 @@ ludcmp.constprop.0:
 	li	t1,2
 	li	t3,4
 	li	t2,5
-lab4: 	bnez	a1,lab0
+lab4: 	lw	a0,80(a2)
+	bnez	a1,lab0
 	lw	s0,0(a2)
 	div	a0,a0,s0
 	sw	a0,80(a2)
@@ -49,7 +50,8 @@ lab4: 	bnez	a1,lab0
 	lw	s1,4(a4) # 100004 <a+0x4>
 	mul	s0,s0,s1
 	sub	a0,a0,s0
-lab12: 	lw	s0,0(a3)
+lab12: 	sw	a0,84(a2)
+	lw	s0,0(a3)
 	lw	s1,8(a4)
 	lw	a0,88(a2)
 	mul	s0,s0,s1
@@ -75,7 +77,8 @@ lab12: 	lw	s0,0(a3)
 	lw	a0,100(a2)
 	mul	s0,s0,s1
 	sub	a0,a0,s0
-lab18: lab3: 	addi	a1,a1,1
+lab18: 	sw	a0,100(a2)
+lab3: 	addi	a1,a1,1
 	addi	a2,a2,84
 	addi	t4,t4,1
 	addi	t5,t5,1
@@ -326,7 +329,8 @@ lab11: 	div	s0,a0,s0
 	mul	s0,s0,s1
 	sub	a0,a0,s0
 	beqz	a1,lab12
-lab19: 	lw	s1,84(a4)
+lab19: 	lw	s0,4(a3)
+	lw	s1,84(a4)
 	mul	s0,s0,s1
 	sub	a0,a0,s0
 	beq	a1,a7,lab13
@@ -512,7 +516,8 @@ benchmark_body.constprop.0:
 	li	s8,29
 	li	s2,8
 	li	s7,37
-lab20: 	sw	a4,168(s0) # 1000a8 <a+0xa8>
+lab20: 	li	a4,12
+	sw	a4,168(s0) # 1000a8 <a+0xa8>
 	li	a4,45
 	sw	a4,1608(s0)
 	li	a4,16
@@ -613,7 +618,8 @@ benchmark_body.isra.0:
 	li	s8,29
 	li	s2,8
 	li	s7,37
-lab22: 	sw	a4,168(s0) # 1000a8 <a+0xa8>
+lab22: 	li	a4,12
+	sw	a4,168(s0) # 1000a8 <a+0xa8>
 	li	a4,45
 	sw	a4,1608(s0)
 	li	a4,16
@@ -694,7 +700,8 @@ verify_benchmark:
 	mv	s0,a0
 	mv	a4,sp
 	addi	a3,a5,80
-lab23: 	lw	a0,4(a5)
+lab23: 	lw	a6,0(a5)
+	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
 	sw	a6,0(a4)
@@ -753,14 +760,16 @@ ludcmp:
 	li	a7,0
 	li	t4,0
 	addi	s0,s0,-4 # ffffc <_min_stack+0xfbffc>
-lab32: 	blt	t6,t4,lab25
+lab32: 	addi	t4,t4,1
+	blt	t6,t4,lab25
 	neg	s6,t4
 	slli	s6,s6,0x2
 	addi	s7,s6,4
 	mv	a0,t5
 	sub	s6,s0,s6
 	j	lab26
-lab28: 	addi	a0,a0,80
+lab28: 	lw	a5,0(s4) # 100000 <a>
+	addi	a0,a0,80
 	div	a3,a3,a5
 	sw	a3,-80(a0)
 	beq	a0,a6,lab27
@@ -768,7 +777,8 @@ lab26: 	lw	a3,0(a0)
 	beqz	a7,lab28
 	add	a2,a0,s7
 	mv	a5,s6
-lab29: 	lw	a1,0(a5)
+lab29: 	lw	a4,0(a2)
+	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a2,a2,4
 	mul	a4,a4,a1
@@ -783,9 +793,11 @@ lab27: 	addi	s6,s4,84
 	mv	a0,s6
 	mv	s4,t5
 	addi	s5,s5,-80
-lab31: 	add	a5,s5,a0
+lab31: 	lw	a2,4(s4)
+	add	a5,s5,a0
 	mv	a3,t1
-lab30: 	lw	a1,0(a5)
+lab30: 	lw	a4,0(a3)
+	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a3,a3,4
 	mul	a4,a4,a1
@@ -808,9 +820,11 @@ lab30: 	lw	a1,0(a5)
 	addi	a6,s1,1604
 	mv	t5,sp
 	add	a7,a7,a0
-lab34: 	mv	a5,t5
+lab34: 	lw	a2,0(a6)
+	mv	a5,t5
 	mv	a3,t0
-lab33: 	lw	a1,0(a5)
+lab33: 	lw	a4,0(a3)
+	lw	a1,0(a5)
 	addi	a5,a5,4
 	addi	a3,a3,4
 	mul	a4,a4,a1
@@ -832,7 +846,8 @@ lab33: 	lw	a1,0(a5)
 	lw	a5,0(a5)
 	div	a5,a4,a5
 	sw	a5,1680(t4)
-lab39: 	mul	a7,s2,a7
+lab39: 	li	a7,84
+	mul	a7,s2,a7
 	slli	t3,t6,0x2
 	mv	a5,t3
 	addi	t1,s1,1680
@@ -844,10 +859,12 @@ lab39: 	mul	a7,s2,a7
 	add	a0,a0,a5
 	addi	a7,a7,4
 	add	a7,s1,a7
-lab37: 	blt	t6,a6,lab35
+lab37: 	lw	a2,0(t3)
+	blt	t6,a6,lab35
 	mv	a5,t1
 	mv	a3,a7
-lab36: 	lw	a1,0(a5)
+lab36: 	lw	a4,0(a3)
+	lw	a1,0(a5)
 	addi	a5,a5,4
 	addi	a3,a3,4
 	mul	a4,a4,a1
@@ -862,7 +879,8 @@ lab35: 	lw	a4,-4(a7)
 	addi	a7,a7,-84
 	sw	a2,0(t1)
 	bgez	a5,lab37
-lab38: 	lw	s1,424(sp)
+lab38: 	lw	s0,428(sp)
+	lw	s1,424(sp)
 	lw	s2,420(sp)
 	lw	s3,416(sp)
 	lw	s4,412(sp)

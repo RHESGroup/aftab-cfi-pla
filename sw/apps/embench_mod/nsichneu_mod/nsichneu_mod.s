@@ -14,7 +14,8 @@ benchmark_body:
 	li	a7,2
 	addi	a4,a4,8 # 100008 <P1_marking_member_0>
 	li	a3,4
-lab253: 	sw	t4,0(a5) # 100000 <P2_is_marked>
+lab253: 	sw	a2,4(a6) # 100004 <P1_is_marked>
+	sw	t4,0(a5) # 100000 <P2_is_marked>
 	sw	zero,64(a1) # 100040 <P3_is_marked>
 	lw	t3,4(a6)
 	bge	a7,t3,lab1

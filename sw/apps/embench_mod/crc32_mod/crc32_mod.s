@@ -11,9 +11,11 @@ benchmark_body.isra.0:
 	sw	s0,8(sp)
 	mv	s2,a0
 	li	s1,0
-lab2: 	jal	ra,srand_beebs
+lab2: 	li	a0,0
+	jal	ra,srand_beebs
 	li	s0,1024
-lab1: 	jal	ra,rand_beebs
+lab1: 	addi	s0,s0,-1
+	jal	ra,rand_beebs
 	bnez	s0,lab1
 	addi	s1,s1,1
 	bne	s1,s2,lab2
@@ -34,10 +36,12 @@ benchmark_body.constprop.0:
 	sw	s1,20(sp)
 	li	s3,170
 	addi	s2,s2,16 # 100010 <crc_32_tab>
-lab4: 	jal	ra,srand_beebs
+lab4: 	li	a0,0
+	jal	ra,srand_beebs
 	li	s1,1024
 	li	s0,-1
-lab3: 	xor	a5,s0,a0
+lab3: 	jal	ra,rand_beebs
+	xor	a5,s0,a0
 	zext.b	a5,a5
 	slli	a5,a5,0x2
 	add	a5,s2,a5
@@ -68,7 +72,8 @@ crc32pseudo:
 	li	s1,1024
 	li	s0,-1
 	addi	s2,s2,16 # 100010 <crc_32_tab>
-lab5: 	xor	a5,s0,a0
+lab5: 	jal	ra,rand_beebs
+	xor	a5,s0,a0
 	zext.b	a5,a5
 	slli	a5,a5,0x2
 	add	a5,s2,a5
@@ -176,7 +181,8 @@ malloc_beebs:
 	lui	a5,0x100
 	lw	a5,4(a5) # 100004 <heap_end>
 	bltu	a5,a4,lab7
-lab9: 	ret
+lab9: 	sw	a4,8(a2)
+	ret
 lab8: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
@@ -202,7 +208,8 @@ calloc_beebs:
 	lui	a4,0x100
 	lw	a4,4(a4) # 100004 <heap_end>
 	bltu	a4,a3,lab10
-lab13: 	beqz	a5,lab12
+lab13: 	sw	a3,8(a0)
+	beqz	a5,lab12
 	addi	sp,sp,-16
 	li	a1,0
 	mv	a0,a5
@@ -238,7 +245,8 @@ realloc_beebs:
 	lui	a4,0x100
 	lw	a4,4(a4) # 100004 <heap_end>
 	bltu	a4,a3,lab14
-lab19: 	beqz	a0,lab14
+lab19: 	sw	a3,8(a6)
+	beqz	a0,lab14
 	addi	a4,a5,1
 	sub	a4,a0,a4
 	or	a3,a5,a0
@@ -255,7 +263,8 @@ lab19: 	beqz	a0,lab14
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab17: 	addi	a4,a4,4
+lab17: 	lw	a2,0(a4)
+	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
 	bne	a4,a6,lab17
@@ -290,7 +299,8 @@ lab14: 	li	a0,0
 lab18: 	ret
 lab16: 	mv	a4,a0
 	add	a1,a5,a1
-lab20: 	addi	a5,a5,1
+lab20: 	lbu	a3,0(a5)
+	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
 	bne	a5,a1,lab20

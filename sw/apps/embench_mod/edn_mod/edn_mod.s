@@ -4,7 +4,8 @@
 
 vec_mpy1:
 	addi	a3,a0,300
-lab0: 	lhu	a4,0(a0)
+lab0: 	lh	a5,0(a1)
+	lhu	a4,0(a0)
 	addi	a0,a0,2
 	mul	a5,a5,a2
 	addi	a1,a1,2
@@ -18,7 +19,8 @@ mac:
 	mv	a6,a0
 	addi	t1,a1,300
 	mv	a0,a2
-lab1: 	lh	a5,0(a6)
+lab1: 	lh	a4,0(a1)
+	lh	a5,0(a6)
 	addi	a1,a1,2
 	mul	a2,a4,a4
 	addi	a6,a6,2
@@ -34,9 +36,11 @@ fir:
 	addi	a0,a0,100
 	li	a7,0
 	li	t3,50
-lab3: 	mv	a3,t1
+lab3: 	addi	a5,a0,-100
+	mv	a3,t1
 	li	a2,0
-lab2: 	lh	a1,0(a3)
+lab2: 	lh	a4,0(a5)
+	lh	a1,0(a3)
 	addi	a5,a5,2
 	addi	a3,a3,2
 	mul	a4,a4,a1
@@ -55,11 +59,13 @@ fir_no_red_ld:
 	addi	t3,a0,66
 	li	t5,0
 	li	t0,100
-lab5: 	addi	a5,t3,-64
+lab5: 	lh	a7,-66(t3)
+	addi	a5,t3,-64
 	mv	a6,t6
 	li	a1,0
 	li	a0,0
-lab4: 	lh	a3,0(a5)
+lab4: 	lh	a2,0(a6)
+	lh	a3,0(a5)
 	lh	a4,2(a6)
 	mul	t1,a7,a2
 	lh	a7,2(a5)
@@ -98,7 +104,8 @@ latsynth:
 	add	a4,a7,a5
 	add	a1,a1,a5
 	addi	a6,a7,2
-lab7: 	lh	a3,-4(a4)
+lab7: 	lh	a5,-4(a1)
+	lh	a3,-4(a4)
 	addi	a4,a4,-2
 	addi	a1,a1,-2
 	mul	a2,a3,a5
@@ -117,7 +124,8 @@ lab6: 	srai	a2,a0,0x10
 iir1:
 	lh	a1,0(a1)
 	addi	t4,a0,400
-lab8: 	lw	t3,4(a3)
+lab8: 	lw	t1,0(a3)
+	lw	t3,4(a3)
 	lh	a4,4(a0)
 	lh	a7,6(a0)
 	lh	a5,0(a0)
@@ -167,7 +175,8 @@ jpegdct:
 	li	s0,2
 	sw	a5,36(sp)
 	sw	a0,40(sp)
-lab12: 	lw	a4,36(sp)
+lab12: 	lw	a5,16(sp)
+	lw	a4,36(sp)
 	li	a3,1
 	slli	a5,a5,0x1
 	sw	a5,28(sp)
@@ -182,7 +191,8 @@ lab12: 	lw	a4,36(sp)
 	li	t4,8
 	add	t5,a0,s0
 	add	t6,t5,s0
-lab10: 	lh	s6,0(a0)
+lab10: 	lw	a4,24(sp)
+	lh	s6,0(a0)
 	lh	s5,0(t5)
 	add	s1,a0,a4
 	lw	a4,28(sp)
@@ -313,7 +323,8 @@ lab10: 	lh	s6,0(a0)
 	sh	a3,0(t5)
 	add	t5,t5,s11
 	bnez	t4,lab10
-lab13: 	lw	s1,88(sp)
+lab13: 	lw	s0,92(sp)
+	lw	s1,88(sp)
 	lw	s2,84(sp)
 	lw	s3,80(sp)
 	lw	s4,76(sp)
@@ -331,7 +342,8 @@ lab9: 	lw	a0,40(sp)
 	sw	s0,44(sp)
 	add	t5,a0,s0
 	add	t0,t5,s0
-lab11: 	lh	s6,0(a0)
+lab11: 	lw	a4,24(sp)
+	lh	s6,0(a0)
 	lh	s5,0(t5)
 	add	s1,a0,a4
 	lw	a4,28(sp)
@@ -528,8 +540,10 @@ benchmark_body.constprop.0:
 	li	s3,50
 	addi	s2,s2,-1366 # aaaa <_min_stack+0x6aaa>
 	addi	s11,s11,1200
-lab23: 	addi	a4,sp,16
-lab14: 	lw	t4,4(a5)
+lab23: 	lw	a5,8(sp)
+	addi	a4,sp,16
+lab14: 	lw	t5,0(a5)
+	lw	t4,4(a5)
 	lw	a6,8(a5)
 	lw	a1,12(a5)
 	sw	t5,0(a4)
@@ -541,7 +555,8 @@ lab14: 	lw	t4,4(a5)
 	bne	a5,s1,lab14
 	mv	a5,s1
 	addi	a4,sp,416
-lab15: 	lw	t4,4(a5)
+lab15: 	lw	t5,0(a5)
+	lw	t4,4(a5)
 	lw	a6,8(a5)
 	lw	a1,12(a5)
 	lui	a2,0x101
@@ -558,7 +573,8 @@ lab15: 	lw	t4,4(a5)
 	addi	t6,a3,1600
 	mv	a4,s6
 	mv	a5,s10
-lab16: 	lw	t4,0(a6)
+lab16: 	lw	t5,0(a1)
+	lw	t4,0(a6)
 	addi	a5,a5,4
 	sw	t5,0(a4)
 	sw	t4,-4(a5)
@@ -568,7 +584,8 @@ lab16: 	lw	t4,0(a6)
 	bne	t6,a5,lab16
 	mv	a1,s10
 	mv	a4,s6
-lab17: 	lhu	t4,0(a4)
+lab17: 	lh	a6,0(a1)
+	lhu	t4,0(a4)
 	addi	a4,a4,2
 	slli	a5,a6,0x1
 	add	a5,a5,a6
@@ -581,7 +598,8 @@ lab17: 	lhu	t4,0(a4)
 	mv	a6,s6
 	mv	a5,s10
 	li	t4,3
-lab18: 	lh	a4,0(a6)
+lab18: 	lh	a1,0(a5)
+	lh	a4,0(a6)
 	addi	a5,a5,2
 	mul	t6,a1,a1
 	addi	a6,a6,2
@@ -595,9 +613,11 @@ lab18: 	lh	a4,0(a6)
 	mv	t6,s5
 	mv	t5,s6
 	li	t4,0
-lab20: 	mv	a3,t5
+lab20: 	mv	a5,s10
+	mv	a3,t5
 	li	a1,0
-lab19: 	lh	a6,0(a5)
+lab19: 	lh	a4,0(a3)
+	lh	a6,0(a5)
 	addi	a5,a5,2
 	addi	a3,a3,2
 	mul	a4,a4,a6
@@ -619,7 +639,8 @@ lab19: 	lh	a6,0(a5)
 	addi	a3,s4,1396
 	mul	t5,t5,a5
 	sub	t5,s2,t5
-lab21: 	lh	a5,0(a3)
+lab21: 	lh	a1,0(a4)
+	lh	a5,0(a3)
 	mv	t4,a4
 	addi	a4,a4,-2
 	mul	a6,a1,a5
@@ -638,7 +659,8 @@ lab21: 	lh	a5,0(a3)
 	mv	a3,s4
 	mv	a6,s5
 	mv	a1,s6
-lab22: 	lw	t0,4(a6)
+lab22: 	lw	a4,0(a6)
+	lw	t0,4(a6)
 	lh	a5,4(a1)
 	lh	t2,6(a1)
 	lh	ra,0(a1)
@@ -723,8 +745,10 @@ benchmark_body.isra.0:
 	li	s4,50
 	sw	a5,8(sp)
 	addi	s10,s10,1200
-lab34: 	addi	a4,sp,16
-lab25: 	lw	a1,4(a5)
+lab34: 	mv	a5,s1
+	addi	a4,sp,16
+lab25: 	lw	a0,0(a5)
+	lw	a1,4(a5)
 	lw	a2,8(a5)
 	lw	a3,12(a5)
 	sw	a0,0(a4)
@@ -736,7 +760,8 @@ lab25: 	lw	a1,4(a5)
 	bne	a5,s2,lab25
 	mv	a5,s2
 	addi	a4,sp,416
-lab26: 	lw	a0,0(a5)
+lab26: 	lw	a3,12(a5)
+	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
 	sw	a3,12(a4)
@@ -753,7 +778,8 @@ lab26: 	lw	a0,0(a5)
 	addi	a6,t6,1600
 	mv	a4,s7
 	mv	a5,s11
-lab27: 	lw	a1,0(a2)
+lab27: 	lw	a0,0(a3)
+	lw	a1,0(a2)
 	addi	a5,a5,4
 	sw	a0,0(a4)
 	sw	a1,-4(a5)
@@ -763,7 +789,8 @@ lab27: 	lw	a1,0(a2)
 	bne	a6,a5,lab27
 	mv	a3,s11
 	mv	a4,s7
-lab28: 	lhu	a1,0(a4)
+lab28: 	lh	a2,0(a3)
+	lhu	a1,0(a4)
 	addi	a4,a4,2
 	slli	a5,a2,0x1
 	add	a5,a5,a2
@@ -776,7 +803,8 @@ lab28: 	lhu	a1,0(a4)
 	mv	a2,s7
 	mv	a5,s11
 	li	a1,3
-lab29: 	lh	a4,0(a2)
+lab29: 	lh	a3,0(a5)
+	lh	a4,0(a2)
 	addi	a5,a5,2
 	mul	a6,a3,a3
 	addi	a2,a2,2
@@ -790,9 +818,11 @@ lab29: 	lh	a4,0(a2)
 	mv	a7,s6
 	mv	a6,s7
 	li	a0,0
-lab31: 	mv	a3,a6
+lab31: 	mv	a5,s11
+	mv	a3,a6
 	li	a2,0
-lab30: 	lh	a1,0(a5)
+lab30: 	lh	a4,0(a3)
+	lh	a1,0(a5)
 	addi	a5,a5,2
 	addi	a3,a3,2
 	mul	a4,a4,a1
@@ -815,7 +845,8 @@ lab30: 	lh	a1,0(a5)
 	mul	a6,a6,a5
 	lw	a5,8(sp)
 	sub	a6,a5,a6
-lab32: 	lh	a5,0(a3)
+lab32: 	lh	a2,0(a4)
+	lh	a5,0(a3)
 	mv	a0,a4
 	addi	a4,a4,-2
 	mul	a1,a2,a5
@@ -835,7 +866,8 @@ lab32: 	lh	a5,0(a3)
 	mv	a1,s6
 	mv	a2,s7
 	mv	a3,a5
-lab33: 	lw	t1,4(a1)
+lab33: 	lw	t3,0(a1)
+	lw	t1,4(a1)
 	lh	a4,4(a2)
 	lh	a7,6(a2)
 	lh	a5,0(a2)
@@ -895,7 +927,8 @@ verify_benchmark:
 	sw	ra,812(sp)
 	mv	a3,sp
 	addi	a4,a4,1600
-lab35: 	lw	a0,4(a5)
+lab35: 	lw	a6,0(a5)
+	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
 	sw	a6,0(a3)
@@ -916,7 +949,8 @@ lab35: 	lw	a0,4(a5)
 	lui	a5,0x3
 	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x13ab>
 	beq	a4,a5,lab37
-lab38: 	addi	sp,sp,816
+lab38: 	lw	ra,812(sp)
+	addi	sp,sp,816
 	ret
 lab36: 	lw	ra,812(sp)
 	li	a0,0

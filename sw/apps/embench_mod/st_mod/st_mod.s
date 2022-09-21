@@ -41,11 +41,13 @@ benchmark_body.isra.0:
 	sw	zero,56(sp)
 	addi	s5,s5,800 # 100320 <ArrayB>
 	sw	a5,8(sp)
-lab12: 	li	s0,0
+lab12: 	lw	s7,52(sp)
+	li	s0,0
 	li	s1,0
 	mv	s4,s7
 	li	s2,100
-lab1: 	add	a0,a0,s0
+lab1: 	slli	a0,s0,0x5
+	add	a0,a0,s0
 	lw	a5,8(sp)
 	slli	a0,a0,0x2
 	add	a0,a0,s0
@@ -73,7 +75,8 @@ lab1: 	add	a0,a0,s0
 	lw	s1,52(sp)
 	li	a4,0
 	li	a5,0
-lab2: 	lw	a3,4(s1)
+lab2: 	lw	a2,0(s1)
+	lw	a3,4(s1)
 	mv	a0,a4
 	mv	a1,a5
 	jal	ra,__adddf3
@@ -94,7 +97,8 @@ lab2: 	lw	a3,4(s1)
 	li	s1,0
 	mv	s6,a0
 	mv	s7,a1
-lab3: 	lw	a1,4(s3)
+lab3: 	lw	a0,0(s3)
+	lw	a1,4(s3)
 	mv	a2,s6
 	mv	a3,s7
 	jal	ra,__subdf3
@@ -129,7 +133,8 @@ lab4: 	mv	s6,s5
 	mv	s10,s5
 	li	s2,0
 	li	s1,100
-lab6: 	add	a0,a0,s0
+lab6: 	slli	a0,s0,0x5
+	add	a0,a0,s0
 	lw	a5,8(sp)
 	slli	a0,a0,0x2
 	add	a0,a0,s0
@@ -159,7 +164,8 @@ lab6: 	add	a0,a0,s0
 	li	a4,0
 	mv	s0,s5
 	li	a5,0
-lab7: 	lw	a2,0(s0)
+lab7: 	lw	a3,4(s0)
+	lw	a2,0(s0)
 	mv	a0,a4
 	mv	a1,a5
 	jal	ra,__adddf3
@@ -180,7 +186,8 @@ lab7: 	lw	a2,0(s0)
 	li	s1,0
 	li	s0,0
 	mv	s3,a0
-lab8: 	lw	a1,4(s2)
+lab8: 	lw	a0,0(s2)
+	lw	a1,4(s2)
 	mv	a2,s3
 	mv	a3,s10
 	jal	ra,__subdf3
@@ -221,7 +228,8 @@ lab9: 	li	s7,0
 	li	s0,0
 	mv	a5,s7
 	mv	s10,s11
-lab11: 	lw	a1,4(s4)
+lab11: 	lw	a0,0(s4)
+	lw	a1,4(s4)
 	lw	a2,28(sp)
 	lw	a3,32(sp)
 	sw	a5,24(sp)
@@ -363,11 +371,13 @@ benchmark_body.constprop.0:
 	sw	a6,52(sp)
 	addi	s5,s5,800 # 100320 <ArrayB>
 	sw	a5,12(sp)
-lab24: 	li	s0,0
+lab24: 	lw	s8,56(sp)
+	li	s0,0
 	li	s2,0
 	mv	s1,s8
 	li	s3,100
-lab13: 	add	a0,a0,s0
+lab13: 	slli	a0,s0,0x5
+	add	a0,a0,s0
 	lw	a5,12(sp)
 	slli	a0,a0,0x2
 	add	a0,a0,s0
@@ -395,7 +405,8 @@ lab13: 	add	a0,a0,s0
 	lw	s2,56(sp)
 	li	a4,0
 	li	a5,0
-lab14: 	lw	a3,4(s2)
+lab14: 	lw	a2,0(s2)
+	lw	a3,4(s2)
 	mv	a0,a4
 	mv	a1,a5
 	jal	ra,__adddf3
@@ -416,7 +427,8 @@ lab14: 	lw	a3,4(s2)
 	li	s2,0
 	mv	s3,a0
 	mv	s4,a1
-lab15: 	lw	a1,4(s8)
+lab15: 	lw	a0,0(s8)
+	lw	a1,4(s8)
 	mv	a2,s3
 	mv	a3,s4
 	jal	ra,__subdf3
@@ -451,7 +463,8 @@ lab16: 	mv	s2,s5
 	mv	s11,s5
 	li	s8,0
 	li	s6,100
-lab18: 	add	a0,a0,s0
+lab18: 	slli	a0,s0,0x5
+	add	a0,a0,s0
 	lw	a5,12(sp)
 	slli	a0,a0,0x2
 	add	a0,a0,s0
@@ -481,7 +494,8 @@ lab18: 	add	a0,a0,s0
 	li	a4,0
 	mv	s0,s5
 	li	a5,0
-lab19: 	lw	a2,0(s0)
+lab19: 	lw	a3,4(s0)
+	lw	a2,0(s0)
 	mv	a0,a4
 	mv	a1,a5
 	jal	ra,__adddf3
@@ -502,7 +516,8 @@ lab19: 	lw	a2,0(s0)
 	li	s6,0
 	li	s0,0
 	mv	s3,a0
-lab20: 	lw	a1,4(s8)
+lab20: 	lw	a0,0(s8)
+	lw	a1,4(s8)
 	mv	a2,s3
 	mv	a3,s11
 	jal	ra,__subdf3
@@ -543,7 +558,8 @@ lab21: 	li	s3,0
 	li	s0,0
 	mv	a5,s3
 	mv	s11,s7
-lab23: 	lw	a1,4(s1)
+lab23: 	lw	a0,0(s1)
+	lw	a1,4(s1)
 	lw	a2,32(sp)
 	lw	a3,36(sp)
 	sw	a5,28(sp)
@@ -672,7 +688,8 @@ Calc_Sum_Mean:
 	addi	s2,a0,800
 	li	a4,0
 	li	a5,0
-lab25: 	lw	a3,4(s0)
+lab25: 	lw	a2,0(s0)
+	lw	a3,4(s0)
 	mv	a0,a4
 	mv	a1,a5
 	jal	ra,__adddf3
@@ -723,7 +740,8 @@ Calc_Var_Stddev:
 	addi	s5,a0,800
 	li	s2,0
 	li	s1,0
-lab26: 	lw	a1,4(s0)
+lab26: 	lw	a0,0(s0)
+	lw	a1,4(s0)
 	mv	a2,s4
 	mv	a3,s3
 	jal	ra,__subdf3
@@ -788,7 +806,8 @@ Calc_LinCorrCoef:
 	li	s4,0
 	li	s3,0
 	li	s2,0
-lab27: 	lw	a1,4(s9)
+lab27: 	lw	a0,0(s9)
+	lw	a1,4(s9)
 	lw	a2,16(sp)
 	lw	a3,20(sp)
 	addi	s9,s9,8
@@ -902,7 +921,8 @@ Initialize:
 	li	s7,0
 	addi	s3,s3,-97 # 1f9f <__DTOR_END__+0x98b>
 	li	s4,100
-lab28: 	add	a0,a0,s2
+lab28: 	slli	a0,s2,0x5
+	add	a0,a0,s2
 	slli	a0,a0,0x2
 	add	a0,a0,s2
 	addi	a0,a0,81

@@ -79,7 +79,8 @@ bodies_energy.constprop.0:
 	mv	s5,s5
 	li	s11,1
 	sw	a5,16(sp)
-lab0: 	add	s0,s6,s0
+lab0: 	slli	s0,s11,0x6
+	add	s0,s6,s0
 	lw	a5,16(sp)
 	lw	a2,0(s0)
 	lw	a3,4(s0)
@@ -552,7 +553,8 @@ benchmark_body.constprop.0:
 	jal	ra,__subdf3
 	sw	a0,48(s10)
 	sw	a1,52(s10)
-lab2: 	mv	a2,a0
+lab2: 	jal	ra,bodies_energy.constprop.0
+	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s9
 	mv	a1,s8
@@ -786,7 +788,8 @@ benchmark_body.isra.0:
 	lw	s4,368(s4)
 	sw	a0,8(sp)
 	sw	a1,20(sp)
-lab5: 	mv	a1,s8
+lab5: 	mv	a0,s9
+	mv	a1,s8
 	mv	a2,s6
 	mv	a3,s7
 	jal	ra,__muldf3
@@ -873,7 +876,8 @@ lab5: 	mv	a1,s8
 	mv	s0,a1
 	sw	a0,48(s10)
 	sw	a1,52(s10)
-lab4: 	jal	ra,bodies_energy.constprop.0
+lab4: 	addi	s11,s11,-1
+	jal	ra,bodies_energy.constprop.0
 	bnez	s11,lab4
 	lw	a5,4(sp)
 	lw	a4,16(sp)
@@ -925,7 +929,8 @@ offset_momentum:
 	mv	s9,a0
 	mv	s0,a0
 	sw	a5,12(sp)
-lab7: 	lw	s11,60(s0)
+lab7: 	lw	s10,56(s0)
+	lw	s11,60(s0)
 	lw	a2,32(s0)
 	lw	a3,36(s0)
 	mv	a0,s10
@@ -1027,7 +1032,8 @@ bodies_energy:
 	li	s7,0
 	li	s6,0
 	mv	s8,a4
-lab11: 	lw	a6,-28(s8)
+lab11: 	lw	a5,-32(s8)
+	lw	a6,-28(s8)
 	lw	s4,-24(s8)
 	lw	s5,-20(s8)
 	mv	a2,a5
@@ -1091,7 +1097,8 @@ lab11: 	lw	a6,-28(s8)
 	lw	s3,-44(s8)
 	sw	a5,16(sp)
 	sw	a6,20(sp)
-lab10: 	lw	a3,4(s8)
+lab10: 	lw	a2,0(s8)
+	lw	a3,4(s8)
 	lw	a0,16(sp)
 	lw	a1,20(sp)
 	addi	s8,s8,64

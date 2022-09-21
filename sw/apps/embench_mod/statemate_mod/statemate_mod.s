@@ -29,7 +29,8 @@ lab1: 	lui	a2,0x100
 	lui	a4,0x100
 	sb	zero,81(a4) # 100051 <stable>
 	sb	a1,75(a2)
-lab8: 	lbu	a2,74(a3) # 10004a <A_FH_TUERMODUL_CTRL_next_state>
+lab8: 	lui	a3,0x100
+	lbu	a2,74(a3) # 10004a <A_FH_TUERMODUL_CTRL_next_state>
 	li	a4,1
 	beq	a2,a4,lab5
 	lui	a2,0x100
@@ -39,7 +40,8 @@ lab8: 	lbu	a2,74(a3) # 10004a <A_FH_TUERMODUL_CTRL_next_state>
 	lui	a3,0x100
 	sw	zero,220(a2) # 1000dc <FH_TUERMODUL_CTRL__N>
 	sb	a4,73(a3) # 100049 <WIEDERHOLSPERRE_FH_TUERMODUL_CTRL_next_state>
-lab7: 	lbu	a4,6(a5)
+lab7: 	lbu	a3,4(a5)
+	lbu	a4,6(a5)
 	sb	a3,5(a5)
 	sb	a4,7(a5)
 	ret
@@ -49,7 +51,8 @@ lab5: 	lui	a4,0x100
 	lui	a4,0x100
 	lbu	a3,73(a4) # 100049 <WIEDERHOLSPERRE_FH_TUERMODUL_CTRL_next_state>
 	beq	a3,a2,lab7
-lab24: 	sb	zero,81(a3) # 100051 <stable>
+lab24: 	lui	a3,0x100
+	sb	zero,81(a3) # 100051 <stable>
 	li	a3,1
 	sb	a3,73(a4)
 	lbu	a3,4(a5)
@@ -94,7 +97,8 @@ lab3: 	lui	a3,0x100
 lab9: 	lui	a4,0x100
 	lbu	a4,135(a4) # 100087 <FH_TUERMODUL__BLOCK>
 	bnez	a4,lab10
-lab18: 	lbu	a4,72(a3) # 100048 <INITIALISIERT_FH_TUERMODUL_CTRL_next_state>
+lab18: 	lui	a3,0x100
+	lbu	a4,72(a3) # 100048 <INITIALISIERT_FH_TUERMODUL_CTRL_next_state>
 	li	a1,2
 	beq	a4,a1,lab11
 	li	a2,3
@@ -153,7 +157,8 @@ lab10: 	lui	a4,0x100
 	sb	zero,121(a4) # 100079 <FH_TUERMODUL__MFHA_copy>
 	lui	a4,0x100
 	sw	a3,232(a4) # 1000e8 <sc_FH_TUERMODUL_CTRL_2375_2>
-lab21: 	sb	a4,75(a2)
+lab21: 	li	a4,2
+	sb	a4,75(a2)
 	li	a3,3
 	lui	a4,0x100
 	sb	a3,79(a4) # 10004f <NICHT_INITIALISIERT_NICHT_INITIALISIERT_next_state>
@@ -399,7 +404,8 @@ lab30: 	lui	a4,0x100
 	lui	a4,0x100
 	lbu	a4,129(a4) # 100081 <FH_TUERMODUL__SFHZ_old>
 	bnez	a4,lab40
-lab41: 	sb	zero,81(a4) # 100051 <stable>
+lab41: 	lui	a4,0x100
+	sb	zero,81(a4) # 100051 <stable>
 	lui	a4,0x100
 	sb	zero,121(a4) # 100079 <FH_TUERMODUL__MFHA_copy>
 	li	a4,3
@@ -506,8 +512,10 @@ interface:
 	lw	a4,84(a4) # 100054 <time>
 	lui	a3,0x100
 	sw	a4,236(a3) # 1000ec <tm_entered_WIEDERHOLSPERRE_FH_TUERMODUL_CTRL>
-lab52: 	sw	a4,240(a3) # 1000f0 <tm_entered_WIEDERHOLSPERRE_FH_TUERMODUL_CTRLexited_BEREIT_FH_TUERMODUL_CTRL>
-lab51: 	lw	a4,232(a3) # 1000e8 <sc_FH_TUERMODUL_CTRL_2375_2>
+lab52: 	lui	a3,0x100
+	sw	a4,240(a3) # 1000f0 <tm_entered_WIEDERHOLSPERRE_FH_TUERMODUL_CTRLexited_BEREIT_FH_TUERMODUL_CTRL>
+lab51: 	lui	a3,0x100
+	lw	a4,232(a3) # 1000e8 <sc_FH_TUERMODUL_CTRL_2375_2>
 	beqz	a4,lab44
 	lui	a2,0x100
 	lw	a2,84(a2) # 100054 <time>
@@ -635,7 +643,8 @@ lab54: 	lui	a5,0x100
 	lui	a3,0x100
 	lbu	a3,141(a3) # 10008d <FH_TUERMODUL__SFHZ_MEC_old>
 	bnez	a3,lab60
-lab75: 	li	a4,1
+lab75: 	lui	a3,0x100
+	li	a4,1
 	sb	zero,81(a3) # 100051 <stable>
 	lui	a3,0x100
 	sb	a4,130(a3) # 100082 <FH_TUERMODUL__SFHZ_copy>
@@ -653,7 +662,8 @@ lab56: 	lui	a2,0x100
 	lui	a5,0x100
 	lbu	a5,143(a5) # 10008f <FH_TUERMODUL__SFHZ_ZENTRAL_old>
 	bnez	a5,lab63
-lab74: 	li	a5,1
+lab74: 	lui	a3,0x100
+	li	a5,1
 	sb	zero,81(a3) # 100051 <stable>
 	lui	a3,0x100
 	sb	a5,130(a3) # 100082 <FH_TUERMODUL__SFHZ_copy>
@@ -1032,7 +1042,8 @@ FH_DU:
 	mv	t4,a0
 	sw	a6,12(sp)
 	mv	t2,a5
-lab109: 	lui	a6,0x100
+lab109: 	lui	a5,0x100
+	lui	a6,0x100
 	li	a0,1
 	lbu	a5,67(a5) # 100043 <FH_STEUERUNG_DUMMY_FH_STEUERUNG_DUMMY_next_state>
 	addi	t5,t5,1
@@ -1050,7 +1061,8 @@ lab109: 	lui	a6,0x100
 	sw	zero,188(a5) # 1000bc <FH_DU__MFH>
 	lui	a5,0x100
 	sb	a6,67(a5) # 100043 <FH_STEUERUNG_DUMMY_FH_STEUERUNG_DUMMY_next_state>
-lab117: 	li	a5,3
+lab117: 	bnez	t1,lab95
+	li	a5,3
 	lui	a0,0x100
 	sb	a5,76(a0) # 10004c <KINDERSICHERUNG_CTRL_KINDERSICHERUNG_CTRL_next_state>
 lab95: 	bnez	a7,lab96
@@ -1089,7 +1101,10 @@ lab98: 	li	a5,1
 	lui	a5,0x100
 	sb	t2,114(a5) # 100072 <FH_DU__S_FH_FTZU>
 	beq	t0,a4,lab101
-lab110: lab112: lab113: 	lui	a5,0x100
+lab110: 	beq	a2,a3,lab102
+lab112: 	sb	a2,113(s3) # 100071 <FH_DU__S_FH_FTAUF>
+lab113: 	lbu	a4,21(s0)
+	lui	a5,0x100
 	lbu	a5,98(a5) # 100062 <FH_DU__S_FH_AUFDISC>
 	lui	a3,0x100
 	lbu	a3,99(a3) # 100063 <FH_DU__S_FH_ZUDISC>
@@ -1377,13 +1392,16 @@ lab99: 	lui	a5,0x100
 	lui	a5,0x100
 	lbu	a5,97(a5) # 100061 <FH_DU__DOOR_ID>
 	beqz	a5,lab110
-lab114: 	sb	a4,106(a5) # 10006a <FH_DU__S_FH_TMBFZUCAN>
+lab114: 	lui	a5,0x100
+	sb	a4,106(a5) # 10006a <FH_DU__S_FH_TMBFZUCAN>
 lab101: 	beq	a2,a3,lab111
 	lui	a5,0x100
 	lbu	a5,97(a5) # 100061 <FH_DU__DOOR_ID>
 	beqz	a5,lab112
-lab115: 	beq	a1,s8,lab113
-lab116: 	lbu	a2,113(s3)
+lab115: 	lbu	a2,113(s3)
+	beq	a1,s8,lab113
+lab116: 	lui	a5,0x100
+	lbu	a2,113(s3)
 	sb	a1,109(a5) # 10006d <FH_DU__S_FH_TMBFAUFCAN>
 	j	lab113
 lab100: 	lui	a5,0x100
@@ -1401,7 +1419,8 @@ lab93: 	lbu	a5,90(s2)
 	lui	a5,0x100
 	lbu	a5,88(a5) # 100058 <FH_DU__MFHA_old>
 	beqz	a5,lab117
-lab119: 	sb	zero,81(a5) # 100051 <stable>
+lab119: 	lui	a5,0x100
+	sb	zero,81(a5) # 100051 <stable>
 	lui	a5,0x100
 	sw	zero,188(a5) # 1000bc <FH_DU__MFH>
 	lui	a0,0x100
@@ -1511,7 +1530,8 @@ lab124: 	lui	a1,0x100
 	lbu	a1,77(a1) # 10004d <MEC_KINDERSICHERUNG_CTRL_next_state>
 	li	a0,1
 	beq	a1,a0,lab127
-lab128: 	sb	zero,81(a1) # 100051 <stable>
+lab128: 	lui	a1,0x100
+	sb	zero,81(a1) # 100051 <stable>
 	j	lab103
 lab120: 	lui	a0,0x100
 	lbu	a6,78(a0) # 10004e <ZENTRAL_KINDERSICHERUNG_CTRL_next_state>
@@ -1542,7 +1562,8 @@ lab125: 	lui	a1,0x100
 	lui	a0,0x100
 	lbu	a0,141(a0) # 10008d <FH_TUERMODUL__SFHZ_MEC_old>
 	bnez	a0,lab131
-lab138: 	li	a1,1
+lab138: 	lui	a0,0x100
+	li	a1,1
 	sb	zero,81(a0) # 100051 <stable>
 	lui	a0,0x100
 	sb	a1,130(a0) # 100082 <FH_TUERMODUL__SFHZ_copy>
@@ -1566,7 +1587,8 @@ lab121: 	lui	a0,0x100
 	lui	a1,0x100
 	lbu	a1,143(a1) # 10008f <FH_TUERMODUL__SFHZ_ZENTRAL_old>
 	bnez	a1,lab133
-lab137: 	li	a1,1
+lab137: 	lui	a6,0x100
+	li	a1,1
 	sb	zero,81(a6) # 100051 <stable>
 	lui	a6,0x100
 	sb	a1,130(a6) # 100082 <FH_TUERMODUL__SFHZ_copy>
@@ -1671,7 +1693,8 @@ benchmark_body.constprop.0:
 	lui	s3,0x100
 	lui	s2,0x100
 	lui	s1,0x100
-lab139: 	li	a1,0
+lab139: 	li	a2,64
+	li	a1,0
 	mv	a0,s11
 	jal	ra,memset
 	lui	a5,0x100
@@ -1750,7 +1773,8 @@ benchmark_body.isra.0:
 	lui	s4,0x100
 	lui	s3,0x100
 	lui	s2,0x100
-lab141: 	li	a1,0
+lab141: 	li	a2,64
+	li	a1,0
 	mv	a0,s11
 	jal	ra,memset
 	lui	a5,0x100
@@ -1814,7 +1838,8 @@ verify_benchmark:
 	addi	a5,a5,248 # 1000f8 <_bss_end>
 	mv	a4,sp
 	addi	a6,a5,64
-lab142: 	lw	a1,4(a5)
+lab142: 	lw	a0,0(a5)
+	lw	a1,4(a5)
 	lw	a2,8(a5)
 	lw	a3,12(a5)
 	sw	a0,0(a4)
@@ -1829,12 +1854,15 @@ lab142: 	lw	a1,4(a5)
 	mv	a4,sp
 	addi	a1,a5,64 # 100040 <BLOCK_ERKENNUNG_CTRL_BLOCK_ERKENNUNG_CTRL_next_state>
 	j	lab143
-lab145: lab143: 	lbu	a2,0(a5)
+lab145: 	beq	a5,a1,lab144
+lab143: 	lbu	a2,0(a5)
 	lbu	a3,0(a4)
 	addi	a5,a5,1
 	addi	a4,a4,1
 	beq	a2,a3,lab145
-lab147: lab146: 	ret
+lab147: 	li	a0,0
+lab146: 	addi	sp,sp,64
+	ret
 lab144: 	lui	a4,0x100
 	lui	a5,0x100
 	lw	a3,240(a4) # 1000f0 <tm_entered_WIEDERHOLSPERRE_FH_TUERMODUL_CTRLexited_BEREIT_FH_TUERMODUL_CTRL>

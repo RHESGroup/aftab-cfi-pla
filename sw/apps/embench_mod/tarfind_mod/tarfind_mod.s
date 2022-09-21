@@ -26,7 +26,8 @@ benchmark_body.constprop.0:
 	addi	s9,s6,843
 	li	s3,48
 	sw	a5,12(sp)
-lab8: 	mv	a0,s11
+lab8: 	mv	a1,s10
+	mv	a0,s11
 	jal	ra,init_heap_beebs
 	addi	a0,s6,803
 	jal	ra,malloc_beebs
@@ -35,12 +36,14 @@ lab8: 	mv	a0,s11
 	add	s4,a0,s9
 	mv	s2,a0
 	li	s1,26
-lab1: 	li	a1,0
+lab1: 	li	a2,257
+	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
 	mv	s8,s2
 	sb	s3,156(s2)
-lab0: 	rem	a0,a0,s1
+lab0: 	jal	ra,rand_beebs
+	rem	a0,a0,s1
 	addi	s8,s8,1
 	addi	a0,a0,65
 	sb	a0,-1(s8)
@@ -57,11 +60,14 @@ lab0: 	rem	a0,a0,s1
 	li	s0,0
 	add	a7,s5,a5
 	add	a6,s5,a6
-lab7: lab6: 	mv	a3,a1
+lab7: 	mv	a1,s5
+lab6: 	lbu	a4,0(a1)
+	mv	a3,a1
 	mv	a5,a0
 	bnez	a4,lab2
 	j	lab3
-lab5: 	lbu	a4,0(a3)
+lab5: 	bne	a2,a4,lab4
+	lbu	a4,0(a3)
 	beqz	a4,lab3
 lab2: 	lbu	a2,0(a5)
 	addi	a3,a3,1
@@ -71,7 +77,8 @@ lab4: 	addi	a1,a1,257
 	bne	a6,a1,lab6
 	addi	a0,a0,257
 	bne	a0,a7,lab7
-lab9: 	mv	a0,s5
+lab9: 	addi	s7,s7,-1
+	mv	a0,s5
 	jal	ra,free_beebs
 	bnez	s7,lab8
 	lw	ra,76(sp)
@@ -122,7 +129,8 @@ benchmark_body.isra.0:
 	addi	s10,s6,804 # 2324 <__DTOR_END__+0x1798>
 	li	s3,48
 	sw	a5,12(sp)
-lab19: 	mv	a0,s11
+lab19: 	mv	a1,s10
+	mv	a0,s11
 	jal	ra,init_heap_beebs
 	addi	a0,s6,803
 	jal	ra,malloc_beebs
@@ -133,12 +141,14 @@ lab19: 	mv	a0,s11
 	add	s4,a0,a5
 	mv	s2,a0
 	li	s1,26
-lab12: 	li	a1,0
+lab12: 	li	a2,257
+	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
 	mv	s9,s2
 	sb	s3,156(s2)
-lab11: 	rem	a0,a0,s1
+lab11: 	jal	ra,rand_beebs
+	rem	a0,a0,s1
 	addi	s9,s9,1
 	addi	a0,a0,65
 	sb	a0,-1(s9)
@@ -154,11 +164,14 @@ lab11: 	rem	a0,a0,s1
 	addi	a6,s6,803
 	add	a6,s5,a6
 	add	a7,s5,a5
-lab18: lab17: 	mv	a3,a1
+lab18: 	mv	a1,s5
+lab17: 	lbu	a4,0(a1)
+	mv	a3,a1
 	mv	a5,a0
 	bnez	a4,lab13
 	j	lab14
-lab16: 	lbu	a4,0(a3)
+lab16: 	bne	a2,a4,lab15
+	lbu	a4,0(a3)
 	beqz	a4,lab14
 lab13: 	lbu	a2,0(a5)
 	addi	a3,a3,1
@@ -166,7 +179,8 @@ lab13: 	lbu	a2,0(a5)
 	bnez	a2,lab16
 lab15: 	addi	a1,a1,257
 	bne	a6,a1,lab17
-lab20: 	bne	a0,a7,lab18
+lab20: 	addi	a0,a0,257
+	bne	a0,a7,lab18
 	addi	s8,s8,1
 	mv	a0,s5
 	jal	ra,free_beebs
@@ -282,7 +296,8 @@ malloc_beebs:
 	lui	a5,0x102
 	lw	a5,808(a5) # 102328 <heap_end>
 	bltu	a5,a4,lab22
-lab24: 	ret
+lab24: 	sw	a4,812(a2)
+	ret
 lab23: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
@@ -308,7 +323,8 @@ calloc_beebs:
 	lui	a4,0x102
 	lw	a4,808(a4) # 102328 <heap_end>
 	bltu	a4,a3,lab25
-lab28: 	beqz	a5,lab27
+lab28: 	sw	a3,812(a0)
+	beqz	a5,lab27
 	addi	sp,sp,-16
 	li	a1,0
 	mv	a0,a5
@@ -344,7 +360,8 @@ realloc_beebs:
 	lui	a4,0x102
 	lw	a4,808(a4) # 102328 <heap_end>
 	bltu	a4,a3,lab29
-lab34: 	beqz	a0,lab29
+lab34: 	sw	a3,812(a6)
+	beqz	a0,lab29
 	addi	a4,a5,1
 	sub	a4,a0,a4
 	or	a3,a5,a0
@@ -361,7 +378,8 @@ lab34: 	beqz	a0,lab29
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab32: 	addi	a4,a4,4
+lab32: 	lw	a2,0(a4)
+	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
 	bne	a4,a6,lab32
@@ -396,7 +414,8 @@ lab29: 	li	a0,0
 lab33: 	ret
 lab31: 	mv	a4,a0
 	add	a1,a5,a1
-lab35: 	addi	a5,a5,1
+lab35: 	lbu	a3,0(a5)
+	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
 	bne	a5,a1,lab35

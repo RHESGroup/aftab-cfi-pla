@@ -33,8 +33,10 @@ benchmark_body.constprop.0:
 	addi	s7,s2,1600
 	addi	s0,s0,-192 # 101f40 <Seed>
 	li	s9,20
-lab6: 	mv	a4,s4
-lab0: 	lw	a1,4(a5)
+lab6: 	mv	a5,s2
+	mv	a4,s4
+lab0: 	lw	a0,0(a5)
+	lw	a1,4(a5)
 	lw	a2,8(a5)
 	lw	a3,12(a5)
 	sw	a0,0(a4)
@@ -46,7 +48,8 @@ lab0: 	lw	a1,4(a5)
 	bne	a5,s7,lab0
 	mv	a5,s1
 	mv	a4,s5
-lab1: 	lw	a0,0(a5)
+lab1: 	lw	a3,12(a5)
+	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
 	sw	a3,12(a4)
@@ -62,16 +65,19 @@ lab1: 	lw	a0,0(a5)
 	mv	a7,s3
 	addi	s10,a5,-1712 # 101950 <ResultArray+0x50>
 	mv	s11,s8
-lab5: 	mv	a0,a7
+lab5: 	li	a1,0
+	mv	a0,a7
 	li	a2,80
 	jal	ra,memset
 	mv	a7,a0
 	mv	a1,s11
 	mv	a0,s5
 	li	a3,0
-lab4: 	mv	a2,a0
+lab4: 	lw	t5,0(a1)
+	mv	a2,a0
 	mv	a5,a7
-lab3: 	lw	t4,0(a5)
+lab3: 	lw	a4,0(a2)
+	lw	t4,0(a5)
 	li	a6,0
 	mul	a4,t5,a4
 	beqz	a3,lab2
@@ -138,8 +144,10 @@ benchmark_body.isra.0:
 	addi	s4,s4,-1792 # 101900 <ResultArray>
 	addi	s5,s0,-192 # 101f40 <Seed>
 	li	s11,20
-lab14: 	mv	a4,s6
-lab8: 	lw	a0,0(a5)
+lab14: 	mv	a5,s2
+	mv	a4,s6
+lab8: 	lw	a3,12(a5)
+	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
 	sw	a3,12(a4)
@@ -153,7 +161,8 @@ lab8: 	lw	a0,0(a5)
 	bne	a5,a3,lab8
 	mv	a5,s1
 	mv	a4,s7
-lab9: 	lw	a0,0(a5)
+lab9: 	lw	a3,12(a5)
+	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
 	sw	a3,12(a4)
@@ -169,16 +178,19 @@ lab9: 	lw	a0,0(a5)
 	mv	a6,s4
 	addi	s10,s0,-1712
 	mv	s9,a5
-lab13: 	mv	a0,a6
+lab13: 	li	a1,0
+	mv	a0,a6
 	li	a2,80
 	jal	ra,memset
 	mv	a6,a0
 	mv	a1,s9
 	mv	a0,s7
 	li	a3,0
-lab12: 	mv	a2,a0
+lab12: 	lw	t6,0(a1)
+	mv	a2,a0
 	mv	a5,a6
-lab11: 	lw	t5,0(a5) # 100000 <ArrayA>
+lab11: 	lw	a4,0(a2)
+	lw	t5,0(a5) # 100000 <ArrayA>
 	li	t4,0
 	mul	a4,t6,a4
 	beqz	a3,lab10
@@ -233,11 +245,14 @@ Test:
 	addi	t6,a1,1600
 	addi	t3,a1,1680
 	li	t5,400
-lab17: 	mv	a0,a7
-lab16: 	addi	a5,a6,-1600
+lab17: 	mv	a6,t6
+	mv	a0,a7
+lab16: 	sw	zero,0(a0)
+	addi	a5,a6,-1600
 	mv	a2,t1
 	li	a3,0
-lab15: 	lw	a1,0(a5)
+lab15: 	lw	a4,0(a2)
+	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a2,a2,4
 	mul	a4,a4,a1
@@ -272,15 +287,18 @@ Multiply:
 	addi	t0,a1,1600
 	addi	t1,a1,1680
 	li	t6,20
-lab20: 	add	a7,a7,t3
+lab20: 	slli	a7,t3,0x2
+	add	a7,a7,t3
 	slli	a7,a7,0x4
 	mv	a6,t0
 	add	a7,t5,a7
 	mv	a0,t4
-lab19: 	addi	a5,a6,-1600
+lab19: 	sw	zero,0(a0)
+	addi	a5,a6,-1600
 	mv	a2,a7
 	li	a3,0
-lab18: 	lw	a1,0(a5)
+lab18: 	lw	a4,0(a2)
+	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a2,a2,4
 	mul	a4,a4,a1
@@ -303,7 +321,9 @@ initialise_benchmark:
 	addi	a0,a0,1680
 	li	a5,0
 	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1463>
-lab22: lab21: 	add	a4,a4,a5
+lab22: 	addi	a3,a2,-80
+lab21: 	slli	a4,a5,0x5
+	add	a4,a4,a5
 	slli	a4,a4,0x2
 	add	a5,a4,a5
 	addi	a5,a5,81
@@ -320,7 +340,9 @@ lab22: lab21: 	add	a4,a4,a5
 	addi	a2,a2,784
 	addi	a0,a0,1680
 	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1463>
-lab24: lab23: 	add	a4,a4,a5
+lab24: 	addi	a3,a2,-80
+lab23: 	slli	a4,a5,0x5
+	add	a4,a4,a5
 	slli	a4,a4,0x2
 	add	a5,a4,a5
 	addi	a5,a5,81
@@ -340,7 +362,8 @@ verify_benchmark:
 	sw	ra,1612(sp)
 	mv	a4,sp
 	addi	a3,a5,1600
-lab25: 	lw	a0,4(a5)
+lab25: 	lw	a6,0(a5)
+	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
 	sw	a6,0(a4)

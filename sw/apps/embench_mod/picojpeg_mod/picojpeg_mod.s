@@ -43,12 +43,14 @@ benchmark_body.constprop.0:
 	lui	s4,0x101
 	lui	s3,0x100
 	li	s0,1
-lab2: 	li	a2,0
+lab2: 	li	a3,0
+	li	a2,0
 	li	a1,764
 	mv	a0,s3
 	sw	zero,-1780(s4) # 10090c <jpeg_off>
 	jal	ra,pjpeg_decode_init
-lab1: 	bne	a0,s0,lab1
+lab1: 	jal	ra,pjpeg_decode_mcu
+	bne	a0,s0,lab1
 	addi	s1,s1,-1
 	bnez	s1,lab2
 	lw	ra,28(sp)
@@ -75,12 +77,14 @@ benchmark_body.isra.0:
 	lui	s5,0x101
 	lui	s4,0x100
 	li	s0,1
-lab5: 	li	a2,0
+lab5: 	li	a3,0
+	li	a2,0
 	li	a1,764
 	mv	a0,s4
 	sw	zero,-1780(s5) # 10090c <jpeg_off>
 	jal	ra,pjpeg_decode_init
-lab4: 	bne	a0,s0,lab4
+lab4: 	jal	ra,pjpeg_decode_mcu
+	bne	a0,s0,lab4
 	addi	s1,s1,1
 	bne	s1,s2,lab5
 	lw	ra,28(sp)
@@ -361,9 +365,11 @@ upsampleCb:
 	li	t3,88
 	addi	a2,a2,-256 # 7f00 <__DTOR_END__+0x1d2c>
 	li	t1,198
-lab16: 	mv	a3,t4
+lab16: 	addi	a4,a6,-8
+	mv	a3,t4
 	mv	a0,a7
-lab15: 	lbu	a1,0(a3)
+lab15: 	lh	t0,0(a0)
+	lbu	a1,0(a3)
 	lbu	t2,1(a3)
 	zext.b	a5,t0
 	mul	t6,a5,t3
@@ -395,7 +401,8 @@ lab15: 	lbu	a1,0(a3)
 	sltu	s2,s2,a2
 	beqz	s1,lab7
 	li	a1,-1
-lab26: 	xori	s1,s4,1
+lab26: 	slti	s4,t2,256
+	xori	s1,s4,1
 	and	s1,s2,s1
 	zext.b	s0,a1
 	li	a1,255
@@ -435,7 +442,8 @@ lab8: 	lbu	t2,8(a3)
 	sltu	s1,s1,a2
 	beqz	t6,lab9
 	li	a1,-1
-lab23: 	xori	t6,t2,1
+lab23: 	slti	t2,s2,256
+	xori	t6,t2,1
 	and	t6,s1,t6
 	zext.b	s0,a1
 	li	a1,255
@@ -482,7 +490,8 @@ lab10: 	mul	a5,a5,t1
 	sltu	s1,s1,a2
 	beqz	t2,lab11
 	li	a1,-1
-lab20: 	xori	t6,t2,1
+lab20: 	slti	t2,t0,256
+	xori	t6,t2,1
 	and	t6,s1,t6
 	zext.b	s2,a1
 	li	a1,255
@@ -535,7 +544,8 @@ lab13: 	slti	t2,t6,256
 	and	a1,t0,a1
 	beqz	a1,lab14
 	li	a1,255
-lab17: 	or	a5,a5,a1
+lab17: 	slli	a1,a1,0x8
+	or	a5,a5,a1
 	sh	a5,8(a4)
 	addi	a4,a4,2
 	addi	a3,a3,2
@@ -613,9 +623,11 @@ upsampleCbH:
 	li	t3,88
 	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d2c>
 	li	t1,198
-lab32: 	mv	a2,t4
+lab32: 	addi	a3,a6,-8
+	mv	a2,t4
 	mv	a0,a7
-lab31: 	lbu	t6,0(a2)
+lab31: 	lh	t0,0(a0)
+	lbu	t6,0(a2)
 	lbu	t2,1(a2)
 	zext.b	a5,t0
 	mul	a4,a5,t3
@@ -647,7 +659,8 @@ lab31: 	lbu	t6,0(a2)
 	sltu	s3,s3,a1
 	beqz	s0,lab27
 	li	a4,-1
-lab39: 	xori	t6,s2,1
+lab39: 	slti	s2,t2,256
+	xori	t6,s2,1
 	and	t6,s3,t6
 	zext.b	s0,a4
 	li	a4,255
@@ -694,11 +707,13 @@ lab28: 	mul	a5,a5,t1
 	sltu	t0,t0,a1
 	beqz	a4,lab29
 	li	a4,255
-lab36: 	xori	t6,t2,1
+lab36: 	slti	t2,a5,256
+	xori	t6,t2,1
 	and	t6,t0,t6
 	beqz	t6,lab30
 	li	a5,255
-lab35: 	or	a5,a4,a5
+lab35: 	slli	a5,a5,0x8
+	or	a5,a4,a5
 	sh	a5,0(a3)
 	addi	a3,a3,2
 	addi	a2,a2,2
@@ -760,9 +775,11 @@ upsampleCbV:
 	li	t3,88
 	li	a0,255
 	li	t1,198
-lab53: 	mv	a1,t5
+lab53: 	addi	a6,a7,-16
+	mv	a1,t5
 	mv	a2,t4
-lab52: 	lbu	a3,0(a2)
+lab52: 	lh	t0,0(a6)
+	lbu	a3,0(a2)
 	addi	a6,a6,2
 	zext.b	a5,t0
 	mul	a4,a5,t3
@@ -863,9 +880,11 @@ upsampleCr:
 	li	t3,103
 	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d2c>
 	li	t1,183
-lab63: 	mv	a2,t4
+lab63: 	addi	a3,a6,-8
+	mv	a2,t4
 	mv	a0,a7
-lab62: 	lbu	t6,0(a2)
+lab62: 	lh	a4,0(a0)
+	lbu	t6,0(a2)
 	lbu	t2,1(a2)
 	zext.b	a5,a4
 	mul	t0,a5,t3
@@ -899,7 +918,8 @@ lab62: 	lbu	t6,0(a2)
 	sltu	s4,s3,a1
 	beqz	s0,lab54
 	li	t6,-1
-lab74: 	xori	t0,s0,1
+lab74: 	slti	s0,t2,256
+	xori	t0,s0,1
 	and	t0,s4,t0
 	zext.b	s3,t6
 	li	t6,255
@@ -939,7 +959,8 @@ lab55: 	lbu	t0,8(a2)
 	sltu	s2,s2,a1
 	beqz	t6,lab56
 	li	a4,-1
-lab71: 	xori	t6,s0,1
+lab71: 	slti	s0,s3,256
+	xori	t6,s0,1
 	and	t6,s2,t6
 	zext.b	t2,a4
 	li	a4,255
@@ -984,7 +1005,8 @@ lab57: 	mul	a5,a5,t1
 	sltu	s1,s1,a1
 	beqz	t2,lab58
 	li	a4,-1
-lab68: 	xori	t6,t2,1
+lab68: 	slti	t2,t0,256
+	xori	t6,t2,1
 	and	t6,s1,t6
 	zext.b	s2,a4
 	li	a4,255
@@ -1024,11 +1046,13 @@ lab59: 	lbu	t6,8(a3)
 	sltu	t2,t2,a1
 	beqz	a5,lab60
 	li	a5,255
-lab65: 	xori	a4,t6,1
+lab65: 	slti	t6,t0,256
+	xori	a4,t6,1
 	and	a4,t2,a4
 	beqz	a4,lab61
 	li	a4,255
-lab64: 	or	a5,a5,a4
+lab64: 	slli	a4,a4,0x8
+	or	a5,a5,a4
 	sh	a5,8(a3)
 	addi	a3,a3,2
 	addi	a2,a2,2
@@ -1115,9 +1139,11 @@ upsampleCrH:
 	li	t3,103
 	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d2c>
 	li	t1,183
-lab80: 	mv	a2,t4
+lab80: 	addi	a3,a6,-8
+	mv	a2,t4
 	mv	a0,a7
-lab79: 	lbu	t6,0(a2)
+lab79: 	lh	a5,0(a0)
+	lbu	t6,0(a2)
 	lbu	t2,1(a2)
 	zext.b	a4,a5
 	mul	t0,a4,t3
@@ -1151,7 +1177,8 @@ lab79: 	lbu	t6,0(a2)
 	sltu	s3,s0,a1
 	beqz	t2,lab75
 	li	t6,-1
-lab84: 	xori	t0,t2,1
+lab84: 	slti	t2,a5,256
+	xori	t0,t2,1
 	and	t0,s3,t0
 	zext.b	s0,t6
 	li	t6,-1
@@ -1209,7 +1236,8 @@ lab77: 	slti	t6,s2,256
 	and	a4,t2,a4
 	beqz	a4,lab78
 	li	a4,255
-lab81: 	or	a5,a5,a4
+lab81: 	slli	a4,a4,0x8
+	or	a5,a5,a4
 	sh	a5,0(a3)
 	addi	a3,a3,2
 	addi	a2,a2,2
@@ -1258,9 +1286,11 @@ upsampleCrV:
 	li	t1,103
 	li	a1,255
 	li	a7,183
-lab98: 	mv	a2,t4
+lab98: 	addi	a0,a6,-16
+	mv	a2,t4
 	mv	a3,t3
-lab97: 	lbu	t6,0(a3)
+lab97: 	lh	t0,0(a0)
+	lbu	t6,0(a3)
 	addi	a0,a0,2
 	zext.b	a4,t0
 	mul	a5,a4,t1
@@ -1350,7 +1380,8 @@ getChar:
 	lui	s0,0x100
 	lui	s2,0x101
 	addi	s0,s0,44 # 10002c <gCoeffBuf>
-lab101: 	lw	ra,12(sp)
+lab101: 	lbu	a4,-1695(s2) # 100961 <gInBufOfs>
+	lw	ra,12(sp)
 	addi	a5,a5,-1
 	add	s0,s0,a4
 	lbu	a0,896(s0)
@@ -1433,7 +1464,8 @@ getBits.constprop.1:
 	slli	a5,a5,0x10
 	sb	a4,-1700(s3)
 	srli	a5,a5,0x10
-lab103: 	mv	a0,s0
+lab103: 	lw	ra,28(sp)
+	mv	a0,s0
 	lw	s0,24(sp)
 	sh	a5,-1698(s2)
 	lw	s1,20(sp)
@@ -1468,7 +1500,8 @@ getOctet.part.0:
 	lui	s0,0x100
 	lui	s2,0x101
 	addi	s0,s0,44 # 10002c <gCoeffBuf>
-lab107: 	addi	a4,a4,-1
+lab107: 	lbu	a5,-1695(s2) # 100961 <gInBufOfs>
+	addi	a4,a4,-1
 	zext.b	a4,a4
 	add	a2,s0,a5
 	mv	a3,a5
@@ -1554,7 +1587,8 @@ huffDecode:
 	mv	s0,a0
 	srli	s1,a5,0xf
 	beqz	a4,lab108
-lab118: 	addi	a4,a4,-1
+lab118: 	slli	a5,a5,0x1
+	addi	a4,a4,-1
 	slli	a5,a5,0x10
 	slli	a3,s1,0x10
 	zext.b	a4,a4
@@ -1572,7 +1606,8 @@ lab118: 	addi	a4,a4,-1
 	addi	s3,s3,44 # 10002c <gCoeffBuf>
 	lui	s4,0x101
 	j	lab109
-lab113: 	addi	a4,a4,-1
+lab113: 	slli	a5,a5,0x1
+	addi	a4,a4,-1
 	slli	a5,a5,0x10
 	zext.b	a4,a4
 	srli	a5,a5,0x10
@@ -1594,7 +1629,8 @@ lab111: 	slli	s9,a1,0x10
 	jal	ra,getChar
 	mv	a2,a0
 	beq	a0,s1,lab114
-lab115: 	lbu	a4,-1700(s8)
+lab115: 	lhu	a5,-1698(s7)
+	lbu	a4,-1700(s8)
 	or	a5,a5,a2
 	addi	a4,a4,8
 	slli	a5,a5,0x10
@@ -1621,7 +1657,8 @@ lab114: 	sw	a0,12(sp)
 	sb	a4,-1696(s4)
 	j	lab115
 lab110: 	li	a0,0
-lab116: 	lw	s0,72(sp)
+lab116: 	lw	ra,76(sp)
+	lw	s0,72(sp)
 	lw	s1,68(sp)
 	lw	s2,64(sp)
 	lw	s3,60(sp)
@@ -1651,7 +1688,8 @@ lab108: 	jal	ra,getChar
 	li	a5,255
 	mv	s3,a0
 	beq	a0,a5,lab117
-lab119: 	lbu	a4,-1700(s8)
+lab119: 	lhu	a5,-1698(s7)
+	lbu	a4,-1700(s8)
 	or	a5,a5,s3
 	addi	a4,a4,8
 	slli	a5,a5,0x10
@@ -1678,10 +1716,12 @@ getBits.constprop.2:
 	mv	s2,a0
 	bltu	a3,a0,lab120
 	bltu	a4,s2,lab121
-lab123: 	sll	a5,a5,s2
+lab123: 	sub	a4,a4,s2
+	sll	a5,a5,s2
 	sb	a4,-1700(s3)
 	sh	a5,-1698(s4)
-lab125: 	sub	a5,a5,s1
+lab125: 	li	a5,16
+	sub	a5,a5,s1
 	lw	ra,44(sp)
 	sra	a0,s0,a5
 	lw	s0,40(sp)
@@ -1700,7 +1740,8 @@ lab120: 	sll	a4,s0,a4
 	li	a5,255
 	zext.b	s2,s2
 	beq	a0,a5,lab122
-lab126: 	lbu	a4,-1700(s3)
+lab126: 	lhu	a5,-1698(s4)
+	lbu	a4,-1700(s3)
 	li	a3,8
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -1718,7 +1759,8 @@ lab121: 	sll	a5,a5,a4
 	jal	ra,getChar
 	li	a5,255
 	beq	a0,a5,lab124
-lab127: 	lbu	a4,-1700(s3)
+lab127: 	lhu	a5,-1698(s4)
+	lbu	a4,-1700(s3)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
 	sub	a3,s2,a4
@@ -1764,9 +1806,11 @@ processMarkers:
 	sw	a3,12(sp)
 	sw	a0,140(sp)
 	addi	s10,a3,96
-lab137: 	li	s3,255
+lab137: 	li	s2,7
+	li	s3,255
 	li	s1,8
-lab129: 	bgeu	s2,a4,lab128
+lab129: 	mv	s0,a5
+	bgeu	s2,a4,lab128
 	slli	a5,a5,0x8
 	addi	a4,a4,-8
 	slli	a5,a5,0x10
@@ -1776,7 +1820,8 @@ lab129: 	bgeu	s2,a4,lab128
 	sh	a5,-1698(s5)
 	srai	s0,s0,0x8
 	bne	s0,s3,lab129
-lab131: 	slli	a2,a5,0x8
+lab131: 	addi	a1,a4,-8
+	slli	a2,a5,0x8
 	mv	s0,a5
 	srai	a3,a5,0x8
 	bgeu	s2,a4,lab130
@@ -1788,7 +1833,8 @@ lab131: 	slli	a2,a5,0x8
 	beq	a3,s3,lab131
 	zext.b	a1,a3
 	beqz	a3,lab129
-lab177: 	bltu	a5,a1,lab132
+lab177: 	li	a5,215
+	bltu	a5,a1,lab132
 	li	a5,196
 	bltu	a5,a1,lab133
 	bne	a1,a5,lab134
@@ -1807,13 +1853,16 @@ lab177: 	bltu	a5,a1,lab132
 	li	s8,7
 	li	s7,8
 	sw	a3,0(sp)
-lab188: 	bgeu	s8,a4,lab136
-lab175: 	slli	a5,a5,0x8
+lab188: 	mv	s0,a5
+	bgeu	s8,a4,lab136
+lab175: 	addi	a4,a4,-8
+	slli	a5,a5,0x8
 	zext.b	a4,a4
 	slli	a5,a5,0x10
 	sb	a4,-1700(s9)
 	srli	a5,a5,0x10
-lab176: 	andi	a1,a3,14
+lab176: 	srli	a3,s0,0x8
+	andi	a1,a3,14
 	sh	a5,-1698(s5)
 	sw	a1,8(sp)
 	srai	a2,s0,0x8
@@ -1844,7 +1893,8 @@ lab138: 	addi	a4,a4,-8
 	slli	s4,s4,0x10
 	sb	a4,-1700(s9)
 	srli	s4,s4,0x10
-lab219: 	srli	s2,a5,0x8
+lab219: 	srai	a3,a5,0x8
+	srli	s2,a5,0x8
 	sw	a3,20(sp)
 	mv	s1,s2
 	bgeu	s8,a4,lab140
@@ -1862,7 +1912,8 @@ lab219: 	srli	s2,a5,0x8
 	srli	s3,s3,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab141
-lab210: 	addi	a5,a5,-8
+lab210: 	slli	a3,s3,0x8
+	addi	a5,a5,-8
 	srai	s4,s3,0x8
 	slli	s2,a3,0x10
 	zext.b	a5,a5
@@ -1874,7 +1925,8 @@ lab210: 	addi	a5,a5,-8
 	srli	s2,s2,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab142
-lab211: 	addi	a5,a5,-8
+lab211: 	srai	a2,s2,0x8
+	addi	a5,a5,-8
 	add	a4,a4,a2
 	zext.b	a5,a5
 	slli	a3,s2,0x8
@@ -1887,7 +1939,8 @@ lab211: 	addi	a5,a5,-8
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab143
-lab212: 	addi	a5,a5,-8
+lab212: 	srai	a2,a3,0x8
+	addi	a5,a5,-8
 	slli	a6,a3,0x8
 	zext.b	a5,a5
 	add	a4,a4,a2
@@ -1900,7 +1953,8 @@ lab212: 	addi	a5,a5,-8
 	srli	s2,s2,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab144
-lab213: 	addi	a5,a5,-8
+lab213: 	srai	a2,s2,0x8
+	addi	a5,a5,-8
 	add	a4,a4,a2
 	zext.b	a5,a5
 	slli	a3,s2,0x8
@@ -1913,7 +1967,8 @@ lab213: 	addi	a5,a5,-8
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab145
-lab214: 	addi	a5,a5,-8
+lab214: 	srai	a2,a3,0x8
+	addi	a5,a5,-8
 	slli	a6,a3,0x8
 	zext.b	a5,a5
 	add	a4,a4,a2
@@ -1926,7 +1981,8 @@ lab214: 	addi	a5,a5,-8
 	srli	s2,s2,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab146
-lab215: 	addi	a5,a5,-8
+lab215: 	srai	a2,s2,0x8
+	addi	a5,a5,-8
 	add	a4,a4,a2
 	zext.b	a5,a5
 	slli	a3,s2,0x8
@@ -1939,7 +1995,8 @@ lab215: 	addi	a5,a5,-8
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab147
-lab216: 	addi	a5,a5,-8
+lab216: 	srai	a2,a3,0x8
+	addi	a5,a5,-8
 	slli	a6,a3,0x8
 	zext.b	a5,a5
 	add	a4,a4,a2
@@ -1952,12 +2009,14 @@ lab216: 	addi	a5,a5,-8
 	srli	s2,s2,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab148
-lab217: 	slli	a3,s2,0x8
+lab217: 	addi	a5,a5,-8
+	slli	a3,s2,0x8
 	zext.b	a5,a5
 	slli	a3,a3,0x10
 	sb	a5,-1700(s9)
 	srli	a3,a3,0x10
-lab218: 	add	a4,a4,a2
+lab218: 	srai	a2,s2,0x8
+	add	a4,a4,a2
 	sw	a2,52(sp)
 	srli	a2,s2,0x8
 	slli	a4,a4,0x10
@@ -1970,7 +2029,8 @@ lab218: 	add	a4,a4,a2
 	slli	s2,a6,0x10
 	sb	a5,-1700(s9)
 	srli	s2,s2,0x10
-lab209: 	add	a4,a4,a2
+lab209: 	srai	a2,a3,0x8
+	add	a4,a4,a2
 	srli	a3,a3,0x8
 	slli	a4,a4,0x10
 	sw	a2,56(sp)
@@ -1983,7 +2043,8 @@ lab209: 	add	a4,a4,a2
 	slli	a3,a3,0x10
 	sb	a5,-1700(s9)
 	srli	a3,a3,0x10
-lab208: 	add	a4,a4,a2
+lab208: 	srai	a2,s2,0x8
+	add	a4,a4,a2
 	sw	a2,60(sp)
 	srli	a2,s2,0x8
 	slli	a4,a4,0x10
@@ -1996,7 +2057,8 @@ lab208: 	add	a4,a4,a2
 	slli	s2,a6,0x10
 	sb	a5,-1700(s9)
 	srli	s2,s2,0x10
-lab207: 	add	a4,a4,a2
+lab207: 	srai	a2,a3,0x8
+	add	a4,a4,a2
 	srli	a3,a3,0x8
 	slli	a4,a4,0x10
 	sw	a2,64(sp)
@@ -2017,7 +2079,8 @@ lab207: 	add	a4,a4,a2
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
 	bgeu	s8,a5,lab153
-lab204: 	addi	a5,a5,-8
+lab204: 	srai	a2,a3,0x8
+	addi	a5,a5,-8
 	slli	a7,a3,0x8
 	zext.b	a5,a5
 	srli	a3,a3,0x8
@@ -2030,12 +2093,14 @@ lab204: 	addi	a5,a5,-8
 	srli	s2,s2,0x10
 	srli	a3,a3,0x10
 	bgeu	s8,a5,lab154
-lab205: 	zext.b	a4,a5
+lab205: 	addi	a5,a5,-8
+	zext.b	a4,a5
 	slli	a5,s2,0x8
 	slli	a5,a5,0x10
 	sb	a4,-1700(s9)
 	srli	a5,a5,0x10
-lab206: 	add	a3,a3,a2
+lab206: 	srai	a2,s2,0x8
+	add	a3,a3,a2
 	sw	a2,16(sp)
 	srli	a2,s2,0x8
 	sh	a5,-1698(s5)
@@ -2049,7 +2114,8 @@ lab206: 	add	a3,a3,a2
 lab155: 	bltu	a3,s2,lab137
 	beqz	s2,lab156
 	li	s11,0
-lab158: 	addi	t1,a4,-8
+lab158: 	addi	a2,s11,1
+	addi	t1,a4,-8
 	slli	a7,a5,0x8
 	add	a0,s0,s11
 	zext.b	a1,a2
@@ -2079,7 +2145,8 @@ lab156: 	addi	a3,s2,17
 	slli	a0,a0,0x10
 	srli	a0,a0,0x10
 	slli	a3,s1,0x1
-lab203: 	sh	zero,0(s6)
+lab203: 	lw	a2,24(sp)
+	sh	zero,0(s6)
 	sh	a0,32(s6)
 	sb	zero,64(s6)
 	beqz	a2,lab160
@@ -2095,7 +2162,8 @@ lab203: 	sh	zero,0(s6)
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab202: 	slli	a3,a3,0x10
+lab202: 	slli	a3,a3,0x1
+	slli	a3,a3,0x10
 	sh	t3,2(s6)
 	sh	a0,34(s6)
 	sb	t1,65(s6)
@@ -2113,7 +2181,8 @@ lab202: 	slli	a3,a3,0x10
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab201: 	slli	a3,a3,0x1
+lab201: 	lw	a2,28(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,4(s6)
 	sh	a0,36(s6)
@@ -2132,7 +2201,8 @@ lab201: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab200: 	slli	a3,a3,0x1
+lab200: 	lw	a2,32(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,6(s6)
 	sh	a0,38(s6)
@@ -2151,7 +2221,8 @@ lab200: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab199: 	slli	a3,a3,0x1
+lab199: 	lw	a2,36(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,8(s6)
 	sh	a0,40(s6)
@@ -2170,7 +2241,8 @@ lab199: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab198: 	slli	a3,a3,0x1
+lab198: 	lw	a2,40(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,10(s6)
 	sh	a0,42(s6)
@@ -2189,7 +2261,8 @@ lab198: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab197: 	slli	a3,a3,0x1
+lab197: 	lw	a2,44(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,12(s6)
 	sh	a0,44(s6)
@@ -2208,7 +2281,8 @@ lab197: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab196: 	slli	a3,a3,0x1
+lab196: 	lw	a2,48(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,14(s6)
 	sh	a0,46(s6)
@@ -2227,7 +2301,8 @@ lab196: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab195: 	slli	a3,a3,0x1
+lab195: 	lw	a2,52(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,16(s6)
 	sh	a0,48(s6)
@@ -2246,7 +2321,8 @@ lab195: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab194: 	slli	a3,a3,0x1
+lab194: 	lw	a2,56(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,18(s6)
 	sh	a0,50(s6)
@@ -2265,7 +2341,8 @@ lab194: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab193: 	slli	a3,a3,0x1
+lab193: 	lw	a2,60(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,20(s6)
 	sh	a0,52(s6)
@@ -2284,7 +2361,8 @@ lab193: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab192: 	slli	a3,a3,0x1
+lab192: 	lw	a2,64(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,22(s6)
 	sh	a0,54(s6)
@@ -2303,7 +2381,8 @@ lab192: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab191: 	slli	a3,a3,0x1
+lab191: 	lw	a2,68(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,24(s6)
 	sh	a0,56(s6)
@@ -2322,7 +2401,8 @@ lab191: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab190: 	slli	a3,a3,0x1
+lab190: 	lw	a2,72(sp)
+	slli	a3,a3,0x1
 	slli	a3,a3,0x10
 	sh	t3,26(s6)
 	sh	a0,58(s6)
@@ -2341,7 +2421,8 @@ lab190: 	slli	a3,a3,0x1
 	srli	a0,a0,0x10
 	mv	a3,a7
 	zext.b	s1,a6
-lab189: 	sh	t1,28(s6)
+lab189: 	lw	a2,8(sp)
+	sh	t1,28(s6)
 	sh	a0,60(s6)
 	sb	a2,78(s6)
 	lw	a2,16(sp)
@@ -2412,9 +2493,11 @@ lab134: 	li	a5,1
 	zext.b	a5,a5
 	li	a4,3
 	bltu	a4,a5,lab179
-lab180: 	li	a0,0
+lab180: 	lw	a5,140(sp)
+	li	a0,0
 	sb	a1,0(a5)
-lab181: 	lw	s0,200(sp)
+lab181: 	lw	ra,204(sp)
+	lw	s0,200(sp)
 	lw	s1,196(sp)
 	lw	s2,192(sp)
 	lw	s3,188(sp)
@@ -2464,10 +2547,12 @@ lab179: 	jal	ra,getBits.constprop.1
 	lbu	a4,-1700(s9)
 	li	s2,7
 	li	s1,8
-lab187: 	slli	a2,a5,0x8
+lab187: 	addi	a1,a4,-8
+	slli	a2,a5,0x8
 	addi	a3,s0,-1
 	bgeu	s2,a4,lab185
-lab186: 	zext.b	a4,a1
+lab186: 	slli	a5,a2,0x10
+	zext.b	a4,a1
 	srli	a5,a5,0x10
 	slli	s0,a3,0x10
 	sb	a4,-1700(s9)
@@ -2915,7 +3000,8 @@ lab182: 	jal	ra,getBits.constprop.1
 	lui	s3,0x101
 	sw	s1,4(sp)
 	addi	s0,a5,1280
-lab227: 	li	a4,7
+lab227: 	lbu	a5,-1700(s9)
+	li	a4,7
 	lhu	s4,-1698(s5)
 	bgeu	a4,a5,lab220
 	addi	a5,a5,-8
@@ -2924,7 +3010,8 @@ lab227: 	li	a4,7
 	slli	s2,s2,0x10
 	sb	a4,-1700(s9)
 	srli	s2,s2,0x10
-lab233: 	srli	a2,s4,0xc
+lab233: 	srli	a5,s4,0x8
+	srli	a2,s4,0xc
 	andi	a3,a5,14
 	sh	s2,-1698(s5)
 	sw	a2,0(sp)
@@ -2941,7 +3028,8 @@ lab233: 	srli	a2,s4,0xc
 	li	s11,7
 	addi	s1,a5,1408
 	li	s8,8
-lab225: 	slli	a3,s2,0x8
+lab225: 	addi	a2,a4,-8
+	slli	a3,s2,0x8
 	srai	a5,s2,0x8
 	bgeu	s11,a4,lab224
 	slli	s2,a3,0x10
@@ -2952,8 +3040,11 @@ lab225: 	slli	a3,s2,0x8
 	sh	s2,-1698(s5)
 	addi	s6,s6,2
 	bne	s1,s6,lab225
-lab228: lab232: 	addi	a2,a3,32
-lab226: 	lbu	a3,0(a2)
+lab228: 	mv	a5,s0
+lab232: 	lw	a3,12(sp)
+	addi	a2,a3,32
+lab226: 	lh	a1,0(a5)
+	lbu	a3,0(a2)
 	addi	a5,a5,2
 	addi	a2,a2,1
 	mul	a3,a3,a1
@@ -3002,7 +3093,8 @@ lab222: 	lbu	a5,-1693(s3)
 	addi	s6,a5,1196 # 1004ac <gQuant0>
 	li	s11,7
 	li	s8,8
-lab231: 	slli	a3,s2,0x8
+lab231: 	addi	a2,a4,-8
+	slli	a3,s2,0x8
 	srai	a5,s2,0x8
 	bgeu	s11,a4,lab230
 	slli	s2,a3,0x10
@@ -3013,7 +3105,8 @@ lab231: 	slli	a3,s2,0x8
 	sh	s2,-1698(s5)
 	addi	s6,s6,2
 	bne	s0,s6,lab231
-lab236: 	addi	a5,a5,1196 # 1004ac <gQuant0>
+lab236: 	lui	a5,0x100
+	addi	a5,a5,1196 # 1004ac <gQuant0>
 	j	lab232
 lab230: 	sll	a4,s2,a4
 	sh	a4,-1698(s5)
@@ -3053,12 +3146,15 @@ lab229: 	lui	a5,0x100
 	addi	s1,a5,1196 # 1004ac <gQuant0>
 	li	s7,7
 	li	s8,8
-lab239: 	zext.b	a5,a5
+lab239: 	addi	a5,a4,-8
+	zext.b	a5,a5
 	slli	s6,s2,0x8
 	bgeu	s7,a4,lab234
-lab237: 	sb	a5,-1700(s9)
+lab237: 	slli	s6,s6,0x10
+	sb	a5,-1700(s9)
 	srli	s6,s6,0x10
-lab238: 	slli	s11,s11,0x8
+lab238: 	srai	s11,s2,0x8
+	slli	s11,s11,0x8
 	slli	a1,s6,0x8
 	slli	s11,s11,0x10
 	addi	a4,a5,-8
@@ -3118,9 +3214,11 @@ lab223: 	lw	a5,136(sp)
 	addi	s1,a5,1408
 	li	s8,8
 	j	lab240
-lab242: 	srli	s6,s6,0x10
+lab242: 	slli	s6,s6,0x10
+	srli	s6,s6,0x10
 	sb	a6,-1700(s9)
-lab243: 	slli	s7,s7,0x8
+lab243: 	srai	s7,s2,0x8
+	slli	s7,s7,0x8
 	slli	a3,s6,0x8
 	slli	s7,s7,0x10
 	addi	a4,a6,-8
@@ -3199,7 +3297,8 @@ getBits.constprop.0:
 	slli	a5,a5,0x10
 	sb	a4,-1700(s3)
 	srli	a5,a5,0x10
-lab248: 	sh	a5,-1698(s0)
+lab248: 	lw	ra,28(sp)
+	sh	a5,-1698(s0)
 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s3,12(sp)
@@ -3219,7 +3318,8 @@ lab244: 	lui	s5,0x101
 	lui	s4,0x100
 	lui	s6,0x101
 	addi	s4,s4,44 # 10002c <gCoeffBuf>
-lab250: 	addi	a4,a4,-1
+lab250: 	lbu	a5,-1695(s6) # 100961 <gInBufOfs>
+	addi	a4,a4,-1
 	sb	a4,-1696(s5)
 	addi	a4,a5,1
 	add	s4,s4,a5
@@ -3230,7 +3330,8 @@ lab250: 	addi	a4,a4,-1
 	beq	a5,a4,lab247
 lab246: 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
-lab251: 	lbu	a3,-1700(s3)
+lab251: 	lhu	a4,-1698(s0)
+	lbu	a3,-1700(s3)
 	or	a5,a5,a4
 	li	a4,8
 	sub	a4,a4,a3
@@ -3313,7 +3414,8 @@ lab254: 	lui	s2,0x101
 	sw	a4,40(sp)
 	lbu	a4,-1746(a4) # 10092e <gMaxBlocksPerMCU>
 	beqz	a4,lab256
-lab272: 	addi	a5,a5,-1688 # 100968 <gLastDC>
+lab272: 	lui	a5,0x101
+	addi	a5,a5,-1688 # 100968 <gLastDC>
 	sw	a5,28(sp)
 	lui	a5,0x101
 	addi	a5,a5,-1760 # 100920 <gMCUOrg>
@@ -3341,7 +3443,8 @@ lab272: 	addi	a5,a5,-1688 # 100968 <gLastDC>
 	addi	s0,s0,172 # 1000ac <gMCUBufG>
 	sw	a5,12(sp)
 	sw	s6,44(sp)
-lab285: 	addi	s4,s7,1280
+lab285: 	lw	a5,24(sp)
+	addi	s4,s7,1280
 	add	a5,a5,s5
 	lbu	s2,0(a5)
 	lw	a5,32(sp)
@@ -3360,7 +3463,8 @@ lab257: 	bnez	a5,lab258
 	andi	a0,a0,15
 	li	a4,0
 	bnez	a0,lab259
-lab305: 	zext.b	s1,s1
+lab305: 	addi	s1,s1,-1
+	zext.b	s1,s1
 	li	a5,14
 	bltu	a5,s1,lab260
 	slli	a5,s1,0x1
@@ -3393,10 +3497,12 @@ lab260: 	lw	a3,28(sp)
 lab262: 	lw	a5,36(sp)
 	addi	s3,s7,1600
 	addi	s4,a5,-1984
-lab345: 	li	s6,15
+lab345: 	li	s1,1
+	li	s6,15
 	li	s8,48
 	li	s2,63
-lab267: 	mv	a0,s4
+lab267: 	mv	a1,s3
+	mv	a0,s4
 	jal	ra,huffDecode
 	mv	s9,a0
 	andi	a0,a0,15
@@ -3406,7 +3512,9 @@ lab267: 	mv	a0,s4
 	bne	s9,s6,lab265
 	bltu	s8,s1,lab266
 	addi	s1,s1,15
-lab304: lab303: 	zext.b	s1,s1
+lab304: 	zext.b	s1,s1
+lab303: 	addi	s1,s1,1
+	zext.b	s1,s1
 	bgeu	s2,s1,lab267
 lab265: 	lh	a5,0(s7)
 	li	a2,255
@@ -3441,7 +3549,8 @@ lab270: 	lui	a4,0x101
 	addi	a5,a5,-1
 	sh	a5,-1728(s1)
 	bnez	a4,lab272
-lab286: 	lbu	a5,-1771(a5) # 100915 <gCallbackStatus>
+lab286: 	lui	a5,0x101
+	lbu	a5,-1771(a5) # 100915 <gCallbackStatus>
 	bnez	a5,lab273
 	lui	a5,0x101
 	lhu	a5,-1754(a5) # 100926 <gNumMCUSRemaining>
@@ -3645,7 +3754,8 @@ lab264: 	srli	s9,s9,0x4
 	add	s1,s1,s9
 	bge	s2,s1,lab304
 lab266: 	li	s6,28
-lab351: 	lbu	a5,-1771(a5) # 100915 <gCallbackStatus>
+lab351: 	lui	a5,0x101
+	lbu	a5,-1771(a5) # 100915 <gCallbackStatus>
 	beqz	a5,lab253
 lab273: 	mv	s6,a5
 	j	lab253
@@ -3663,10 +3773,12 @@ lab261: 	beqz	a5,lab306
 	lw	a5,36(sp)
 	addi	s2,s7,1600
 	addi	s3,a5,-1984
-lab344: 	li	s8,15
+lab344: 	li	s11,1
+	li	s8,15
 	li	s1,63
 	j	lab307
-lab310: 	zext.b	s6,s6
+lab310: 	srli	s6,a0,0x4
+	zext.b	s6,s6
 	bne	s6,s8,lab308
 	li	a5,48
 	bltu	a5,s11,lab266
@@ -3794,7 +3906,8 @@ lab307: 	mv	a1,s2
 	zext.b	s6,s6
 	jal	ra,getBits.constprop.2
 	bnez	s6,lab311
-lab329: 	zext.b	a5,a5
+lab329: 	addi	a5,s9,-1
+	zext.b	a5,a5
 	slli	a5,a5,0x1
 	add	a5,s10,a5
 	lhu	a4,96(a5)
@@ -3820,7 +3933,8 @@ lab309: 	mv	a2,s7
 	li	a6,277
 	li	a0,669
 	li	a1,362
-lab314: 	lh	t5,4(a2)
+lab314: 	lh	a3,2(a2)
+	lh	t5,4(a2)
 	lh	t0,6(a2)
 	lh	t4,8(a2)
 	lh	t1,10(a2)
@@ -3952,13 +4066,15 @@ lab314: 	lh	t5,4(a2)
 	sh	t1,14(a2)
 	addi	a2,a2,16
 	bne	a2,s0,lab314
-lab330: 	li	t3,196
+lab330: 	mv	a4,s7
+	li	t3,196
 	li	t1,277
 	li	a7,669
 	li	a6,362
 	li	a0,255
 	j	lab315
-lab318: 	srli	a5,a5,0x7
+lab318: 	addi	a5,a5,64
+	srli	a5,a5,0x7
 	addi	a5,a5,128
 	slli	a3,a5,0x10
 	srli	a3,a3,0x10
@@ -3977,7 +4093,8 @@ lab316: 	slli	a5,a5,0x10
 	mv	a3,a5
 	mv	t0,a5
 	mv	a2,a5
-lab327: 	lw	a5,12(sp)
+lab327: 	sh	a5,112(a4)
+	lw	a5,12(sp)
 	sh	t6,0(a4)
 	sh	t5,16(a4)
 	sh	t4,32(a4)
@@ -4406,7 +4523,8 @@ lab317: 	lui	a5,0x101
 	mv	a2,s0
 	addi	s7,a5,44 # 10002c <gCoeffBuf>
 	addi	a5,a5,44
-lab331: 	addi	a5,a5,2
+lab331: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a1,a1,1
 	sb	a4,0(a2)
 	sb	a4,0(a0)
@@ -4433,7 +4551,8 @@ lab331: 	addi	a5,a5,2
 	addi	a2,s7,768
 	addi	a5,a4,44 # 10002c <gCoeffBuf>
 	addi	s7,a4,44
-lab335: 	addi	a5,a5,2
+lab335: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a2,a2,1
 	sb	a4,0(a1)
 	sb	a4,0(a0)
@@ -4452,7 +4571,8 @@ lab335: 	addi	a5,a5,2
 	addi	a2,s7,704
 	addi	a5,a4,44 # 10002c <gCoeffBuf>
 	addi	s7,a4,44
-lab339: 	addi	a5,a5,2
+lab339: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a2,a2,1
 	sb	a4,0(a1)
 	sb	a4,0(a0)
@@ -4472,7 +4592,8 @@ lab339: 	addi	a5,a5,2
 	mv	a2,s0
 	addi	s7,a5,44 # 10002c <gCoeffBuf>
 	addi	a5,a5,44
-lab342: 	addi	a5,a5,2
+lab342: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a1,a1,1
 	sb	a4,0(a2)
 	sb	a4,0(a0)
@@ -4508,7 +4629,8 @@ lab308: 	li	a4,63
 	addi	a5,a5,-628 # 100d8c <ZAG>
 	add	a5,a5,s11
 	add	a2,a2,a4
-lab343: 	addi	a5,a5,1
+lab343: 	lb	a4,0(a5)
+	addi	a5,a5,1
 	slli	a4,a4,0x1
 	add	a4,s7,a4
 	sh	zero,0(a4)
@@ -4525,13 +4647,15 @@ lab263: 	lw	a5,36(sp)
 lab271: 	li	s0,1536
 	li	s3,255
 	j	lab346
-lab348: 	slli	s0,s0,0x10
+lab348: 	addi	s0,s0,-1
+	slli	s0,s0,0x10
 	srli	s0,s0,0x10
 	beqz	s0,lab347
 lab346: 	jal	ra,getChar
 	bne	a0,s3,lab348
 	li	s3,255
-lab350: 	bne	a0,s3,lab349
+lab350: 	jal	ra,getChar
+	bne	a0,s3,lab349
 	addi	s0,s0,-1
 	slli	s0,s0,0x10
 	srli	s0,s0,0x10
@@ -4548,7 +4672,8 @@ lab341: 	lui	a5,0x100
 	li	t3,183
 	li	t1,91
 	addi	a7,s7,192
-lab356: 	lbu	t5,0(a1)
+lab356: 	lh	a4,0(a0)
+	lbu	t5,0(a1)
 	addi	a0,a0,2
 	zext.b	a5,a4
 	mul	a3,a5,t4
@@ -4594,7 +4719,8 @@ lab338: 	lui	a5,0x100
 	mv	a2,s0
 	addi	s7,a5,44 # 10002c <gCoeffBuf>
 	addi	a5,a5,44
-lab357: 	addi	a5,a5,2
+lab357: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a1,a1,1
 	sb	a4,0(a2)
 	sb	a4,0(a0)
@@ -4609,7 +4735,8 @@ lab334: 	lui	a5,0x100
 	mv	a2,s0
 	addi	s7,a5,44 # 10002c <gCoeffBuf>
 	addi	a5,a5,44
-lab358: 	addi	a5,a5,2
+lab358: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a1,a1,1
 	sb	a4,0(a2)
 	sb	a4,0(a0)
@@ -4844,7 +4971,8 @@ lab340: 	lui	a5,0x100
 	li	a7,255
 	li	t3,198
 	addi	t1,s7,448
-lab387: 	lbu	a2,0(a0)
+lab387: 	lh	a5,0(a6)
+	lbu	a2,0(a0)
 	addi	a6,a6,2
 	zext.b	a3,a5
 	mul	a4,a3,t5
@@ -5043,7 +5171,8 @@ lab403: 	sb	a4,320(s7)
 	addi	a2,s7,832
 	addi	a5,a4,44 # 10002c <gCoeffBuf>
 	addi	s7,a4,44
-lab404: 	addi	a5,a5,2
+lab404: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a2,a2,1
 	sb	a4,0(a1)
 	sb	a4,0(a0)
@@ -5058,7 +5187,8 @@ lab404: 	addi	a5,a5,2
 	addi	a2,s7,768
 	addi	a5,a4,44 # 10002c <gCoeffBuf>
 	addi	s7,a4,44
-lab405: 	addi	a5,a5,2
+lab405: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a2,a2,1
 	sb	a4,0(a1)
 	sb	a4,0(a0)
@@ -5073,7 +5203,8 @@ lab405: 	addi	a5,a5,2
 	addi	a2,s7,704
 	addi	a5,a4,44 # 10002c <gCoeffBuf>
 	addi	s7,a4,44
-lab406: 	addi	a5,a5,2
+lab406: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a2,a2,1
 	sb	a4,0(a1)
 	sb	a4,0(a0)
@@ -5088,7 +5219,8 @@ lab406: 	addi	a5,a5,2
 	mv	a2,s0
 	addi	s7,a5,44 # 10002c <gCoeffBuf>
 	addi	a5,a5,44
-lab407: 	addi	a5,a5,2
+lab407: 	lbu	a4,0(a5)
+	addi	a5,a5,2
 	addi	a1,a1,1
 	sb	a4,0(a2)
 	sb	a4,0(a0)
@@ -5328,7 +5460,8 @@ pjpeg_decode_init:
 	jal	ra,getBits.constprop.0
 	lbu	s9,-1771(s0)
 	beqz	s9,lab424
-lab432: 	lw	s0,88(sp)
+lab432: 	lw	ra,92(sp)
+	lw	s0,88(sp)
 	lw	s1,84(sp)
 	lw	s2,80(sp)
 	lw	s3,76(sp)
@@ -5352,7 +5485,8 @@ lab424: 	li	a0,0
 	li	a5,255
 	zext.b	s10,a0
 	beq	s6,a5,lab425
-lab433: 	lbu	a4,-1700(s3)
+lab433: 	lhu	a5,-1698(s4)
+	lbu	a4,-1700(s3)
 	lui	s9,0x1
 	li	s2,7
 	addi	s9,s9,-1 # fff <upsampleCr+0x97>
@@ -5364,7 +5498,8 @@ lab433: 	lbu	a4,-1700(s3)
 	mv	s1,a5
 	addi	a2,a4,-8
 	bgeu	s2,a4,lab426
-lab429: 	srli	a5,a5,0x10
+lab429: 	slli	a5,a3,0x10
+	srli	a5,a5,0x10
 	addi	s9,s9,-1
 	slli	s9,s9,0x10
 	sb	a2,-1700(s3)
@@ -5373,7 +5508,8 @@ lab429: 	srli	a5,a5,0x10
 	srli	s9,s9,0x10
 	srli	s1,s1,0x8
 	beq	s10,s11,lab427
-lab430: 	lbu	a4,-1700(s3)
+lab430: 	beqz	s9,lab428
+	lbu	a4,-1700(s3)
 	mv	s10,s1
 	slli	a3,a5,0x8
 	mv	s1,a5
@@ -5401,12 +5537,14 @@ lab426: 	sll	a5,a5,a4
 lab427: 	beq	a4,s6,lab431
 	bne	a4,s8,lab430
 lab428: 	li	s9,19
-lab434: 	beqz	a4,lab432
+lab434: 	lbu	a4,-1771(s0)
+	beqz	a4,lab432
 	mv	s9,a4
 	j	lab432
 lab425: 	li	a5,216
 	bne	s10,a5,lab433
-lab438: 	jal	ra,processMarkers
+lab438: 	addi	a0,sp,31
+	jal	ra,processMarkers
 	mv	s9,a0
 	bnez	a0,lab434
 	lbu	a4,31(sp)
@@ -5466,10 +5604,12 @@ lab437: 	jal	ra,getBits.constprop.1
 	li	s1,4
 	li	s11,1
 	j	lab445
-lab449: 	slli	s2,s2,0x10
+lab449: 	slli	s2,a4,0x4
+	slli	s2,s2,0x10
 	sb	a5,-1700(s3)
 	srli	s2,s2,0x10
-lab450: 	srai	a4,a4,0xc
+lab450: 	add	a3,s6,s9
+	srai	a4,a4,0xc
 	sb	a4,0(a3)
 	li	a2,3
 	addi	a3,a5,-4
@@ -5477,7 +5617,8 @@ lab450: 	srai	a4,a4,0xc
 	bgeu	a2,a5,lab446
 	sb	a3,-1700(s3)
 	sh	a4,-1698(s4)
-lab471: 	srai	s2,s2,0xc
+lab471: 	add	a5,s8,s9
+	srai	s2,s2,0xc
 	sb	s2,0(a5)
 	li	a0,0
 	jal	ra,getBits.constprop.0
@@ -5558,7 +5699,8 @@ lab448: 	lbu	s9,-1771(s0)
 	sh	a5,4(a4)
 	li	a2,15
 	li	a5,16
-lab476: 	lhu	a3,-1702(a4) # 10095a <gImageXSize>
+lab476: 	lui	a4,0x101
+	lhu	a3,-1702(a4) # 10095a <gImageXSize>
 	lui	a1,0x101
 	lui	a0,0x101
 	li	a4,16
@@ -5568,7 +5710,8 @@ lab476: 	lhu	a3,-1702(a4) # 10095a <gImageXSize>
 	sb	a5,-1748(a0) # 10092c <gMaxMCUYSize>
 	addi	a3,a3,15
 	li	a1,4
-lab470: 	lhu	a4,-1704(a4) # 100958 <gImageYSize>
+lab470: 	lui	a4,0x101
+	lhu	a4,-1704(a4) # 100958 <gImageYSize>
 	addi	a5,a5,-8
 	snez	a5,a5
 	add	a4,a4,a2
@@ -5618,7 +5761,8 @@ lab470: 	lhu	a4,-1704(a4) # 100958 <gImageYSize>
 	lui	a5,0x101
 	li	s10,0
 	addi	s8,a5,-1740 # 100934 <gCompACTab>
-lab459: 	jal	ra,getBits.constprop.0
+lab459: 	li	a0,0
+	jal	ra,getBits.constprop.0
 	mv	s2,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
@@ -5648,7 +5792,8 @@ lab455: 	li	s9,15
 	j	lab434
 lab458: 	li	a6,2
 	li	a4,2
-lab475: 	lbu	a3,-1729(a3) # 10093f <gCompsInScan>
+lab475: 	lui	a3,0x101
+	lbu	a3,-1729(a3) # 10093f <gCompsInScan>
 	add	a0,s7,s10
 	add	a2,s9,a4
 	srli	a1,a5,0x4
@@ -5681,7 +5826,8 @@ lab475: 	lbu	a3,-1729(a3) # 10093f <gCompsInScan>
 	slli	a4,a4,0x10
 	sb	a5,-1700(s3)
 	srli	a4,a4,0x10
-lab478: 	lui	a2,0x101
+lab478: 	srli	a3,a3,0xc
+	lui	a2,0x101
 	sb	a3,-1775(a2) # 100911 <successive_high>
 	li	a3,3
 	bgeu	a3,a5,lab461
@@ -5689,14 +5835,16 @@ lab478: 	lui	a2,0x101
 	slli	a3,a4,0x4
 	sb	a5,-1700(s3)
 	sh	a3,-1698(s4)
-lab477: 	srli	a4,a4,0xc
+lab477: 	addi	a5,s2,-5
+	srli	a4,a4,0xc
 	lui	a3,0x101
 	slli	a5,a5,0x10
 	sb	a4,-1776(a3) # 100910 <successive_low>
 	srli	a5,a5,0x10
 	beqz	a5,lab462
 	mv	s2,a5
-lab463: 	slli	s2,s2,0x10
+lab463: 	addi	s2,s2,-1
+	slli	s2,s2,0x10
 	li	a0,0
 	srli	s2,s2,0x10
 	jal	ra,getBits.constprop.0
@@ -5791,7 +5939,8 @@ lab468: 	lbu	a2,-1700(s3)
 	bnez	a2,lab469
 	lui	s2,0x100
 	addi	s2,s2,44 # 10002c <gCoeffBuf>
-lab472: 	zext.b	a5,a5
+lab472: 	addi	a5,a5,-1
+	zext.b	a5,a5
 	lui	a1,0x101
 	add	a2,s2,a5
 	srli	a3,a3,0x8
@@ -5850,7 +5999,8 @@ lab451: 	lbu	a3,-1712(s7)
 	sw	zero,-1744(s6) # 100930 <gScanType>
 	li	a2,7
 	li	a5,8
-lab474: 	lhu	a3,-1702(a4) # 10095a <gImageXSize>
+lab474: 	lui	a4,0x101
+	lhu	a3,-1702(a4) # 10095a <gImageXSize>
 	lui	a1,0x101
 	lui	a0,0x101
 	li	a4,8

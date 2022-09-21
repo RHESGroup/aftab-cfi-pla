@@ -24,7 +24,8 @@ minver.part.0:
 	mv	s3,a0
 	sw	a4,4(sp)
 	li	a5,0
-lab1: 	addi	a5,a5,1
+lab1: 	sw	a5,0(a4)
+	addi	a5,a5,1
 	addi	a4,a4,4
 	bne	a5,s3,lab1
 	lui	a5,0x100
@@ -40,7 +41,8 @@ lab1: 	addi	a5,a5,1
 	li	s6,0
 	li	s2,0
 	li	s11,1
-lab19: 	lw	s0,0(s7)
+lab19: 	bge	s2,s3,lab2
+	lw	s0,0(s7)
 	li	a1,0
 	mv	a0,s0
 	jal	ra,__gesf2
@@ -104,12 +106,14 @@ lab8: 	lw	a0,12(sp)
 	mv	a1,s4
 	jal	ra,__mulsf3
 	sw	a0,8(sp)
-lab23: 	mv	a1,s4
+lab23: 	lw	a0,0(s1)
+	mv	a1,s4
 	jal	ra,__divsf3
 	sw	a0,0(s1)
 	mv	s9,a0
 	beq	s3,s11,lab11
-lab25: 	mv	a1,s4
+lab25: 	lw	a0,4(s1)
+	mv	a1,s4
 	jal	ra,__divsf3
 	sw	a0,4(s1)
 	li	a5,2
@@ -124,13 +128,15 @@ lab11: 	beqz	s2,lab12
 	mv	a0,s0
 	jal	ra,__nesf2
 	bnez	a0,lab13
-lab22: 	beq	s2,s11,lab15
+lab22: 	beq	s3,s11,lab14
+	beq	s2,s11,lab15
 	lw	s0,12(s8)
 	li	a1,0
 	mv	a0,s0
 	jal	ra,__nesf2
 	bnez	a0,lab16
-lab26: 	bge	a5,s3,lab14
+lab26: 	li	a5,2
+	bge	a5,s3,lab14
 	beq	s2,a5,lab14
 	lw	s0,24(s8)
 	li	a1,0
@@ -222,7 +228,8 @@ lab12: 	beq	s3,s11,lab14
 	sw	a0,16(s5)
 	li	a5,2
 	bge	a5,s3,lab27
-lab29: 	mv	a0,s0
+lab29: 	lw	a1,8(s1)
+	mv	a0,s0
 	jal	ra,__mulsf3
 	mv	a1,a0
 	lw	a0,20(s5)
@@ -241,14 +248,16 @@ lab15: 	li	a5,2
 	mv	a0,s0
 	jal	ra,__nesf2
 	beqz	a0,lab14
-lab30: 	mv	a0,s0
+lab30: 	lw	a1,0(s1)
+	mv	a0,s0
 	jal	ra,__mulsf3
 	mv	a1,a0
 	lw	a0,24(s5)
 	jal	ra,__subsf3
 	sw	a0,24(s5)
 	beq	s2,s11,lab28
-lab31: 	mv	a0,s0
+lab31: 	lw	a1,4(s1)
+	mv	a0,s0
 	jal	ra,__mulsf3
 	mv	a1,a0
 	lw	a0,28(s5)
@@ -290,7 +299,8 @@ lab16: 	lw	a1,0(s1)
 lab17: 	bnez	s2,lab30
 	j	lab31
 lab9: 	li	a0,1
-lab37: 	lui	a5,0x100
+lab37: 	lw	a4,8(sp)
+	lui	a5,0x100
 	sw	a4,108(a5) # 10006c <det>
 	addi	sp,sp,48
 	lw	ra,2028(sp)
@@ -311,8 +321,11 @@ lab37: 	lui	a5,0x100
 lab18: 	li	a7,0
 	li	t3,1
 	li	t4,3
-lab36: 	lw	a1,0(a5)
-lab33: lab34: 	add	a5,a5,a1
+lab36: 	lw	a5,4(sp)
+	lw	a1,0(a5)
+lab33: 	beq	a1,a7,lab32
+lab34: 	slli	a5,a1,0x1
+	add	a5,a5,a1
 	slli	a4,a1,0x4
 	slli	a2,a1,0x2
 	add	a5,a5,a7
@@ -399,10 +412,12 @@ minver.part.0.constprop.0.isra.0:
 	li	s4,0
 	li	s7,0
 	j	lab38
-lab54: 	mv	a1,s2
+lab54: 	lw	a0,4(sp)
+	mv	a1,s2
 	jal	ra,__mulsf3
 	sw	a0,4(sp)
-lab55: 	mv	a1,s2
+lab55: 	lw	a0,0(s0) # 100000 <a>
+	mv	a1,s2
 	jal	ra,__divsf3
 	mv	s5,a0
 	lw	a0,4(s0)
@@ -422,14 +437,17 @@ lab55: 	mv	a1,s2
 	mv	a0,s10
 	jal	ra,__nesf2
 	bnez	a0,lab40
-lab60: 	beq	s4,a5,lab41
+lab60: 	li	a5,1
+	beq	s4,a5,lab41
 	lw	s5,12(s8)
 	li	a1,0
 	mv	a0,s5
 	jal	ra,__nesf2
 	bnez	a0,lab42
-lab58: 	beq	s4,a5,lab43
-lab57: 	li	a1,0
+lab58: 	li	a5,2
+	beq	s4,a5,lab43
+lab57: 	lw	s1,24(s8)
+	li	a1,0
 	mv	a0,s1
 	jal	ra,__nesf2
 	bnez	a0,lab44
@@ -539,7 +557,8 @@ lab41: 	lw	s1,24(s8)
 	mv	a0,s1
 	jal	ra,__nesf2
 	beqz	a0,lab43
-lab63: 	mv	a0,s1
+lab63: 	lw	a1,12(s3)
+	mv	a0,s1
 	jal	ra,__mulsf3
 	mv	a1,a0
 	lw	a0,24(s3)
@@ -547,7 +566,8 @@ lab63: 	mv	a0,s1
 	sw	a0,24(s3)
 	li	a5,1
 	beq	s4,a5,lab56
-lab64: 	mv	a0,s1
+lab64: 	lw	a1,4(s3)
+	mv	a0,s1
 	jal	ra,__mulsf3
 	mv	a1,a0
 	lw	a0,28(s3)
@@ -586,7 +606,8 @@ lab39: 	lw	s5,12(s8)
 	lw	a0,20(s3)
 	jal	ra,__subsf3
 	sw	a0,20(s3)
-lab61: 	mv	a1,s2
+lab61: 	lui	a5,0x80000
+	mv	a1,s2
 	xor	a0,a5,s5
 	jal	ra,__divsf3
 	sw	a0,12(s8)
@@ -608,7 +629,8 @@ lab40: 	mv	a1,s10
 	lw	a0,4(s3)
 	jal	ra,__subsf3
 	sw	a0,4(s3)
-lab62: 	mv	a1,s2
+lab62: 	lui	a5,0x80000
+	mv	a1,s2
 	xor	a0,a5,s10
 	jal	ra,__divsf3
 	sw	a0,0(s8)
@@ -639,9 +661,11 @@ lab44: 	bnez	s4,lab63
 	j	lab64
 lab45: 	li	a6,0
 	li	t1,3
-lab67: 	lw	a1,0(a5) # 80000000 <_stack+0x7fef8000>
+lab67: 	lw	a5,0(sp)
+	lw	a1,0(a5) # 80000000 <_stack+0x7fef8000>
 	beq	a1,a6,lab65
-lab66: 	add	a5,a5,a1
+lab66: 	slli	a5,a1,0x1
+	add	a5,a5,a1
 	slli	a4,a1,0x4
 	add	a5,a5,a6
 	add	a4,s3,a4
@@ -742,7 +766,8 @@ benchmark_body.isra.0:
 	lui	a5,0x100
 	lw	a5,224(a5) # 1000e0 <config_mem_words+0x4c>
 	sw	a5,44(sp)
-lab69: 	lw	s5,16(s1)
+lab69: 	lw	s7,12(s1)
+	lw	s5,16(s1)
 	lw	s10,20(s1)
 	lw	s4,24(s1)
 	lw	s3,28(s1)
@@ -868,7 +893,8 @@ benchmark_body.constprop.0:
 	sw	s11,44(sp)
 	mv	s0,s0
 	mv	s7,s5
-lab70: 	lw	s11,16(s1)
+lab70: 	lw	s5,12(s1)
+	lw	s11,16(s1)
 	lw	s10,20(s1)
 	lw	s4,24(s1)
 	lw	s3,28(s1)
@@ -1503,7 +1529,8 @@ verify_benchmark:
 	mv	a3,s3
 	jal	ra,__ltdf2
 	slti	a0,a0,0
-lab92: 	lw	s0,24(sp)
+lab92: 	lw	ra,28(sp)
+	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s2,16(sp)
 	lw	s3,12(sp)

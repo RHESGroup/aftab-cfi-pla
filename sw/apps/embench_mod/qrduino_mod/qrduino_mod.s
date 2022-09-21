@@ -20,7 +20,8 @@ benchmark_body.constprop.0:
 	lui	s6,0x100
 	lui	s5,0x102
 	li	s4,22
-lab0: 	mv	a0,s6
+lab0: 	lui	a1,0x2
+	mv	a0,s6
 	sw	s3,4(s2) # 102004 <encode>
 	sw	s4,0(s0) # 102000 <size>
 	jal	ra,init_heap_beebs
@@ -69,7 +70,8 @@ benchmark_body.isra.0:
 	lui	s7,0x100
 	lui	s6,0x102
 	li	s5,22
-lab2: 	mv	a0,s7
+lab2: 	lui	a1,0x2
+	mv	a0,s7
 	sw	s4,4(s2) # 102004 <encode>
 	sw	s5,0(s0) # 102000 <size>
 	jal	ra,init_heap_beebs
@@ -219,7 +221,8 @@ malloc_beebs:
 	lui	a5,0x102
 	lw	a5,12(a5) # 10200c <heap_end>
 	bltu	a5,a4,lab5
-lab7: 	ret
+lab7: 	sw	a4,16(a2)
+	ret
 lab6: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
@@ -245,7 +248,8 @@ calloc_beebs:
 	lui	a4,0x102
 	lw	a4,12(a4) # 10200c <heap_end>
 	bltu	a4,a3,lab8
-lab11: 	beqz	a5,lab10
+lab11: 	sw	a3,16(a0)
+	beqz	a5,lab10
 	addi	sp,sp,-16
 	li	a1,0
 	mv	a0,a5
@@ -281,7 +285,8 @@ realloc_beebs:
 	lui	a4,0x102
 	lw	a4,12(a4) # 10200c <heap_end>
 	bltu	a4,a3,lab12
-lab17: 	beqz	a0,lab12
+lab17: 	sw	a3,16(a6)
+	beqz	a0,lab12
 	addi	a4,a5,1
 	sub	a4,a0,a4
 	or	a3,a5,a0
@@ -298,7 +303,8 @@ lab17: 	beqz	a0,lab12
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab15: 	addi	a4,a4,4
+lab15: 	lw	a2,0(a4)
+	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
 	bne	a4,a6,lab15
@@ -333,7 +339,8 @@ lab12: 	li	a0,0
 lab16: 	ret
 lab14: 	mv	a4,a0
 	add	a1,a5,a1
-lab18: 	addi	a5,a5,1
+lab18: 	lbu	a3,0(a5)
+	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
 	bne	a5,a1,lab18
@@ -572,7 +579,8 @@ initframe:
 	lui	a5,0x102
 	sw	a0,44(a5) # 10202c <rlens>
 	sw	s7,12(sp)
-lab47: 	li	a5,1
+lab47: 	lw	a4,12(sp)
+	li	a5,1
 	bne	a4,a5,lab19
 	j	lab20
 lab19: 	li	a5,2
@@ -638,12 +646,14 @@ lab21: 	li	a5,2
 	li	a5,0
 	li	s7,0
 	sw	a0,168(sp)
-lab172: 	sw	a0,96(sp)
+lab172: 	li	a0,2
+	sw	a0,96(sp)
 	li	a0,4
 	li	s8,3
 	li	s1,0
 	sw	a0,112(sp)
-lab171: 	lw	s3,44(sp)
+lab171: 	lbu	a0,40(s10)
+	lw	s3,44(sp)
 	addi	s2,a5,1
 	lw	s5,52(s9)
 	mul	a0,a0,s3
@@ -922,7 +932,8 @@ lab171: 	lw	s3,44(sp)
 	j	lab24
 lab23: 	mv	a3,a6
 	mv	a4,t3
-lab102: 	mul	a5,a5,a4
+lab102: 	addi	a5,a4,1
+	mul	a5,a5,a4
 	lw	a2,48(s11)
 	srli	a5,a5,0x1
 	add	a5,a5,a3
@@ -938,7 +949,8 @@ lab102: 	mul	a5,a5,a4
 	j	lab26
 lab25: 	lw	a3,32(sp)
 	mv	a4,t3
-lab101: 	mul	a5,a5,a4
+lab101: 	addi	a5,a4,1
+	mul	a5,a5,a4
 	lw	a2,48(s11)
 	srli	a5,a5,0x1
 	add	a5,a5,a3
@@ -953,7 +965,8 @@ lab101: 	mul	a5,a5,a4
 	j	lab28
 lab27: 	mv	a3,a6
 	mv	a4,a1
-lab100: 	mul	a5,a5,a4
+lab100: 	addi	a5,a4,1
+	mul	a5,a5,a4
 	lw	a2,48(s11)
 	srli	a5,a5,0x1
 	add	a5,a5,a3
@@ -969,7 +982,8 @@ lab100: 	mul	a5,a5,a4
 	j	lab30
 lab29: 	lw	a3,36(sp)
 	mv	a4,t1
-lab99: 	mul	a5,a5,a3
+lab99: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a2,48(s11)
 	mv	a3,a6
 	srli	a5,a5,0x1
@@ -1003,7 +1017,8 @@ lab31: 	addi	a5,a3,1
 	j	lab33
 lab32: 	lw	a4,24(sp)
 	mv	a3,t3
-lab98: 	mul	a5,a5,a3
+lab98: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a2,48(s11)
 	mv	a3,a1
 	srli	a5,a5,0x1
@@ -1037,7 +1052,8 @@ lab34: 	lw	a4,32(sp)
 	j	lab36
 lab35: 	lw	a3,28(sp)
 	mv	a4,t1
-lab97: 	mul	a5,a5,a3
+lab97: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a2,48(s11)
 	mv	a3,a6
 	srli	a5,a5,0x1
@@ -1071,7 +1087,8 @@ lab37: 	addi	a5,a3,1
 	j	lab39
 lab38: 	lw	a4,16(sp)
 	mv	a3,t3
-lab96: 	mul	a5,a5,a3
+lab96: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a2,48(s11)
 	mv	a3,a1
 	srli	a5,a5,0x1
@@ -1105,7 +1122,8 @@ lab40: 	lw	a4,24(sp)
 	j	lab42
 lab41: 	lw	a4,20(sp)
 	mv	a3,t1
-lab95: 	mul	a5,a5,a4
+lab95: 	addi	a5,a4,1
+	mul	a5,a5,a4
 	lw	a2,48(s11)
 	srli	a5,a5,0x1
 	add	a5,a5,a3
@@ -1292,7 +1310,8 @@ lab46: 	addi	a5,a1,1
 	sw	a2,12(sp)
 	sw	a5,16(sp)
 	li	a3,128
-lab86: 	zext.b	a4,a4
+lab86: 	lw	a5,12(sp)
+	zext.b	a4,a4
 	bgeu	a5,a4,lab49
 	addi	a7,a6,-8
 	addi	a6,a6,-6
@@ -1303,8 +1322,10 @@ lab86: 	zext.b	a4,a4
 	zext.b	a7,a7
 	zext.b	a6,a6
 	j	lab50
-lab58: 	mv	a5,t3
-lab59: 	mul	a2,a2,a1
+lab58: 	mv	a2,a7
+	mv	a5,t3
+lab59: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1318,7 +1339,8 @@ lab59: 	mul	a2,a2,a1
 	bgeu	t3,a6,lab51
 	mv	a2,a6
 	mv	a5,t3
-lab66: 	mul	a2,a2,a1
+lab66: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1332,7 +1354,8 @@ lab66: 	mul	a2,a2,a1
 	bgeu	t5,a4,lab52
 	mv	a2,a4
 	mv	a5,t5
-lab65: 	mul	a2,a2,a1
+lab65: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1346,7 +1369,8 @@ lab65: 	mul	a2,a2,a1
 	bgeu	t6,a4,lab53
 	mv	a2,a4
 	mv	a5,t6
-lab64: 	mul	a2,a2,a1
+lab64: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1360,7 +1384,8 @@ lab64: 	mul	a2,a2,a1
 	bgeu	t6,a7,lab54
 	mv	a2,a7
 	mv	a5,t6
-lab63: 	mul	a2,a2,a1
+lab63: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1374,7 +1399,8 @@ lab63: 	mul	a2,a2,a1
 	bgeu	t5,a6,lab55
 	mv	a2,a6
 	mv	a5,t5
-lab62: 	mul	a2,a2,a1
+lab62: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1388,7 +1414,8 @@ lab62: 	mul	a2,a2,a1
 	bgeu	t5,a7,lab56
 	mv	a2,a7
 	mv	a5,t5
-lab61: 	mul	a2,a2,a1
+lab61: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1402,7 +1429,8 @@ lab61: 	mul	a2,a2,a1
 	bgeu	t6,a6,lab57
 	mv	a2,a6
 	mv	a5,t6
-lab60: 	mul	a2,a2,a1
+lab60: 	addi	a1,a2,1
+	mul	a2,a2,a1
 	lw	a1,48(s11)
 	srli	a2,a2,0x1
 	add	a5,a5,a2
@@ -1756,7 +1784,8 @@ lab49: 	lw	a2,24(sp)
 	sb	a0,0(t1)
 	li	a0,6
 	bgeu	a0,t3,lab68
-lab94: 	add	a5,a5,a7
+lab94: 	lw	a0,48(s11)
+	add	a5,a5,a7
 	srli	a7,a5,0x3
 	add	a0,a0,a7
 	lbu	a7,0(a0)
@@ -1772,7 +1801,8 @@ lab94: 	add	a5,a5,a7
 	mul	a5,a5,a0
 	li	a7,6
 	srli	a5,a5,0x1
-lab93: 	add	a5,a5,a7
+lab93: 	lw	a0,48(s11)
+	add	a5,a5,a7
 	srli	a7,a5,0x3
 	add	a0,a0,a7
 	lbu	a7,0(a0)
@@ -1837,7 +1867,8 @@ lab74: 	lw	a0,48(s11)
 	mul	a5,a5,a0
 	li	a7,7
 	srli	a5,a5,0x1
-lab92: 	add	a5,a5,a7
+lab92: 	lw	a0,48(s11)
+	add	a5,a5,a7
 	srli	a7,a5,0x3
 	add	a0,a0,a7
 	lbu	a7,0(a0)
@@ -2018,7 +2049,8 @@ lab92: 	add	a5,a5,a7
 	mul	a5,a5,a4
 	li	a1,6
 	srli	a5,a5,0x1
-lab91: 	add	a5,a5,a1
+lab91: 	lw	a4,48(s11)
+	add	a5,a5,a1
 	srli	a1,a5,0x3
 	add	a4,a4,a1
 	lbu	a1,0(a4)
@@ -2033,7 +2065,8 @@ lab91: 	add	a5,a5,a1
 	mul	a5,a5,a4
 	li	a1,6
 	srli	a5,a5,0x1
-lab90: 	add	a5,a5,a1
+lab90: 	lw	a4,48(s11)
+	add	a5,a5,a1
 	srli	a1,a5,0x3
 	add	a4,a4,a1
 	lbu	a1,0(a4)
@@ -2058,7 +2091,8 @@ lab90: 	add	a5,a5,a1
 	bltu	a4,t3,lab80
 	j	lab81
 lab80: 	li	s1,7
-lab89: 	add	a5,a5,s1
+lab89: 	lw	a4,48(s11)
+	add	a5,a5,s1
 	srli	a2,a5,0x3
 	add	a4,a4,a2
 	lbu	a2,0(a4)
@@ -2073,7 +2107,8 @@ lab89: 	add	a5,a5,s1
 	mul	a5,a5,a4
 	li	a2,7
 	srli	a5,a5,0x1
-lab88: 	add	a5,a5,a2
+lab88: 	lw	a4,48(s11)
+	add	a5,a5,a2
 	srli	a2,a5,0x3
 	add	a4,a4,a2
 	lbu	a2,0(a4)
@@ -2088,7 +2123,8 @@ lab88: 	add	a5,a5,a2
 	mul	a5,a5,a4
 	li	a2,5
 	srli	a5,a5,0x1
-lab87: 	add	a5,a5,a2
+lab87: 	lw	a4,48(s11)
+	add	a5,a5,a2
 	srli	a2,a5,0x3
 	add	a4,a4,a2
 	lbu	a2,0(a4)
@@ -2534,7 +2570,8 @@ lab113: 	lw	a3,48(s11)
 	bgeu	a2,a5,lab114
 	mv	a2,a5
 	li	a4,6
-lab173: 	mul	a5,a5,a2
+lab173: 	addi	a5,a2,1
+	mul	a5,a5,a2
 	li	a2,6
 	srli	a5,a5,0x1
 	add	a5,a5,a4
@@ -2572,8 +2609,10 @@ lab115: 	lw	a3,48(s11)
 	li	a6,7
 	li	a0,8
 	j	lab116
-lab119: 	srli	t1,t3,0x1
-lab120: 	add	a5,a5,t1
+lab119: 	mul	t3,t3,a3
+	srli	t1,t3,0x1
+lab120: 	lw	a3,48(s11)
+	add	a5,a5,t1
 	srli	t1,a5,0x3
 	add	a3,a3,t1
 	lbu	t1,0(a3)
@@ -2589,7 +2628,8 @@ lab120: 	add	a5,a5,t1
 	zext.b	a5,a5
 	bgeu	a5,a7,lab117
 	mv	t1,a5
-lab121: 	mul	a5,a5,a3
+lab121: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a3,48(s11)
 	addi	a4,a4,1
 	addi	a2,a2,1
@@ -2806,7 +2846,8 @@ lab128: 	add	a5,a5,a2
 	zext.b	a5,a5
 	li	a2,36
 	bltu	a1,a5,lab129
-lab174: 	srli	a2,a5,0x3
+lab174: 	add	a5,a5,a2
+	srli	a2,a5,0x3
 	add	a3,a3,a2
 	lbu	a1,0(a3)
 	li	a2,128
@@ -2972,7 +3013,8 @@ lab136: 	lw	a2,48(s11)
 	li	a1,128
 	li	a0,6
 	j	lab138
-lab141: 	addi	a2,a6,21
+lab141: 	zext.b	a6,a4
+	addi	a2,a6,21
 	srli	t3,a2,0x3
 	andi	a2,a2,7
 	addi	a5,a6,1
@@ -2989,9 +3031,11 @@ lab141: 	addi	a2,a6,21
 	sra	a2,a1,a2
 	or	a2,a2,t1
 	sb	a2,0(a7)
-lab163: 	li	a6,6
+lab163: 	mul	a5,a5,a6
+	li	a6,6
 	srli	a5,a5,0x1
-lab162: 	add	a5,a5,a6
+lab162: 	lw	a2,48(s11)
+	add	a5,a5,a6
 	srli	a6,a5,0x3
 	add	a2,a2,a6
 	lbu	a6,0(a2)
@@ -3038,7 +3082,8 @@ lab140: 	lui	a4,0x102
 	lbu	a7,42(a4) # 10202a <VERSION>
 	li	a4,6
 	bgeu	a4,a7,lab142
-lab175: 	lui	a4,0x102
+lab175: 	addi	a3,a7,-7
+	lui	a4,0x102
 	slli	a3,a3,0x2
 	addi	a4,a4,112 # 102070 <adelta>
 	add	a4,a4,a3
@@ -3050,9 +3095,11 @@ lab175: 	lui	a4,0x102
 	li	a6,11
 	li	a0,128
 	li	t3,255
-lab155: 	srl	t4,t1,a4
+lab155: 	bltu	a6,a4,lab143
+	srl	t4,t1,a4
 	andi	t4,t4,1
-lab170: 	addi	a5,a5,-9
+lab170: 	bnez	t4,lab144
+	addi	a5,a5,-9
 	zext.b	t5,a3
 	zext.b	a5,a5
 	mv	t4,t5
@@ -3091,9 +3138,11 @@ lab146: 	addi	t4,t5,1
 	sra	a5,a0,a5
 	or	a5,a5,t5
 	sb	a5,0(t4)
-lab169: 	srl	t4,t1,a1
+lab169: 	bltu	a6,a1,lab147
+	srl	t4,t1,a1
 	andi	t4,t4,1
-lab168: 	lbu	a5,41(a5) # 102029 <WD>
+lab168: 	lui	a5,0x102
+	lbu	a5,41(a5) # 102029 <WD>
 	bnez	t4,lab148
 	addi	a5,a5,-10
 	zext.b	t4,a3
@@ -3135,11 +3184,13 @@ lab150: 	addi	t5,t4,1
 	or	a5,a5,t5
 	sb	a5,0(t4)
 	bltu	a6,a2,lab151
-lab165: 	lui	a5,0x102
+lab165: 	srl	t4,t1,a2
+	lui	a5,0x102
 	andi	t4,t4,1
 	lbu	a5,41(a5) # 102029 <WD>
 	bnez	t4,lab152
-lab166: 	zext.b	t4,a3
+lab166: 	addi	a5,a5,-11
+	zext.b	t4,a3
 	zext.b	a5,a5
 	mv	t5,t4
 	bgeu	a5,t4,lab153
@@ -3177,7 +3228,8 @@ lab154: 	addi	t5,t4,1
 	sra	a5,a0,a5
 	or	a5,a5,t5
 	sb	a5,0(t4)
-lab167: 	addi	a2,a2,-3
+lab167: 	addi	a4,a4,-3
+	addi	a2,a2,-3
 	addi	a1,a1,-3
 	lui	a5,0x102
 	zext.b	a4,a4
@@ -3187,12 +3239,16 @@ lab167: 	addi	a2,a2,-3
 	zext.b	a1,a1
 	bne	a4,t3,lab155
 lab142: 	beqz	a5,lab156
-lab176: 	li	a0,0
+lab176: 	li	a6,1
+	li	a0,0
 	li	t1,128
-lab164: 	zext.b	a7,a0
+lab164: 	li	a4,0
+	zext.b	a7,a0
 	j	lab157
-lab160: 	mv	a3,a0
-lab161: 	mul	a5,a5,a3
+lab160: 	mv	a2,a4
+	mv	a3,a0
+lab161: 	addi	a5,a3,1
+	mul	a5,a5,a3
 	lw	a3,48(s11)
 	srli	a5,a5,0x1
 	add	a5,a5,a2
@@ -3203,7 +3259,8 @@ lab161: 	mul	a5,a5,a3
 	sra	a5,t1,a5
 	or	a5,a5,a2
 	sb	a5,0(a3)
-lab159: 	beq	a4,a6,lab158
+lab159: 	addi	a4,a4,1
+	beq	a4,a6,lab158
 lab157: 	lbu	a1,40(s10)
 	lw	a5,52(s9)
 	srli	a2,a4,0x3
@@ -3620,7 +3677,8 @@ initeccsize:
 	li	a1,1
 	li	t3,40
 	j	lab179
-lab181: 	beq	a1,t3,lab180
+lab181: 	zext.b	a1,a7
+	beq	a1,t3,lab180
 lab179: 	lbu	a3,-3(a4)
 	lbu	a6,-4(a4)
 	lbu	a2,-2(a4)
@@ -3668,20 +3726,24 @@ applymask:
 	lui	t6,0x102
 	lui	t5,0x102
 	li	t4,128
-lab188: 	li	a5,0
-lab186: 	addi	a4,a3,1
+lab188: 	li	a3,0
+	li	a5,0
+lab186: 	beq	a3,t1,lab183
+	addi	a4,a3,1
 	zext.b	a4,a4
 	beqz	a3,lab183
 	sub	a1,a3,a7
 	seqz	a1,a1
 	mv	a3,a4
-lab230: 	add	a4,a4,a1
+lab230: 	add	a4,a5,a0
+	add	a4,a4,a1
 	andi	a4,a4,1
 	bnez	a4,lab184
 	bgeu	a0,a5,lab185
 	mv	t2,a5
 	mv	a4,a0
-lab238: 	lw	t0,48(t3) # 102030 <framask>
+lab238: 	mul	a1,t2,t2
+	lw	t0,48(t3) # 102030 <framask>
 	add	a1,a1,t2
 	srli	a1,a1,0x1
 	add	a4,a4,a1
@@ -3728,19 +3790,23 @@ lab182: 	ret
 	lui	t6,0x102
 	lui	t5,0x102
 	li	t4,128
-lab245: 	li	t0,0
+lab245: 	li	a1,0
+	li	t0,0
 	j	lab189
-lab194: 	zext.b	a4,a4
+lab194: 	addi	a4,a1,1
+	zext.b	a4,a4
 	beqz	a1,lab190
 	sub	a1,a1,a7
 	seqz	a1,a1
 	add	a5,a5,a1
 	mv	a1,a4
-lab195: 	bnez	a5,lab191
+lab195: 	andi	a5,a5,1
+	bnez	a5,lab191
 	bgeu	a0,t0,lab192
 	mv	t2,t0
 	mv	a5,a0
-lab237: 	lw	a3,48(t3) # 102030 <framask>
+lab237: 	mul	a4,t2,t2
+	lw	a3,48(t3) # 102030 <framask>
 	add	a4,a4,t2
 	srli	a4,a4,0x1
 	add	a5,a5,a4
@@ -3781,17 +3847,21 @@ lab190: 	li	a1,1
 	lui	t5,0x102
 	lui	t4,0x102
 	li	t3,128
-lab197: 	beqz	a5,lab196
+lab197: 	beq	a5,a7,lab196
+	beqz	a5,lab196
 	addi	a5,a5,1
 	zext.b	a5,a5
-lab199: 	zext.b	a4,a4
+lab199: 	addi	a4,a4,1
+	zext.b	a4,a4
 	bltu	a4,t6,lab197
 	addi	a6,a6,1
 	zext.b	a6,a6
 	li	a4,0
 	bgeu	a6,t6,lab198
-lab231: 	mv	a3,a4
-lab232: 	lw	a1,48(t1) # 102030 <framask>
+lab231: 	mv	a0,a6
+	mv	a3,a4
+lab232: 	mul	a5,a0,a0
+	lw	a1,48(t1) # 102030 <framask>
 	add	a5,a5,a0
 	srli	a5,a5,0x1
 	add	a3,a3,a5
@@ -3826,11 +3896,14 @@ lab232: 	lw	a1,48(t1) # 102030 <framask>
 	lui	t6,0x102
 	lui	t5,0x102
 	li	t4,128
-lab203: 	li	a4,0
-lab201: 	beqz	a5,lab200
+lab203: 	mv	a5,t1
+	li	a4,0
+lab201: 	beq	a5,a7,lab200
+	beqz	a5,lab200
 	addi	a5,a5,1
 	zext.b	a5,a5
-lab229: 	zext.b	a4,a4
+lab229: 	addi	a4,a4,1
+	zext.b	a4,a4
 	bltu	a4,t0,lab201
 	addi	a6,a6,1
 	addi	t1,t1,1
@@ -3852,11 +3925,14 @@ lab229: 	zext.b	a4,a4
 	lui	t6,0x102
 	li	t5,128
 	li	t3,3
-lab242: 	li	a0,0
-lab207: 	bgeu	t1,a3,lab205
+lab242: 	li	a3,0
+	li	a0,0
+lab207: 	bnez	a6,lab204
+	bgeu	t1,a3,lab205
 	mv	a7,a3
 	mv	a5,t1
-lab239: 	lw	a1,48(t4) # 102030 <framask>
+lab239: 	mul	a4,a7,a7
+	lw	a1,48(t4) # 102030 <framask>
 	add	a4,a4,a7
 	srli	a4,a4,0x1
 	add	a5,a5,a4
@@ -3898,20 +3974,25 @@ lab204: 	lbu	a5,41(a2)
 	lui	t0,0x102
 	lui	t6,0x102
 	li	t5,128
-lab234: 	li	a1,0
+lab234: 	snez	t3,t1
+	li	a1,0
 	li	a3,0
-lab233: 	snez	a4,a1
+lab233: 	beq	a1,a7,lab208
+	snez	a4,a1
 	addi	a1,a1,1
 	and	a4,t3,a4
 	zext.b	a1,a1
-lab240: 	andi	a5,a5,1
+lab240: 	and	a5,a3,a0
+	andi	a5,a5,1
 	add	a5,a5,a4
 	bnez	a5,lab209
 	addi	sp,sp,-16
 	sw	s0,12(sp)
 	bgeu	a0,a3,lab210
-lab214: 	mv	a5,a0
-lab215: 	lw	t2,48(t4) # 102030 <framask>
+lab214: 	mv	s0,a3
+	mv	a5,a0
+lab215: 	mul	a4,s0,s0
+	lw	t2,48(t4) # 102030 <framask>
 	add	a4,a4,s0
 	srli	a4,a4,0x1
 	add	a5,a5,a4
@@ -3939,10 +4020,12 @@ lab211: 	addi	a3,a3,1
 	zext.b	a3,a3
 	bgeu	a3,a6,lab212
 	beq	a1,a7,lab213
-lab217: 	addi	a1,a1,1
+lab217: 	snez	a4,a1
+	addi	a1,a1,1
 	and	a4,t3,a4
 	zext.b	a1,a1
-lab218: 	andi	a5,a5,1
+lab218: 	and	a5,a3,a0
+	andi	a5,a5,1
 	add	a5,a5,a4
 	bnez	a5,lab211
 	bltu	a0,a3,lab214
@@ -3975,8 +4058,10 @@ lab213: 	li	a1,1
 	lui	t4,0x102
 	li	t3,128
 	j	lab219
-lab222: 	mv	a4,a1
-lab223: 	lw	a6,48(t1) # 102030 <framask>
+lab222: 	mv	a7,a5
+	mv	a4,a1
+lab223: 	mul	a3,a7,a7
+	lw	a6,48(t1) # 102030 <framask>
 	add	a3,a3,a7
 	srli	a3,a3,0x1
 	add	a4,a4,a3
@@ -4019,11 +4104,13 @@ lab219: 	add	a4,a1,a5
 	lui	t4,0x102
 	lui	t3,0x102
 	li	t1,128
-lab226: 	bgeu	a0,a5,lab225
+lab226: 	bnez	a6,lab224
+	bgeu	a0,a5,lab225
 	mv	a3,a5
 	mv	t6,a5
 	mv	a4,a0
-lab236: 	lw	a1,48(a7) # 102030 <framask>
+lab236: 	mul	a3,a3,a3
+	lw	a1,48(a7) # 102030 <framask>
 	add	a3,a3,t6
 	srli	a3,a3,0x1
 	add	a4,a4,a3
@@ -4059,7 +4146,8 @@ lab224: 	addi	a5,a5,1
 lab200: 	bgeu	a6,a4,lab228
 	mv	a0,a4
 	mv	a3,a6
-lab235: 	lw	a1,48(t3)
+lab235: 	mul	a5,a0,a0
+	lw	a1,48(t3)
 	add	a5,a5,a0
 	srli	a5,a5,0x1
 	add	a3,a3,a5
@@ -4165,7 +4253,8 @@ badruns:
 	li	a5,0
 	li	a0,0
 	li	a1,4
-lab247: 	lbu	a4,0(a4)
+lab247: 	add	a4,a2,a5
+	lbu	a4,0(a4)
 	addi	a5,a5,1
 	zext.b	a5,a5
 	addi	a3,a0,-2
@@ -4177,7 +4266,8 @@ lab246: 	bgeu	a6,a5,lab247
 	bge	a5,a7,lab248
 	li	t1,3
 	j	lab249
-lab250: 	bge	a5,a7,lab248
+lab250: 	mv	t1,a5
+	bge	a5,a7,lab248
 lab249: 	add	a4,a2,a5
 	lbu	a3,-2(a4)
 	lbu	a1,2(a4)
@@ -4249,7 +4339,8 @@ appendrs:
 	li	s0,1
 	li	s2,254
 	add	s3,s3,s11
-lab258: 	lbu	a4,0(t3)
+lab258: 	lbu	a5,0(s4)
+	lbu	a4,0(t3)
 	xor	a5,a5,a4
 	add	a5,s1,a5
 	lbu	t1,0(a5)
@@ -4257,7 +4348,8 @@ lab258: 	lbu	a4,0(t3)
 	bgeu	s0,s8,lab254
 	mv	a0,t3
 	add	a7,s6,s7
-lab256: 	lbu	a6,1(a0)
+lab256: 	lbu	a5,0(a7)
+	lbu	a6,1(a0)
 	addi	a7,a7,-1
 	add	a5,a5,t1
 	bge	s2,a5,lab255
@@ -4274,7 +4366,8 @@ lab254: 	lbu	a5,0(s6)
 	addi	a5,a5,-255
 lab257: 	add	a5,s1,a5
 	lbu	a5,256(a5)
-lab259: 	addi	s4,s4,1
+lab259: 	sb	a5,0(s10)
+	addi	s4,s4,1
 	bne	s4,s5,lab258
 lab252: 	lw	ra,60(sp)
 	lw	s0,56(sp)
@@ -4333,11 +4426,13 @@ qrencode:
 	li	a5,9
 	bgeu	a5,a3,lab261
 	addi	a5,s1,-3
-lab274: 	sb	zero,2(s2)
+lab274: 	add	s2,s2,a5
+	sb	zero,2(s2)
 	addi	a4,a5,-1
 	li	a0,-1
 	beqz	a5,lab262
-lab263: 	addi	a1,a4,3
+lab263: 	lw	a3,36(s9)
+	addi	a1,a4,3
 	add	a2,a3,a4
 	lbu	a2,0(a2)
 	add	a3,a3,a1
@@ -4371,7 +4466,8 @@ lab262: 	lw	a0,36(s9)
 	sub	a5,a5,a4
 	addi	a5,a5,3
 	bltu	a5,s1,lab264
-lab277: 	lw	s7,36(s9)
+lab277: 	lui	s5,0x102
+	lw	s7,36(s9)
 	lbu	t4,24(s5) # 102018 <eccblkwid>
 	lui	s6,0x102
 	lw	t3,32(s6) # 102020 <qrframe>
@@ -4388,7 +4484,8 @@ lab277: 	lw	s7,36(s9)
 	li	t1,254
 	li	t5,1
 	li	a1,255
-lab273: 	bge	t1,a5,lab266
+lab273: 	add	a5,a5,a7
+	bge	t1,a5,lab266
 	addi	a5,a5,-255
 lab266: 	add	a5,s2,a5
 	lbu	a4,256(a5)
@@ -4400,7 +4497,8 @@ lab266: 	add	a5,s2,a5
 	sub	a6,a6,a7
 	mv	a4,a0
 	j	lab268
-lab270: 	addi	a4,a4,-1
+lab270: 	sb	a3,0(a4)
+	addi	a4,a4,-1
 	beq	a6,a4,lab269
 lab268: 	lbu	a5,0(a4)
 	lbu	a3,-1(a4)
@@ -4409,7 +4507,8 @@ lab268: 	lbu	a5,0(a4)
 	lbu	a5,0(a5)
 	add	a5,a5,a2
 	bge	t1,a5,lab271
-lab272: 	beq	a5,a1,lab272
+lab272: 	addi	a5,a5,-255
+	beq	a5,a1,lab272
 lab271: 	add	a5,s2,a5
 	lbu	a5,256(a5)
 	addi	a4,a4,-1
@@ -4431,7 +4530,8 @@ lab260: 	li	a4,9
 	addi	a4,a5,-1
 	li	a0,-1
 	beqz	a5,lab275
-lab276: 	addi	a1,a4,2
+lab276: 	lw	a3,36(s9)
+	addi	a1,a4,2
 	add	a2,a3,a4
 	lbu	a2,0(a2)
 	add	a3,a3,a1
@@ -4476,18 +4576,21 @@ lab267: 	add	a4,s2,a4
 	lbu	a4,0(a4)
 	li	a5,1
 	sb	a4,0(t3)
-lab278: 	lbu	a4,0(a3)
+lab278: 	add	a3,t3,a5
+	lbu	a4,0(a3)
 	addi	a5,a5,1
 	zext.b	a5,a5
 	add	a4,s2,a4
 	lbu	a4,0(a4)
 	sb	a4,0(a3)
 	bgeu	t4,a5,lab278
-lab360: 	lbu	a1,25(s4)
+lab360: 	lbu	a5,27(s0)
+	lbu	a1,25(s4)
 	beqz	a5,lab279
 	lbu	a3,24(s5)
 	li	s10,0
-lab280: 	mv	a2,s8
+lab280: 	lw	a4,32(s6)
+	mv	a2,s8
 	mv	a0,s7
 	jal	ra,appendrs
 	lbu	a1,25(s4)
@@ -4503,7 +4606,8 @@ lab279: 	lbu	a4,26(s3)
 	lbu	a3,24(s5)
 	li	s10,0
 	addi	a5,a1,1
-lab282: 	zext.b	a1,a5
+lab282: 	lw	a4,32(s6)
+	zext.b	a1,a5
 	mv	a2,s8
 	mv	a0,s7
 	jal	ra,appendrs
@@ -4518,8 +4622,10 @@ lab282: 	zext.b	a1,a5
 	lw	a6,32(s6)
 	lbu	a5,27(s0)
 	beqz	a1,lab283
-lab361: 	li	a7,1
-lab290: 	beqz	a5,lab284
+lab361: 	li	a0,0
+	li	a7,1
+lab290: 	mv	a2,a6
+	beqz	a5,lab284
 	lw	a5,36(s9)
 	addi	a2,a6,1
 	add	a5,a5,a0
@@ -4528,7 +4634,8 @@ lab290: 	beqz	a5,lab284
 	lbu	a5,27(s0)
 	bgeu	a7,a5,lab285
 	li	a4,1
-lab286: 	lw	a5,36(s9)
+lab286: 	lbu	a3,25(s4)
+	lw	a5,36(s9)
 	addi	a2,a2,1
 	mul	a3,a3,a4
 	add	a5,a5,a0
@@ -4551,7 +4658,8 @@ lab284: 	lbu	t1,26(s3)
 	sb	a5,0(a2)
 	lbu	t1,26(s3)
 	bgeu	a7,t1,lab288
-lab289: 	lbu	a2,27(s0)
+lab289: 	lbu	a1,25(s4)
+	lbu	a2,27(s0)
 	lw	a5,36(s9)
 	addi	a3,a1,1
 	mul	a2,a2,a1
@@ -4567,8 +4675,10 @@ lab289: 	lbu	a2,27(s0)
 	bltu	a4,t1,lab289
 lab288: 	lbu	a1,25(s4)
 	lbu	a5,27(s0)
-lab354: 	bltu	a0,a1,lab290
-lab358: 	mul	a1,a1,a5
+lab354: 	addi	a0,a0,1
+	bltu	a0,a1,lab290
+lab358: 	beqz	t1,lab291
+	mul	a1,a1,a5
 	lw	a5,36(s9)
 	li	a3,1
 	addi	a4,a6,1
@@ -4578,7 +4688,8 @@ lab358: 	mul	a1,a1,a5
 	sb	a5,0(a6)
 	lbu	t1,26(s3)
 	bgeu	a3,t1,lab292
-lab293: 	lbu	a1,27(s0)
+lab293: 	lbu	a6,25(s4)
+	lbu	a1,27(s0)
 	lw	a5,36(s9)
 	addi	a2,a6,1
 	mul	a1,a1,a6
@@ -4593,12 +4704,14 @@ lab293: 	lbu	a1,27(s0)
 	lbu	t1,26(s3)
 	bltu	a3,t1,lab293
 lab292: 	lbu	a5,27(s0)
-lab359: 	li	a0,0
+lab359: 	lbu	a3,24(s5)
+	li	a0,0
 	add	a5,a5,t1
 	li	a6,1
 	beqz	a3,lab294
 	beqz	a5,lab295
-lab299: 	add	a1,s1,a0
+lab299: 	lw	a5,36(s9)
+	add	a1,s1,a0
 	addi	a2,a4,1
 	add	a5,a5,a1
 	lbu	a5,0(a5)
@@ -4608,7 +4721,8 @@ lab299: 	add	a1,s1,a0
 	add	a5,a5,a3
 	bge	a6,a5,lab296
 	li	a4,1
-lab297: 	lw	a5,36(s9)
+lab297: 	lbu	a3,24(s5)
+	lw	a5,36(s9)
 	addi	a2,a2,1
 	mul	a3,a3,a4
 	add	a5,a5,a1
@@ -4661,10 +4775,12 @@ lab294: 	lw	a1,32(s6)
 	lui	t5,0x102
 	li	t0,128
 	li	t4,6
-lab306: 	li	a7,8
+lab306: 	lw	a5,36(s9)
+	li	a7,8
 	add	a5,a5,t6
 	lbu	a6,0(a5)
-lab305: 	srai	a5,a5,0x18
+lab305: 	slli	a5,a6,0x18
+	srai	a5,a5,0x18
 	bgez	a5,lab301
 	lbu	a1,40(s7)
 	lw	t1,32(s6)
@@ -4680,19 +4796,23 @@ lab305: 	srai	a5,a5,0x18
 lab301: 	lbu	t3,41(s1)
 	lw	a1,48(t5) # 102030 <framask>
 	addi	t1,t3,-1
-lab304: 	addi	a4,a4,-1
+lab304: 	beqz	a3,lab302
+	addi	a4,a4,-1
 	zext.b	a4,a4
 	mv	s8,a2
 	mv	t2,a4
-lab331: 	zext.b	a3,a3
+lab331: 	xori	a3,a3,1
+	zext.b	a3,a3
 	bgeu	a2,a4,lab303
-lab328: 	add	a5,a5,t2
+lab328: 	mul	a5,a4,a4
+	add	a5,a5,t2
 	srli	a5,a5,0x1
 	add	a5,a5,s8
 	not	t2,a5
 	andi	t2,t2,7
 	srli	a5,a5,0x3
-lab329: 	lbu	a5,0(a5)
+lab329: 	add	a5,a1,a5
+	lbu	a5,0(a5)
 	sra	a5,a5,t2
 	andi	a5,a5,1
 	bnez	a5,lab304
@@ -4725,7 +4845,8 @@ lab300: 	lbu	a2,40(s7)
 	addi	a5,a5,1328 # 7530 <__DTOR_END__+0x1fc8>
 	sw	a5,8(sp)
 	sw	s2,12(sp)
-lab337: 	jal	ra,applymask
+lab337: 	mv	a0,s0
+	jal	ra,applymask
 	lbu	s4,41(s1)
 	addi	t4,s4,-1
 	blez	t4,lab307
@@ -4734,13 +4855,15 @@ lab337: 	jal	ra,applymask
 	li	s11,0
 	li	t6,0
 	li	a7,0
-lab311: 	mul	t1,t1,t2
+lab311: 	addi	t1,a7,1
+	mul	t1,t1,t2
 	li	a5,0
 	li	a4,0
 	mul	a7,t2,a7
 	add	t0,t3,t1
 	add	t5,t3,a7
-lab310: 	add	a3,t3,a3
+lab310: 	srli	a3,a4,0x3
+	add	a3,t3,a3
 	addi	a0,a5,1
 	add	a2,a3,a7
 	srai	a0,a0,0x3
@@ -4776,15 +4899,18 @@ lab309: 	addi	a4,a4,1
 	zext.b	t6,t6
 	mv	a7,t6
 	blt	t6,t4,lab311
-lab355: 	li	s2,0
+lab355: 	beqz	s4,lab312
+	li	s2,0
 	li	s3,0
-lab319: 	li	a0,0
+lab319: 	lw	a5,44(s5) # 10202c <rlens>
+	li	a0,0
 	sb	zero,0(a5)
 	lbu	s4,41(s1)
 	beqz	s4,lab313
 	li	a7,0
 	li	a4,0
-lab317: 	lw	a5,32(s6)
+lab317: 	lbu	a6,40(s7)
+	lw	a5,32(s6)
 	srli	a1,a4,0x3
 	mul	a6,a6,s3
 	not	a2,a4
@@ -4800,12 +4926,14 @@ lab317: 	lw	a5,32(s6)
 	zext.b	a0,t1
 	add	a3,a3,a0
 	sb	s8,0(a3)
-lab332: 	addi	a3,a4,1
+lab332: 	lbu	s4,41(s1)
+	addi	a3,a4,1
 	bnez	a5,lab315
 	zext.b	a4,a3
 	addi	s2,s2,-1
 	bgeu	a4,s4,lab316
-lab318: 	j	lab317
+lab318: 	mv	a7,a5
+	j	lab317
 lab315: 	zext.b	a4,a3
 	addi	s2,s2,1
 	bltu	a4,s4,lab318
@@ -4822,7 +4950,9 @@ lab316: 	addi	s3,s3,1
 	mul	a3,s4,s4
 	slli	a5,a5,0x1
 	bgeu	a3,a5,lab320
-lab350: lab321: 	addi	a4,a4,1
+lab350: 	li	a4,0
+lab321: 	sub	a5,a5,a3
+	addi	a4,a4,1
 	bltu	a3,a5,lab321
 	slli	a5,a4,0x2
 	add	a5,a5,a4
@@ -4830,7 +4960,8 @@ lab350: lab321: 	addi	a4,a4,1
 	add	s11,s11,a5
 lab320: 	beqz	s4,lab312
 	li	s2,0
-lab352: 	sb	zero,0(a5)
+lab352: 	lw	a5,44(s5)
+	sb	zero,0(a5)
 	lbu	s4,41(s1)
 	beqz	s4,lab322
 	not	a7,s2
@@ -4839,7 +4970,8 @@ lab352: 	sb	zero,0(a5)
 	li	a0,0
 	li	a1,0
 	li	a4,0
-lab325: 	lw	a5,32(s6)
+lab325: 	lbu	a2,40(s7)
+	lw	a5,32(s6)
 	lw	a3,44(s5)
 	mul	a2,a2,a4
 	add	a5,a5,t1
@@ -4856,7 +4988,8 @@ lab325: 	lw	a5,32(s6)
 	lbu	s4,41(s1)
 	zext.b	a4,a6
 	bgeu	a4,s4,lab324
-lab351: 	j	lab325
+lab351: 	mv	a1,a5
+	j	lab325
 lab302: 	addi	a5,a4,1
 	zext.b	a5,a5
 	beqz	a0,lab326
@@ -4951,7 +5084,8 @@ lab335: 	lw	a4,4(sp)
 	mv	a4,s0
 	lw	s2,12(sp)
 	lw	s0,4(sp)
-lab357: 	beq	a5,a4,lab338
+lab357: 	lw	a5,4(sp)
+	beq	a5,a4,lab338
 	mv	a0,a5
 	jal	ra,applymask
 lab338: 	lui	a5,0x102
@@ -4969,7 +5103,8 @@ lab338: 	lui	a5,0x102
 	li	t3,128
 	li	t1,5
 	j	lab339
-lab341: 	lbu	a2,40(s7)
+lab341: 	lbu	a5,41(s1)
+	lbu	a2,40(s7)
 	lw	a0,32(s6)
 	addi	a5,a5,-1
 	sub	a5,a5,a3
@@ -4991,13 +5126,15 @@ lab341: 	lbu	a2,40(s7)
 	lbu	a4,0(a5)
 	ori	a4,a4,-128
 	sb	a4,0(a5)
-lab342: 	addi	a1,a1,1
+lab342: 	addi	a3,a3,1
+	addi	a1,a1,1
 	mv	a4,a6
 lab339: 	andi	a5,a4,1
 	srli	a6,a4,0x1
 	bnez	a5,lab341
 	bne	a1,a7,lab342
-lab353: 	srli	a2,a4,0x2
+lab353: 	andi	a6,a6,1
+	srli	a2,a4,0x2
 	beqz	a6,lab343
 	lbu	a5,41(s1)
 	lbu	a1,40(s7)
@@ -5079,7 +5216,8 @@ lab345: 	andi	a5,a2,1
 lab346: 	andi	a5,a2,1
 	srli	a2,a4,0x6
 	bnez	a5,lab347
-lab356: 	srli	a4,a4,0x7
+lab356: 	andi	a2,a2,1
+	srli	a4,a4,0x7
 	beqz	a2,lab348
 	lbu	a5,41(s1)
 	lbu	a2,40(s7)
