@@ -3,37 +3,34 @@
 	.type  main, @function
 
 benchmark_body.constprop.0:
-	addi	sp,sp,-64
-	sw	s0,56(sp)
-	sw	s2,48(sp)
-	lui	s0,0x102
-	lui	s2,0x100
-	sw	s1,52(sp)
-	sw	s3,44(sp)
-	sw	s4,40(sp)
-	mv	s0,s0
+	addi	sp,sp,-48
+	sw	s0,44(sp)
+	lui	t2,0x101
+	lui	s0,0x100
+	lui	t0,0x102
+	sw	s1,40(sp)
+	sw	s4,28(sp)
+	addi	s0,s0,1600 # 100640 <ArrayA_ref>
 	lui	s4,0x100
-	addi	s2,s2,1600 # 100640 <ArrayA_ref>
-	lui	s1,0x101
-	lui	t1,0x101
-	lui	s3,0x102
-	sw	s5,36(sp)
-	sw	s6,32(sp)
-	sw	s7,28(sp)
-	sw	s8,24(sp)
-	sw	s9,20(sp)
-	sw	ra,60(sp)
-	sw	s10,16(sp)
-	sw	s11,12(sp)
-	addi	s1,s1,704 # 1012c0 <ArrayB_ref>
-	li	s6,46
-	addi	s5,t1,-896 # 100c80 <ArrayB>
-	addi	s3,s3,-1792 # 101900 <ResultArray>
-	mv	s8,s4
-	addi	s7,s2,1600
-	addi	s0,s0,-192 # 101f40 <Seed>
-	li	s9,20
-lab6: 	mv	a5,s2
+	addi	t2,t2,704 # 1012c0 <ArrayB_ref>
+	mv	t0,t0
+	lui	t6,0x101
+	lui	s1,0x102
+	sw	s2,36(sp)
+	sw	s3,32(sp)
+	sw	s5,24(sp)
+	sw	s6,20(sp)
+	sw	s7,16(sp)
+	sw	s8,12(sp)
+	li	s2,46
+	addi	t6,t6,-896 # 100c80 <ArrayB>
+	addi	s1,s1,-1792 # 101900 <ResultArray>
+	mv	s7,s4
+	addi	s6,s0,1600
+	addi	s5,t2,1600
+	addi	s3,t0,-192 # 101f40 <Seed>
+	li	t4,20
+lab5: 	mv	a5,s0
 	mv	a4,s4
 lab0: 	lw	a0,0(a5)
 	lw	a1,4(a5)
@@ -45,187 +42,162 @@ lab0: 	lw	a0,0(a5)
 	sw	a3,12(a4)
 	addi	a5,a5,16
 	addi	a4,a4,16
-	bne	a5,s7,lab0
-	mv	a5,s1
-	mv	a4,s5
-lab1: 	lw	a3,12(a5)
-	lw	a0,0(a5)
+	bne	a5,s6,lab0
+	mv	a5,t2
+	mv	a4,t6
+lab1: 	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
-	sw	a3,12(a4)
-	lui	a3,0x102
+	lw	a3,12(a5)
 	sw	a0,0(a4)
 	sw	a1,4(a4)
 	sw	a2,8(a4)
+	sw	a3,12(a4)
 	addi	a5,a5,16
-	addi	a3,a3,-1792 # 101900 <ResultArray>
 	addi	a4,a4,16
-	bne	a5,a3,lab1
-	lui	a5,0x102
-	mv	a7,s3
-	addi	s10,a5,-1712 # 101950 <ResultArray+0x50>
-	mv	s11,s8
-lab5: 	li	a1,0
-	mv	a0,a7
-	li	a2,80
-	jal	ra,memset
-	mv	a7,a0
-	mv	a1,s11
-	mv	a0,s5
-	li	a3,0
-lab4: 	lw	t5,0(a1)
-	mv	a2,a0
-	mv	a5,a7
-lab3: 	lw	a4,0(a2)
-	lw	t4,0(a5)
-	li	a6,0
-	mul	a4,t5,a4
-	beqz	a3,lab2
-	mv	a6,t4
-lab2: 	addi	a5,a5,4
-	add	a4,a4,a6
-	sw	a4,-4(a5)
-	addi	a2,a2,4
-	bne	a5,s10,lab3
-	addi	a3,a3,1
+	bne	a5,s5,lab1
+	mv	t1,s1
+	addi	t3,t0,-1712
+	mv	t5,s7
+lab4: 	mv	a6,t6
+	mv	a0,t5
+	li	a2,0
+lab3: 	lw	a7,0(a0)
+	snez	a5,a2
+	mv	a1,a6
+	mv	a4,t1
+	neg	a5,a5
+lab2: 	lw	a3,0(a1)
+	lw	s8,0(a4)
+	addi	a4,a4,4
+	mul	a3,a7,a3
+	and	s8,s8,a5
 	addi	a1,a1,4
-	addi	a0,a0,80
-	bne	a3,s9,lab4
-	addi	a7,a7,80
-	addi	s10,a5,80
-	addi	s11,s11,80
-	bne	a7,s0,lab5
-	addi	s6,s6,-1
-	bnez	s6,lab6
-	lw	ra,60(sp)
-	lw	s0,56(sp)
-	lw	s1,52(sp)
-	lw	s2,48(sp)
-	lw	s3,44(sp)
-	lw	s4,40(sp)
-	lw	s5,36(sp)
-	lw	s6,32(sp)
-	lw	s7,28(sp)
-	lw	s8,24(sp)
-	lw	s9,20(sp)
-	lw	s10,16(sp)
-	lw	s11,12(sp)
+	add	a3,a3,s8
+	sw	a3,-4(a4)
+	bne	t3,a4,lab2
+	addi	a2,a2,1
+	addi	a0,a0,4
+	addi	a6,a6,80
+	bne	a2,t4,lab3
+	addi	t1,t1,80
+	addi	t3,t3,80
+	addi	t5,t5,80
+	bne	t1,s3,lab4
+	addi	s2,s2,-1
+	bnez	s2,lab5
+	lw	s0,44(sp)
+	lw	s1,40(sp)
+	lw	s2,36(sp)
+	lw	s3,32(sp)
+	lw	s4,28(sp)
+	lw	s5,24(sp)
+	lw	s6,20(sp)
+	lw	s7,16(sp)
+	lw	s8,12(sp)
 	li	a0,0
-	addi	sp,sp,64
+	addi	sp,sp,48
 	ret
 benchmark_body.isra.0:
-	blez	a0,lab7
-	addi	sp,sp,-64
-	sw	s0,56(sp)
-	lui	s0,0x102
-	sw	s1,52(sp)
-	sw	s2,48(sp)
-	sw	s4,40(sp)
-	lui	s2,0x100
-	lui	s1,0x101
-	mv	s0,s0
-	lui	t1,0x101
-	lui	s4,0x102
-	sw	s3,44(sp)
-	sw	s5,36(sp)
-	sw	s6,32(sp)
-	sw	s7,28(sp)
-	sw	s8,24(sp)
-	sw	s11,12(sp)
-	sw	ra,60(sp)
-	sw	s9,20(sp)
-	sw	s10,16(sp)
-	mv	s3,a0
-	lui	s6,0x100
-	addi	s2,s2,1600 # 100640 <ArrayA_ref>
-	addi	s1,s1,704 # 1012c0 <ArrayB_ref>
-	li	s8,0
-	addi	s7,t1,-896 # 100c80 <ArrayB>
-	addi	s4,s4,-1792 # 101900 <ResultArray>
-	addi	s5,s0,-192 # 101f40 <Seed>
-	li	s11,20
-lab14: 	mv	a5,s2
-	mv	a4,s6
-lab8: 	lw	a3,12(a5)
-	lw	a0,0(a5)
+	blez	a0,lab6
+	addi	sp,sp,-48
+	lui	t2,0x100
+	lui	t0,0x101
+	lui	t6,0x102
+	sw	s1,40(sp)
+	sw	s4,28(sp)
+	addi	t2,t2,1600 # 100640 <ArrayA_ref>
+	lui	s4,0x100
+	addi	t0,t0,704 # 1012c0 <ArrayB_ref>
+	mv	t6,t6
+	lui	t5,0x101
+	lui	s1,0x102
+	sw	s0,44(sp)
+	sw	s2,36(sp)
+	sw	s3,32(sp)
+	sw	s5,24(sp)
+	sw	s6,20(sp)
+	sw	s7,16(sp)
+	sw	s8,12(sp)
+	sw	s9,8(sp)
+	mv	s0,a0
+	li	s2,0
+	addi	t5,t5,-896 # 100c80 <ArrayB>
+	addi	s1,s1,-1792 # 101900 <ResultArray>
+	mv	s7,s4
+	addi	s6,t2,1600
+	addi	s5,t0,1600
+	addi	s3,t6,-192 # 101f40 <Seed>
+	li	t3,20
+lab12: 	mv	a5,t2
+	mv	a4,s4
+lab7: 	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
-	sw	a3,12(a4)
-	lui	a3,0x101
+	lw	a3,12(a5)
 	sw	a0,0(a4)
 	sw	a1,4(a4)
 	sw	a2,8(a4)
+	sw	a3,12(a4)
 	addi	a5,a5,16
-	addi	a3,a3,-896 # 100c80 <ArrayB>
 	addi	a4,a4,16
-	bne	a5,a3,lab8
-	mv	a5,s1
-	mv	a4,s7
-lab9: 	lw	a3,12(a5)
-	lw	a0,0(a5)
+	bne	a5,s6,lab7
+	mv	a5,t0
+	mv	a4,t5
+lab8: 	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
-	sw	a3,12(a4)
-	lui	a3,0x102
+	lw	a3,12(a5)
 	sw	a0,0(a4)
 	sw	a1,4(a4)
 	sw	a2,8(a4)
+	sw	a3,12(a4)
 	addi	a5,a5,16
-	addi	a3,a3,-1792 # 101900 <ResultArray>
 	addi	a4,a4,16
-	bne	a5,a3,lab9
-	lui	a5,0x100
-	mv	a6,s4
-	addi	s10,s0,-1712
-	mv	s9,a5
-lab13: 	li	a1,0
-	mv	a0,a6
-	li	a2,80
-	jal	ra,memset
-	mv	a6,a0
-	mv	a1,s9
-	mv	a0,s7
+	bne	a5,s5,lab8
+	mv	a7,s1
+	addi	t1,t6,-1712
+	mv	t4,s7
+lab11: 	mv	a0,t5
+	mv	a1,t4
 	li	a3,0
-lab12: 	lw	t6,0(a1)
+lab10: 	lw	a6,0(a1)
+	snez	a5,a3
 	mv	a2,a0
-	mv	a5,a6
-lab11: 	lw	a4,0(a2)
-	lw	t5,0(a5) # 100000 <ArrayA>
-	li	t4,0
-	mul	a4,t6,a4
-	beqz	a3,lab10
-	mv	t4,t5
-lab10: 	addi	a5,a5,4
-	add	a4,a4,t4
-	sw	a4,-4(a5)
+	mv	a4,a7
+	neg	s8,a5
+lab9: 	lw	a5,0(a2)
+	lw	s9,0(a4)
+	addi	a4,a4,4
+	mul	a5,a6,a5
+	and	s9,s9,s8
 	addi	a2,a2,4
-	bne	s10,a5,lab11
+	add	a5,a5,s9
+	sw	a5,-4(a4)
+	bne	t1,a4,lab9
 	addi	a3,a3,1
 	addi	a1,a1,4
 	addi	a0,a0,80
-	bne	a3,s11,lab12
-	addi	a6,a6,80
-	addi	s10,s10,80
-	addi	s9,s9,80
-	bne	a6,s5,lab13
-	addi	s8,s8,1
-	bne	s8,s3,lab14
-	lw	ra,60(sp)
-	lw	s0,56(sp)
-	lw	s1,52(sp)
-	lw	s2,48(sp)
-	lw	s3,44(sp)
-	lw	s4,40(sp)
-	lw	s5,36(sp)
-	lw	s6,32(sp)
-	lw	s7,28(sp)
-	lw	s8,24(sp)
-	lw	s9,20(sp)
-	lw	s10,16(sp)
-	lw	s11,12(sp)
-	addi	sp,sp,64
+	bne	a3,t3,lab10
+	addi	a7,a7,80
+	addi	t1,t1,80
+	addi	t4,t4,80
+	bne	a7,s3,lab11
+	addi	s2,s2,1
+	bne	s2,s0,lab12
+	lw	s0,44(sp)
+	lw	s1,40(sp)
+	lw	s2,36(sp)
+	lw	s3,32(sp)
+	lw	s4,28(sp)
+	lw	s5,24(sp)
+	lw	s6,20(sp)
+	lw	s7,16(sp)
+	lw	s8,12(sp)
+	lw	s9,8(sp)
+	addi	sp,sp,48
 	ret
-lab7: 	ret
+lab6: 	ret
 values_match:
 	sub	a0,a0,a1
 	seqz	a0,a0
@@ -245,27 +217,27 @@ Test:
 	addi	t6,a1,1600
 	addi	t3,a1,1680
 	li	t5,400
-lab17: 	mv	a6,t6
+lab15: 	mv	a6,t6
 	mv	a0,a7
-lab16: 	sw	zero,0(a0)
+lab14: 	sw	zero,0(a0)
 	addi	a5,a6,-1600
 	mv	a2,t1
 	li	a3,0
-lab15: 	lw	a4,0(a2)
+lab13: 	lw	a4,0(a2)
 	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a2,a2,4
 	mul	a4,a4,a1
 	add	a3,a3,a4
 	sw	a3,0(a0)
-	bne	a5,a6,lab15
+	bne	a5,a6,lab13
 	addi	a6,a5,4
 	addi	a0,a0,4
-	bne	t3,a6,lab16
+	bne	t3,a6,lab14
 	addi	t4,t4,20
 	addi	t1,t1,80
 	addi	a7,a7,80
-	bne	t4,t5,lab17
+	bne	t4,t5,lab15
 	ret
 RandomInteger:
 	lui	a4,0x102
@@ -275,7 +247,7 @@ RandomInteger:
 	slli	a0,a0,0x2
 	add	a0,a0,a5
 	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x1463>
+	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x1503>
 	addi	a0,a0,81
 	rem	a0,a0,a5
 	sw	a0,-192(a4)
@@ -287,30 +259,30 @@ Multiply:
 	addi	t0,a1,1600
 	addi	t1,a1,1680
 	li	t6,20
-lab20: 	slli	a7,t3,0x2
+lab18: 	slli	a7,t3,0x2
 	add	a7,a7,t3
 	slli	a7,a7,0x4
 	mv	a6,t0
 	add	a7,t5,a7
 	mv	a0,t4
-lab19: 	sw	zero,0(a0)
+lab17: 	sw	zero,0(a0)
 	addi	a5,a6,-1600
 	mv	a2,a7
 	li	a3,0
-lab18: 	lw	a4,0(a2)
+lab16: 	lw	a4,0(a2)
 	lw	a1,0(a5)
 	addi	a5,a5,80
 	addi	a2,a2,4
 	mul	a4,a4,a1
 	add	a3,a3,a4
 	sw	a3,0(a0)
-	bne	a5,a6,lab18
+	bne	a5,a6,lab16
 	addi	a6,a5,4
 	addi	a0,a0,4
-	bne	t1,a6,lab19
+	bne	t1,a6,lab17
 	addi	t3,t3,1
 	addi	t4,t4,80
-	bne	t3,t6,lab20
+	bne	t3,t6,lab18
 	ret
 initialise_benchmark:
 	lui	a2,0x100
@@ -320,7 +292,26 @@ initialise_benchmark:
 	addi	a2,a2,1680
 	addi	a0,a0,1680
 	li	a5,0
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1463>
+	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1503>
+lab20: 	addi	a3,a2,-80
+lab19: 	slli	a4,a5,0x5
+	add	a4,a4,a5
+	slli	a4,a4,0x2
+	add	a5,a4,a5
+	addi	a5,a5,81
+	rem	a5,a5,a1
+	addi	a3,a3,4
+	sw	a5,-4(a3)
+	bne	a2,a3,lab19
+	addi	a2,a2,80
+	bne	a2,a0,lab20
+	lui	a2,0x101
+	mv	a2,a2
+	addi	a0,a2,704 # 1012c0 <ArrayB_ref>
+	lui	a1,0x2
+	addi	a2,a2,784
+	addi	a0,a0,1680
+	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1503>
 lab22: 	addi	a3,a2,-80
 lab21: 	slli	a4,a5,0x5
 	add	a4,a4,a5
@@ -330,28 +321,9 @@ lab21: 	slli	a4,a5,0x5
 	rem	a5,a5,a1
 	addi	a3,a3,4
 	sw	a5,-4(a3)
-	bne	a2,a3,lab21
-	addi	a2,a2,80
+	bne	a3,a2,lab21
+	addi	a2,a3,80
 	bne	a2,a0,lab22
-	lui	a2,0x101
-	mv	a2,a2
-	addi	a0,a2,704 # 1012c0 <ArrayB_ref>
-	lui	a1,0x2
-	addi	a2,a2,784
-	addi	a0,a0,1680
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1463>
-lab24: 	addi	a3,a2,-80
-lab23: 	slli	a4,a5,0x5
-	add	a4,a4,a5
-	slli	a4,a4,0x2
-	add	a5,a4,a5
-	addi	a5,a5,81
-	rem	a5,a5,a1
-	addi	a3,a3,4
-	sw	a5,-4(a3)
-	bne	a2,a3,lab23
-	addi	a2,a2,80
-	bne	a2,a0,lab24
 	lui	a4,0x102
 	sw	a5,-192(a4) # 101f40 <Seed>
 	ret
@@ -362,7 +334,7 @@ verify_benchmark:
 	sw	ra,1612(sp)
 	mv	a4,sp
 	addi	a3,a5,1600
-lab25: 	lw	a6,0(a5)
+lab23: 	lw	a6,0(a5)
 	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
@@ -372,7 +344,7 @@ lab25: 	lw	a6,0(a5)
 	sw	a2,12(a4)
 	addi	a5,a5,16
 	addi	a4,a4,16
-	bne	a5,a3,lab25
+	bne	a5,a3,lab23
 	lui	a0,0x102
 	mv	a1,sp
 	li	a2,1600
@@ -4615,7 +4587,7 @@ Seed:
 
 	.section .rodata
 
-config_mem_words_640:
+start_rodata:
 	.2byte	0x9510
 	.2byte	0x1158
 	.4byte	0x12c6850b
@@ -5253,22 +5225,3 @@ config_mem_words_640:
 	.4byte	0xe3c7a77
 	.2byte	0x498d
 	.2byte	0x1145
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a

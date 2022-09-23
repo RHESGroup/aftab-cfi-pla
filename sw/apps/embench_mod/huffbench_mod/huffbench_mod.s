@@ -124,9 +124,9 @@ compdecomp.constprop.0:
 	mv	s2,a0
 	lui	s3,0x1
 	jal	ra,memset
-	addi	s3,s3,-2048 # 800 <compdecomp.constprop.0+0x388>
+	addi	s3,s3,-2048 # 800 <compdecomp.constprop.0+0x3b8>
 	addi	a5,sp,16
-	addi	a0,s5,-512 # e00 <benchmark_body.isra.0+0x94>
+	addi	a0,s5,-512 # e00 <benchmark_body.isra.0+0xc0>
 	mv	a2,s3
 	li	a1,0
 	add	a0,a0,a5
@@ -134,7 +134,7 @@ compdecomp.constprop.0:
 	lui	s4,0x2
 	lui	s0,0xffffe
 	addi	a0,s0,1024 # ffffe400 <_stack+0xffef6400>
-	addi	a5,s4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,s4,-512 # 1e00 <__DTOR_END__+0x228>
 	addi	a4,sp,16
 	add	a5,a5,a0
 	add	a0,a5,a4
@@ -171,7 +171,7 @@ compdecomp.constprop.0:
 	mv	a4,a4
 lab12: 	lbu	a5,0(a4) # 100000 <test_data>
 	lui	a3,0x1
-	addi	a3,a3,-512 # e00 <benchmark_body.isra.0+0x94>
+	addi	a3,a3,-512 # e00 <benchmark_body.isra.0+0xc0>
 	addi	a2,sp,16
 	add	a3,a3,a2
 	slli	a5,a5,0x2
@@ -183,9 +183,9 @@ lab12: 	lbu	a5,0(a4) # 100000 <test_data>
 	bne	a4,s1,lab12
 	lui	a5,0x1
 	lui	a4,0x2
-	addi	s0,a5,-512 # e00 <benchmark_body.isra.0+0x94>
+	addi	s0,a5,-512 # e00 <benchmark_body.isra.0+0xc0>
 	lui	a1,0xffffe
-	addi	a4,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a4,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	s0,s0,a2
 	add	a4,a4,a1
 	mv	a3,s0
@@ -206,7 +206,7 @@ lab13: 	addi	a5,a5,1
 	lui	a4,0x2
 	lui	s9,0xffffe
 	addi	s9,s9,1024 # ffffe400 <_stack+0xffef6400>
-	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a5,a5,s9
 	addi	a3,sp,16
 	add	s9,a5,a3
@@ -226,36 +226,36 @@ lab16: 	lw	a0,8(sp)
 	li	a5,1
 	beq	s4,a5,lab17
 	slli	a5,s4,0x2
-	addi	s6,a5,1020 # fffff3fc <_stack+0xffef73fc>
+	addi	s5,a5,1020 # fffff3fc <_stack+0xffef73fc>
 	addi	a5,a5,-4
 	add	s9,s9,a5
 	lw	a5,8(sp)
 	lui	a3,0x2
 	lui	a4,0xffffe
-	add	s6,a5,s6
-	addi	a5,a3,-512 # 1e00 <__DTOR_END__+0x1fc>
-	addi	s8,a4,1024 # ffffe400 <_stack+0xffef6400>
+	add	s5,a5,s5
+	addi	a5,a3,-512 # 1e00 <__DTOR_END__+0x228>
+	addi	s6,a4,1024 # ffffe400 <_stack+0xffef6400>
 	add	a5,a5,a4
 	addi	a4,sp,16
 	add	a5,a5,a4
 	sw	a5,12(sp)
 	addi	a5,a3,-512
-	add	a5,a5,s8
+	add	a5,a5,s6
 	addi	s4,s4,255
-	add	s8,a5,a4
+	add	s6,a5,a4
 	li	s7,256
 lab18: 	lw	a5,0(s9)
 	lw	a4,12(sp)
 	lw	a0,8(sp)
 	addi	s10,s4,-256
-	lw	s5,1024(a4)
+	lw	s8,1024(a4)
 	mv	a2,s10
 	sw	a5,1024(a4)
-	mv	a1,s8
+	mv	a1,s6
 	jal	ra,heap_adjust.constprop.0
 	lw	a5,12(sp)
 	lw	a3,8(sp)
-	slli	a4,s5,0x2
+	slli	a4,s8,0x2
 	lw	a5,1024(a5)
 	add	a2,a3,a4
 	lui	a0,0x2
@@ -263,7 +263,7 @@ lab18: 	lw	a5,0(s9)
 	add	a3,a3,a5
 	lw	a3,0(a3)
 	lw	a2,0(a2)
-	addi	a1,a0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a1,a0,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a1,a1,a4
 	addi	a4,sp,16
 	add	a4,a1,a4
@@ -277,19 +277,19 @@ lab18: 	lw	a5,0(s9)
 	add	a5,a3,a5
 	neg	a3,s4
 	sw	s4,1024(a2)
-	sw	a4,0(s6)
+	sw	a4,0(s5)
 	mv	a2,s10
-	mv	a1,s8
+	mv	a1,s6
 	sw	a3,-2048(a5)
 	addi	s4,s4,-1
 	addi	s9,s9,-4
 	jal	ra,heap_adjust.constprop.0
-	addi	s6,s6,-4
+	addi	s5,s5,-4
 	bne	s4,s7,lab18
 lab17: 	li	a5,257
 lab15: 	lui	a4,0x2
 	slli	a5,a5,0x2
-	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a3,a3,a5
 	addi	a5,sp,16
 	add	a5,a3,a5
@@ -302,7 +302,7 @@ lab15: 	lui	a4,0x2
 	sw	zero,-2048(a5)
 	lui	a5,0x1
 	addi	a2,sp,16
-	addi	t1,a5,1536 # 1600 <compdecomp+0x7d0>
+	addi	t1,a5,1536 # 1600 <compdecomp+0x7fc>
 	add	a3,a3,s5
 	add	a4,a4,s4
 	addi	a5,a5,-512
@@ -333,7 +333,7 @@ lab19: 	lw	a1,0(s0)
 	li	a2,1
 lab24: 	lui	t0,0x2
 	slli	a4,a5,0x2
-	addi	t6,t0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	t6,t0,-512 # 1e00 <__DTOR_END__+0x228>
 	add	t6,t6,a4
 	mv	a3,a4
 	addi	a4,sp,16
@@ -364,7 +364,7 @@ lab20: 	li	a5,32
 	beqz	t5,lab26
 	lui	a2,0x2
 	lui	a5,0xffffe
-	addi	a3,a2,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a2,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a3,a3,a5
 	addi	a5,sp,16
 	add	a5,a3,a5
@@ -423,7 +423,7 @@ lab23: 	lw	a5,-2048(a3)
 lab22: 	li	a1,0
 	j	lab21
 lab26: 	lui	t0,0x1
-	addi	t0,t0,1616 # 1650 <compdecomp+0x820>
+	addi	t0,t0,1616 # 1650 <verify_benchmark>
 	add	sp,sp,t0
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
@@ -445,7 +445,7 @@ lab27: 	addi	t3,t3,1
 	lui	t3,0xfffff
 	addi	t3,t3,-1024 # ffffec00 <_stack+0xffef6c00>
 	li	a5,7
-	addi	a3,s0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,s0,-512 # 1e00 <__DTOR_END__+0x228>
 	sub	a5,a5,a1
 	add	a3,a3,t3
 	addi	a2,sp,16
@@ -500,7 +500,7 @@ lab37: 	li	a5,0
 	j	lab36
 lab35: 	lui	a4,0x2
 	lui	t4,0xfffff
-	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	addi	a2,sp,16
 	add	a3,a3,t4
 	lui	a5,0xffffe
@@ -520,41 +520,42 @@ lab35: 	lui	a4,0x2
 	add	t4,a3,a2
 	sw	a5,8(sp)
 	li	t5,256
-lab42: 	lw	a0,0(t1)
+lab43: 	lw	a0,0(t1)
 	lbu	t3,0(a6)
-	mv	a3,a6
-	mv	a4,t1
-	mv	a5,a7
-lab41: 	lw	a2,-4(a4)
-	mv	a1,a5
-	addi	a5,a5,-1 # ffffdfff <_stack+0xffef5fff>
-	bgeu	a0,a2,lab40
-	lbu	a1,-1(a3)
-	sw	a2,0(a4)
+	mv	a4,a6
+	mv	a5,t1
+	mv	a3,a7
+	j	lab40
+lab42: 	lbu	a1,-1(a4)
+	sw	a2,0(a5) # ffffe000 <_stack+0xffef6000>
+	addi	a4,a4,-1
+	sb	a1,1(a4)
+	addi	a5,a5,-4
+	beqz	a3,lab41
+lab40: 	lw	a2,-4(a5)
+	mv	a1,a3
 	addi	a3,a3,-1
-	sb	a1,1(a3)
-	addi	a4,a4,-4
-	bnez	a5,lab41
-lab54: 	lw	a3,8(sp)
-	slli	a4,a5,0x2
-	add	a4,t4,a4
-	add	a5,a3,a5
-	sw	a0,-1024(a4)
-	sb	t3,768(a5)
+	bltu	a0,a2,lab42
+lab55: 	lw	a4,8(sp)
+	slli	a5,a1,0x2
+	add	a5,t4,a5
+	add	a1,a4,a1
+	sw	a0,-1024(a5)
+	sb	t3,768(a1)
 	addi	a7,a7,1 # fffff001 <_stack+0xffef7001>
 	addi	t1,t1,4
 	addi	a6,a6,1
-	bne	a7,t5,lab42
+	bne	a7,t5,lab43
 	lw	a0,-1024(t4) # ffffec00 <_stack+0xffef6c00>
-	bnez	a0,lab43
-lab44: 	lw	t1,0(t6)
+	bnez	a0,lab44
+lab45: 	lw	t1,0(t6)
 	addi	a0,a0,1
 	addi	t6,t6,4
-	beqz	t1,lab44
-lab56: 	lui	a4,0x2
+	beqz	t1,lab45
+lab57: 	lui	a4,0x2
 	lui	a7,0xfffff
 	addi	a7,a7,-1024 # ffffec00 <_stack+0xffef6c00>
-	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a5,a5,a7
 	addi	a7,sp,16
 	lui	t5,0xffffe
@@ -571,27 +572,27 @@ lab56: 	lui	a4,0x2
 	add	t5,a5,a4
 	li	t0,1
 	li	t6,500
-lab51: 	lbu	a5,0(t4)
+lab52: 	lbu	a5,0(t4)
 	and	a5,a5,a6
-	beqz	a5,lab45
+	beqz	a5,lab46
 	addi	a2,a2,1
 	slli	a2,a2,0x1
-lab55: 	addi	a4,a1,1
+lab56: 	addi	a4,a1,1
 	slli	a5,a4,0x2
 	add	a5,a7,a5
-	bltu	a3,a2,lab46
-	j	lab47
-lab48: 	addi	a4,a4,1
-lab46: 	lw	a3,0(a5)
+	bltu	a3,a2,lab47
+	j	lab48
+lab49: 	addi	a4,a4,1
+lab47: 	lw	a3,0(a5)
 	mv	a1,a4
 	addi	a5,a5,4
-	bltu	a3,a2,lab48
-lab47: 	beq	a3,a2,lab49
-	beq	a6,t0,lab50
-lab52: 	srli	a6,a6,0x1
-lab53: 	bne	t3,t6,lab51
+	bltu	a3,a2,lab49
+lab48: 	beq	a2,a3,lab50
+	beq	a6,t0,lab51
+lab53: 	srli	a6,a6,0x1
+lab54: 	bne	t3,t6,lab52
 	lui	t0,0x1
-	addi	t0,t0,1616 # 1650 <compdecomp+0x820>
+	addi	t0,t0,1616 # 1650 <verify_benchmark>
 	add	sp,sp,t0
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
@@ -608,7 +609,7 @@ lab53: 	bne	t3,t6,lab51
 	lw	s2,2016(sp)
 	addi	sp,sp,2032
 	j	free_beebs
-lab49: 	add	a1,t5,a1
+lab50: 	add	a1,t5,a1
 	lbu	a5,768(a1)
 	addi	s3,s3,1
 	addi	t3,t3,1
@@ -616,18 +617,18 @@ lab49: 	add	a1,t5,a1
 	mv	a3,t1
 	mv	a1,a0
 	li	a2,0
-	bne	a6,t0,lab52
-lab50: 	addi	t4,t4,1
+	bne	a6,t0,lab53
+lab51: 	addi	t4,t4,1
 	li	a6,128
-	j	lab53
-lab40: 	mv	a5,a1
 	j	lab54
-lab45: 	slli	a2,a2,0x1
-	addi	a2,a2,1
+lab41: 	li	a1,0
 	j	lab55
-lab43: 	mv	t1,a0
-	li	a0,0
+lab46: 	slli	a2,a2,0x1
+	addi	a2,a2,1
 	j	lab56
+lab44: 	mv	t1,a0
+	li	a0,0
+	j	lab57
 benchmark_body.constprop.0:
 	addi	sp,sp,-32
 	sw	s1,20(sp)
@@ -641,15 +642,15 @@ benchmark_body.constprop.0:
 	sw	ra,28(sp)
 	li	s0,11
 	lui	s4,0x100
-	addi	s3,s3,1084 # 10243c <__func__.0+0x10>
+	addi	s3,s3,1044 # 102414 <__func__.0+0x10>
 	mv	s2,s2
-	addi	s1,s1,1584 # 102630 <__func__.0+0x204>
-lab58: 	lui	a1,0x2
+	addi	s1,s1,1544 # 102608 <__func__.0+0x204>
+lab59: 	lui	a1,0x2
 	addi	a0,s4,512 # 100200 <heap>
 	jal	ra,init_heap_beebs
 	mv	a5,s3
 	mv	a4,s2
-lab57: 	lw	a6,0(a5)
+lab58: 	lw	a6,0(a5)
 	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
@@ -661,10 +662,10 @@ lab57: 	lw	a6,0(a5)
 	sw	a3,16(a4)
 	addi	a5,a5,20
 	addi	a4,a4,20
-	bne	a5,s1,lab57
+	bne	a5,s1,lab58
 	addi	s0,s0,-1
 	jal	ra,compdecomp.constprop.0
-	bnez	s0,lab58
+	bnez	s0,lab59
 	lw	ra,28(sp)
 	lw	s0,24(sp)
 	lw	s1,20(sp)
@@ -675,7 +676,7 @@ lab57: 	lw	a6,0(a5)
 	addi	sp,sp,32
 	ret
 benchmark_body.isra.0:
-	blez	a0,lab59
+	blez	a0,lab60
 	addi	sp,sp,-32
 	sw	s2,16(sp)
 	sw	s3,12(sp)
@@ -690,15 +691,15 @@ benchmark_body.isra.0:
 	mv	s1,a0
 	li	s0,0
 	lui	s5,0x100
-	addi	s4,s4,1084 # 10243c <__func__.0+0x10>
+	addi	s4,s4,1044 # 102414 <__func__.0+0x10>
 	mv	s3,s3
-	addi	s2,s2,1584 # 102630 <__func__.0+0x204>
-lab61: 	lui	a1,0x2
+	addi	s2,s2,1544 # 102608 <__func__.0+0x204>
+lab62: 	lui	a1,0x2
 	addi	a0,s5,512 # 100200 <heap>
 	jal	ra,init_heap_beebs
 	mv	a5,s4
 	mv	a4,s3
-lab60: 	lw	a0,0(a5)
+lab61: 	lw	a0,0(a5)
 	lw	a6,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
@@ -710,10 +711,10 @@ lab60: 	lw	a0,0(a5)
 	sw	a3,16(a4)
 	addi	a5,a5,20
 	addi	a4,a4,20
-	bne	a5,s2,lab60
+	bne	a5,s2,lab61
 	addi	s0,s0,1
 	jal	ra,compdecomp.constprop.0
-	bne	s0,s1,lab61
+	bne	s0,s1,lab62
 	lw	ra,28(sp)
 	lw	s0,24(sp)
 	lw	s1,20(sp)
@@ -723,13 +724,13 @@ lab60: 	lw	a0,0(a5)
 	lw	s5,4(sp)
 	addi	sp,sp,32
 	ret
-lab59: 	ret
+lab60: 	ret
 compdecomp:
 	addi	sp,sp,-2032
 	lui	t0,0xfffff
 	addi	t0,t0,-1616 # ffffe9b0 <_stack+0xffef69b0>
 	sw	s0,2024(sp)
-	addi	s0,a1,1 # 2001 <__DTOR_END__+0x3fd>
+	addi	s0,a1,1 # 2001 <__DTOR_END__+0x429>
 	sw	ra,2028(sp)
 	sw	s1,2020(sp)
 	sw	s2,2016(sp)
@@ -738,12 +739,12 @@ compdecomp:
 	sw	s5,2004(sp)
 	sw	s6,2000(sp)
 	sw	s7,1996(sp)
-	mv	s3,a0
 	sw	s8,1992(sp)
 	sw	s9,1988(sp)
 	sw	s10,1984(sp)
-	mv	a0,s0
+	mv	s3,a0
 	add	sp,sp,t0
+	mv	a0,s0
 	mv	s1,a1
 	jal	ra,malloc_beebs
 	mv	a2,s0
@@ -753,8 +754,8 @@ compdecomp:
 	lui	s5,0x1
 	jal	ra,memset
 	addi	a5,sp,16
-	addi	s5,s5,-2048 # 800 <compdecomp.constprop.0+0x388>
-	addi	a0,s7,-512 # e00 <benchmark_body.isra.0+0x94>
+	addi	s5,s5,-2048 # 800 <compdecomp.constprop.0+0x3b8>
+	addi	a0,s7,-512 # e00 <benchmark_body.isra.0+0xc0>
 	mv	a2,s5
 	li	a1,0
 	add	a0,a0,a5
@@ -762,7 +763,7 @@ compdecomp:
 	lui	s6,0x2
 	lui	s0,0xffffe
 	addi	a0,s0,1024 # ffffe400 <_stack+0xffef6400>
-	addi	a5,s6,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,s6,-512 # 1e00 <__DTOR_END__+0x228>
 	addi	a4,sp,16
 	add	a5,a5,a0
 	add	a0,a5,a4
@@ -786,18 +787,18 @@ compdecomp:
 	jal	ra,memset
 	addi	a0,s0,512
 	addi	a5,s6,-512
-	addi	a4,sp,16
 	add	a5,a5,a0
+	addi	a4,sp,16
 	li	a2,256
-	add	a0,a5,a4
 	li	a1,0
+	add	a0,a5,a4
 	jal	ra,memset
+	beqz	s1,lab63
 	add	a2,s3,s1
 	mv	a4,s3
-	beqz	s1,lab62
-lab63: 	lbu	a5,0(a4)
+lab64: 	lbu	a5,0(a4)
 	lui	a3,0x1
-	addi	a3,a3,-512 # e00 <benchmark_body.isra.0+0x94>
+	addi	a3,a3,-512 # e00 <benchmark_body.isra.0+0xc0>
 	addi	a1,sp,16
 	add	a3,a3,a1
 	slli	a5,a5,0x2
@@ -806,10 +807,10 @@ lab63: 	lbu	a5,0(a4)
 	addi	a4,a4,1
 	addi	a3,a3,1
 	sw	a3,0(a5)
-	bne	a2,a4,lab63
-lab62: 	lui	a4,0x2
+	bne	a2,a4,lab64
+lab63: 	lui	a4,0x2
 	lui	s0,0xfffff
-	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a5,a5,s0
 	addi	a3,sp,16
 	lui	a1,0xffffe
@@ -822,20 +823,20 @@ lab62: 	lui	a4,0x2
 	li	a5,0
 	add	a1,a4,a2
 	li	a0,256
-lab65: 	lw	a2,0(a3)
+lab66: 	lw	a2,0(a3)
 	slli	a4,s4,0x2
 	add	a4,a1,a4
-	beqz	a2,lab64
+	beqz	a2,lab65
 	sw	a5,1024(a4)
 	addi	s4,s4,1
-lab64: 	addi	a5,a5,1
+lab65: 	addi	a5,a5,1
 	addi	a3,a3,4
-	bne	a5,a0,lab65
-	beqz	s4,lab66
+	bne	a5,a0,lab66
+	beqz	s4,lab67
 	lui	a4,0x2
 	lui	s9,0xffffe
 	addi	s9,s9,1024 # ffffe400 <_stack+0xffef6400>
-	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a5,a5,s9
 	addi	a3,sp,16
 	add	s9,a5,a3
@@ -845,46 +846,46 @@ lab64: 	addi	a5,a5,1
 	add	a5,a4,a3
 	mv	s5,s4
 	sw	a5,8(sp)
-lab67: 	lw	a0,8(sp)
+lab68: 	lw	a0,8(sp)
 	mv	a3,s5
 	mv	a2,s4
 	addi	s5,s5,-1
 	mv	a1,s9
 	jal	ra,heap_adjust
-	bnez	s5,lab67
+	bnez	s5,lab68
 	li	a5,1
-	beq	s4,a5,lab68
+	beq	s4,a5,lab69
 	slli	a5,s4,0x2
-	addi	s6,a5,1020 # fffff3fc <_stack+0xffef73fc>
+	addi	s5,a5,1020 # fffff3fc <_stack+0xffef73fc>
 	addi	a5,a5,-4
 	add	s9,s9,a5
 	lw	a5,8(sp)
 	lui	a3,0x2
 	lui	a4,0xffffe
-	add	s6,a5,s6
-	addi	a5,a3,-512 # 1e00 <__DTOR_END__+0x1fc>
-	addi	s8,a4,1024 # ffffe400 <_stack+0xffef6400>
+	add	s5,a5,s5
+	addi	a5,a3,-512 # 1e00 <__DTOR_END__+0x228>
+	addi	s6,a4,1024 # ffffe400 <_stack+0xffef6400>
 	add	a5,a5,a4
 	addi	a4,sp,16
 	add	a5,a5,a4
 	sw	a5,12(sp)
 	addi	a5,a3,-512
-	add	a5,a5,s8
+	add	a5,a5,s6
 	addi	s4,s4,255
-	add	s8,a5,a4
+	add	s6,a5,a4
 	li	s7,256
-lab69: 	lw	a5,0(s9)
+lab70: 	lw	a5,0(s9)
 	lw	a4,12(sp)
 	lw	a0,8(sp)
 	addi	s10,s4,-256
-	lw	s5,1024(a4)
+	lw	s8,1024(a4)
 	mv	a2,s10
 	sw	a5,1024(a4)
-	mv	a1,s8
+	mv	a1,s6
 	jal	ra,heap_adjust.constprop.0
 	lw	a5,12(sp)
 	lw	a3,8(sp)
-	slli	a4,s5,0x2
+	slli	a4,s8,0x2
 	lw	a5,1024(a5)
 	add	a2,a3,a4
 	lui	a0,0x2
@@ -892,7 +893,7 @@ lab69: 	lw	a5,0(s9)
 	add	a3,a3,a5
 	lw	a3,0(a3)
 	lw	a2,0(a2)
-	addi	a1,a0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a1,a0,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a1,a1,a4
 	addi	a4,sp,16
 	add	a4,a1,a4
@@ -906,19 +907,19 @@ lab69: 	lw	a5,0(s9)
 	add	a5,a3,a5
 	neg	a3,s4
 	sw	s4,1024(a2)
-	sw	a4,0(s6)
+	sw	a4,0(s5)
 	mv	a2,s10
-	mv	a1,s8
+	mv	a1,s6
 	sw	a3,-2048(a5)
 	addi	s4,s4,-1
 	addi	s9,s9,-4
 	jal	ra,heap_adjust.constprop.0
-	addi	s6,s6,-4
-	bne	s4,s7,lab69
-lab68: 	li	a5,257
-lab66: 	lui	a4,0x2
+	addi	s5,s5,-4
+	bne	s4,s7,lab70
+lab69: 	li	a5,257
+lab67: 	lui	a4,0x2
 	slli	a5,a5,0x2
-	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a3,a3,a5
 	lui	s5,0xfffff
 	addi	a5,sp,16
@@ -935,32 +936,32 @@ lab66: 	lui	a4,0x2
 	lui	a5,0x1
 	add	s5,a3,a2
 	add	s4,a4,a2
-	addi	t1,a5,1536 # 1600 <compdecomp+0x7d0>
+	addi	t1,a5,1536 # 1600 <compdecomp+0x7fc>
 	add	t1,t1,a2
 	addi	t3,s0,1024 # fffff400 <_stack+0xffef7400>
 	mv	a0,s4
 	mv	a1,s5
 	li	t4,0
 	li	t5,0
-	j	lab70
-lab72: 	sw	a6,0(a1) # ffffe000 <_stack+0xffef6000>
+	j	lab71
+lab73: 	sw	a6,0(a1) # ffffe000 <_stack+0xffef6000>
 	sb	a4,0(a0)
 	addi	s0,s0,4
 	addi	a1,a1,4
 	addi	a0,a0,1
 	addi	t1,t1,4
-	beq	t3,s0,lab71
-lab70: 	lw	a6,0(s0)
+	beq	t3,s0,lab72
+lab71: 	lw	a6,0(s0)
 	li	a4,0
-	beqz	a6,lab72
+	beqz	a6,lab73
 	lw	a5,0(t1)
 	li	a6,0
-	beqz	a5,lab72
+	beqz	a5,lab73
 	li	a2,1
 	li	a7,0
-lab74: 	lui	t0,0x2
+lab75: 	lui	t0,0x2
 	slli	a4,a5,0x2
-	addi	t6,t0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	t6,t0,-512 # 1e00 <__DTOR_END__+0x228>
 	add	t6,t6,a4
 	mv	a3,a4
 	addi	a4,sp,16
@@ -969,15 +970,15 @@ lab74: 	lui	t0,0x2
 	addi	t0,sp,16
 	add	t6,t6,t0
 	sub	a3,t6,a3
-	bltz	a5,lab73
+	bltz	a5,lab74
 	lw	a5,-2048(a4)
 	slli	a2,a2,0x1
 	addi	a7,a7,1
-	bnez	a5,lab74
-lab83: 	bgeu	t5,a6,lab75
+	bnez	a5,lab75
+lab84: 	bgeu	t5,a6,lab76
 	mv	t5,a6
-lab75: 	zext.b	a4,a7
-	bgeu	t4,a7,lab72
+lab76: 	zext.b	a4,a7
+	bgeu	t4,a7,lab73
 	sw	a6,0(a1)
 	sb	a4,0(a0)
 	addi	s0,s0,4
@@ -985,14 +986,14 @@ lab75: 	zext.b	a4,a7
 	addi	a1,a1,4
 	addi	a0,a0,1
 	addi	t1,t1,4
-	bne	t3,s0,lab70
-lab71: 	li	a5,32
-	bltu	a5,t4,lab76
-	beqz	t5,lab76
-	beqz	s1,lab77
+	bne	t3,s0,lab71
+lab72: 	li	a5,32
+	bltu	a5,t4,lab77
+	beqz	t5,lab77
+	beqz	s1,lab78
 	lui	a2,0x2
 	lui	a5,0xffffe
-	addi	a3,a2,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a2,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a3,a3,a5
 	addi	a5,sp,16
 	add	a5,a3,a5
@@ -1009,47 +1010,47 @@ lab71: 	li	a5,32
 	li	t5,1
 	li	t3,7
 	add	t1,a5,a3
-lab84: 	lbu	a0,0(t4)
+lab85: 	lbu	a0,0(t4)
 	lw	a5,8(sp)
 	add	a5,a5,a0
 	lbu	a6,512(a5) # ffffe200 <_stack+0xffef6200>
 	addi	a3,a6,-1
 	sll	a3,t5,a3
-	beqz	a6,lab78
+	beqz	a6,lab79
 	li	a2,0
-	j	lab79
-lab81: 	zext.b	a4,a5
+	j	lab80
+lab82: 	zext.b	a4,a5
 	addi	a1,a1,1
-lab82: 	slli	a5,a0,0x2
+lab83: 	slli	a5,a0,0x2
 	add	a5,t1,a5
 	lw	a5,-2048(a5)
 	addi	a2,a2,1
 	and	a5,a3,a5
-	beqz	a5,lab80
+	beqz	a5,lab81
 	ori	a4,a4,1
-lab80: 	srli	a3,a3,0x1
-	bgeu	a2,a6,lab78
-lab79: 	slli	a5,a4,0x1
-	bne	a1,t3,lab81
+lab81: 	srli	a3,a3,0x1
+	bgeu	a2,a6,lab79
+lab80: 	slli	a5,a4,0x1
+	bne	a1,t3,lab82
 	add	a5,s2,a7
 	sb	a4,0(a5)
 	addi	a7,a7,1
-	beq	s1,a7,lab76
+	beq	s1,a7,lab77
 	lbu	a0,0(t4)
 	lw	a5,8(sp)
 	li	a1,0
 	li	a4,0
 	add	a5,a5,a0
 	lbu	a6,512(a5)
-	j	lab82
-lab73: 	lw	a5,-2048(a3)
+	j	lab83
+lab74: 	lw	a5,-2048(a3)
 	add	a6,a6,a2
 	addi	a7,a7,1
 	slli	a2,a2,0x1
-	bnez	a5,lab74
-	j	lab83
-lab76: 	lui	t0,0x1
-	addi	t0,t0,1616 # 1650 <compdecomp+0x820>
+	bnez	a5,lab75
+	j	lab84
+lab77: 	lui	t0,0x1
+	addi	t0,t0,1616 # 1650 <verify_benchmark>
 	add	sp,sp,t0
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
@@ -1065,17 +1066,17 @@ lab76: 	lui	t0,0x1
 	lw	s10,1984(sp)
 	addi	sp,sp,2032
 	ret
-lab78: 	addi	t4,t4,1
-	bne	t4,t6,lab84
+lab79: 	addi	t4,t4,1
+	bne	t4,t6,lab85
 	li	a5,7
 	sub	a5,a5,a1
 	sll	a5,a4,a5
 	add	a7,s2,a7
 	zext.b	a5,a5
-lab108: 	lui	s0,0x2
+lab110: 	lui	s0,0x2
 	lui	t3,0xfffff
 	addi	t3,t3,-1024 # ffffec00 <_stack+0xffef6c00>
-	addi	a4,s0,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a4,s0,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a4,a4,t3
 	addi	a3,sp,16
 	add	t3,a4,a3
@@ -1094,37 +1095,37 @@ lab108: 	lui	s0,0x2
 	li	a6,0
 	li	t5,1
 	li	t4,256
-	j	lab85
-lab87: 	addi	a6,a6,1
+	j	lab86
+lab88: 	addi	a6,a6,1
 	addi	s5,s5,4
 	addi	s4,s4,1
 	addi	t3,t3,4
-	beq	a6,t4,lab86
-lab85: 	lw	a0,0(s5)
+	beq	a6,t4,lab87
+lab86: 	lw	a0,0(s5)
 	lbu	a1,0(s4)
 	sb	a6,0(t1)
 	addi	t1,t1,1
 	or	a5,a0,a1
-	beqz	a5,lab87
+	beqz	a5,lab88
 	addi	a3,a1,-1
 	sll	a3,t5,a3
 	li	a5,0
-	beqz	a1,lab88
+	beqz	a1,lab89
 	li	a2,0
-lab90: 	addi	a7,a5,1
+lab91: 	addi	a7,a5,1
 	and	a4,a0,a3
 	slli	a5,a5,0x1
 	addi	a5,a5,1
-	beqz	a4,lab89
+	beqz	a4,lab90
 	slli	a5,a7,0x1
-lab89: 	addi	a2,a2,1
+lab90: 	addi	a2,a2,1
 	srli	a3,a3,0x1
-	bne	a1,a2,lab90
-lab88: 	sw	a5,0(t3)
-	j	lab87
-lab86: 	lui	a4,0x2
+	bne	a1,a2,lab91
+lab89: 	sw	a5,0(t3)
+	j	lab88
+lab87: 	lui	a4,0x2
 	lui	t4,0xfffff
-	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a3,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	addi	a2,sp,16
 	add	a3,a3,t4
 	lui	a5,0xffffe
@@ -1144,42 +1145,43 @@ lab86: 	lui	a4,0x2
 	add	t4,a3,a2
 	sw	a5,8(sp)
 	li	t5,256
-lab93: 	lw	a0,0(t1)
+lab95: 	lw	a0,0(t1)
 	lbu	t3,0(a6)
-	mv	a3,a6
-	mv	a4,t1
-	mv	a5,a7
-lab92: 	lw	a2,-4(a4)
-	mv	a1,a5
-	addi	a5,a5,-1 # ffffdfff <_stack+0xffef5fff>
-	bgeu	a0,a2,lab91
-	lbu	a1,-1(a3)
-	sw	a2,0(a4)
+	mv	a4,a6
+	mv	a5,t1
+	mv	a3,a7
+	j	lab92
+lab94: 	lbu	a1,-1(a4)
+	sw	a2,0(a5) # ffffe000 <_stack+0xffef6000>
+	addi	a4,a4,-1
+	sb	a1,1(a4)
+	addi	a5,a5,-4
+	beqz	a3,lab93
+lab92: 	lw	a2,-4(a5)
+	mv	a1,a3
 	addi	a3,a3,-1
-	sb	a1,1(a3)
-	addi	a4,a4,-4
-	bnez	a5,lab92
-lab106: 	lw	a3,8(sp)
-	slli	a4,a5,0x2
-	add	a4,t4,a4
-	add	a5,a3,a5
-	sw	a0,-1024(a4)
-	sb	t3,768(a5)
+	bltu	a0,a2,lab94
+lab108: 	lw	a4,8(sp)
+	slli	a5,a1,0x2
+	add	a5,t4,a5
+	add	a1,a4,a1
+	sw	a0,-1024(a5)
+	sb	t3,768(a1)
 	addi	a7,a7,1
 	addi	t1,t1,4
 	addi	a6,a6,1
-	bne	a7,t5,lab93
+	bne	a7,t5,lab95
 	lw	a0,-1024(t4) # ffffec00 <_stack+0xffef6c00>
-	bnez	a0,lab94
-lab95: 	lw	t1,0(t6)
+	bnez	a0,lab96
+lab97: 	lw	t1,0(t6)
 	addi	a0,a0,1
 	addi	t6,t6,4
-	beqz	t1,lab95
-lab109: 	beqz	s1,lab96
+	beqz	t1,lab97
+lab111: 	beqz	s1,lab98
 	lui	a4,0x2
 	lui	a7,0xfffff
 	addi	a7,a7,-1024 # ffffec00 <_stack+0xffef6c00>
-	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x1fc>
+	addi	a5,a4,-512 # 1e00 <__DTOR_END__+0x228>
 	add	a5,a5,a7
 	addi	a7,sp,16
 	lui	t5,0xffffe
@@ -1195,27 +1197,27 @@ lab109: 	beqz	s1,lab96
 	li	t3,0
 	add	t5,a5,a4
 	li	t6,1
-lab103: 	lbu	a5,0(t4)
+lab105: 	lbu	a5,0(t4)
 	and	a5,a5,a6
-	beqz	a5,lab97
+	beqz	a5,lab99
 	addi	a2,a2,1
 	slli	a2,a2,0x1
-lab107: 	addi	a4,a1,1
+lab109: 	addi	a4,a1,1
 	slli	a5,a4,0x2
 	add	a5,a7,a5
-	bltu	a3,a2,lab98
-	j	lab99
-lab100: 	addi	a4,a4,1
-lab98: 	lw	a3,0(a5)
+	bltu	a3,a2,lab100
+	j	lab101
+lab102: 	addi	a4,a4,1
+lab100: 	lw	a3,0(a5)
 	mv	a1,a4
 	addi	a5,a5,4
-	bltu	a3,a2,lab100
-lab99: 	beq	a3,a2,lab101
-	beq	a6,t6,lab102
-lab104: 	srli	a6,a6,0x1
-lab105: 	bltu	t3,s1,lab103
-lab96: 	lui	t0,0x1
-	addi	t0,t0,1616 # 1650 <compdecomp+0x820>
+	bltu	a3,a2,lab102
+lab101: 	beq	a2,a3,lab103
+	beq	a6,t6,lab104
+lab106: 	srli	a6,a6,0x1
+lab107: 	bltu	t3,s1,lab105
+lab98: 	lui	t0,0x1
+	addi	t0,t0,1616 # 1650 <verify_benchmark>
 	add	sp,sp,t0
 	lw	ra,2028(sp)
 	lw	s0,2024(sp)
@@ -1232,7 +1234,7 @@ lab96: 	lui	t0,0x1
 	lw	s2,2016(sp)
 	addi	sp,sp,2032
 	j	free_beebs
-lab101: 	add	a1,t5,a1
+lab103: 	add	a1,t5,a1
 	lbu	a5,768(a1)
 	addi	s3,s3,1 # 100001 <test_data+0x1>
 	addi	t3,t3,1
@@ -1240,21 +1242,21 @@ lab101: 	add	a1,t5,a1
 	mv	a3,t1
 	mv	a1,a0
 	li	a2,0
-	bne	a6,t6,lab104
-lab102: 	addi	t4,t4,1
+	bne	a6,t6,lab106
+lab104: 	addi	t4,t4,1
 	li	a6,128
-	j	lab105
-lab91: 	mv	a5,a1
-	j	lab106
-lab97: 	slli	a2,a2,0x1
-	addi	a2,a2,1
 	j	lab107
-lab77: 	mv	a7,s2
-	li	a5,0
+lab93: 	li	a1,0
 	j	lab108
-lab94: 	mv	t1,a0
-	li	a0,0
+lab99: 	slli	a2,a2,0x1
+	addi	a2,a2,1
 	j	lab109
+lab78: 	mv	a7,s2
+	li	a5,0
+	j	lab110
+lab96: 	mv	t1,a0
+	li	a0,0
+	j	lab111
 verify_benchmark:
 	lui	a1,0x102
 	lui	a0,0x100
@@ -1298,7 +1300,7 @@ rand_beebs:
 	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b5ce6d>
 	mul	a0,a0,a5
 	lui	a5,0x3
-	addi	a5,a5,57 # 3039 <__DTOR_END__+0x1435>
+	addi	a5,a5,57 # 3039 <__DTOR_END__+0x1461>
 	add	a0,a0,a5
 	slli	a0,a0,0x1
 	srli	a0,a0,0x1
@@ -1311,7 +1313,7 @@ srand_beebs:
 	ret
 init_heap_beebs:
 	andi	a5,a1,3
-	bnez	a5,lab110
+	bnez	a5,lab112
 	lui	a5,0x102
 	add	a1,a0,a1
 	sw	a0,520(a5) # 102208 <heap_ptr>
@@ -1320,14 +1322,14 @@ init_heap_beebs:
 	lui	a5,0x102
 	sw	zero,512(a5) # 102200 <heap_requested>
 	ret
-lab110: 	lui	a3,0x102
+lab112: 	lui	a3,0x102
 	lui	a2,0x102
 	lui	a0,0x102
 	addi	sp,sp,-16
-	addi	a3,a3,1588 # 102634 <__func__.0+0x208>
-	addi	a2,a2,1068 # 10242c <__func__.0>
+	addi	a3,a3,1548 # 10260c <__func__.0+0x208>
+	addi	a2,a2,1028 # 102404 <__func__.0>
 	li	a1,65
-	addi	a0,a0,1620 # 102654 <__func__.0+0x228>
+	addi	a0,a0,1580 # 10262c <__func__.0+0x228>
 	sw	ra,12(sp)
 	jal	ra,__assert_func
 check_heap_beebs:
@@ -1341,7 +1343,7 @@ check_heap_beebs:
 	ret
 malloc_beebs:
 	mv	a5,a0
-	beqz	a0,lab111
+	beqz	a0,lab113
 	lui	a2,0x102
 	lw	a0,520(a2) # 102208 <heap_ptr>
 	lui	a3,0x102
@@ -1349,63 +1351,63 @@ malloc_beebs:
 	add	a4,a0,a5
 	andi	a6,a4,3
 	add	a5,a5,a1
-	bnez	a6,lab112
+	bnez	a6,lab114
+	lui	a1,0x102
+	lw	a1,516(a1) # 102204 <heap_end>
 	sw	a5,512(a3)
-	lui	a5,0x102
-	lw	a5,516(a5) # 102204 <heap_end>
-	bltu	a5,a4,lab111
-lab113: 	sw	a4,520(a2)
+	bltu	a1,a4,lab113
+lab115: 	sw	a4,520(a2)
 	ret
-lab112: 	li	a1,4
+lab114: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
-	sw	a5,512(a3)
-	lui	a5,0x102
-	lw	a5,516(a5) # 102204 <heap_end>
 	add	a4,a4,a1
-	bgeu	a5,a4,lab113
-lab111: 	li	a0,0
+	lui	a1,0x102
+	lw	a1,516(a1) # 102204 <heap_end>
+	sw	a5,512(a3)
+	bgeu	a1,a4,lab115
+lab113: 	li	a0,0
 	ret
 calloc_beebs:
 	mul	a2,a0,a1
-	beqz	a2,lab114
+	beqz	a2,lab116
 	lui	a0,0x102
-	lw	a5,520(a0) # 102208 <heap_ptr>
+	lw	a3,520(a0) # 102208 <heap_ptr>
 	lui	a1,0x102
-	lw	a4,512(a1) # 102200 <heap_requested>
-	add	a3,a5,a2
-	andi	a7,a3,3
-	add	a4,a2,a4
-	bnez	a7,lab115
-	sw	a4,512(a1)
-	lui	a4,0x102
-	lw	a4,516(a4) # 102204 <heap_end>
-	bltu	a4,a3,lab114
-lab117: 	sw	a3,520(a0)
-	beqz	a5,lab116
+	lw	a5,512(a1) # 102200 <heap_requested>
+	add	a4,a3,a2
+	andi	a7,a4,3
+	add	a5,a2,a5
+	bnez	a7,lab117
+	lui	a6,0x102
+	lw	a6,516(a6) # 102204 <heap_end>
+	sw	a5,512(a1)
+	bltu	a6,a4,lab116
+lab118: 	sw	a4,520(a0)
+	beqz	a3,lab116
 	addi	sp,sp,-16
 	li	a1,0
-	mv	a0,a5
+	mv	a0,a3
 	sw	ra,12(sp)
 	jal	ra,memset
 	lw	ra,12(sp)
 	addi	sp,sp,16
 	ret
-lab115: 	li	a6,4
+lab117: 	li	a6,4
 	sub	a6,a6,a7
+	add	a5,a5,a6
 	add	a4,a4,a6
-	sw	a4,512(a1)
-	lui	a4,0x102
-	lw	a4,516(a4) # 102204 <heap_end>
-	add	a3,a3,a6
-	bgeu	a4,a3,lab117
-lab114: 	li	a5,0
-lab116: 	mv	a0,a5
+	lui	a6,0x102
+	lw	a6,516(a6) # 102204 <heap_end>
+	sw	a5,512(a1)
+	bgeu	a6,a4,lab118
+lab116: 	li	a3,0
+	mv	a0,a3
 	ret
 realloc_beebs:
 	mv	a5,a0
-	beqz	a0,lab118
-	beqz	a1,lab118
+	beqz	a0,lab119
+	beqz	a1,lab119
 	lui	a6,0x102
 	lw	a0,520(a6) # 102208 <heap_ptr>
 	lui	a2,0x102
@@ -1413,70 +1415,69 @@ realloc_beebs:
 	add	a3,a0,a1
 	andi	a7,a3,3
 	add	a4,a1,a4
-	bnez	a7,lab119
+	bnez	a7,lab120
+	lui	a7,0x102
+	lw	a7,516(a7) # 102204 <heap_end>
 	sw	a4,512(a2)
-	lui	a4,0x102
-	lw	a4,516(a4) # 102204 <heap_end>
-	bltu	a4,a3,lab118
-lab123: 	sw	a3,520(a6)
-	beqz	a0,lab118
+	bltu	a7,a3,lab119
+lab124: 	sw	a3,520(a6)
+	beqz	a0,lab119
+	addi	a4,a1,-1
+	li	a3,6
+	bgeu	a3,a4,lab121
+	or	a4,a5,a0
+	andi	a4,a4,3
+	bnez	a4,lab121
 	addi	a4,a5,1
 	sub	a4,a0,a4
-	or	a3,a5,a0
 	sltiu	a4,a4,3
-	andi	a3,a3,3
-	xori	a4,a4,1
-	seqz	a3,a3
-	and	a4,a4,a3
-	beqz	a4,lab120
-	addi	a4,a1,-1
-	sltiu	a4,a4,7
-	bnez	a4,lab120
+	bnez	a4,lab121
 	andi	a6,a1,-4
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab121: 	lw	a2,0(a4)
+lab122: 	lw	a2,0(a4)
 	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
-	bne	a4,a6,lab121
+	bne	a4,a6,lab122
+	andi	a3,a1,3
 	andi	a4,a1,-4
-	beq	a1,a4,lab122
+	beqz	a3,lab123
 	add	a3,a5,a4
 	lbu	a6,0(a3)
 	add	a2,a0,a4
 	addi	a3,a4,1
 	sb	a6,0(a2)
-	bgeu	a3,a1,lab122
+	bgeu	a3,a1,lab123
 	add	a2,a5,a3
 	lbu	a2,0(a2)
 	add	a3,a0,a3
 	addi	a4,a4,2
 	sb	a2,0(a3)
-	bgeu	a4,a1,lab122
+	bgeu	a4,a1,lab123
 	add	a5,a5,a4
 	lbu	a5,0(a5)
 	add	a4,a0,a4
 	sb	a5,0(a4)
 	ret
-lab119: 	li	t1,4
+lab120: 	li	t1,4
 	sub	a7,t1,a7
 	add	a4,a4,a7
-	sw	a4,512(a2)
-	lui	a4,0x102
-	lw	a4,516(a4) # 102204 <heap_end>
 	add	a3,a3,a7
-	bgeu	a4,a3,lab123
-lab118: 	li	a0,0
-lab122: 	ret
-lab120: 	mv	a4,a0
+	lui	a7,0x102
+	lw	a7,516(a7) # 102204 <heap_end>
+	sw	a4,512(a2)
+	bgeu	a7,a3,lab124
+lab119: 	li	a0,0
+lab123: 	ret
+lab121: 	mv	a4,a0
 	add	a1,a5,a1
-lab124: 	lbu	a3,0(a5)
+lab125: 	lbu	a3,0(a5)
 	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
-	bne	a5,a1,lab124
+	bne	a5,a1,lab125
 	ret
 free_beebs:
 	ret
@@ -6255,25 +6256,6 @@ orig_data:
 	.4byte	0x424b4543
 	.2byte	0x4b48
 	.4byte	0x525a4b53
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a
 __func__.0:
 	.2byte	0x6e69
 	.2byte	0x7469
@@ -6493,22 +6475,22 @@ __func__.0:
 	.2byte	0x3d20
 	.2byte	0x203d
 	.2byte	0x30
-	.4byte	0x64656d2f
-	.2byte	0x6169
-	.4byte	0x5f66732f
-	.4byte	0x72616853
-	.2byte	0x6465
-	.4byte	0x7466612f
-	.2byte	0x6261
-	.2byte	0x632d
-	.2byte	0x6966
-	.2byte	0x702d
-	.2byte	0x616c
-	.4byte	0x2f77732f
-	.4byte	0x70707573
-	.4byte	0x2f74726f
-	.4byte	0x2f637273
-	.2byte	0x6562
-	.2byte	0x6265
-	.4byte	0x632e6373
-	.4byte	0x00
+	.4byte	0x6f6f722f
+	.2byte	0x2f74
+	.2byte	0x6544
+	.4byte	0x6f746b73
+	.2byte	0x2f70
+	.2byte	0x6661
+	.2byte	0x6174
+	.2byte	0x2d62
+	.4byte	0x2d696663
+	.2byte	0x6c70
+	.2byte	0x2f61
+	.4byte	0x732f7773
+	.2byte	0x7075
+	.2byte	0x6f70
+	.2byte	0x7472
+	.4byte	0x6372732f
+	.4byte	0x6565622f
+	.2byte	0x7362
+	.4byte	0x632e63

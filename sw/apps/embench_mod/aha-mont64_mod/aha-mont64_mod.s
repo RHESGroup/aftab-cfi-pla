@@ -175,59 +175,61 @@ benchmark_body.constprop.0:
 	addi	sp,sp,-112
 	lui	a5,0x100
 	lui	a4,0x100
-	lw	a0,8(a5) # 100008 <in_b>
-	lw	a6,16(a4) # 100010 <in_a>
-	sw	s8,72(sp)
-	lw	s8,20(a4)
-	sw	s5,84(sp)
-	lw	s5,12(a5)
-	lui	a5,0x100
-	mulhu	a3,a6,a0
-	sw	s0,104(sp)
-	sw	s11,60(sp)
-	lw	s0,4(a5) # 100004 <in_m+0x4>
-	lw	s11,0(a5)
-	sw	s3,92(sp)
-	sw	s9,68(sp)
+	lw	t5,8(a5) # 100008 <in_b>
+	lw	t1,20(a4) # 100014 <in_a+0x4>
 	sw	s10,64(sp)
-	sw	ra,108(sp)
-	sw	s1,100(sp)
-	mul	a5,s8,a0
-	sw	s2,96(sp)
-	sw	s4,88(sp)
+	lw	s10,16(a4)
+	sw	s11,60(sp)
+	lw	s11,12(a5)
+	lui	a5,0x100
+	mulhu	a3,s10,t5
+	sw	s0,104(sp)
+	sw	s9,68(sp)
+	lw	s0,4(a5) # 100004 <in_m+0x4>
+	lw	s9,0(a5)
+	sw	s3,92(sp)
+	sw	s5,84(sp)
 	sw	s6,80(sp)
 	sw	s7,76(sp)
-	sw	a0,16(sp)
-	sw	a6,20(sp)
-	li	s10,423
+	sw	s8,72(sp)
+	mul	a5,t1,t5
+	sw	ra,108(sp)
+	sw	s1,100(sp)
+	sw	s2,96(sp)
+	sw	s4,88(sp)
+	li	s8,423
 	li	s3,64
-	lui	s9,0x80000
-	mul	a4,a6,s5
+	lui	s7,0x80000
+	sw	t5,16(sp)
+	sw	s11,20(sp)
+	mul	a4,s10,s11
 	add	a3,a5,a3
 	sltu	a5,a3,a5
-	mulhu	a1,s8,a0
-	add	a3,a4,a3
-	sw	a3,24(sp)
-	sltu	a3,a3,a4
-	mulhu	a2,a6,s5
-	add	a5,a5,a1
-	mul	a4,s8,s5
+	sw	s10,24(sp)
+	sw	t1,28(sp)
+	add	t6,a4,a3
+	mulhu	a2,s10,s11
+	sltu	a3,t6,a4
+	mv	s5,t6
+	mulhu	a1,t1,t5
 	add	a3,a3,a2
+	mul	a4,t1,s11
+	add	a5,a5,a1
+	mulhu	a2,t1,s11
 	add	a4,a5,a4
-	mulhu	a2,s8,s5
-	add	a3,a4,a3
+	add	t0,a4,a3
 	sltu	a5,a4,a5
-	sw	a3,28(sp)
-	sltu	a4,a3,a4
-	mul	a3,a6,a0
+	sltu	a4,t0,a4
+	mv	s6,t0
+	mul	a3,s10,t5
 	add	a5,a5,a2
 	add	a5,a4,a5
 	sw	a5,12(sp)
 	sw	a3,8(sp)
 lab35: 	lw	a2,8(sp)
-	lw	a6,24(sp)
-	lw	a4,28(sp)
 	lw	a3,12(sp)
+	mv	a6,s5
+	mv	a4,s6
 	li	a7,0
 lab15: 	srli	a1,a4,0x1f
 	slli	a5,a3,0x1
@@ -246,13 +248,13 @@ lab15: 	srli	a1,a4,0x1f
 	or	a0,a0,a4
 	mv	a6,a1
 	bltu	t1,s0,lab13
-	sub	t4,a4,s11
+	sub	t4,a4,s9
 	addi	t3,a2,1
 	sltu	t6,a4,t4
 	sltu	t5,t3,a2
 	sub	a5,a5,s0
 	bne	s0,t1,lab14
-	bltu	a0,s11,lab13
+	bltu	a0,s9,lab13
 lab14: 	mv	a4,t4
 	sub	a3,a5,t6
 	mv	a2,t3
@@ -294,13 +296,13 @@ lab18: 	srli	a1,a5,0x1f
 	or	a0,a0,a5
 	mv	a6,a1
 	bltu	t1,s0,lab16
-	sub	t4,a5,s11
+	sub	t4,a5,s9
 	addi	t3,a4,1
 	sltu	t6,a5,t4
 	sltu	t5,t3,a4
 	sub	a3,a3,s0
 	bne	s0,t1,lab17
-	bltu	a0,s11,lab16
+	bltu	a0,s9,lab16
 lab17: 	mv	a5,t4
 	sub	a2,a3,t6
 	mv	a4,t3
@@ -342,13 +344,13 @@ lab21: 	srli	a3,s1,0x1f
 	or	a2,a2,s1
 	mv	a1,a3
 	bltu	a0,s0,lab19
-	sub	a7,s1,s11
+	sub	a7,s1,s9
 	addi	a6,a5,1
 	sltu	t3,s1,a7
 	sltu	t1,a6,a5
 	sub	a4,a4,s0
 	bne	s0,a0,lab20
-	bltu	a2,s11,lab19
+	bltu	a2,s9,lab19
 lab20: 	mv	s1,a7
 	sub	s4,a4,t3
 	mv	a5,a6
@@ -364,10 +366,10 @@ lab24: 	addi	s2,s2,-1
 	mv	a5,t4
 	beqz	s2,lab23
 lab22: 	xor	a0,s0,a5
-	xor	a1,s11,a4
+	xor	a1,s9,a4
 	slli	a7,a0,0x1f
 	srli	a1,a1,0x1
-	and	a6,s11,a4
+	and	a6,s9,a4
 	or	a1,a7,a1
 	slli	t5,a3,0x1f
 	srli	a0,a0,0x1
@@ -383,7 +385,7 @@ lab22: 	xor	a0,s0,a5
 	srli	t5,a4,0x1
 	sltu	a6,a1,a6
 	mv	a3,t3
-	add	a0,t3,s9
+	add	a0,t3,s7
 	beqz	t1,lab24
 	addi	s2,s2,-1
 	mv	a4,a1
@@ -395,12 +397,12 @@ lab23: 	sw	a4,32(sp)
 	sw	a2,40(sp)
 	sw	a3,44(sp)
 	lw	a4,32(sp)
-	lw	a0,20(sp)
+	lw	a0,24(sp)
 	lw	a5,36(sp)
-	lw	s6,40(sp)
-	lw	s7,44(sp)
+	lw	a1,28(sp)
+	lw	s10,40(sp)
+	lw	s11,44(sp)
 	li	a7,0
-	mv	a1,s8
 	li	a4,0
 	li	a6,0
 lab27: 	srli	a3,a0,0x1f
@@ -420,21 +422,21 @@ lab27: 	srli	a3,a0,0x1f
 	or	a3,a3,a0
 	mv	a6,t1
 	bltu	a2,s0,lab25
-	sub	t4,a0,s11
+	sub	t4,a0,s9
 	addi	t3,a4,1
 	sltu	t6,a0,t4
 	sltu	t5,t3,a4
 	sub	a5,a5,s0
 	bne	s0,a2,lab26
-	bltu	a3,s11,lab25
+	bltu	a3,s9,lab25
 lab26: 	mv	a0,t4
 	sub	a1,a5,t6
 	mv	a4,t3
 	add	a6,t5,t1
 lab25: 	bne	a7,s3,lab27
 	lw	a2,16(sp)
+	lw	a3,20(sp)
 	li	t3,0
-	mv	a3,s5
 	li	a4,0
 	li	t1,0
 lab30: 	srli	a6,a2,0x1f
@@ -454,13 +456,13 @@ lab30: 	srli	a6,a2,0x1f
 	or	a6,a6,a2
 	mv	t1,t4
 	bltu	a7,s0,lab28
-	sub	t6,a2,s11
+	sub	t6,a2,s9
 	addi	t5,a4,1
 	sltu	t2,a2,t6
 	sltu	t0,t5,a4
 	sub	a5,a5,s0
 	bne	s0,a7,lab29
-	bltu	a6,s11,lab28
+	bltu	a6,s9,lab28
 lab29: 	mv	a2,t6
 	sub	a3,a5,t2
 	mv	a4,t5
@@ -468,14 +470,14 @@ lab29: 	mv	a2,t6
 lab28: 	bne	t3,s3,lab30
 	lw	a6,40(sp)
 	lw	a7,44(sp)
-	mv	a4,s11
+	mv	a4,s9
 	mv	a5,s0
 	jal	ra,montmul
 	lw	a6,40(sp)
 	lw	a7,44(sp)
 	mv	a2,a0
 	mv	a3,a1
-	mv	a4,s11
+	mv	a4,s9
 	mv	a5,s0
 	jal	ra,montmul
 	lw	a6,40(sp)
@@ -483,7 +485,7 @@ lab28: 	bne	t3,s3,lab30
 	mv	a2,a0
 	mv	a3,a1
 	mv	a5,s0
-	mv	a4,s11
+	mv	a4,s9
 	jal	ra,montmul
 	lw	t3,32(sp)
 	lw	t4,36(sp)
@@ -524,13 +526,13 @@ lab33: 	srli	a2,a5,0x1f
 	or	a2,a2,a5
 	mv	a6,a7
 	bltu	a1,s0,lab31
-	sub	t3,a5,s11
+	sub	t3,a5,s9
 	addi	t1,a0,1
 	sltu	t5,a5,t3
 	sltu	t4,t1,a0
 	sub	a4,a4,s0
 	bne	s0,a1,lab32
-	bltu	a2,s11,lab31
+	bltu	a2,s9,lab31
 lab32: 	mv	a5,t3
 	sub	a3,a4,t5
 	mv	a0,t1
@@ -538,8 +540,8 @@ lab32: 	mv	a5,t3
 lab31: 	bne	s2,s3,lab33
 	beq	s1,a5,lab34
 lab36: 	li	a0,1
-lab37: 	addi	s10,s10,-1
-	bnez	s10,lab35
+lab37: 	addi	s8,s8,-1
+	bnez	s8,lab35
 	lw	ra,108(sp)
 	lw	s0,104(sp)
 	lw	s1,100(sp)
@@ -556,11 +558,11 @@ lab37: 	addi	s10,s10,-1
 	addi	sp,sp,112
 	ret
 lab34: 	bne	s4,a3,lab36
-	mul	a5,s7,s11
-	mul	a4,s0,s6
-	mulhu	a3,s11,s6
+	mul	a5,s11,s9
+	mul	a4,s0,s10
+	mulhu	a3,s9,s10
 	add	a4,a4,a5
-	mul	a5,s11,s6
+	mul	a5,s9,s10
 	add	a4,a4,a3
 	neg	a4,a4
 	neg	a0,a5
@@ -733,11 +735,11 @@ benchmark:
 	j	benchmark_body.constprop.0
 initialise_benchmark:
 	lui	a2,0x100
-	lw	a0,64(a2) # 100040 <_bss_end+0x28>
-	lw	a1,68(a2)
+	lw	a0,24(a2) # 100018 <_bss_end>
+	lw	a1,28(a2)
 	lui	a3,0x100
-	lw	a2,72(a3) # 100048 <_bss_end+0x30>
-	lw	a3,76(a3)
+	lw	a2,32(a3) # 100020 <_bss_end+0x8>
+	lw	a3,36(a3)
 	lui	a5,0x100
 	lui	a4,0x100
 	sw	a0,0(a5) # 100000 <in_m>
@@ -745,8 +747,8 @@ initialise_benchmark:
 	lui	a5,0x100
 	sw	a2,8(a5) # 100008 <in_b>
 	sw	a3,12(a5)
-	lw	a2,80(a4) # 100050 <_bss_end+0x38>
-	lw	a3,84(a4)
+	lw	a2,40(a4) # 100028 <_bss_end+0x10>
+	lw	a3,44(a4)
 	lui	a5,0x100
 	sw	a2,16(a5) # 100010 <in_a>
 	sw	a3,20(a5)
@@ -809,26 +811,3 @@ in_a:
 	.4byte	0x0000
 	.4byte	0x0000
 	.4byte	0x0000
-
-
-	.section .rodata
-
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a

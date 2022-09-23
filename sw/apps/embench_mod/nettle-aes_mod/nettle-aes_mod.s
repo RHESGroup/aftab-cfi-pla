@@ -695,34 +695,32 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	sw	s4,60(sp)
 	lui	s4,0x100
 	addi	a5,s4,544 # 100220 <encrypted>
-	lw	a4,264(a5)
+	lw	a4,272(a5)
+	lw	a7,264(a5)
+	lw	t1,268(a5)
+	sw	a4,0(sp)
+	lw	a4,484(a5)
 	sw	s9,40(sp)
 	lw	s9,260(a5)
-	sw	a4,0(sp)
-	lw	a4,268(a5)
+	sw	a4,4(sp)
+	lw	a4,488(a5)
 	sw	s3,64(sp)
 	sw	s5,56(sp)
-	sw	a4,4(sp)
-	lw	a4,272(a5)
-	sw	s6,52(sp)
-	sw	s7,48(sp)
 	sw	a4,8(sp)
-	lw	a4,484(a5)
-	sw	s8,44(sp)
-	lui	s3,0x100
-	sw	a4,12(sp)
-	lw	a4,488(a5)
-	addi	s8,s4,544
-	lui	s7,0xffff0
-	sw	a4,16(sp)
 	lw	a4,492(a5)
 	lw	a5,496(a5)
-	lui	s6,0xff010
-	sw	a4,20(sp)
+	sw	s6,52(sp)
+	sw	a4,12(sp)
 	lui	a4,0x100
-	sw	a5,24(sp)
-	addi	a4,a4,256 # 100100 <key>
+	sw	s7,48(sp)
+	sw	s8,44(sp)
+	sw	a5,16(sp)
+	addi	s8,s4,544
+	lui	s3,0x100
 	lui	a5,0x102
+	addi	a4,a4,256 # 100100 <key>
+	lui	s7,0xffff0
+	lui	s6,0xff010
 	lui	s5,0x1000
 	sw	s2,68(sp)
 	sw	s0,76(sp)
@@ -732,287 +730,281 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	addi	s4,s4,544
 	mv	s3,s3
 	addi	a5,a5,-1260 # 101b14 <_aes_encrypt_table>
-	sw	a4,28(sp)
+	sw	a4,20(sp)
 	addi	s2,s8,484
 	addi	s7,s7,255 # ffff00ff <_stack+0xffee80ff>
 	addi	s6,s6,-1 # ff00ffff <_stack+0xfef07fff>
 	addi	s5,s5,-1 # ffffff <_stack+0xef7fff>
-lab11: 	lw	a0,0(sp)
-	lw	a1,4(s3) # 100004 <plaintext+0x4>
+	sw	s9,24(sp)
+	sw	a7,28(sp)
+lab11: 	lw	a0,24(sp)
+	lw	a4,0(s3) # 100000 <plaintext>
+	lw	a1,4(s3)
 	lw	a3,8(s3)
-	lw	a4,0(s3)
-	xor	a1,a0,a1
-	lw	a0,4(sp)
+	xor	a4,a0,a4
+	lw	a0,28(sp)
 	lw	a2,12(s3)
-	xor	a4,s9,a4
-	xor	a3,a0,a3
-	lw	a0,8(sp)
-	mv	s10,a4
-	addi	s1,s8,276
+	xor	a3,t1,a3
+	xor	a1,a0,a1
+	lw	a0,0(sp)
+	addi	s9,s8,276
 	xor	a2,a0,a2
-	mv	a4,a2
-	mv	a2,a3
-	mv	a3,a4
-lab10: 	mv	a4,s10
-	srli	s0,a3,0x18
-	zext.b	t2,a1
-	zext.b	t6,a2
-	zext.b	t4,a3
-	srli	t0,a4,0x18
-	srli	t5,a1,0x18
-	srli	t3,a2,0x18
-	zext.b	s10,s10
-	addi	s10,s10,64
-	addi	s0,s0,832
-	addi	t2,t2,64
-	addi	t0,t0,832
-	addi	t6,t6,64
-	addi	t5,t5,832
-	addi	t4,t4,64
-	addi	t3,t3,832
-	slli	s10,s10,0x2
-	slli	s0,s0,0x2
-	slli	t2,t2,0x2
-	slli	t0,t0,0x2
-	slli	t6,t6,0x2
-	slli	t5,t5,0x2
-	slli	t4,t4,0x2
-	slli	t3,t3,0x2
-	add	s10,a5,s10
-	add	s0,a5,s0
-	add	t2,a5,t2
-	add	t0,a5,t0
-	add	t6,a5,t6
-	add	t5,a5,t5
-	add	t4,a5,t4
-	add	t3,a5,t3
-	lw	s11,0(s10)
-	lw	s10,0(s0)
-	lw	s0,0(t2)
-	lw	t2,0(t0)
-	lw	t0,0(t6)
-	lw	t6,0(t5)
-	lw	t5,0(t4)
-	lw	t4,0(t3)
-	mv	a0,a1
-	srli	t1,a2,0x8
-	xor	t4,t5,t4
-	lw	t5,0(s1)
-	srli	a7,a3,0x8
-	srli	a6,a4,0x8
+lab10: 	mv	a0,a1
+	zext.b	s10,a4
+	srli	s1,a2,0x18
+	zext.b	s0,a1
+	zext.b	t0,a3
+	srli	t2,a4,0x18
+	srli	t6,a1,0x18
+	srli	a6,a3,0x18
+	srli	t4,a3,0x8
+	srli	a7,a4,0x8
 	srli	a1,a1,0x8
-	xor	s10,s11,s10
-	xor	s10,s10,t5
-	srli	a2,a2,0x10
-	lw	t5,4(s1)
 	srli	a3,a3,0x10
-	zext.b	a1,a1
-	zext.b	t1,t1
-	zext.b	a7,a7
 	srli	a4,a4,0x10
-	zext.b	a6,a6
+	zext.b	t5,a2
+	srli	t3,a2,0x8
 	srli	a0,a0,0x10
-	addi	a1,a1,320
-	zext.b	a2,a2
-	addi	t1,t1,320
+	srli	a2,a2,0x10
+	addi	s10,s10,64
+	addi	s1,s1,832
+	zext.b	a1,a1
+	zext.b	a7,a7
 	zext.b	a3,a3
-	addi	a7,a7,320
 	zext.b	a4,a4
-	addi	a6,a6,320
-	zext.b	a0,a0
-	slli	a1,a1,0x2
-	addi	a2,a2,576
-	slli	t1,t1,0x2
+	zext.b	s11,a2
+	slli	s10,s10,0x2
+	zext.b	a2,a0
+	slli	s1,s1,0x2
+	addi	a1,a1,320
+	addi	a7,a7,320
 	addi	a3,a3,576
-	slli	a7,a7,0x2
 	addi	a4,a4,576
-	slli	a6,a6,0x2
-	addi	a0,a0,576
-	xor	t2,s0,t2
-	lw	t3,12(s1)
-	xor	t2,t2,t5
-	add	a1,a5,a1
-	lw	t5,8(s1)
-	slli	a2,a2,0x2
-	add	t1,a5,t1
+	add	s10,a5,s10
+	add	s1,a5,s1
+	slli	a1,a1,0x2
+	slli	a7,a7,0x2
+	addi	a2,a2,576
 	slli	a3,a3,0x2
-	add	a7,a5,a7
 	slli	a4,a4,0x2
-	add	a6,a5,a6
-	slli	a0,a0,0x2
-	lw	a1,0(a1)
-	lw	t1,0(t1)
-	lw	a7,0(a7)
-	lw	a6,0(a6)
-	add	a2,a5,a2
+	lw	a0,0(s10)
+	add	a1,a5,a1
+	add	a7,a5,a7
+	slli	a2,a2,0x2
 	add	a3,a5,a3
 	add	a4,a5,a4
-	add	a0,a5,a0
-	lw	a2,0(a2)
-	lw	a3,0(a3)
-	lw	a4,0(a4)
-	lw	a0,0(a0)
-	xor	t6,t0,t6
-	xor	t6,t6,t5
-	xor	t3,t4,t3
-	xor	s10,s10,a1
-	xor	t6,t6,a7
-	xor	a1,t2,t1
-	xor	a6,t3,a6
-	addi	s1,s1,16
-	xor	s10,s10,a2
-	xor	a1,a1,a3
-	xor	a2,t6,a4
-	xor	a3,a6,a0
-	bne	s2,s1,lab10
-	mv	a0,a3
-	srli	s1,a0,0x18
-	mv	a3,a2
-	srli	t4,a1,0x8
-	srli	t2,a1,0x18
-	srli	t3,a3,0x8
-	srli	t0,a3,0x18
-	srli	a6,a3,0x10
-	add	s1,a5,s1
-	zext.b	t6,s10
-	zext.b	t4,t4
+	lw	s1,0(s1)
+	addi	s0,s0,64
+	addi	t2,t2,832
+	lw	s10,0(a1)
+	slli	s0,s0,0x2
+	lw	a1,0(a7)
+	slli	t2,t2,0x2
+	add	a7,a5,a2
+	lw	a2,0(a3)
+	lw	a3,0(a4)
+	lw	a4,0(s9)
+	add	s0,a5,s0
 	add	t2,a5,t2
-	zext.b	a3,a3
-	lbu	s1,0(s1)
-	lbu	t2,0(t2)
+	xor	a0,a0,s1
+	lw	s0,0(s0)
+	lw	t2,0(t2)
+	addi	t0,t0,64
+	addi	t6,t6,832
+	xor	a4,a0,a4
+	slli	t0,t0,0x2
+	lw	a0,4(s9)
+	slli	t6,t6,0x2
+	add	t0,a5,t0
 	add	t6,a5,t6
+	lw	t0,0(t0)
+	lw	t6,0(t6)
+	addi	t5,t5,64
+	addi	a6,a6,832
+	xor	s0,s0,t2
+	xor	s0,s0,a0
+	zext.b	t4,t4
+	lw	a0,8(s9)
+	zext.b	t3,t3
+	slli	t5,t5,0x2
+	slli	a6,a6,0x2
+	addi	t4,t4,320
+	addi	t3,t3,320
+	add	t5,a5,t5
+	add	a6,a5,a6
+	lw	t5,0(t5)
+	lw	a6,0(a6)
+	slli	t4,t4,0x2
+	addi	s11,s11,576
+	slli	t3,t3,0x2
+	xor	t0,t0,t6
+	xor	t0,t0,a0
 	add	t4,a5,t4
+	lw	a0,12(s9)
+	slli	s11,s11,0x2
+	add	t3,a5,t3
+	lw	t4,0(t4)
+	lw	t3,0(t3)
+	add	s11,a5,s11
+	lw	s11,0(s11)
+	lw	a7,0(a7)
+	xor	t5,t5,a6
+	xor	t5,t5,a0
+	xor	t5,t5,a1
+	xor	a4,a4,s10
+	xor	s0,s0,t4
+	xor	t0,t0,t3
+	addi	s9,s9,16
+	xor	a4,a4,a2
+	xor	a1,s0,s11
+	xor	a3,t0,a3
+	xor	a2,t5,a7
+	bne	s2,s9,lab10
+	srli	s11,a2,0x18
+	srli	t0,a1,0x8
+	srli	s9,a1,0x18
+	srli	t6,a3,0x8
+	srli	s1,a3,0x18
+	zext.b	s0,a4
+	srli	a6,a3,0x10
+	add	s11,a5,s11
+	zext.b	t0,t0
+	add	s9,a5,s9
+	zext.b	a3,a3
+	lbu	s11,0(s11)
+	lbu	s9,0(s9)
+	add	s0,a5,s0
+	add	t0,a5,t0
 	zext.b	a6,a6
 	add	a3,a5,a3
-	lbu	t6,0(t6)
-	lbu	a3,0(a3)
-	lbu	t4,0(t4)
-	srli	s0,s10,0x18
-	add	a6,a5,a6
-	mv	a2,a0
-	srli	t1,a0,0x8
-	zext.b	t5,a1
-	lbu	a6,0(a6)
-	add	s0,a5,s0
-	zext.b	t3,t3
-	srli	a0,a0,0x10
 	lbu	s0,0(s0)
-	add	t5,a5,t5
-	add	t3,a5,t3
+	lbu	a3,0(a3)
+	srli	s10,a4,0x18
+	lbu	t0,0(t0)
+	add	a6,a5,a6
+	zext.b	t2,a1
+	srli	a0,a2,0x10
+	lbu	a6,0(a6)
+	add	s10,a5,s10
+	zext.b	t6,t6
+	lbu	s10,0(s10)
+	add	t2,a5,t2
+	add	t6,a5,t6
 	zext.b	a0,a0
-	slli	s1,s1,0x18
-	slli	t2,t2,0x18
-	lbu	t5,0(t5)
-	or	s1,s1,t6
-	or	t2,t2,a3
-	lbu	t3,0(t3)
-	lw	a3,12(sp)
+	slli	s11,s11,0x18
+	slli	s9,s9,0x18
+	lbu	t2,0(t2)
+	srli	t5,a2,0x8
+	or	s11,s11,s0
+	or	s9,s9,a3
+	lbu	t6,0(t6)
+	lw	a3,4(sp)
 	add	a0,a5,a0
-	slli	t4,t4,0x8
+	slli	t0,t0,0x8
+	srli	t4,a4,0x8
 	slli	a6,a6,0x10
 	lbu	a0,0(a0)
-	zext.b	t1,t1
-	srli	a4,s10,0x10
-	or	t4,s1,t4
-	or	t4,t4,a6
-	add	t1,a5,t1
+	zext.b	t5,t5
+	srli	a4,a4,0x10
+	or	t0,s11,t0
+	or	t0,t0,a6
+	add	t5,a5,t5
 	zext.b	a4,a4
-	slli	s0,s0,0x18
-	xor	t4,t4,a3
-	or	s0,s0,t5
-	lw	a3,16(sp)
-	lbu	t1,0(t1)
-	srli	a7,s10,0x8
+	slli	s10,s10,0x18
+	xor	t0,t0,a3
+	or	s10,s10,t2
+	lw	a3,8(sp)
+	lbu	t5,0(t5)
 	add	a4,a5,a4
-	slli	t3,t3,0x8
+	slli	t6,t6,0x8
 	slli	a0,a0,0x10
 	lbu	a4,0(a4)
-	add	t0,a5,t0
+	add	s1,a5,s1
 	zext.b	a2,a2
-	zext.b	a7,a7
+	zext.b	t4,t4
 	srli	a1,a1,0x10
-	or	t3,s0,t3
-	or	t3,t3,a0
-	lbu	t0,0(t0)
+	or	t6,s10,t6
+	or	t6,t6,a0
+	lbu	s1,0(s1)
 	add	a2,a5,a2
-	add	a7,a5,a7
+	add	t4,a5,t4
 	zext.b	a1,a1
-	xor	t3,t3,a3
+	xor	t6,t6,a3
 	lbu	a2,0(a2)
-	lw	a3,20(sp)
-	lbu	a7,0(a7)
+	lw	a3,12(sp)
+	lbu	t4,0(t4)
 	add	a1,a5,a1
-	slli	t1,t1,0x8
+	slli	t5,t5,0x8
 	slli	a4,a4,0x10
 	lbu	a1,0(a1)
-	or	t1,t2,t1
-	or	t1,t1,a4
-	slli	t0,t0,0x18
-	xor	t1,t1,a3
-	or	t0,t0,a2
-	lw	a3,24(sp)
-	slli	a7,a7,0x8
-	or	a7,t0,a7
+	or	t5,s9,t5
+	or	t5,t5,a4
+	slli	s1,s1,0x18
+	xor	t5,t5,a3
+	or	s1,s1,a2
+	lw	a3,16(sp)
+	slli	t4,t4,0x8
+	or	t4,s1,t4
 	slli	a1,a1,0x10
-	or	a4,a7,a1
+	or	a4,t4,a1
 	xor	a4,a4,a3
 	srli	a6,a4,0x8
-	srli	t6,t4,0x8
-	srli	t5,t3,0x8
-	srli	a7,t1,0x8
+	srli	s0,t0,0x8
+	srli	t2,t6,0x8
+	srli	t4,t5,0x8
 	zext.b	a3,a4
 	zext.b	a6,a6
-	zext.b	a0,t4
-	zext.b	a1,t3
-	zext.b	a2,t1
+	zext.b	a0,t0
+	zext.b	a1,t6
+	zext.b	a2,t5
 	slli	a6,a6,0x8
-	zext.b	t6,t6
-	zext.b	t5,t5
-	zext.b	a7,a7
+	zext.b	s0,s0
+	zext.b	t2,t2
+	zext.b	t4,t4
 	and	a3,a3,s7
-	slli	t6,t6,0x8
-	slli	t5,t5,0x8
-	slli	a7,a7,0x8
+	slli	s0,s0,0x8
+	slli	t2,t2,0x8
+	slli	t4,t4,0x8
 	or	a3,a3,a6
 	and	a0,a0,s7
 	and	a1,a1,s7
 	and	a2,a2,s7
 	lui	a6,0xff0
-	or	a0,a0,t6
-	or	a1,a1,t5
-	or	a2,a2,a7
+	or	a0,a0,s0
+	or	a1,a1,t2
+	or	a2,a2,t4
 	and	a6,a4,a6
-	lui	t6,0xff0
-	lui	t5,0xff0
-	lui	a7,0xff0
+	lui	s0,0xff0
+	lui	t2,0xff0
+	lui	t4,0xff0
 	and	a3,a3,s6
-	and	t6,t4,t6
-	and	t5,t3,t5
-	and	a7,t1,a7
+	and	s0,t0,s0
+	and	t2,t6,t2
+	and	t4,t5,t4
 	and	a0,a0,s6
 	and	a1,a1,s6
 	and	a2,a2,s6
 	or	a3,a3,a6
 	srli	a4,a4,0x18
 	slli	a4,a4,0x18
-	or	a0,a0,t6
-	srli	t4,t4,0x18
-	or	a1,a1,t5
-	srli	t3,t3,0x18
-	or	a2,a2,a7
-	srli	t1,t1,0x18
+	or	a0,a0,s0
+	srli	t0,t0,0x18
+	or	a1,a1,t2
+	srli	t6,t6,0x18
+	or	a2,a2,t4
+	srli	t5,t5,0x18
 	and	a3,a3,s5
 	or	a3,a3,a4
-	slli	t4,t4,0x18
+	slli	t0,t0,0x18
 	and	a0,a0,s5
-	slli	t3,t3,0x18
+	slli	t6,t6,0x18
 	and	a1,a1,s5
-	slli	t1,t1,0x18
+	slli	t5,t5,0x18
 	and	a2,a2,s5
-	lw	a4,28(sp)
-	or	a0,a0,t4
-	or	a1,a1,t3
-	or	a2,a2,t1
+	lw	a4,20(sp)
+	or	a0,a0,t0
+	or	a1,a1,t6
+	or	a2,a2,t5
 	sw	a0,0(s4)
 	sw	a1,4(s4)
 	sw	a2,8(s4)
@@ -1036,8 +1028,8 @@ lab10: 	mv	a4,s10
 	ret
 _aes_set_key.constprop.0:
 	addi	sp,sp,-48
-	lui	a6,0x100
-	mv	a6,a6
+	lui	a3,0x100
+	mv	a3,a3
 	sw	s0,44(sp)
 	sw	s1,40(sp)
 	sw	s2,36(sp)
@@ -1048,82 +1040,82 @@ _aes_set_key.constprop.0:
 	sw	s7,16(sp)
 	sw	s8,12(sp)
 	sw	s9,8(sp)
-	lbu	a0,266(a6) # 10010a <key+0xa>
-	lbu	t2,267(a6)
-	lbu	a5,279(a6)
-	lbu	a2,278(a6)
-	lbu	a4,258(a6)
-	lbu	s9,259(a6)
-	lbu	t1,262(a6)
-	lbu	s8,263(a6)
-	lbu	a1,270(a6)
-	lbu	t0,271(a6)
-	lbu	a3,275(a6)
-	lbu	t3,274(a6)
-	lbu	s7,256(a6)
-	lbu	s6,257(a6)
-	lbu	s5,260(a6)
-	lbu	s2,261(a6)
-	lbu	s4,264(a6)
-	lbu	t6,265(a6)
-	lbu	s3,268(a6)
-	lbu	t5,269(a6)
-	lbu	s1,272(a6)
-	lbu	t4,273(a6)
-	lbu	s0,276(a6)
-	lbu	a7,277(a6)
+	lbu	a0,271(a3) # 10010f <key+0xf>
+	lbu	t0,270(a3)
+	lbu	a5,279(a3)
+	lbu	a2,278(a3)
+	lbu	a4,258(a3)
+	lbu	s9,259(a3)
+	lbu	t1,262(a3)
+	lbu	s8,263(a3)
+	lbu	a6,266(a3)
+	lbu	t2,267(a3)
+	lbu	a1,275(a3)
+	lbu	t3,274(a3)
+	lbu	s7,256(a3)
+	lbu	s6,257(a3)
+	lbu	s5,260(a3)
+	lbu	s2,261(a3)
+	lbu	s4,264(a3)
+	lbu	t6,265(a3)
+	lbu	s3,268(a3)
+	lbu	t5,269(a3)
+	lbu	s1,272(a3)
+	lbu	t4,273(a3)
+	lbu	s0,276(a3)
+	lbu	a7,277(a3)
 	slli	a2,a2,0x10
-	slli	a0,a0,0x10
-	slli	t2,t2,0x18
+	slli	a0,a0,0x18
+	slli	t0,t0,0x10
 	slli	a5,a5,0x18
 	or	a5,a5,a2
 	slli	a4,a4,0x10
 	slli	s9,s9,0x18
-	or	a0,a0,t2
+	or	a0,a0,t0
 	slli	t3,t3,0x10
+	slli	t5,t5,0x8
 	slli	a7,a7,0x8
 	slli	t1,t1,0x10
 	slli	s8,s8,0x18
-	slli	a1,a1,0x10
-	slli	t0,t0,0x18
-	slli	a3,a3,0x18
+	slli	a1,a1,0x18
 	or	a4,a4,s9
-	or	a0,a0,s4
-	slli	t6,t6,0x8
+	or	a0,a0,s3
 	or	a5,a5,s0
 	lui	a2,0x100
 	addi	a2,a2,544 # 100220 <encrypted>
+	or	a0,a0,t5
 	or	a5,a5,a7
-	or	a3,a3,t3
+	or	a1,a1,t3
 	or	a4,a4,s7
-	or	a0,a0,t6
+	slli	a6,a6,0x10
+	slli	t2,t2,0x18
 	or	t1,t1,s8
-	or	a1,a1,t0
 	slli	t3,s6,0x8
 	or	t3,a4,t3
-	slli	t5,t5,0x8
-	lbu	a4,283(a6)
+	lbu	a7,282(a3)
+	lbu	a4,283(a3)
 	slli	t4,t4,0x8
-	sw	a0,268(a2)
+	sw	a0,272(a2)
 	sw	a5,280(a2)
-	lbu	a0,286(a6)
-	lbu	a5,287(a6)
-	lbu	a7,282(a6)
+	lbu	a0,286(a3)
+	lbu	a5,287(a3)
+	or	a6,a6,t2
 	or	t1,t1,s5
 	slli	s2,s2,0x8
-	or	a1,a1,s3
-	or	a3,a3,s1
-	or	a1,a1,t5
-	or	a3,a3,t4
+	or	a1,a1,s1
+	or	a1,a1,t4
 	or	t1,t1,s2
+	or	a6,a6,s4
+	slli	t6,t6,0x8
+	or	a6,a6,t6
 	sw	t3,260(a2)
 	sw	t1,264(a2)
-	lbu	t3,280(a6)
-	lbu	t1,284(a6)
-	sw	a1,272(a2)
-	sw	a3,276(a2)
-	lbu	a1,281(a6)
-	lbu	a3,285(a6)
+	lbu	t3,280(a3)
+	lbu	t1,284(a3)
+	sw	a1,276(a2)
+	lbu	a1,281(a3)
+	lbu	a3,285(a3)
+	sw	a6,268(a2)
 	slli	a0,a0,0x10
 	slli	a4,a4,0x18
 	slli	a6,a7,0x10
@@ -1148,23 +1140,25 @@ _aes_set_key.constprop.0:
 	li	t4,60
 	j	lab12
 lab15: 	bne	t1,t5,lab13
-	srli	a4,a5,0x18
-	srli	a3,a5,0x8
-	zext.b	a6,a5
-	add	a4,a1,a4
+	lui	a4,0x102
+	addi	a4,a4,-1260 # 101b14 <_aes_encrypt_table>
+	srli	a3,a5,0x18
+	srli	a6,a5,0x8
+	zext.b	a7,a5
+	add	a3,a4,a3
 	srli	a5,a5,0x10
-	zext.b	a3,a3
-	lbu	a4,0(a4)
-	add	a6,a1,a6
-	add	a3,a1,a3
-	zext.b	a5,a5
-	lbu	a6,0(a6)
+	zext.b	a6,a6
 	lbu	a3,0(a3)
-	add	a5,a1,a5
-	lbu	a5,0(a5)
-	slli	a4,a4,0x18
-	or	a4,a4,a6
-	slli	a3,a3,0x8
+	add	a7,a4,a7
+	add	a6,a4,a6
+	zext.b	a5,a5
+	add	a4,a4,a5
+	lbu	a7,0(a7)
+	lbu	a6,0(a6) # ff0000 <_stack+0xee8000>
+	lbu	a5,0(a4)
+	slli	a4,a3,0x18
+	or	a4,a4,a7
+	slli	a3,a6,0x8
 	or	a4,a4,a3
 	slli	a5,a5,0x10
 	or	a5,a4,a5
@@ -1189,7 +1183,7 @@ lab12: 	srli	a3,a5,0x8
 	add	a3,a1,a3
 	add	a4,a1,a4
 	bnez	t1,lab15
-	lbu	a5,0(a7) # ff0000 <_stack+0xee8000>
+	lbu	a5,0(a7)
 	lbu	a3,0(a3)
 	lbu	a7,0(a6)
 	lbu	a4,0(a4)
@@ -1241,7 +1235,7 @@ lab17: 	lbu	a5,3(a3)
 	sw	a5,0(t3)
 	addi	a3,a3,4
 	addi	t3,t3,4
-	bne	a3,t5,lab17
+	bne	t5,a3,lab17
 	bgeu	a1,a6,lab18
 	add	a2,a2,a7
 	lui	t3,0x100
@@ -1266,7 +1260,7 @@ lab20: 	srli	a4,a5,0x8
 	add	a2,t1,a2
 	lbu	a4,0(a4)
 	zext.b	a5,a5
-	lbu	t0,0(t6) # ff0000 <_stack+0xee8000>
+	lbu	t0,0(t6)
 	add	a5,t1,a5
 	lbu	t6,0(a2)
 	lbu	a2,0(a5)
@@ -1290,23 +1284,25 @@ lab19: 	remu	a4,a3,a1
 	beqz	a4,lab20
 	bgeu	t4,a1,lab21
 	bne	a4,t5,lab21
-	srli	a4,a5,0x18
-	srli	a2,a5,0x8
-	zext.b	t6,a5
-	add	a4,t1,a4
-	zext.b	a2,a2
-	lbu	a4,0(a4)
-	srli	a5,a5,0x10
-	add	t6,t1,t6
-	add	a2,t1,a2
-	lbu	t6,0(t6)
+	lui	a4,0x102
+	addi	a4,a4,-1260 # 101b14 <_aes_encrypt_table>
+	srli	a2,a5,0x18
+	srli	t6,a5,0x8
+	zext.b	t0,a5
+	add	a2,a4,a2
+	zext.b	t6,t6
 	lbu	a2,0(a2)
+	add	t0,a4,t0
+	add	t6,a4,t6
+	srli	a5,a5,0x10
 	zext.b	a5,a5
-	add	a5,t1,a5
-	lbu	a5,0(a5)
-	slli	a4,a4,0x18
-	slli	a2,a2,0x8
-	or	a4,a4,t6
+	lbu	t0,0(t0)
+	lbu	t6,0(t6)
+	add	a4,a4,a5
+	lbu	a5,0(a4)
+	slli	a4,a2,0x18
+	or	a4,a4,t0
+	slli	a2,t6,0x8
 	or	a4,a4,a2
 	lw	a2,0(a0)
 	slli	a5,a5,0x10
@@ -1408,7 +1404,7 @@ lab28: 	lw	a5,0(a0)
 	or	a4,a4,a3
 	xor	a5,a4,a5
 	sw	a5,-4(a0)
-	bne	a1,a0,lab28
+	bne	a0,a1,lab28
 lab29: 	ret
 lab25: 	beqz	a7,lab29
 	slli	a6,a0,0x4
@@ -1566,7 +1562,7 @@ aes_invert_key:
 	sw	ra,12(sp)
 	jal	ra,_nettle_aes_invert
 	lw	ra,12(sp)
-	sw	s1,0(s0)
+	sw	s1,0(s0) # ff0000 <_stack+0xee8000>
 	lw	s0,8(sp)
 	lw	s1,4(sp)
 	addi	sp,sp,16
@@ -6463,22 +6459,3 @@ _aes_encrypt_table:
 	.4byte	0x6dd6bbbb
 	.2byte	0x1616
 	.2byte	0x2c3a
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a

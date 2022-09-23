@@ -153,12 +153,11 @@ codebook:
 jpegdct:
 	addi	sp,sp,-96
 	li	a5,6
-	sw	a5,16(sp)
-	li	a5,10
 	sw	a5,20(sp)
-	li	a5,14
+	li	a5,10
 	sw	a5,24(sp)
-	li	a5,8
+	li	a7,2
+	li	a5,14
 	sw	s0,92(sp)
 	sw	s1,88(sp)
 	sw	s2,84(sp)
@@ -171,39 +170,37 @@ jpegdct:
 	sw	s9,56(sp)
 	sw	s10,52(sp)
 	sw	s11,48(sp)
-	sw	zero,12(sp)
-	li	s0,2
-	sw	a5,36(sp)
-	sw	a0,40(sp)
-lab12: 	lw	a5,16(sp)
-	lw	a4,36(sp)
-	li	a3,1
-	slli	a5,a5,0x1
+	sw	zero,16(sp)
 	sw	a5,28(sp)
-	slli	a5,s0,0x2
+	li	a4,8
+	mv	a3,a7
+lab12: 	lw	a5,20(sp)
+	li	a2,1
+	slli	a5,a5,0x1
+	sw	a5,36(sp)
+	slli	a5,a3,0x2
 	sw	a5,32(sp)
 	li	a5,18
-	sub	s11,a5,s0
-	lw	a5,12(sp)
+	sub	s11,a5,a3
+	lw	a5,16(sp)
 	addi	a5,a5,13
-	bne	a4,a3,lab9
-	lw	a0,40(sp)
+	bne	a4,a2,lab9
+	add	t5,a0,a3
+	add	t6,t5,a3
 	li	t4,8
-	add	t5,a0,s0
-	add	t6,t5,s0
-lab10: 	lw	a4,24(sp)
+lab10: 	lw	a4,28(sp)
 	lh	s6,0(a0)
 	lh	s5,0(t5)
 	add	s1,a0,a4
-	lw	a4,28(sp)
+	lw	a4,36(sp)
 	lh	s4,0(t6)
 	lh	a2,0(s1)
 	add	s2,a0,a4
-	lw	a4,20(sp)
+	lw	a4,24(sp)
 	lh	a6,0(s2)
 	add	s8,a2,s6
 	add	s0,a0,a4
-	lw	a4,16(sp)
+	lw	a4,20(sp)
 	add	s7,a6,s5
 	sub	a2,s6,a2
 	add	t2,a0,a4
@@ -216,8 +213,8 @@ lab10: 	lw	a4,24(sp)
 	addi	t4,t4,-1
 	add	a3,s3,a7
 	add	t3,a4,s4
-	sw	a4,8(sp)
-	lw	a4,12(sp)
+	sw	a4,12(sp)
+	lw	a4,16(sp)
 	add	s10,t3,s7
 	add	t1,a3,s8
 	add	t0,s10,t1
@@ -232,7 +229,7 @@ lab10: 	lw	a4,24(sp)
 	sub	a3,s8,a3
 	add	s7,a3,t3
 	mul	t0,s7,t0
-	lw	a4,8(sp)
+	lw	a4,12(sp)
 	sub	a7,a7,s3
 	slli	t4,t4,0x10
 	sub	a4,s4,a4
@@ -323,7 +320,7 @@ lab10: 	lw	a4,24(sp)
 	sh	a3,0(t5)
 	add	t5,t5,s11
 	bnez	t4,lab10
-lab13: 	lw	s0,92(sp)
+	lw	s0,92(sp)
 	lw	s1,88(sp)
 	lw	s2,84(sp)
 	lw	s3,80(sp)
@@ -337,64 +334,65 @@ lab13: 	lw	s0,92(sp)
 	lw	s11,48(sp)
 	addi	sp,sp,96
 	ret
-lab9: 	lw	a0,40(sp)
-	li	t4,8
-	sw	s0,44(sp)
-	add	t5,a0,s0
-	add	t0,t5,s0
-lab11: 	lw	a4,24(sp)
-	lh	s6,0(a0)
+lab9: 	add	t5,a0,a3
+	add	t6,t5,a3
+	mv	a6,a0
+	li	t2,8
+	sw	a3,40(sp)
+	sw	a0,44(sp)
+lab11: 	lw	a4,28(sp)
+	lh	s6,0(a6)
 	lh	s5,0(t5)
-	add	s1,a0,a4
-	lw	a4,28(sp)
-	lh	s4,0(t0)
+	add	s1,a6,a4
+	lw	a4,36(sp)
+	lh	s4,0(t6)
 	lh	a2,0(s1)
-	add	s2,a0,a4
-	lw	a4,20(sp)
-	lh	a6,0(s2)
+	add	s2,a6,a4
+	lw	a4,24(sp)
+	lh	a0,0(s2)
 	add	s8,s6,a2
-	add	s0,a0,a4
-	lw	a4,16(sp)
-	add	s7,s5,a6
+	add	s0,a6,a4
+	lw	a4,20(sp)
+	add	s7,s5,a0
 	sub	a2,s6,a2
-	add	t2,a0,a4
+	add	t0,a6,a4
 	lw	a4,32(sp)
-	lh	a7,0(t2)
-	sub	a6,s5,a6
-	add	s9,a0,a4
+	lh	a7,0(t0)
+	sub	a0,s5,a0
+	add	s9,a6,a4
 	lh	s3,0(s9)
 	lh	a4,0(s0)
-	addi	t4,t4,-1
+	addi	t2,t2,-1
 	add	a3,a7,s3
 	add	t3,s4,a4
-	sw	a4,8(sp)
-	lw	a4,12(sp)
+	sw	a4,12(sp)
+	lw	a4,16(sp)
 	add	s10,s7,t3
 	add	t1,s8,a3
-	add	t6,t1,s10
-	sra	t6,t6,a4
+	add	t4,t1,s10
+	sra	t4,t4,a4
 	sub	t1,t1,s10
-	sh	t6,0(a0)
+	sh	t4,0(a6)
 	sra	t1,t1,a4
 	sh	t1,0(s9)
-	lh	t6,20(a1)
+	lh	t4,20(a1)
 	lh	t1,18(a1)
 	sub	t3,s7,t3
 	sub	a3,s8,a3
 	add	s7,t3,a3
-	mul	t6,s7,t6
-	lw	a4,8(sp)
+	mul	t4,s7,t4
+	lw	a4,12(sp)
 	sub	a7,a7,s3
-	slli	t4,t4,0x10
+	slli	t2,t2,0x10
 	sub	a4,s4,a4
 	add	s3,a2,a4
-	add	s4,a6,a7
+	add	s4,a0,a7
 	add	s5,s4,s3
 	slli	a7,a7,0x10
 	slli	a2,a2,0x10
 	mul	a3,t1,a3
-	slli	t6,t6,0x10
-	srli	t6,t6,0x10
+	slli	t4,t4,0x10
+	srli	t4,t4,0x10
 	srli	a7,a7,0x10
 	srli	a2,a2,0x10
 	slli	s5,s5,0x10
@@ -403,67 +401,67 @@ lab11: 	lw	a4,24(sp)
 	srai	s5,s5,0x10
 	srai	s4,s4,0x10
 	sra	a3,a3,a5
-	add	a3,t6,a3
-	sh	a3,0(t0)
+	add	a3,t4,a3
+	sh	a3,0(t6)
 	lh	a3,22(a1)
 	slli	a4,a4,0x10
-	slli	a6,a6,0x10
+	slli	a0,a0,0x10
 	mul	a3,a3,t3
 	srli	a4,a4,0x10
-	srli	a6,a6,0x10
+	srli	a0,a0,0x10
 	slli	s3,s3,0x10
-	add	s6,a4,a6
+	add	s6,a4,a0
 	srai	s3,s3,0x10
-	srli	t4,t4,0x10
-	add	a0,a0,s11
-	add	t0,t0,s11
+	srli	t2,t2,0x10
+	add	a6,a6,s11
+	add	t6,t6,s11
 	sra	a3,a3,a5
-	add	t6,t6,a3
-	sh	t6,0(s2)
-	lh	s2,16(a1)
+	add	t4,t4,a3
+	sh	t4,0(s2)
+	lh	a3,16(a1)
 	lh	s7,4(a1)
 	lh	t3,2(a1)
-	lhu	t6,8(a1)
-	mul	s2,s5,s2
+	lhu	t4,8(a1)
+	mul	s5,s5,a3
+	lh	s2,0(a1)
 	lh	a3,6(a1)
-	lh	s5,0(a1)
 	mul	t1,t1,s7
 	mul	t3,t3,s4
 	slli	t1,t1,0x10
 	srli	t1,t1,0x10
-	mul	t6,a7,t6
-	add	t3,t3,s2
+	mul	t4,a7,t4
+	add	t3,t3,s5
 	slli	t3,t3,0x10
 	srli	t3,t3,0x10
-	add	a7,t1,t6
+	add	a7,t1,t4
 	add	a7,t3,a7
 	slli	a7,a7,0x10
 	srai	a7,a7,0x10
 	sra	a7,a7,a5
 	sh	a7,0(s1)
 	lhu	a7,12(a1)
-	mul	s6,s6,s5
+	mul	s2,s6,s2
 	mul	a3,a3,s3
-	slli	s6,s6,0x10
-	srli	s6,s6,0x10
+	slli	s2,s2,0x10
+	srli	s2,s2,0x10
 	mul	a4,a4,a7
-	add	a3,a3,s2
+	add	a3,a3,s5
 	slli	a3,a3,0x10
 	srli	a3,a3,0x10
-	add	a4,s6,a4
+	add	a4,s2,a4
 	add	a4,a3,a4
 	slli	a4,a4,0x10
 	srai	a4,a4,0x10
 	sra	a4,a4,a5
 	sh	a4,0(s0)
 	lhu	a4,10(a1)
-	mul	a6,a6,a4
-	add	s6,s6,a6
-	add	a4,t3,s6
+	mul	a0,a0,a4
+	add	s2,s2,a0
+	add	a4,t3,s2
 	slli	a4,a4,0x10
 	srai	a4,a4,0x10
 	sra	a4,a4,a5
-	sh	a4,0(t2)
+	sh	a4,0(t0)
 	lhu	a4,14(a1)
 	mul	a2,a2,a4
 	add	t1,t1,a2
@@ -473,35 +471,28 @@ lab11: 	lw	a4,24(sp)
 	sra	a4,a4,a5
 	sh	a4,0(t5)
 	add	t5,t5,s11
-	bnez	t4,lab11
-	lw	s0,44(sp)
+	bnez	t2,lab11
 	lw	a3,40(sp)
-	lw	a4,36(sp)
-	neg	a5,s0
+	lw	a0,44(sp)
+	li	a4,1
+	neg	a5,a3
 	slli	a5,a5,0x3
 	addi	a5,a5,16
-	add	a5,a3,a5
-	sw	a5,40(sp)
-	lw	a5,24(sp)
-	addi	a4,a4,-7
-	slli	a4,a4,0x10
+	add	a0,a0,a5
+	lw	a5,28(sp)
+	addi	a3,a3,14
 	addi	a5,a5,98
+	sw	a5,28(sp)
+	lw	a5,24(sp)
+	addi	a5,a5,70
 	sw	a5,24(sp)
 	lw	a5,20(sp)
-	srai	a4,a4,0x10
-	sw	a4,36(sp)
-	addi	a5,a5,70
+	addi	a5,a5,42
 	sw	a5,20(sp)
 	lw	a5,16(sp)
-	addi	s0,s0,14
-	addi	a5,a5,42
-	sw	a5,16(sp)
-	lw	a5,12(sp)
 	addi	a5,a5,3
-	sw	a5,12(sp)
-	li	a5,-6
-	bne	a4,a5,lab12
-	j	lab13
+	sw	a5,16(sp)
+	j	lab12
 benchmark_body.constprop.0:
 	addi	sp,sp,-880
 	sw	s0,872(sp)
@@ -540,9 +531,9 @@ benchmark_body.constprop.0:
 	li	s3,50
 	addi	s2,s2,-1366 # aaaa <_min_stack+0x6aaa>
 	addi	s11,s11,1200
-lab23: 	lw	a5,8(sp)
+lab22: 	lw	a5,8(sp)
 	addi	a4,sp,16
-lab14: 	lw	t5,0(a5)
+lab13: 	lw	t5,0(a5)
 	lw	t4,4(a5)
 	lw	a6,8(a5)
 	lw	a1,12(a5)
@@ -552,10 +543,10 @@ lab14: 	lw	t5,0(a5)
 	sw	a1,12(a4)
 	addi	a5,a5,16
 	addi	a4,a4,16
-	bne	a5,s1,lab14
+	bne	a5,s1,lab13
 	mv	a5,s1
 	addi	a4,sp,416
-lab15: 	lw	t5,0(a5)
+lab14: 	lw	t5,0(a5)
 	lw	t4,4(a5)
 	lw	a6,8(a5)
 	lw	a1,12(a5)
@@ -567,13 +558,13 @@ lab15: 	lw	t5,0(a5)
 	addi	a5,a5,16
 	addi	a2,a2,-1684 # 10096c <_end+0x320>
 	addi	a4,a4,16
-	bne	a5,a2,lab15
+	bne	a5,a2,lab14
 	addi	a6,sp,416
 	addi	a1,sp,16
 	addi	t6,a3,1600
 	mv	a4,s6
 	mv	a5,s10
-lab16: 	lw	t5,0(a1)
+lab15: 	lw	t5,0(a1)
 	lw	t4,0(a6)
 	addi	a5,a5,4
 	sw	t5,0(a4)
@@ -581,10 +572,10 @@ lab16: 	lw	t5,0(a1)
 	addi	a6,a6,4
 	addi	a4,a4,4
 	addi	a1,a1,4
-	bne	t6,a5,lab16
+	bne	t6,a5,lab15
 	mv	a1,s10
 	mv	a4,s6
-lab17: 	lh	a6,0(a1)
+lab16: 	lh	a6,0(a1)
 	lhu	t4,0(a4)
 	addi	a4,a4,2
 	slli	a5,a6,0x1
@@ -593,12 +584,12 @@ lab17: 	lh	a6,0(a1)
 	add	a5,a5,t4
 	sh	a5,-2(a4)
 	addi	a1,a1,2
-	bne	s9,a4,lab17
+	bne	s9,a4,lab16
 	lw	t5,0(a3)
 	mv	a6,s6
 	mv	a5,s10
 	li	t4,3
-lab18: 	lh	a1,0(a5)
+lab17: 	lh	a1,0(a5)
 	lh	a4,0(a6)
 	addi	a5,a5,2
 	mul	t6,a1,a1
@@ -606,29 +597,29 @@ lab18: 	lh	a1,0(a5)
 	mul	a4,a4,a1
 	add	t4,t4,t6
 	add	t5,t5,a4
-	bne	s8,a5,lab18
+	bne	s8,a5,lab17
 	lui	a5,0x100
 	sw	t5,0(a3)
 	sh	t4,1608(a5) # 100648 <c>
 	mv	t6,s5
 	mv	t5,s6
 	li	t4,0
-lab20: 	mv	a5,s10
+lab19: 	mv	a5,s10
 	mv	a3,t5
 	li	a1,0
-lab19: 	lh	a4,0(a3)
+lab18: 	lh	a4,0(a3)
 	lh	a6,0(a5)
 	addi	a5,a5,2
 	addi	a3,a3,2
 	mul	a4,a4,a6
 	add	a1,a1,a4
-	bne	s7,a5,lab19
+	bne	s7,a5,lab18
 	srai	a1,a1,0xf
 	sw	a1,0(t6)
 	addi	t4,t4,1
 	addi	t6,t6,4
 	addi	t5,t5,2
-	bne	t4,s3,lab20
+	bne	t4,s3,lab19
 	mv	a2,s4
 	mv	a1,s10
 	mv	a0,s6
@@ -639,7 +630,7 @@ lab19: 	lh	a4,0(a3)
 	addi	a3,s4,1396
 	mul	t5,t5,a5
 	sub	t5,s2,t5
-lab21: 	lh	a1,0(a4)
+lab20: 	lh	a1,0(a4)
 	lh	a5,0(a3)
 	mv	t4,a4
 	addi	a4,a4,-2
@@ -651,7 +642,7 @@ lab21: 	lh	a1,0(a4)
 	srai	a5,a5,0x10
 	add	a5,a5,a1
 	sh	a5,4(a4)
-	bne	s6,t4,lab21
+	bne	s6,t4,lab20
 	lh	t6,1200(s4)
 	lui	a5,0x100
 	sh	a6,800(s4)
@@ -659,7 +650,7 @@ lab21: 	lh	a1,0(a4)
 	mv	a3,s4
 	mv	a6,s5
 	mv	a1,s6
-lab22: 	lw	a4,0(a6)
+lab21: 	lw	a4,0(a6)
 	lw	t0,4(a6)
 	lh	a5,4(a1)
 	lh	t2,6(a1)
@@ -679,16 +670,16 @@ lab22: 	lw	a4,0(a6)
 	add	a4,a4,t4
 	srai	a4,a4,0xf
 	add	t6,a4,a5
-	bne	a1,s11,lab22
+	bne	a1,s11,lab21
 	lui	a5,0x100
 	mv	a0,s6
-	sw	a3,12(sp)
 	sw	t6,400(s4)
+	sw	a3,12(sp)
 	sw	t5,1600(a5) # 100640 <e>
 	addi	s0,s0,-1
 	jal	ra,jpegdct
 	lw	a3,12(sp)
-	bnez	s0,lab23
+	bnez	s0,lab22
 	lw	ra,876(sp)
 	lw	s0,872(sp)
 	lw	s1,868(sp)
@@ -706,199 +697,200 @@ lab22: 	lw	a4,0(a6)
 	addi	sp,sp,880
 	ret
 benchmark_body.isra.0:
+	blez	a0,lab23
 	addi	sp,sp,-880
-	sw	ra,876(sp)
+	lui	a5,0xb
+	mv	t2,a0
 	sw	s0,872(sp)
 	sw	s1,868(sp)
 	sw	s2,864(sp)
-	sw	s3,860(sp)
 	sw	s4,856(sp)
-	sw	s5,852(sp)
-	sw	s6,848(sp)
 	sw	s7,844(sp)
+	lui	s4,0x100
 	sw	s8,840(sp)
 	sw	s9,836(sp)
-	sw	s10,832(sp)
-	sw	s11,828(sp)
-	sw	a0,4(sp)
-	blez	a0,lab24
-	lui	a5,0xb
-	lui	s6,0x100
-	lui	s10,0x100
 	lui	s1,0x100
+	lui	s9,0x100
 	lui	s2,0x100
 	lui	a0,0x100
-	lui	s9,0x100
 	lui	s8,0x100
+	lui	s7,0x100
 	lui	s0,0x100
 	addi	a5,a5,-1366 # aaaa <_min_stack+0x6aaa>
-	addi	s11,s10,1200 # 1004b0 <b>
+	sw	s3,860(sp)
+	sw	s5,852(sp)
+	sw	s6,848(sp)
+	sw	s10,832(sp)
+	sw	s11,828(sp)
+	addi	s10,s9,1200 # 1004b0 <b>
+	sw	ra,876(sp)
 	addi	s1,s1,1612 # 10064c <_end>
-	li	s3,0
+	li	s6,0
 	addi	s2,s2,2012 # 1007dc <_end+0x190>
-	mv	t6,s6
-	addi	s7,a0,800 # 100320 <a>
-	addi	s9,s9,1100 # 10044c <a+0x12c>
-	addi	s8,s8,1500 # 1005dc <b+0x12c>
+	mv	t6,s4
+	addi	s5,a0,800 # 100320 <a>
+	addi	s8,s8,1100 # 10044c <a+0x12c>
+	addi	s7,s7,1500 # 1005dc <b+0x12c>
 	addi	s0,s0,1300 # 100514 <b+0x64>
-	mv	s5,s6
-	li	s4,50
-	sw	a5,8(sp)
-	addi	s10,s10,1200
-lab34: 	mv	a5,s1
-	addi	a4,sp,16
-lab25: 	lw	a0,0(a5)
+	mv	s3,s4
+	li	s11,50
+	sw	a5,4(sp)
+	addi	s9,s9,1200
+	sw	t2,8(sp)
+lab33: 	mv	a5,s1
+	addi	a3,sp,16
+lab24: 	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
-	lw	a3,12(a5)
-	sw	a0,0(a4)
-	sw	a1,4(a4)
-	sw	a2,8(a4)
-	sw	a3,12(a4)
+	lw	a4,12(a5)
+	sw	a0,0(a3)
+	sw	a1,4(a3)
+	sw	a2,8(a3)
+	sw	a4,12(a3)
 	addi	a5,a5,16
-	addi	a4,a4,16
-	bne	a5,s2,lab25
+	addi	a3,a3,16
+	bne	a5,s2,lab24
 	mv	a5,s2
-	addi	a4,sp,416
-lab26: 	lw	a3,12(a5)
+	addi	a3,sp,416
+lab25: 	lw	a4,12(a5)
 	lw	a0,0(a5)
 	lw	a1,4(a5)
 	lw	a2,8(a5)
-	sw	a3,12(a4)
-	lui	a3,0x101
-	sw	a0,0(a4)
-	sw	a1,4(a4)
-	sw	a2,8(a4)
+	sw	a4,12(a3)
+	lui	a4,0x101
+	sw	a0,0(a3)
+	sw	a1,4(a3)
+	sw	a2,8(a3)
 	addi	a5,a5,16
-	addi	a3,a3,-1684 # 10096c <_end+0x320>
-	addi	a4,a4,16
-	bne	a5,a3,lab26
-	addi	a2,sp,416
-	addi	a3,sp,16
-	addi	a6,t6,1600
-	mv	a4,s7
-	mv	a5,s11
-lab27: 	lw	a0,0(a3)
-	lw	a1,0(a2)
+	addi	a4,a4,-1684 # 10096c <_end+0x320>
+	addi	a3,a3,16
+	bne	a5,a4,lab25
+	addi	a1,sp,416
+	addi	a2,sp,16
+	addi	a7,t6,1600
+	mv	a3,s5
+	mv	a5,s10
+lab26: 	lw	a0,0(a2)
+	lw	a4,0(a1)
 	addi	a5,a5,4
-	sw	a0,0(a4)
-	sw	a1,-4(a5)
-	addi	a2,a2,4
-	addi	a4,a4,4
+	sw	a0,0(a3)
+	sw	a4,-4(a5)
+	addi	a1,a1,4
 	addi	a3,a3,4
-	bne	a6,a5,lab27
-	mv	a3,s11
-	mv	a4,s7
-lab28: 	lh	a2,0(a3)
-	lhu	a1,0(a4)
-	addi	a4,a4,2
-	slli	a5,a2,0x1
-	add	a5,a5,a2
+	addi	a2,a2,4
+	bne	a7,a5,lab26
+	mv	a2,s10
+	mv	a3,s5
+lab27: 	lh	a4,0(a2)
+	lhu	a1,0(a3)
+	addi	a3,a3,2
+	slli	a5,a4,0x1
+	add	a5,a5,a4
 	srai	a5,a5,0xf
 	add	a5,a5,a1
-	sh	a5,-2(a4)
-	addi	a3,a3,2
-	bne	s9,a4,lab28
-	lw	a0,0(t6)
-	mv	a2,s7
-	mv	a5,s11
-	li	a1,3
-lab29: 	lh	a3,0(a5)
-	lh	a4,0(a2)
-	addi	a5,a5,2
-	mul	a6,a3,a3
+	sh	a5,-2(a3)
 	addi	a2,a2,2
+	bne	s8,a3,lab27
+	lw	a6,0(t6)
+	mv	a1,s5
+	mv	a5,s10
+	li	a0,3
+lab28: 	lh	a3,0(a5)
+	lh	a4,0(a1)
+	addi	a5,a5,2
+	mul	a2,a3,a3
+	addi	a1,a1,2
 	mul	a4,a4,a3
-	add	a1,a1,a6
-	add	a0,a0,a4
-	bne	s8,a5,lab29
+	add	a0,a0,a2
+	add	a6,a6,a4
+	bne	s7,a5,lab28
 	lui	a5,0x100
-	sw	a0,0(t6)
-	sh	a1,1608(a5) # 100648 <c>
-	mv	a7,s6
-	mv	a6,s7
+	sw	a6,0(t6)
+	sh	a0,1608(a5) # 100648 <c>
+	mv	a7,s4
+	mv	a6,s5
 	li	a0,0
-lab31: 	mv	a5,s11
+lab30: 	mv	a5,s10
 	mv	a3,a6
 	li	a2,0
-lab30: 	lh	a4,0(a3)
+lab29: 	lh	a4,0(a3)
 	lh	a1,0(a5)
 	addi	a5,a5,2
 	addi	a3,a3,2
 	mul	a4,a4,a1
 	add	a2,a2,a4
-	bne	s0,a5,lab30
+	bne	s0,a5,lab29
 	srai	a2,a2,0xf
 	sw	a2,0(a7)
 	addi	a0,a0,1
 	addi	a7,a7,4
 	addi	a6,a6,2
-	bne	a0,s4,lab31
-	mv	a2,s5
-	mv	a1,s11
-	mv	a0,s7
+	bne	a0,s11,lab30
+	mv	a2,s3
+	mv	a1,s10
+	mv	a0,s5
 	jal	ra,fir_no_red_ld
-	lh	a5,1398(s5) # 100576 <b+0xc6>
-	lh	a6,998(s5)
-	addi	a4,s5,996
-	addi	a3,s5,1396
-	mul	a6,a6,a5
-	lw	a5,8(sp)
-	sub	a6,a5,a6
-lab32: 	lh	a2,0(a4)
-	lh	a5,0(a3)
-	mv	a0,a4
-	addi	a4,a4,-2
-	mul	a1,a2,a5
+	lh	a5,1398(s3)
+	lh	a2,998(s3)
+	addi	a3,s3,996
+	addi	a1,s3,1396
+	mul	a2,a2,a5
+	lw	a5,4(sp)
+	sub	a2,a5,a2
+lab31: 	lh	a4,0(a3)
+	lh	a5,0(a1)
+	mv	a0,a3
 	addi	a3,a3,-2
-	sub	a6,a6,a1
-	srai	a1,a6,0x10
-	mul	a5,a5,a1
+	mul	a6,a4,a5
+	addi	a1,a1,-2
+	sub	a2,a2,a6
+	srai	a6,a2,0x10
+	mul	a5,a5,a6
 	srai	a5,a5,0x10
-	add	a5,a5,a2
-	sh	a5,4(a4)
-	bne	a0,s7,lab32
-	lh	a5,1200(s5)
+	add	a5,a5,a4
+	sh	a5,4(a3)
+	bne	a0,s5,lab31
+	lh	a5,1200(s3)
 	lui	a4,0x100
-	sh	a1,800(s5)
-	sw	a6,1604(a4) # 100644 <d>
-	mv	t6,s5
-	mv	a1,s6
-	mv	a2,s7
+	sh	a6,800(s3)
+	sw	a2,1604(a4) # 100644 <d>
+	mv	t6,s3
+	mv	a0,s4
+	mv	a1,s5
 	mv	a3,a5
-lab33: 	lw	t3,0(a1)
-	lw	t1,4(a1)
-	lh	a4,4(a2)
-	lh	a7,6(a2)
-	lh	a5,0(a2)
+lab32: 	lw	t3,0(a0)
+	lw	t1,4(a0)
+	lh	a4,4(a1)
+	lh	a7,6(a1)
+	lh	a5,0(a1)
 	mul	a4,a4,t3
-	lh	a0,2(a2)
-	sw	t3,4(a1)
+	lh	a6,2(a1)
+	sw	t3,4(a0)
+	addi	a0,a0,8
 	addi	a1,a1,8
-	addi	a2,a2,8
 	mul	a7,a7,t1
 	add	a4,a4,a7
 	srai	a4,a4,0xf
 	add	a4,a4,a3
 	mul	a5,a5,t3
-	sw	a4,-8(a1)
-	mul	a3,a0,t1
+	sw	a4,-8(a0)
+	mul	a3,a6,t1
 	add	a5,a5,a3
 	srai	a5,a5,0xf
 	add	a3,a5,a4
-	bne	a2,s10,lab33
+	bne	a1,s9,lab32
 	lui	a5,0x100
-	mv	a1,s10
-	mv	a0,s7
+	mv	a1,s9
+	mv	a0,s5
+	sw	a3,400(s3)
 	sw	t6,12(sp)
-	sw	a6,1600(a5) # 100640 <e>
-	sw	a3,400(s5)
+	sw	a2,1600(a5) # 100640 <e>
 	jal	ra,jpegdct
-	lw	a5,4(sp)
-	addi	s3,s3,1
+	lw	a5,8(sp)
+	addi	s6,s6,1
 	lw	t6,12(sp)
-	bne	s3,a5,lab34
-lab24: 	lw	ra,876(sp)
+	bne	s6,a5,lab33
+	lw	ra,876(sp)
 	lw	s0,872(sp)
 	lw	s1,868(sp)
 	lw	s2,864(sp)
@@ -913,6 +905,7 @@ lab24: 	lw	ra,876(sp)
 	lw	s11,828(sp)
 	addi	sp,sp,880
 	ret
+lab23: 	ret
 initialise_benchmark:
 	ret
 warm_caches:
@@ -927,7 +920,7 @@ verify_benchmark:
 	sw	ra,812(sp)
 	mv	a3,sp
 	addi	a4,a4,1600
-lab35: 	lw	a6,0(a5)
+lab34: 	lw	a6,0(a5)
 	lw	a0,4(a5)
 	lw	a1,8(a5)
 	lw	a2,12(a5)
@@ -937,37 +930,37 @@ lab35: 	lw	a6,0(a5)
 	sw	a2,12(a3)
 	addi	a5,a5,16
 	addi	a3,a3,16
-	bne	a5,a4,lab35
+	bne	a5,a4,lab34
 	lui	a0,0x100
 	li	a2,800
 	mv	a1,sp
 	mv	a0,a0
 	jal	ra,memcmp
-	bnez	a0,lab36
+	bnez	a0,lab35
 	lui	a5,0x100
 	lh	a4,1608(a5) # 100648 <c>
 	lui	a5,0x3
-	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x13ab>
-	beq	a4,a5,lab37
-lab38: 	lw	ra,812(sp)
+	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x13f7>
+	beq	a4,a5,lab36
+lab37: 	lw	ra,812(sp)
 	addi	sp,sp,816
 	ret
-lab36: 	lw	ra,812(sp)
+lab35: 	lw	ra,812(sp)
 	li	a0,0
 	addi	sp,sp,816
 	ret
-lab37: 	lui	a5,0x100
+lab36: 	lui	a5,0x100
 	lw	a4,1604(a5) # 100644 <d>
 	lui	a5,0xe5a96
 	addi	a5,a5,-1558 # e5a959ea <_stack+0xe598d9ea>
-	bne	a4,a5,lab38
+	bne	a4,a5,lab37
 	lui	a5,0x100
 	lw	a0,1600(a5) # 100640 <e>
 	lui	a5,0x1a56a
 	addi	a5,a5,1558 # 1a56a616 <_stack+0x1a462616>
 	add	a0,a0,a5
 	seqz	a0,a0
-	j	lab38
+	j	lab37
 main:
 	addi	sp,sp,-32
 	sw	ra,28(sp)
@@ -1195,7 +1188,7 @@ _end_2:
 
 	.section .rodata
 
-config_mem_words_640:
+start_rodata:
 	.4byte	0x0000
 	.2byte	0x7ff
 	.2byte	0xc00
@@ -1975,22 +1968,3 @@ config_mem_words_640:
 	.4byte	0x0000
 	.4byte	0x0000
 	.4byte	0x0000
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a

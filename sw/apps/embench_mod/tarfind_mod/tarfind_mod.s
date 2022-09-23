@@ -3,62 +3,60 @@
 	.type  main, @function
 
 benchmark_body.constprop.0:
-	addi	sp,sp,-80
-	lui	a5,0x1
-	sw	s6,48(sp)
-	addi	a5,a5,1558 # 1616 <__DTOR_END__+0xa8a>
-	lui	s6,0x2
-	sw	s3,60(sp)
-	sw	s7,44(sp)
-	sw	s9,36(sp)
-	sw	s10,32(sp)
-	sw	s11,28(sp)
-	sw	ra,76(sp)
-	sw	s0,72(sp)
-	sw	s1,68(sp)
-	sw	s2,64(sp)
-	sw	s4,56(sp)
-	sw	s5,52(sp)
-	sw	s8,40(sp)
-	li	s7,47
+	addi	sp,sp,-64
+	sw	s6,32(sp)
+	sw	s7,28(sp)
+	lui	s6,0x1
+	lui	s7,0x2
+	sw	s3,44(sp)
+	sw	s8,24(sp)
+	sw	s10,16(sp)
+	sw	s11,12(sp)
+	sw	ra,60(sp)
+	sw	s0,56(sp)
+	sw	s1,52(sp)
+	sw	s2,48(sp)
+	sw	s4,40(sp)
+	sw	s5,36(sp)
+	sw	s9,20(sp)
+	li	s8,47
 	lui	s11,0x100
-	addi	s10,s6,804 # 2324 <__DTOR_END__+0x1798>
-	addi	s9,s6,843
+	addi	s10,s7,843 # 234b <__DTOR_END__+0x17ff>
 	li	s3,48
-	sw	a5,12(sp)
-lab8: 	mv	a1,s10
+	addi	s6,s6,1558 # 1616 <__DTOR_END__+0xaca>
+lab8: 	lui	a5,0x2
+	addi	a1,a5,804 # 2324 <__DTOR_END__+0x17d8>
 	mv	a0,s11
 	jal	ra,init_heap_beebs
-	addi	a0,s6,803
+	addi	a0,s7,803
 	jal	ra,malloc_beebs
 	mv	s5,a0
 	addi	s0,a0,5
-	add	s4,a0,s9
+	add	s4,a0,s10
 	mv	s2,a0
 	li	s1,26
 lab1: 	li	a2,257
 	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
-	mv	s8,s2
+	mv	s9,s2
 	sb	s3,156(s2)
 lab0: 	jal	ra,rand_beebs
 	rem	a0,a0,s1
-	addi	s8,s8,1
+	addi	s9,s9,1
 	addi	a0,a0,65
-	sb	a0,-1(s8)
-	bne	s0,s8,lab0
+	sb	a0,-1(s9)
+	bne	s9,s0,lab0
 	sb	s3,124(s2)
-	addi	s0,s0,258
+	addi	s0,s9,258
 	addi	s2,s2,257
 	bne	s0,s4,lab1
 	lui	a5,0x1
-	addi	a5,a5,273 # 1111 <__DTOR_END__+0x585>
+	addi	a6,s7,803
+	addi	a5,a5,273 # 1111 <__DTOR_END__+0x5c5>
 	add	a0,s5,a5
-	lw	a5,12(sp)
-	addi	a6,s6,803
+	add	a7,s5,s6
 	li	s0,0
-	add	a7,s5,a5
 	add	a6,s5,a6
 lab7: 	mv	a1,s5
 lab6: 	lbu	a4,0(a1)
@@ -77,26 +75,26 @@ lab4: 	addi	a1,a1,257
 	bne	a6,a1,lab6
 	addi	a0,a0,257
 	bne	a0,a7,lab7
-lab9: 	addi	s7,s7,-1
+lab9: 	addi	s8,s8,-1
 	mv	a0,s5
 	jal	ra,free_beebs
-	bnez	s7,lab8
-	lw	ra,76(sp)
+	bnez	s8,lab8
+	lw	ra,60(sp)
 	addi	a0,s0,-5
-	lw	s0,72(sp)
-	lw	s1,68(sp)
-	lw	s2,64(sp)
-	lw	s3,60(sp)
-	lw	s4,56(sp)
-	lw	s5,52(sp)
-	lw	s6,48(sp)
-	lw	s7,44(sp)
-	lw	s8,40(sp)
-	lw	s9,36(sp)
-	lw	s10,32(sp)
-	lw	s11,28(sp)
+	lw	s0,56(sp)
+	lw	s1,52(sp)
+	lw	s2,48(sp)
+	lw	s3,44(sp)
+	lw	s4,40(sp)
+	lw	s5,36(sp)
+	lw	s6,32(sp)
+	lw	s7,28(sp)
+	lw	s8,24(sp)
+	lw	s9,20(sp)
+	lw	s10,16(sp)
+	lw	s11,12(sp)
 	seqz	a0,a0
-	addi	sp,sp,80
+	addi	sp,sp,64
 	ret
 lab3: 	lbu	a5,0(a5)
 	bnez	a5,lab4
@@ -109,7 +107,7 @@ benchmark_body.isra.0:
 	addi	sp,sp,-80
 	lui	a5,0x1
 	sw	s6,48(sp)
-	addi	a5,a5,1558 # 1616 <__DTOR_END__+0xa8a>
+	addi	a5,a5,1558 # 1616 <__DTOR_END__+0xaca>
 	lui	s6,0x2
 	sw	s3,60(sp)
 	sw	s7,44(sp)
@@ -126,19 +124,18 @@ benchmark_body.isra.0:
 	mv	s7,a0
 	li	s8,0
 	lui	s11,0x100
-	addi	s10,s6,804 # 2324 <__DTOR_END__+0x1798>
+	addi	s10,s6,843 # 234b <__DTOR_END__+0x17ff>
 	li	s3,48
 	sw	a5,12(sp)
-lab19: 	mv	a1,s10
+lab19: 	lui	a5,0x2
+	addi	a1,a5,804 # 2324 <__DTOR_END__+0x17d8>
 	mv	a0,s11
 	jal	ra,init_heap_beebs
 	addi	a0,s6,803
 	jal	ra,malloc_beebs
-	lui	a5,0x2
-	addi	a5,a5,843 # 234b <__DTOR_END__+0x17bf>
 	mv	s5,a0
 	addi	s0,a0,5
-	add	s4,a0,a5
+	add	s4,a0,s10
 	mv	s2,a0
 	li	s1,26
 lab12: 	li	a2,257
@@ -158,7 +155,7 @@ lab11: 	jal	ra,rand_beebs
 	addi	s2,s2,257
 	bne	s0,s4,lab12
 	lui	a5,0x1
-	addi	a5,a5,273 # 1111 <__DTOR_END__+0x585>
+	addi	a5,a5,273 # 1111 <__DTOR_END__+0x5c5>
 	add	a0,s5,a5
 	lw	a5,12(sp)
 	addi	a6,s6,803
@@ -240,7 +237,7 @@ rand_beebs:
 	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b5ce6d>
 	mul	a0,a0,a5
 	lui	a5,0x3
-	addi	a5,a5,57 # 3039 <__DTOR_END__+0x24ad>
+	addi	a5,a5,57 # 3039 <__DTOR_END__+0x24ed>
 	add	a0,a0,a5
 	slli	a0,a0,0x1
 	srli	a0,a0,0x1
@@ -266,10 +263,10 @@ lab21: 	lui	a3,0x102
 	lui	a2,0x102
 	lui	a0,0x102
 	addi	sp,sp,-16
-	addi	a3,a3,876 # 10236c <__func__.0+0x10>
-	addi	a2,a2,860 # 10235c <__func__.0>
+	addi	a3,a3,836 # 102344 <__func__.0+0x10>
+	addi	a2,a2,820 # 102334 <__func__.0>
 	li	a1,65
-	addi	a0,a0,908 # 10238c <__func__.0+0x30>
+	addi	a0,a0,868 # 102364 <__func__.0+0x30>
 	sw	ra,12(sp)
 	jal	ra,__assert_func
 check_heap_beebs:
@@ -292,42 +289,42 @@ malloc_beebs:
 	andi	a6,a4,3
 	add	a5,a5,a1
 	bnez	a6,lab23
+	lui	a1,0x102
+	lw	a1,808(a1) # 102328 <heap_end>
 	sw	a5,804(a3)
-	lui	a5,0x102
-	lw	a5,808(a5) # 102328 <heap_end>
-	bltu	a5,a4,lab22
+	bltu	a1,a4,lab22
 lab24: 	sw	a4,812(a2)
 	ret
 lab23: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
-	sw	a5,804(a3)
-	lui	a5,0x102
-	lw	a5,808(a5) # 102328 <heap_end>
 	add	a4,a4,a1
-	bgeu	a5,a4,lab24
+	lui	a1,0x102
+	lw	a1,808(a1) # 102328 <heap_end>
+	sw	a5,804(a3)
+	bgeu	a1,a4,lab24
 lab22: 	li	a0,0
 	ret
 calloc_beebs:
 	mul	a2,a0,a1
 	beqz	a2,lab25
 	lui	a0,0x102
-	lw	a5,812(a0) # 10232c <heap_ptr>
+	lw	a3,812(a0) # 10232c <heap_ptr>
 	lui	a1,0x102
-	lw	a4,804(a1) # 102324 <heap_requested>
-	add	a3,a5,a2
-	andi	a7,a3,3
-	add	a4,a2,a4
+	lw	a5,804(a1) # 102324 <heap_requested>
+	add	a4,a3,a2
+	andi	a7,a4,3
+	add	a5,a2,a5
 	bnez	a7,lab26
-	sw	a4,804(a1)
-	lui	a4,0x102
-	lw	a4,808(a4) # 102328 <heap_end>
-	bltu	a4,a3,lab25
-lab28: 	sw	a3,812(a0)
-	beqz	a5,lab27
+	lui	a6,0x102
+	lw	a6,808(a6) # 102328 <heap_end>
+	sw	a5,804(a1)
+	bltu	a6,a4,lab25
+lab27: 	sw	a4,812(a0)
+	beqz	a3,lab25
 	addi	sp,sp,-16
 	li	a1,0
-	mv	a0,a5
+	mv	a0,a3
 	sw	ra,12(sp)
 	jal	ra,memset
 	lw	ra,12(sp)
@@ -335,19 +332,19 @@ lab28: 	sw	a3,812(a0)
 	ret
 lab26: 	li	a6,4
 	sub	a6,a6,a7
+	add	a5,a5,a6
 	add	a4,a4,a6
-	sw	a4,804(a1)
-	lui	a4,0x102
-	lw	a4,808(a4) # 102328 <heap_end>
-	add	a3,a3,a6
-	bgeu	a4,a3,lab28
-lab25: 	li	a5,0
-lab27: 	mv	a0,a5
+	lui	a6,0x102
+	lw	a6,808(a6) # 102328 <heap_end>
+	sw	a5,804(a1)
+	bgeu	a6,a4,lab27
+lab25: 	li	a3,0
+	mv	a0,a3
 	ret
 realloc_beebs:
 	mv	a5,a0
-	beqz	a0,lab29
-	beqz	a1,lab29
+	beqz	a0,lab28
+	beqz	a1,lab28
 	lui	a6,0x102
 	lw	a0,812(a6) # 10232c <heap_ptr>
 	lui	a2,0x102
@@ -355,70 +352,69 @@ realloc_beebs:
 	add	a3,a0,a1
 	andi	a7,a3,3
 	add	a4,a1,a4
-	bnez	a7,lab30
+	bnez	a7,lab29
+	lui	a7,0x102
+	lw	a7,808(a7) # 102328 <heap_end>
 	sw	a4,804(a2)
-	lui	a4,0x102
-	lw	a4,808(a4) # 102328 <heap_end>
-	bltu	a4,a3,lab29
-lab34: 	sw	a3,812(a6)
-	beqz	a0,lab29
+	bltu	a7,a3,lab28
+lab33: 	sw	a3,812(a6)
+	beqz	a0,lab28
+	addi	a4,a1,-1
+	li	a3,6
+	bgeu	a3,a4,lab30
+	or	a4,a5,a0
+	andi	a4,a4,3
+	bnez	a4,lab30
 	addi	a4,a5,1
 	sub	a4,a0,a4
-	or	a3,a5,a0
 	sltiu	a4,a4,3
-	andi	a3,a3,3
-	xori	a4,a4,1
-	seqz	a3,a3
-	and	a4,a4,a3
-	beqz	a4,lab31
-	addi	a4,a1,-1
-	sltiu	a4,a4,7
-	bnez	a4,lab31
+	bnez	a4,lab30
 	andi	a6,a1,-4
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab32: 	lw	a2,0(a4)
+lab31: 	lw	a2,0(a4)
 	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
-	bne	a4,a6,lab32
+	bne	a4,a6,lab31
+	andi	a3,a1,3
 	andi	a4,a1,-4
-	beq	a1,a4,lab33
+	beqz	a3,lab32
 	add	a3,a5,a4
 	lbu	a6,0(a3)
 	add	a2,a0,a4
 	addi	a3,a4,1
 	sb	a6,0(a2)
-	bgeu	a3,a1,lab33
+	bgeu	a3,a1,lab32
 	add	a2,a5,a3
 	lbu	a2,0(a2)
 	add	a3,a0,a3
 	addi	a4,a4,2
 	sb	a2,0(a3)
-	bgeu	a4,a1,lab33
+	bgeu	a4,a1,lab32
 	add	a5,a5,a4
 	lbu	a5,0(a5)
 	add	a4,a0,a4
 	sb	a5,0(a4)
 	ret
-lab30: 	li	t1,4
+lab29: 	li	t1,4
 	sub	a7,t1,a7
 	add	a4,a4,a7
-	sw	a4,804(a2)
-	lui	a4,0x102
-	lw	a4,808(a4) # 102328 <heap_end>
 	add	a3,a3,a7
-	bgeu	a4,a3,lab34
-lab29: 	li	a0,0
-lab33: 	ret
-lab31: 	mv	a4,a0
+	lui	a7,0x102
+	lw	a7,808(a7) # 102328 <heap_end>
+	sw	a4,804(a2)
+	bgeu	a7,a3,lab33
+lab28: 	li	a0,0
+lab32: 	ret
+lab30: 	mv	a4,a0
 	add	a1,a5,a1
-lab35: 	lbu	a3,0(a5)
+lab34: 	lbu	a3,0(a5)
 	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
-	bne	a5,a1,lab35
+	bne	a5,a1,lab34
 	ret
 free_beebs:
 	ret
@@ -5141,25 +5137,6 @@ seed:
 
 	.section .rodata
 
-config_mem_words:
-	.2byte	0x101
-	.2byte	0x101
-	.2byte	0x202
-	.2byte	0x202
-	.4byte	0x03030303
-	.2byte	0x404
-	.2byte	0x404
-	.2byte	0x505
-	.2byte	0x505
-	.2byte	0x606
-	.2byte	0x606
-	.4byte	0x7070707
-	.2byte	0x808
-	.2byte	0x808
-	.2byte	0x909
-	.2byte	0x909
-	.2byte	0xa0a
-	.2byte	0xa0a
 __func__.0:
 	.2byte	0x6e69
 	.2byte	0x7469
@@ -5177,22 +5154,22 @@ __func__.0:
 	.2byte	0x3d20
 	.2byte	0x203d
 	.2byte	0x30
-	.4byte	0x64656d2f
-	.2byte	0x6169
-	.4byte	0x5f66732f
-	.4byte	0x72616853
-	.2byte	0x6465
-	.4byte	0x7466612f
-	.2byte	0x6261
-	.2byte	0x632d
-	.2byte	0x6966
-	.2byte	0x702d
-	.2byte	0x616c
-	.4byte	0x2f77732f
-	.4byte	0x70707573
-	.4byte	0x2f74726f
-	.4byte	0x2f637273
-	.2byte	0x6562
-	.2byte	0x6265
-	.4byte	0x632e6373
-	.4byte	0x00
+	.4byte	0x6f6f722f
+	.2byte	0x2f74
+	.2byte	0x6544
+	.4byte	0x6f746b73
+	.2byte	0x2f70
+	.2byte	0x6661
+	.2byte	0x6174
+	.2byte	0x2d62
+	.4byte	0x2d696663
+	.2byte	0x6c70
+	.2byte	0x2f61
+	.4byte	0x732f7773
+	.2byte	0x7075
+	.2byte	0x6f70
+	.2byte	0x7472
+	.4byte	0x6372732f
+	.4byte	0x6565622f
+	.2byte	0x7362
+	.4byte	0x632e63
