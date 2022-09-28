@@ -54,7 +54,7 @@ SECTIONS
     /* Global constructor/destructor segement                             */
     /*--------------------------------------------------------------------*/
 
-    .preinit_array     :
+/*    .preinit_array     :
     {
       PROVIDE_HIDDEN (__preinit_array_start = .);
       KEEP (*(.preinit_array))
@@ -75,6 +75,12 @@ SECTIONS
       KEEP (*(SORT(.fini_array.*)))
       KEEP (*(.fini_array ))
       PROVIDE_HIDDEN (__fini_array_end = .);
+    } > dataram*/
+
+    .rodata : {
+        . = ALIGN(4);
+        *(.rodata);
+        *(.rodata.*)
     } > dataram
 
     .shbss :
@@ -130,10 +136,6 @@ SECTIONS
         _end = .;
     } > dataram
 
-    .rodata : {
-        . = ALIGN(4);
-        *(.rodata);
-        *(.rodata.*)
-    } > dataram
+
 }
 

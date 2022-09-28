@@ -6,7 +6,7 @@ sha256_init:
 	lui	a1,0x100
 	addi	sp,sp,-16
 	li	a2,32
-	addi	a1,a1,120 # 100078 <H0.0>
+	mv	a1,a1
 	sw	s0,8(sp)
 	sw	ra,12(sp)
 	mv	s0,a0
@@ -29,7 +29,7 @@ _nettle_write_be32:
 	add	a3,a1,a3
 lab1: 	lbu	a4,3(a5)
 	addi	a5,a5,4
-	addi	a1,a1,4
+	addi	a1,a1,4 # 100004 <H0.0+0x4>
 	sb	a4,-4(a1)
 	lhu	a4,-2(a5)
 	sb	a4,-3(a1)
@@ -133,9 +133,9 @@ _nettle_sha256_compress:
 	or	t3,t4,t3
 	or	a7,t1,a7
 	or	a3,a6,a3
-	lbu	s11,27(a1)
 	lbu	a5,24(a1)
 	lbu	s6,25(a1)
+	lbu	s11,27(a1)
 	lbu	s5,29(a1)
 	lbu	s4,33(a1)
 	lbu	s3,37(a1)
@@ -145,12 +145,12 @@ _nettle_sha256_compress:
 	lbu	a6,48(a1)
 	lbu	s0,49(a1)
 	lbu	t2,26(a1)
-	sw	a4,0(sp)
-	sw	t0,24(sp)
-	sw	t5,52(sp)
+	sw	a4,16(sp)
+	sw	t0,28(sp)
+	sw	t5,36(sp)
 	sw	t3,8(sp)
-	sw	a7,44(sp)
-	sw	a3,12(sp)
+	sw	a7,12(sp)
+	sw	a3,20(sp)
 	sw	a4,96(sp)
 	sw	t0,100(sp)
 	lbu	a4,28(a1)
@@ -166,31 +166,31 @@ _nettle_sha256_compress:
 	lbu	t4,34(a1)
 	lbu	t6,38(a1)
 	lbu	s7,43(a1)
-	sw	t5,16(sp)
+	sw	t5,4(sp)
 	slli	s2,s2,0x10
 	slli	t1,t1,0x18
 	or	t1,t1,s2
-	lw	s2,16(sp)
+	lw	s2,4(sp)
 	slli	s3,s3,0x10
 	slli	t3,t3,0x18
-	sw	s7,28(sp)
-	sw	t4,4(sp)
-	sw	t6,20(sp)
+	sw	t6,24(sp)
+	sw	s7,32(sp)
+	sw	t4,0(sp)
 	slli	s1,s1,0x18
 	or	t3,t3,s3
 	slli	a7,a7,0x10
-	lbu	s9,35(a1)
 	lbu	s8,47(a1)
 	lbu	s7,51(a1)
-	lw	s3,28(sp)
+	lw	s3,32(sp)
 	lbu	t0,30(a1)
+	lbu	s9,35(a1)
 	lbu	t6,42(a1)
 	lbu	t5,46(a1)
 	lbu	t4,50(a1)
 	or	a7,s1,a7
 	or	t3,t3,s2
-	lw	s1,4(sp)
-	lw	s2,20(sp)
+	lw	s1,0(sp)
+	lw	s2,24(sp)
 	slli	s6,s6,0x10
 	slli	s5,s5,0x10
 	slli	s4,s4,0x10
@@ -203,11 +203,9 @@ _nettle_sha256_compress:
 	or	a4,a4,s5
 	or	a3,a3,s4
 	or	a6,a6,s0
-	or	a5,a5,s11
 	slli	t2,t2,0x8
 	or	a4,a4,s10
 	slli	t0,t0,0x8
-	or	a3,a3,s9
 	slli	s1,s1,0x8
 	slli	s2,s2,0x8
 	or	t1,t1,s3
@@ -216,6 +214,8 @@ _nettle_sha256_compress:
 	slli	t5,t5,0x8
 	or	a6,a6,s7
 	slli	t4,t4,0x8
+	or	a5,a5,s11
+	or	a3,a3,s9
 	or	t3,t3,s2
 	or	t1,t1,t6
 	or	a7,a7,t5
@@ -223,14 +223,14 @@ _nettle_sha256_compress:
 	or	a5,a5,t2
 	or	a4,a4,t0
 	or	a3,a3,s1
-	sw	t3,48(sp)
-	sw	t1,28(sp)
-	sw	a7,32(sp)
+	sw	t3,24(sp)
+	sw	t1,32(sp)
+	sw	a7,40(sp)
 	sw	t3,132(sp)
 	sw	t1,136(sp)
 	sw	a7,140(sp)
 	lbu	t1,52(a1)
-	sw	a6,36(sp)
+	sw	a6,44(sp)
 	sw	a6,144(sp)
 	sw	a5,120(sp)
 	sw	a4,124(sp)
@@ -241,1441 +241,1427 @@ _nettle_sha256_compress:
 	lbu	t5,60(a1)
 	lbu	a6,61(a1)
 	lbu	s1,55(a1)
-	lbu	t4,54(a1)
 	lbu	s0,59(a1)
+	lbu	t4,54(a1)
 	lbu	t3,58(a1)
 	lbu	t2,63(a1)
 	lbu	a1,62(a1)
-	slli	t0,t0,0x10
-	slli	t5,t5,0x18
-	slli	t1,t1,0x18
-	slli	a7,a7,0x18
+	mv	s3,a0
 	slli	t6,t6,0x10
+	slli	t1,t1,0x18
+	slli	t0,t0,0x10
+	slli	a7,a7,0x18
+	slli	t5,t5,0x18
 	slli	a6,a6,0x10
 	lw	s4,0(a0)
 	lw	s5,4(a0)
-	lw	s6,8(a0)
-	lw	s7,12(a0)
+	lw	s6,12(a0)
+	lw	s7,16(a0)
+	lw	s8,20(a0)
+	lw	s2,8(a0)
+	lw	s3,28(s3)
+	sw	a0,92(sp)
+	or	a7,a7,t6
+	lw	a0,24(a0)
 	or	t1,t1,t0
 	or	a6,t5,a6
-	or	a7,a7,t6
-	lw	s8,16(a0)
-	lw	s9,20(a0)
-	lw	s10,24(a0)
-	lw	s11,28(a0)
 	or	t1,t1,s1
 	slli	t4,t4,0x8
 	or	a7,a7,s0
 	slli	t3,t3,0x8
 	or	a6,a6,t2
 	slli	a1,a1,0x8
-	mv	t5,a2
+	or	a7,a7,t3
+	mv	s10,a2
 	or	a1,a6,a1
 	or	a2,t1,t4
-	mv	s3,a0
-	or	a0,a7,t3
-	sw	a2,40(sp)
-	sw	a0,20(sp)
+	sw	a2,48(sp)
+	sw	a7,0(sp)
 	sw	a1,4(sp)
 	sw	a2,148(sp)
-	sw	a0,152(sp)
-	sw	a1,156(sp)
-	sw	a5,16(sp)
-	sw	a4,56(sp)
-	sw	a3,60(sp)
-	sw	s4,64(sp)
-	sw	s5,68(sp)
+	sw	s4,60(sp)
+	sw	s5,64(sp)
+	sw	s2,68(sp)
 	sw	s6,72(sp)
 	sw	s7,76(sp)
 	sw	s8,80(sp)
-	addi	t4,t5,64
-	mv	a2,s11
-	mv	a7,s10
-	mv	t1,s9
-	mv	t0,s8
-	mv	t3,s7
-	mv	a1,s6
-	mv	a0,s5
-	mv	a6,s4
-	mv	s1,t5
-	addi	s2,sp,96
-	sw	t5,84(sp)
-lab6: 	slli	t6,t0,0x1a
-	slli	a4,t0,0x15
-	srli	s7,t0,0x6
-	srli	a3,t0,0xb
-	srli	t2,t0,0x19
-	or	a3,a3,a4
-	slli	a5,t0,0x7
-	or	s7,s7,t6
-	xor	s7,s7,a3
-	or	a5,a5,t2
-	lw	s8,0(s1)
-	xor	a5,s7,a5
-	lw	s7,0(s2)
-	xor	t6,t1,a7
-	srli	s6,a6,0x2
-	srli	s5,a6,0xd
-	slli	a4,a6,0x1e
-	slli	s0,a6,0x13
-	xor	a3,a6,a0
-	srli	s4,a6,0x16
-	add	s7,s8,s7
-	or	s0,s5,s0
-	and	t6,t6,t0
-	slli	t2,a6,0xa
-	or	a4,s6,a4
-	and	s5,a6,a0
-	xor	t6,t6,a7
-	or	t2,t2,s4
-	and	a3,a3,a1
-	add	a5,a5,s7
-	xor	a4,a4,s0
-	xor	a3,a3,s5
-	add	a5,a5,t6
-	xor	a4,a4,t2
-	add	a5,a5,a2
-	lw	t5,4(s2)
-	lw	a2,4(s1)
-	add	a4,a4,a3
-	add	a3,a4,a5
-	add	t3,a5,t3
-	xor	t6,t0,t1
-	slli	s7,t3,0x1a
-	slli	s0,t3,0x15
-	slli	s6,a3,0x1e
-	slli	t2,a3,0x13
-	srli	a5,t3,0x6
-	srli	s5,t3,0xb
-	srli	a4,a3,0x2
-	srli	s4,a3,0xd
-	xor	s8,a3,a6
-	and	t6,t6,t3
-	or	s5,s5,s0
-	or	s4,s4,t2
-	or	a5,a5,s7
-	slli	s0,t3,0x7
-	srli	s7,t3,0x19
-	or	a4,a4,s6
-	slli	t2,a3,0xa
-	srli	s6,a3,0x16
-	add	a2,a2,t5
-	and	s8,s8,a0
-	or	s0,s0,s7
-	or	t2,t2,s6
-	add	a2,a2,a7
-	xor	a5,a5,s5
-	xor	a7,t6,t1
-	xor	a4,a4,s4
-	and	t6,a3,a6
-	add	a2,a2,a7
-	xor	t6,s8,t6
-	xor	a5,a5,s0
-	xor	a4,a4,t2
-	add	a5,a5,a2
-	lw	s8,8(s2)
-	lw	a7,8(s1)
-	add	a4,a4,t6
-	add	a4,a4,a5
-	add	a1,a5,a1
-	xor	t6,t3,t0
-	slli	s7,a1,0x1a
-	slli	s4,a1,0x15
-	slli	s0,a4,0x1e
-	slli	t2,a4,0x13
-	srli	a5,a1,0x6
-	srli	s6,a1,0xb
-	srli	s5,a4,0x2
-	srli	a2,a4,0xd
-	or	s6,s6,s4
-	or	s5,s5,s0
-	add	a7,a7,s8
-	and	t6,t6,a1
-	srli	s8,a1,0x19
-	or	a5,a5,s7
-	slli	s4,a1,0x7
-	srli	s7,a4,0x16
-	or	a2,a2,t2
-	slli	s0,a4,0xa
-	xor	t2,a3,a4
-	xor	t6,t6,t0
-	and	t2,t2,a6
-	or	s4,s4,s8
-	or	s0,s0,s7
-	add	a7,a7,t1
-	xor	a5,a5,s6
-	and	t1,a3,a4
+	sw	a0,84(sp)
+	sw	s3,88(sp)
+	sw	a7,152(sp)
+	addi	t1,s10,64
+	sw	a1,156(sp)
+	mv	a2,s3
+	mv	a1,s8
+	mv	t6,s7
+	mv	a7,s6
+	mv	t4,s5
+	mv	t3,s4
+	mv	s0,s10
+	addi	s1,sp,96
+lab6: 	lw	s11,0(s1)
+	slli	s4,t6,0x1a
+	slli	t2,t6,0x15
+	lw	s7,0(s0)
+	srli	a6,t6,0x6
+	srli	t0,t6,0xb
+	srli	s3,t6,0x19
+	or	t0,t0,t2
+	slli	t5,t6,0x7
+	or	a6,a6,s4
+	xor	s8,a1,a0
+	slli	s9,t3,0x1e
+	slli	s5,t3,0x13
+	or	t5,t5,s3
+	srli	t2,t3,0x2
+	srli	s4,t3,0xd
+	xor	a6,a6,t0
+	and	s8,s8,t6
+	xor	t0,t3,t4
+	srli	s6,t3,0x16
+	add	s7,s7,s11
+	or	s4,s4,s5
+	slli	s3,t3,0xa
+	xor	a6,a6,t5
+	or	t2,t2,s9
+	and	s5,t3,t4
+	xor	t5,s8,a0
+	and	t0,t0,s2
+	or	s3,s3,s6
+	add	a6,a6,s7
+	xor	t2,t2,s4
+	add	a6,a6,t5
+	xor	t2,t2,s3
+	xor	t5,t0,s5
+	add	a2,a6,a2
+	lw	s8,4(s0)
+	lw	a6,4(s1)
+	add	t2,t2,t5
+	add	t2,t2,a2
+	add	a7,a2,a7
+	xor	s3,t6,a1
+	srli	s11,a7,0x6
+	srli	s9,a7,0xb
+	srli	s7,t2,0x2
+	srli	s6,t2,0xd
+	slli	s5,a7,0x1a
+	slli	a2,a7,0x15
+	slli	t0,t2,0x1e
+	slli	s4,t2,0x13
+	xor	t5,t2,t3
+	or	s5,s11,s5
+	or	s4,s6,s4
+	add	a6,s8,a6
+	and	s3,s3,a7
+	or	a2,s9,a2
+	slli	s8,a7,0x7
+	srli	s9,a7,0x19
+	or	t0,s7,t0
+	slli	s6,t2,0xa
+	srli	s7,t2,0x16
+	xor	s3,s3,a1
+	or	s8,s8,s9
+	or	s6,s6,s7
+	add	a6,a6,a0
+	and	t5,t5,t4
+	and	a0,t2,t3
 	xor	a2,s5,a2
-	add	a7,a7,t6
-	xor	t1,t2,t1
-	xor	a5,a5,s4
-	xor	a2,a2,s0
-	add	a5,a5,a7
-	lw	s8,12(s1)
-	add	a2,a2,t1
-	lw	a7,12(s2)
-	add	t2,a2,a5
-	add	a0,a5,a0
-	xor	t1,t3,a1
-	slli	s7,a0,0x1a
-	slli	t6,a0,0x15
-	slli	s4,t2,0x1e
-	slli	s0,t2,0x13
-	srli	a5,a0,0x6
-	srli	s6,a0,0xb
-	srli	s5,t2,0x2
-	srli	a2,t2,0xd
-	or	s6,s6,t6
-	or	s5,s5,s4
-	add	a7,s8,a7
-	and	t1,t1,a0
+	xor	t0,t0,s4
+	add	a6,a6,s3
+	xor	t5,t5,a0
+	xor	a2,a2,s8
+	xor	t0,t0,s6
+	add	a2,a2,a6
+	lw	s8,8(s0)
+	lw	s3,8(s1)
+	add	t0,t0,t5
+	add	t0,t0,a2
+	add	a0,a2,s2
+	xor	s5,a7,t6
+	slli	s11,a0,0x1a
+	slli	s9,a0,0x15
+	slli	s6,t0,0x1e
+	slli	s2,t0,0x13
+	srli	a2,a0,0x6
+	srli	s4,a0,0xb
+	srli	t5,t0,0x2
+	srli	s7,t0,0xd
+	add	a6,s8,s3
+	or	s4,s4,s9
 	srli	s8,a0,0x19
-	or	a5,a5,s7
-	slli	t6,a0,0x7
-	slli	s7,t2,0xa
-	or	a2,a2,s0
-	srli	s4,t2,0x16
-	xor	s0,a4,t2
-	xor	t1,t1,t3
-	or	t6,t6,s8
-	or	s4,s7,s4
-	and	s0,s0,a3
-	add	a7,a7,t0
-	xor	a5,a5,s6
-	and	t0,a4,t2
-	xor	a2,s5,a2
-	add	a7,a7,t1
-	xor	t0,s0,t0
-	xor	a5,a5,t6
+	xor	s9,t2,t0
+	or	s7,s7,s2
+	and	s5,s5,a0
+	or	a2,a2,s11
+	slli	s3,a0,0x7
+	or	t5,t5,s6
+	slli	s2,t0,0xa
+	srli	s6,t0,0x16
+	xor	s5,s5,t6
+	or	s3,s3,s8
+	or	s2,s2,s6
+	add	a6,a6,a1
 	xor	a2,a2,s4
-	add	a5,a5,a7
-	add	a2,a2,t0
-	add	t6,a2,a5
-	lw	s8,16(s1)
-	lw	a2,16(s2)
-	add	a6,a5,a6
-	xor	t1,a1,a0
-	slli	s7,a6,0x1a
-	slli	s4,a6,0x15
-	srli	a5,a6,0x6
-	srli	s6,a6,0xb
-	slli	s0,t6,0x1e
-	slli	t0,t6,0x13
-	srli	s5,t6,0x2
-	srli	a7,t6,0xd
-	or	s6,s6,s4
-	or	s5,s5,s0
-	add	a2,s8,a2
-	and	t1,t1,a6
-	srli	s8,a6,0x19
-	or	a5,a5,s7
-	slli	s4,a6,0x7
-	or	a7,a7,t0
-	slli	s7,t6,0xa
-	xor	t0,t2,t6
-	srli	s0,t6,0x16
-	xor	t1,t1,a1
-	or	s4,s4,s8
-	or	s0,s7,s0
-	and	t0,t0,a4
+	and	a1,s9,t3
+	and	s4,t2,t0
+	xor	t5,t5,s7
+	add	a6,a6,s5
+	xor	a1,a1,s4
+	xor	a2,a2,s3
+	xor	t5,t5,s2
+	add	a2,a2,a6
+	lw	s3,12(s1)
+	lw	s9,12(s0)
+	add	t5,t5,a1
+	add	t5,t5,a2
+	add	t4,a2,t4
+	xor	s6,a7,a0
+	slli	s8,t4,0x1a
+	slli	s7,t4,0x15
+	slli	s2,t5,0x1e
+	slli	a1,t5,0x13
+	srli	a2,t4,0x6
+	srli	s5,t4,0xb
+	srli	a6,t5,0x2
+	srli	s4,t5,0xd
+	add	s9,s9,s3
+	or	s5,s5,s7
+	or	s4,s4,a1
+	srli	s7,t5,0x16
+	xor	a1,t0,t5
+	and	s6,s6,t4
+	or	a2,a2,s8
+	srli	s3,t4,0x19
+	slli	s8,t4,0x7
+	or	a6,a6,s2
+	slli	s2,t5,0xa
+	xor	s6,s6,a7
+	or	s3,s8,s3
+	or	s2,s2,s7
+	add	t6,s9,t6
+	xor	a2,a2,s5
+	xor	a6,a6,s4
+	and	a1,a1,t2
+	and	s4,t0,t5
+	add	t6,t6,s6
+	xor	a1,a1,s4
+	xor	a2,a2,s3
+	xor	a6,a6,s2
+	lw	s8,16(s0)
+	lw	s3,16(s1)
+	add	a2,a2,t6
+	add	a6,a6,a1
+	add	t6,a2,t3
+	add	a6,a6,a2
+	xor	s7,a0,t4
+	slli	s9,t6,0x15
+	srli	a2,t6,0x6
+	slli	s11,t6,0x1a
+	srli	s5,t6,0xb
+	slli	s6,a6,0x1e
+	slli	s2,a6,0x13
+	srli	a1,a6,0x2
+	srli	s4,a6,0xd
+	add	t3,s8,s3
+	or	s5,s5,s9
+	or	s4,s4,s2
+	slli	s9,t6,0x7
+	and	s7,s7,t6
+	srli	s3,t6,0x19
+	or	a1,a1,s6
+	srli	s8,a6,0x16
+	xor	s6,t5,a6
+	or	a2,a2,s11
+	slli	s2,a6,0xa
+	xor	s7,s7,a0
+	or	s3,s9,s3
+	or	s2,s2,s8
+	add	t3,t3,a7
+	xor	a2,a2,s5
+	and	a7,s6,t0
+	xor	a1,a1,s4
+	and	s4,t5,a6
+	add	t3,t3,s7
+	xor	a7,a7,s4
+	xor	a2,a2,s3
+	xor	a1,a1,s2
+	lw	s3,20(s1)
 	add	a2,a2,t3
-	xor	a5,a5,s6
-	xor	a7,s5,a7
-	and	t3,t2,t6
-	add	a2,a2,t1
-	xor	t3,t0,t3
-	xor	a5,a5,s4
-	xor	a7,a7,s0
-	add	a5,a5,a2
-	add	a7,a7,t3
-	add	t3,a7,a5
-	lw	s8,20(s1)
-	lw	a7,20(s2)
-	add	a2,a3,a5
-	xor	t1,a0,a6
-	slli	s7,a2,0x1a
-	slli	s4,a2,0x15
-	slli	s0,t3,0x1e
-	slli	t0,t3,0x13
-	srli	a5,a2,0x6
-	srli	s6,a2,0xb
-	srli	s5,t3,0x2
-	srli	a3,t3,0xd
-	or	s6,s6,s4
-	or	s5,s5,s0
-	add	a7,s8,a7
-	or	a5,a5,s7
-	srli	s8,a2,0x19
-	or	a3,a3,t0
-	slli	s7,t3,0xa
-	and	t1,t1,a2
-	slli	s4,a2,0x7
-	srli	s0,t3,0x16
-	xor	t0,t6,t3
-	xor	t1,t1,a0
-	or	s4,s4,s8
-	or	s0,s7,s0
-	and	t0,t0,t2
-	add	a7,a7,a1
-	xor	a5,a5,s6
-	xor	a3,s5,a3
-	and	a1,t6,t3
-	add	a7,a7,t1
-	xor	a1,t0,a1
-	xor	a5,a5,s4
-	xor	a3,a3,s0
-	add	a5,a5,a7
-	add	a3,a3,a1
-	add	a1,a3,a5
-	lw	s8,24(s1)
-	lw	a3,24(s2)
-	add	a7,a4,a5
-	xor	t1,a6,a2
-	slli	s7,a7,0x1a
-	slli	s4,a7,0x15
-	slli	s0,a1,0x1e
-	slli	t0,a1,0x13
-	srli	a5,a7,0x6
-	srli	s6,a7,0xb
-	srli	s5,a1,0x2
-	srli	a4,a1,0xd
-	or	s6,s6,s4
-	or	s5,s5,s0
-	add	a3,s8,a3
-	or	a5,a5,s7
-	srli	s8,a7,0x19
-	or	a4,a4,t0
-	slli	s7,a1,0xa
-	and	t1,t1,a7
-	slli	s4,a7,0x7
-	srli	s0,a1,0x16
-	xor	t0,t3,a1
-	xor	t1,t1,a6
-	or	s4,s4,s8
-	or	s0,s7,s0
-	add	a3,a3,a0
-	xor	a5,a5,s6
-	xor	a4,s5,a4
-	and	t0,t0,t6
-	and	s5,t3,a1
-	add	a3,a3,t1
-	xor	s5,t0,s5
-	xor	a5,a5,s4
-	xor	a4,a4,s0
-	add	a5,a5,a3
-	lw	s8,28(s1)
-	add	a4,a4,s5
-	lw	a3,28(s2)
-	add	a0,a4,a5
-	add	t1,t2,a5
-	slli	s7,t1,0x1a
-	slli	s4,t1,0x15
-	slli	s0,a0,0x1e
-	slli	t2,a0,0x13
-	xor	t0,a2,a7
-	srli	a5,t1,0x6
-	srli	s6,t1,0xb
-	srli	s5,a0,0x2
-	srli	a4,a0,0xd
-	or	s5,s5,s0
-	add	a3,s8,a3
-	or	a5,a5,s7
-	or	s6,s6,s4
-	or	a4,a4,t2
-	and	t0,t0,t1
-	slli	s4,t1,0x7
-	srli	s8,t1,0x19
-	slli	s7,a0,0xa
-	srli	s0,a0,0x16
-	xor	t2,a1,a0
-	add	a3,a3,a6
-	xor	t0,t0,a2
-	xor	a4,s5,a4
-	xor	a5,a5,s6
-	or	s4,s4,s8
-	or	s0,s7,s0
-	and	t2,t2,t3
-	and	s5,a1,a0
-	add	a3,a3,t0
-	xor	a5,a5,s4
-	xor	a4,a4,s0
-	xor	s5,t2,s5
-	add	a5,a5,a3
-	add	a4,a4,s5
+	lw	s2,20(s0)
+	add	a1,a1,a7
+	add	a7,a1,a2
+	add	a2,t2,a2
+	xor	s7,t4,t6
+	slli	s9,a2,0x1a
+	slli	s8,a2,0x15
+	slli	t2,a7,0x1e
+	slli	t3,a7,0x13
+	srli	s6,a2,0x6
+	srli	s5,a2,0xb
+	srli	a1,a7,0x2
+	srli	s4,a7,0xd
+	or	s6,s6,s9
+	or	s5,s5,s8
+	or	s4,s4,t3
+	add	s2,s2,s3
+	slli	s9,a2,0x7
+	or	a1,a1,t2
+	srli	s8,a7,0x16
+	and	s7,s7,a2
+	srli	s3,a2,0x19
+	slli	t2,a7,0xa
+	xor	t3,a6,a7
+	xor	s7,s7,t4
+	or	s3,s9,s3
+	or	t2,t2,s8
+	add	s2,s2,a0
+	xor	a1,a1,s4
+	xor	a0,s6,s5
+	and	t3,t3,t5
+	and	s4,a6,a7
+	add	s2,s2,s7
+	xor	t3,t3,s4
+	xor	a0,a0,s3
+	xor	a1,a1,t2
+	lw	s3,24(s1)
+	add	a1,a1,t3
+	lw	t2,24(s0)
+	add	a0,a0,s2
+	add	s2,a1,a0
+	add	a0,t0,a0
+	xor	s7,t6,a2
+	slli	s9,a0,0x1a
+	slli	s8,a0,0x15
+	slli	s6,s2,0x1e
+	slli	t0,s2,0x13
+	srli	a1,a0,0x6
+	srli	s5,a0,0xb
+	srli	t3,s2,0x2
+	srli	s4,s2,0xd
+	or	s5,s5,s8
+	or	s4,s4,t0
+	add	t2,t2,s3
+	or	a1,a1,s9
+	or	t3,t3,s6
+	slli	s9,a0,0x7
+	srli	s8,s2,0x16
+	xor	s6,a7,s2
+	and	s7,s7,a0
+	srli	s3,a0,0x19
+	slli	t0,s2,0xa
+	xor	s7,s7,t6
+	or	s3,s9,s3
+	or	t0,t0,s8
+	add	t2,t2,t4
+	xor	a1,a1,s5
+	xor	t3,t3,s4
+	and	t4,s6,a6
+	and	s4,a7,s2
+	add	t2,t2,s7
+	xor	t4,t4,s4
+	xor	a1,a1,s3
+	xor	t3,t3,t0
+	lw	s3,28(s1)
+	add	a1,a1,t2
+	lw	t0,28(s0)
+	add	t3,t3,t4
+	add	t4,t3,a1
+	add	a1,t5,a1
+	slli	s9,a1,0x1a
+	slli	s8,a1,0x15
+	slli	s6,t4,0x1e
+	slli	t2,t4,0x13
+	xor	s7,a2,a0
+	srli	t5,a1,0x6
+	srli	s5,a1,0xb
+	srli	t3,t4,0x2
+	srli	s4,t4,0xd
+	or	s4,s4,t2
+	add	t0,t0,s3
+	or	t5,t5,s9
+	or	s5,s5,s8
+	or	t3,t3,s6
+	and	s7,s7,a1
+	slli	s9,a1,0x7
+	srli	s3,a1,0x19
+	slli	t2,t4,0xa
+	srli	s8,t4,0x16
+	xor	s6,s2,t4
+	add	t0,t0,t6
+	xor	t3,t3,s4
+	xor	s7,s7,a2
+	xor	t5,t5,s5
+	or	s3,s9,s3
+	or	t2,t2,s8
+	and	t6,s6,a7
+	and	s4,s2,t4
+	xor	t6,t6,s4
+	add	t0,t0,s7
+	xor	t5,t5,s3
+	xor	t3,t3,t2
+	add	t5,t5,t0
+	add	t3,t3,t6
+	addi	s0,s0,32
+	add	t6,a6,t5
+	add	t3,t3,t5
 	addi	s1,s1,32
-	add	t0,t6,a5
-	add	a6,a4,a5
-	addi	s2,s2,32
-	bne	s1,t4,lab6
-	lw	t5,84(sp)
-	lw	a4,56(sp)
-	lw	s4,64(sp)
-	lw	s5,68(sp)
-	lw	s6,72(sp)
-	lw	s7,76(sp)
-	lw	s8,80(sp)
-	addi	t5,t5,256
-	lw	a5,16(sp)
-	lw	a3,60(sp)
-	sw	t5,56(sp)
-	sw	a4,16(sp)
-	sw	s4,60(sp)
-	sw	s5,64(sp)
-	sw	s6,68(sp)
-	sw	s7,72(sp)
-	sw	s8,76(sp)
-	sw	s9,80(sp)
-	sw	s10,84(sp)
-	sw	s11,88(sp)
-	sw	s3,92(sp)
-lab7: 	lw	a4,24(sp)
-	lw	s7,20(sp)
-	srli	s9,t0,0x6
-	slli	s2,a4,0x19
+	bne	s0,t1,lab6
+	addi	a6,s10,256
+	sw	a6,56(sp)
+lab7: 	lw	s10,28(sp)
+	lw	s7,0(sp)
+	srli	s9,t6,0x6
+	slli	s1,s10,0x19
 	srli	s6,s7,0x11
 	srli	s5,s7,0x13
-	srli	s1,a4,0x12
-	slli	t6,s7,0xf
-	slli	t2,s7,0xd
-	srli	s4,a4,0x7
-	slli	s0,a4,0xe
-	or	t2,t2,s5
-	or	s4,s4,s2
-	or	t6,t6,s6
-	or	s0,s0,s1
-	srli	s8,t0,0xb
-	srli	s6,a4,0x3
-	slli	t5,t0,0x1a
-	lw	a4,48(sp)
-	slli	s3,t0,0x15
+	srli	s0,s10,0x12
+	slli	t5,s7,0xf
+	slli	t0,s7,0xd
+	srli	s4,s10,0x7
+	slli	t2,s10,0xe
+	srli	s8,t6,0xb
+	or	t0,t0,s5
+	or	s4,s4,s1
+	slli	a6,t6,0x1a
+	slli	s3,t6,0x15
+	or	t5,t5,s6
+	or	t2,t2,s0
+	srli	s6,s10,0x3
+	slli	s5,t6,0x7
+	srli	s0,t6,0x19
+	or	s3,s8,s3
 	srli	s7,s7,0xa
-	xor	t6,t6,t2
-	xor	s0,s4,s0
-	slli	s5,t0,0x7
-	srli	s1,t0,0x19
-	or	s3,s8,s3
-	xor	s0,s0,s6
-	or	t5,s9,t5
-	xor	t6,t6,s7
-	xor	s2,t1,a7
-	srli	s9,a6,0xd
-	add	t6,t6,s0
-	xor	t5,t5,s3
-	or	s3,s5,s1
-	slli	s1,a6,0x13
-	lw	s11,0(t4)
-	add	t2,t6,a4
-	and	s2,s2,t0
-	lw	a4,4(sp)
-	or	s1,s9,s1
-	lw	s9,0(sp)
-	xor	s2,s2,a7
-	xor	t5,t5,s3
-	slli	s8,a6,0xa
-	srli	s4,a6,0x16
-	add	t5,t5,s2
-	add	s9,s9,t2
-	srli	s10,a6,0x2
-	slli	s7,a4,0xf
-	slli	s6,a4,0xd
-	or	s4,s8,s4
-	slli	s5,a6,0x1e
-	srli	s8,a4,0xa
-	srli	s3,a4,0x11
-	srli	t6,a4,0x13
-	add	t5,t5,s11
-	lw	a4,52(sp)
+	xor	t5,t5,t0
+	xor	t2,s4,t2
+	lw	t0,24(sp)
+	or	a6,s9,a6
+	xor	s1,a1,a0
+	xor	t2,t2,s6
+	srli	s9,t3,0xd
+	xor	t5,t5,s7
+	xor	a6,a6,s3
+	or	s3,s5,s0
+	slli	s0,t3,0x13
+	lw	s11,0(t1)
+	add	t5,t5,t2
+	and	s1,s1,t6
+	or	s0,s9,s0
+	lw	s9,16(sp)
+	xor	s1,s1,a0
+	add	t0,t5,t0
+	xor	a6,a6,s3
+	lw	t5,4(sp)
+	add	a6,a6,s1
+	add	s9,s9,t0
+	lw	s1,4(sp)
+	srli	s10,t3,0x2
+	slli	s5,t3,0x1e
+	add	a6,a6,s11
+	lw	s11,36(sp)
+	xor	t2,t3,t4
+	slli	s8,t3,0xa
+	slli	s7,t5,0xf
+	slli	s6,t5,0xd
 	or	s5,s10,s5
+	srli	s4,t3,0x16
+	srli	s3,t5,0x11
+	add	a6,a6,s9
+	srli	t5,t5,0x13
+	and	t0,t3,t4
+	add	a6,a6,a2
+	or	s4,s8,s4
+	lw	a2,32(sp)
 	or	s3,s7,s3
-	or	t6,s6,t6
-	add	t5,t5,s9
-	xor	t6,s3,t6
-	add	t5,t5,a2
-	xor	s1,s5,s1
-	lw	a2,28(sp)
-	slli	s7,a4,0x19
-	srli	s6,a4,0x12
-	xor	s1,s1,s4
-	srli	s2,a4,0x7
-	xor	s4,t6,s8
-	slli	s5,a4,0xe
-	add	t6,t5,t3
-	lw	t3,24(sp)
-	lw	s8,8(sp)
-	or	s5,s5,s6
-	or	s2,s2,s7
-	sw	s9,0(sp)
-	xor	s2,s2,s5
-	lw	s9,4(t4)
-	add	s4,s4,a2
-	srli	a2,a4,0x3
-	xor	s0,a6,a0
-	add	s4,s4,t3
-	xor	t3,s2,a2
-	and	t2,a6,a0
-	add	s4,s4,t3
-	and	s0,s0,a1
-	slli	t3,s8,0x19
-	sw	t3,52(sp)
-	xor	s0,s0,t2
-	add	a7,a7,s9
-	add	s0,s1,s0
-	xor	s3,t0,t1
-	slli	a2,t6,0x1a
-	slli	t2,t6,0x15
-	sw	s4,24(sp)
-	srli	s2,t6,0x6
-	srli	s7,t6,0xb
-	add	a7,a7,s4
-	lw	s4,52(sp)
-	add	t5,s0,t5
-	srli	s9,s8,0x7
-	or	s7,s7,t2
-	srli	s11,t6,0x19
-	slli	t3,s8,0xe
-	and	s3,s3,t6
-	srli	s8,s8,0x12
-	or	s2,s2,a2
-	slli	t2,t6,0x7
-	slli	s0,t5,0x1e
-	slli	a2,t5,0x13
-	xor	s3,s3,t1
-	xor	s2,s2,s7
-	srli	s1,t5,0x2
-	srli	s6,t5,0xd
-	or	t2,t2,s11
-	or	t3,t3,s8
-	lw	s8,8(sp)
-	xor	s5,t5,a6
-	or	s6,s6,a2
-	srli	s10,t5,0x16
-	or	s4,s9,s4
-	add	a7,s3,a7
-	lw	s9,0(sp)
-	or	s1,s1,s0
-	xor	t2,s2,t2
-	slli	s0,t5,0xa
-	and	s5,s5,a0
-	and	a2,t5,a6
-	xor	s1,s1,s6
-	add	t2,t2,a7
-	or	s0,s0,s10
-	lw	a7,32(sp)
-	srli	s6,s8,0x3
-	xor	s0,s1,s0
-	xor	a2,s5,a2
-	xor	t3,s4,t3
-	srli	s2,s9,0x13
-	srli	s4,s9,0x11
-	add	a2,s0,a2
-	slli	s3,s9,0xf
-	slli	s1,s9,0xd
-	xor	t3,t3,s6
-	add	a1,t2,a1
-	lw	s7,8(t4)
-	add	t2,a2,t2
-	or	s1,s1,s2
-	add	t3,t3,a7
-	or	s3,s3,s4
-	add	a2,t3,a4
-	srli	a7,s9,0xa
-	slli	s4,t2,0x1e
-	slli	t3,t2,0x13
-	xor	s3,s3,s1
-	srli	s5,t2,0x2
-	srli	s0,t2,0xd
-	lw	a4,44(sp)
-	xor	s2,t6,t0
-	xor	s3,s3,a7
-	slli	s9,a1,0x1a
-	slli	a7,a1,0x15
-	or	s5,s5,s4
-	srli	s1,a1,0x6
-	xor	s4,t5,t2
-	srli	s6,a1,0xb
-	or	s0,s0,t3
-	add	s11,a2,s3
-	or	s6,s6,a7
-	srli	s10,a1,0x19
-	and	s4,s4,a6
+	and	t2,t2,s2
 	xor	s0,s5,s0
-	add	t1,t1,s7
-	and	s5,t5,t2
-	and	s2,s2,a1
-	or	s1,s1,s9
-	slli	a7,a1,0x7
-	srli	s9,t2,0x16
-	slli	t3,t2,0xa
-	xor	s2,s2,t0
-	xor	s1,s1,s6
-	xor	s5,s4,s5
-	add	t1,t1,s11
-	lw	s4,24(sp)
-	or	a7,a7,s10
-	or	t3,t3,s9
-	srli	s8,a4,0x7
-	srli	s7,a4,0x12
-	add	t1,s2,t1
-	xor	t3,s0,t3
-	slli	s3,a4,0x19
-	slli	a2,a4,0xe
-	xor	a7,s1,a7
-	add	a7,a7,t1
-	or	s3,s8,s3
-	add	t1,t3,s5
-	or	a2,a2,s7
-	lw	t3,36(sp)
+	or	t5,s6,t5
+	lw	s10,28(sp)
+	srli	s8,s1,0xa
+	slli	s7,s11,0x19
+	srli	s6,s11,0x12
+	xor	s0,s0,s4
+	srli	s1,s11,0x7
+	slli	s5,s11,0xe
+	xor	t2,t2,t0
+	xor	t5,s3,t5
+	or	s5,s5,s6
+	add	t2,s0,t2
+	xor	t5,t5,s8
+	or	s1,s1,s7
 	lw	s8,8(sp)
-	srli	s6,a4,0x3
-	srli	s2,s4,0x11
-	srli	s1,s4,0x13
-	xor	a2,s3,a2
-	slli	s0,s4,0xd
-	slli	s3,s4,0xf
-	or	s0,s0,s1
-	xor	a2,a2,s6
-	or	s3,s3,s2
-	add	t1,t1,a7
-	add	a0,a7,a0
+	add	s0,t2,a6
+	add	a7,a6,a7
+	sw	s9,16(sp)
+	add	t5,t5,a2
+	lw	s9,4(t1)
+	srli	a6,s11,0x3
+	xor	s1,s1,s5
+	add	s4,t5,s10
+	xor	a2,s1,a6
+	add	s5,s4,a2
+	slli	s10,s8,0xe
+	mv	a2,s5
+	sw	s10,52(sp)
+	add	a0,a0,s9
+	slli	t5,a7,0x1a
+	sw	a2,28(sp)
+	srli	t2,a7,0x6
+	add	a0,a0,a2
+	lw	a2,52(sp)
+	xor	s3,t6,a1
+	slli	a6,a7,0x15
+	slli	s1,s0,0x1e
+	srli	s7,a7,0xb
+	srli	t0,s0,0x2
+	srli	s6,s0,0xd
+	or	t2,t2,t5
+	slli	t5,s0,0x13
+	xor	s5,s0,t3
+	srli	s9,s8,0x7
+	or	s7,s7,a6
+	srli	s11,a7,0x19
+	or	s6,s6,t5
+	srli	s10,s0,0x16
+	slli	s4,s8,0x19
+	and	s3,s3,a7
+	srli	s8,s8,0x12
+	slli	a6,a7,0x7
+	or	t0,t0,s1
+	slli	t5,s0,0xa
+	xor	s3,s3,a1
+	and	s5,s5,t4
+	and	s1,s0,t3
+	xor	t2,t2,s7
+	xor	t0,t0,s6
+	or	s4,s9,s4
+	or	a6,a6,s11
+	lw	s9,16(sp)
+	or	t5,t5,s10
+	or	a2,a2,s8
+	lw	s8,8(sp)
+	add	a0,s3,a0
+	xor	t5,t0,t5
+	xor	a6,t2,a6
+	xor	s1,s5,s1
+	add	a6,a6,a0
+	add	s1,t5,s1
+	lw	a0,40(sp)
+	add	s1,s1,a6
+	lw	s11,36(sp)
+	srli	s6,s8,0x3
+	srli	s3,s9,0x11
+	srli	t2,s9,0x13
+	xor	a2,s4,a2
+	slli	t0,s9,0xd
+	slli	s4,s9,0xf
+	add	s2,a6,s2
 	lw	s10,12(sp)
-	lw	s7,12(t4)
-	srli	a7,s4,0xa
-	add	a2,a2,t3
-	xor	s3,s3,s0
-	xor	s3,s3,a7
-	add	a2,a2,s8
-	slli	a7,a0,0x15
-	add	a2,a2,s3
-	srli	s6,a0,0xb
-	mv	a4,a2
-	xor	s2,t6,a1
-	slli	s9,a0,0x1a
+	lw	s7,8(t1)
+	or	t0,t0,t2
+	slli	s5,s1,0x1e
+	slli	a6,s1,0x13
+	xor	a2,a2,s6
+	or	s4,s4,s3
+	srli	t2,s1,0x2
+	srli	t5,s1,0xd
+	or	t2,t2,s5
+	add	a2,a2,a0
+	xor	s5,s0,s1
+	srli	a0,s9,0xa
+	xor	s4,s4,t0
+	or	t5,t5,a6
+	xor	s4,s4,a0
+	slli	s9,s2,0x1a
+	slli	a0,s2,0x15
+	and	s5,s5,t3
+	xor	t5,t2,t5
+	add	a2,a2,s11
+	and	t2,s0,s1
+	srli	t0,s2,0x6
+	srli	s6,s2,0xb
+	add	s11,a2,s4
+	xor	s3,a7,t6
 	srli	s8,s10,0x7
-	or	s6,s6,a7
-	srli	s1,a0,0x6
-	add	t0,t0,s7
-	slli	s3,s10,0x19
+	or	s6,s6,a0
+	add	a1,a1,s7
+	slli	s4,s10,0x19
 	srli	s7,s10,0x12
 	slli	a2,s10,0xe
-	slli	a7,a0,0x7
-	srli	s10,a0,0x19
-	and	s2,s2,a0
-	or	s1,s1,s9
-	or	a7,a7,s10
+	or	t0,t0,s9
+	srli	s10,s2,0x19
+	srli	s9,s1,0x16
+	slli	a0,s2,0x7
+	slli	a6,s1,0xa
+	xor	t2,s5,t2
+	lw	s5,28(sp)
+	and	s3,s3,s2
+	or	a0,a0,s10
+	or	a6,a6,s9
 	lw	s10,12(sp)
-	slli	s4,t1,0x1e
-	slli	t3,t1,0x13
-	xor	s2,s2,t6
-	xor	s1,s1,s6
-	srli	s5,t1,0x2
-	srli	s0,t1,0xd
-	add	t0,t0,a4
-	or	s5,s5,s4
-	slli	s9,t1,0xa
-	xor	s4,t2,t1
-	or	s3,s8,s3
-	add	t0,s2,t0
-	or	s0,s0,t3
-	or	a2,a2,s7
-	srli	t3,t1,0x16
-	xor	a7,s1,a7
-	xor	s0,s5,s0
-	and	s4,s4,t5
-	and	s5,t2,t1
-	srli	s6,s10,0x3
-	add	a7,a7,t0
-	or	t3,s9,t3
-	lw	t0,40(sp)
-	xor	a2,s3,a2
-	xor	t3,s0,t3
-	srli	s3,s11,0x11
-	srli	s2,s11,0x13
-	xor	s5,s4,s5
-	slli	s0,s11,0xf
-	slli	s1,s11,0xd
-	xor	a2,a2,s6
-	lw	s6,44(sp)
-	mv	s8,s11
-	add	s5,t3,s5
-	or	s1,s1,s2
-	or	s0,s0,s3
-	add	a6,a7,a6
-	lw	s11,16(t4)
-	add	a7,s5,a7
-	add	a2,a2,t0
-	xor	s0,s0,s1
-	srli	t0,s8,0xa
-	add	t3,a2,s6
-	xor	t0,s0,t0
-	slli	s5,a7,0x1e
-	slli	s0,a7,0x13
-	srli	s6,a7,0x2
-	srli	s1,a7,0xd
-	sw	a4,8(sp)
-	xor	s3,a1,a0
-	add	a4,t3,t0
-	slli	s10,a6,0x1a
-	slli	a2,a6,0x15
-	srli	s9,a5,0x7
-	or	s6,s6,s5
-	sw	s8,52(sp)
-	xor	s5,t1,a7
-	srli	s8,a5,0x12
-	srli	s2,a6,0x6
-	srli	s7,a6,0xb
-	slli	s4,a5,0x19
-	slli	t0,a5,0xe
-	or	s1,s1,s0
-	add	t3,t6,s11
-	or	s7,s7,a2
-	srli	s11,a6,0x19
-	xor	s1,s6,s1
-	and	s5,s5,t2
-	and	s6,t1,a7
-	or	s4,s9,s4
-	and	s3,s3,a6
-	or	s2,s2,s10
-	slli	a2,a6,0x7
-	slli	s10,a7,0xa
-	srli	s0,a7,0x16
-	or	t0,t0,s8
-	xor	s3,s3,a1
-	xor	s2,s2,s7
-	xor	s6,s5,s6
-	srli	s7,a5,0x3
-	lw	s5,8(sp)
-	add	t3,t3,a4
-	or	a2,a2,s11
-	or	s0,s10,s0
-	xor	t0,s4,t0
-	lw	s10,20(t4)
-	add	t3,s3,t3
-	xor	a2,s2,a2
-	xor	s0,s1,s0
-	xor	t0,t0,s7
-	lw	s7,20(sp)
-	add	a2,a2,t3
-	add	s0,s0,s6
-	add	s3,s0,a2
-	srli	s4,s5,0x11
-	lw	s0,12(sp)
-	srli	s1,s5,0x13
-	slli	s2,s5,0xf
-	slli	t6,s5,0xd
-	or	t6,t6,s1
-	add	t0,t0,s7
-	or	s2,s2,s4
-	lw	s7,16(sp)
-	add	a2,t5,a2
-	xor	s2,s2,t6
-	srli	t5,s5,0xa
-	add	t3,t0,s0
-	xor	s2,s2,t5
-	add	s11,t3,s2
-	xor	s1,a0,a6
-	slli	s9,a2,0x1a
-	slli	t5,a2,0x15
-	slli	s4,s3,0x1e
-	slli	t6,s3,0x13
-	srli	s8,s7,0x7
-	srli	s0,a2,0x6
-	srli	s6,a2,0xb
-	srli	s5,s3,0x2
-	srli	t0,s3,0xd
-	slli	s2,s7,0x19
-	slli	t3,s7,0xe
-	srli	s7,s7,0x12
-	or	s6,s6,t5
-	or	s5,s5,s4
-	and	s1,s1,a2
-	xor	s4,a7,s3
-	add	a1,a1,s10
-	or	s0,s0,s9
-	srli	s10,a2,0x19
-	slli	s9,s3,0xa
-	slli	t5,a2,0x7
-	or	t0,t0,t6
-	or	t3,t3,s7
-	srli	t6,s3,0x16
-	lw	s7,16(sp)
-	xor	s1,s1,a0
-	xor	s0,s0,s6
-	xor	t0,s5,t0
-	and	s4,s4,t1
-	and	s5,a7,s3
+	xor	s3,s3,t6
+	xor	t0,t0,s6
+	xor	a6,t5,a6
 	add	a1,a1,s11
-	or	t5,t5,s10
-	or	t6,s9,t6
-	or	s2,s8,s2
-	xor	t5,s0,t5
-	xor	t6,t0,t6
-	xor	s5,s4,s5
-	add	a1,s1,a1
-	add	a1,t5,a1
-	srli	s6,s7,0x3
-	xor	t3,s2,t3
-	add	t5,t6,s5
-	add	t5,t5,a1
-	srli	s1,a4,0x11
-	srli	s0,a4,0x13
-	xor	t6,t3,s6
-	slli	t0,a4,0xf
-	add	t3,t2,a1
-	slli	s10,a4,0xd
-	lw	a1,4(sp)
-	or	t0,t0,s1
-	or	s10,s10,s0
-	sw	s11,12(sp)
-	xor	s10,t0,s10
-	lw	s11,24(t4)
-	srli	t0,a4,0xa
-	add	t6,t6,a1
-	xor	s10,s10,t0
-	srli	s7,t5,0x2
-	slli	s6,t5,0x13
-	slli	s1,t5,0x1e
-	srli	t0,t5,0xd
-	xor	t2,a6,a2
-	or	s1,s7,s1
-	add	a5,t6,a5
-	or	t0,t0,s6
-	add	a5,a5,s10
-	and	t2,t2,t3
-	add	a0,a0,s11
-	xor	t0,s1,t0
-	lw	s1,12(sp)
-	srli	s5,a3,0x7
-	slli	s4,a3,0xe
-	srli	s9,t3,0x6
-	srli	s8,t3,0xb
-	slli	s10,t5,0xa
-	slli	a1,a3,0x19
-	srli	s0,a3,0x12
-	slli	s2,t3,0x1a
-	slli	t6,t3,0x15
-	srli	s7,t5,0x16
-	xor	t2,t2,a6
-	add	a0,a0,a5
-	or	s2,s9,s2
-	or	s0,s4,s0
-	slli	s9,t3,0x7
-	or	s7,s10,s7
+	or	s4,s8,s4
+	add	a1,s3,a1
+	or	a2,a2,s7
+	srli	s3,s5,0x13
+	xor	a0,t0,a0
+	add	t2,a6,t2
+	slli	t0,s5,0xd
+	lw	a6,44(sp)
+	srli	s6,s10,0x3
+	or	t0,t0,s3
+	xor	a2,s4,a2
+	lw	s3,8(sp)
+	srli	s4,s5,0x11
+	slli	t5,s5,0xf
+	lw	s8,12(t1)
+	xor	a2,a2,s6
+	or	t5,t5,s4
+	add	a0,a0,a1
+	xor	t5,t5,t0
+	srli	a1,s5,0xa
+	add	a2,a2,a6
+	add	a2,a2,s3
+	xor	a6,t5,a1
+	add	a2,a2,a6
+	add	a6,t6,s8
+	lw	t6,20(sp)
+	add	t4,a0,t4
+	slli	a1,t4,0x15
+	sw	a2,8(sp)
+	srli	s7,t4,0xb
+	srli	s9,t6,0x7
+	srli	s8,t6,0x12
+	or	s7,s7,a1
+	sw	s11,36(sp)
+	slli	s4,t6,0x19
+	srli	s11,t4,0x19
+	slli	a2,t6,0xe
+	slli	a1,t4,0x7
+	lw	t6,8(sp)
 	add	t2,t2,a0
-	or	t6,s8,t6
-	lw	a0,0(sp)
-	srli	s8,t3,0x19
-	or	a1,s5,a1
-	srli	s4,a3,0x3
-	or	s8,s9,s8
-	srli	s10,s1,0x11
-	slli	s9,s1,0xd
-	xor	t0,t0,s7
-	xor	t6,s2,t6
-	lw	s7,16(sp)
-	xor	a1,a1,s0
-	srli	s2,s1,0x13
-	slli	s0,s1,0xf
-	xor	s6,s3,t5
-	or	s2,s9,s2
-	xor	t6,t6,s8
-	xor	a1,a1,s4
-	or	s0,s0,s10
-	lw	s9,28(t4)
-	and	s5,s3,t5
-	add	t6,t6,t2
-	and	s6,s6,a7
-	add	a1,a1,a0
-	xor	s0,s0,s2
-	srli	a0,s1,0xa
-	add	t1,t1,t6
-	sw	a4,44(sp)
-	add	a1,a1,s7
-	lw	a4,48(sp)
-	xor	s6,s6,s5
-	xor	s0,s0,a0
-	add	s6,t0,s6
-	add	s0,a1,s0
-	slli	s8,t1,0x1a
-	slli	s4,t1,0x15
-	srli	s7,t1,0x6
-	srli	a0,t1,0xb
-	add	s1,s6,t6
-	sw	s0,16(sp)
-	or	s7,s7,s8
-	add	s0,s0,s9
-	or	a0,a0,s4
-	slli	s9,t1,0x7
-	srli	s4,t1,0x19
-	srli	s11,a4,0x7
-	slli	s10,a4,0xe
-	slli	s2,s1,0x1e
-	slli	t6,s1,0x13
-	or	s4,s9,s4
-	slli	a1,a4,0x19
-	srli	s5,a4,0x12
-	srli	s6,s1,0x2
-	srli	t0,s1,0xd
-	xor	a0,s7,a0
-	or	s6,s6,s2
-	slli	s8,s1,0xa
-	or	s5,s10,s5
-	or	t0,t0,t6
-	srli	s2,s1,0x16
-	xor	t6,t5,s1
-	or	a1,s11,a1
-	xor	a0,a0,s4
-	lw	s4,24(sp)
-	srli	s10,a4,0x3
-	add	s0,s0,a6
-	or	s2,s8,s2
-	xor	t0,s6,t0
-	and	t6,t6,s3
-	and	s6,t5,s1
-	xor	a1,a1,s5
-	srli	s8,a5,0x11
-	slli	s7,a5,0xd
-	slli	a6,a5,0xf
-	srli	s5,a5,0x13
-	xor	t0,t0,s2
-	or	s5,s7,s5
-	xor	t6,t6,s6
-	xor	a1,a1,s10
-	or	a6,a6,s8
-	add	t6,t0,t6
-	add	a1,a1,s4
-	xor	a6,a6,s5
-	srli	t0,a5,0xa
-	xor	t2,a2,t3
-	xor	a6,a6,t0
-	add	a1,a1,a3
-	add	a3,a1,a6
-	and	t2,t2,t1
-	lw	a6,28(sp)
-	xor	t2,t2,a2
-	add	t2,t2,s0
-	lw	s2,32(t4)
-	add	a0,a0,t2
-	srli	s11,a6,0x7
-	slli	a1,a6,0x19
-	add	t2,t6,a0
-	add	a7,a7,a0
-	or	a1,s11,a1
-	lw	s11,16(sp)
-	slli	s10,a6,0xe
-	slli	s8,a7,0x1a
-	srli	s5,a6,0x12
-	srli	s7,a7,0x6
-	slli	a6,t2,0x13
-	srli	t0,t2,0xd
-	or	s7,s7,s8
-	or	s5,s10,s5
-	slli	s8,t2,0xa
-	lw	s10,28(sp)
-	or	t0,t0,a6
-	add	s2,a3,s2
-	srli	a6,t2,0x16
-	add	s2,s2,a2
-	or	a6,s8,a6
-	slli	a2,s11,0xf
-	srli	s8,s11,0x11
+	xor	s3,a7,s2
+	slli	s10,t4,0x1a
+	srli	t0,t4,0x6
+	or	a1,a1,s11
 	or	a2,a2,s8
-	lw	s8,52(sp)
-	slli	s4,a7,0x15
-	slli	t6,t2,0x1e
-	srli	a0,a7,0xb
+	lw	s8,20(sp)
+	lw	s11,36(sp)
+	slli	s5,t2,0x1e
+	slli	a0,t2,0x13
 	srli	s6,t2,0x2
-	srli	s10,s10,0x3
-	xor	a1,a1,s5
-	xor	s0,t3,t1
-	or	s6,s6,t6
-	or	a0,a0,s4
-	xor	t6,s1,t2
-	xor	a1,a1,s10
-	slli	s9,a7,0x7
-	and	s0,s0,a7
-	srli	s4,a7,0x19
-	xor	a0,s7,a0
-	xor	t0,s6,t0
-	slli	s7,s11,0xd
-	and	s6,s1,t2
-	and	t6,t6,t5
-	srli	s5,s11,0x13
-	add	a1,a1,s8
+	srli	t5,t2,0xd
+	and	s3,s3,t4
+	or	t0,t0,s10
+	or	s6,s6,s5
+	slli	s10,t2,0xa
+	xor	s3,s3,a7
+	xor	t0,t0,s7
+	or	t5,t5,a0
+	add	a6,a6,t6
+	srli	a0,t2,0x16
+	xor	s5,s1,t2
+	xor	t5,s6,t5
 	or	s4,s9,s4
-	xor	t0,t0,a6
-	or	s5,s7,s5
-	add	a1,a1,a4
-	xor	s0,s0,t3
-	lw	a4,32(sp)
-	xor	t6,t6,s6
-	add	s0,s0,s2
-	add	t6,t0,t6
-	xor	a0,a0,s4
-	srli	t0,s11,0xa
-	xor	a2,a2,s5
-	lw	s9,36(t4)
-	add	a0,a0,s0
-	xor	a2,a2,t0
-	add	a6,s3,a0
-	add	s2,t6,a0
-	add	s0,a1,a2
-	srli	s11,a4,0x7
-	slli	s10,a4,0xe
-	slli	a2,a4,0x19
-	srli	s5,a4,0x12
-	xor	t0,t1,a7
-	slli	s8,a6,0x1a
+	add	a6,s3,a6
+	or	a0,s10,a0
+	srli	s3,s11,0x13
+	xor	a1,t0,a1
+	slli	t0,s11,0xd
+	and	s5,s5,s0
+	and	s6,s1,t2
+	xor	a0,t5,a0
+	xor	a2,s4,a2
+	slli	t5,s11,0xf
+	srli	s4,s11,0x11
+	or	t0,t0,s3
+	lw	s3,48(sp)
+	srli	s7,s8,0x3
+	or	t5,t5,s4
+	xor	s6,s5,s6
+	lw	s4,12(sp)
+	add	a1,a1,a6
+	add	s6,a0,s6
+	xor	a2,a2,s7
+	add	t6,s6,a1
+	add	t3,a1,t3
+	srli	a0,s11,0xa
+	add	a1,a2,s3
+	xor	t0,t5,t0
+	xor	t0,t0,a0
+	srli	s10,t3,0xb
+	srli	s9,t6,0x2
+	add	a1,a1,s4
+	slli	a0,t3,0x15
+	slli	s4,t6,0x1e
+	add	a1,a1,t0
+	or	s4,s9,s4
+	lw	t0,16(t1)
+	or	a0,s10,a0
+	srli	s9,t6,0x16
+	slli	s10,t6,0xa
+	or	s9,s10,s9
+	lw	s10,8(sp)
+	slli	s8,t6,0x13
+	srli	a6,t6,0xd
+	sw	a1,12(sp)
+	srli	s7,a5,0x7
+	srli	s11,t3,0x6
+	slli	a2,a5,0x19
+	slli	s5,t3,0x1a
+	add	a7,a7,t0
+	srli	a1,t3,0x19
+	slli	t0,t3,0x7
+	or	a6,a6,s8
+	xor	s8,t2,t6
+	slli	s6,a5,0xe
+	or	s5,s11,s5
+	or	a1,t0,a1
+	lw	s11,12(sp)
+	srli	s3,a5,0x12
+	or	a2,s7,a2
+	xor	a6,s4,a6
+	slli	s7,s10,0xf
+	and	s4,t2,t6
+	and	s8,s8,s1
+	srli	t0,s10,0x11
+	xor	t5,s2,t4
+	or	s3,s6,s3
+	xor	s8,s8,s4
+	xor	a6,a6,s9
+	or	t0,s7,t0
+	lw	s7,0(sp)
+	srli	s6,a5,0x3
+	add	a6,a6,s8
+	and	t5,t5,t3
+	lw	s8,20(sp)
+	xor	a0,s5,a0
+	xor	a2,a2,s3
+	slli	s5,s10,0xd
+	srli	s3,s10,0x13
+	add	a7,a7,s11
+	or	s3,s5,s3
+	xor	t5,t5,s2
+	xor	a2,a2,s6
+	add	t5,t5,a7
+	xor	a0,a0,a1
+	add	a2,a2,s7
+	srli	a1,s10,0xa
+	xor	t0,t0,s3
+	lw	s9,20(t1)
+	add	a0,a0,t5
+	xor	t0,t0,a1
+	add	a2,a2,s8
+	add	t5,a6,a0
+	add	s8,a2,t0
+	add	a6,s0,a0
+	xor	a7,t4,t3
+	mv	s0,s8
 	slli	s4,a6,0x15
-	slli	s3,s2,0x1e
-	or	s5,s10,s5
+	slli	s8,a6,0x1a
 	srli	s7,a6,0x6
 	srli	a1,a6,0xb
-	srli	s6,s2,0x2
-	or	a2,s11,a2
-	slli	a0,s2,0x13
-	sw	s0,48(sp)
+	srli	s11,a4,0x7
+	sw	s0,20(sp)
 	or	s7,s7,s8
-	or	s6,s6,s3
-	slli	s8,s2,0xa
-	srli	s10,a4,0x3
-	srli	t6,s2,0xd
-	lw	a4,8(sp)
-	and	t0,t0,a6
+	slli	a2,a4,0x19
+	and	a7,a7,a6
 	add	s0,s0,s9
 	or	a1,a1,s4
 	slli	s9,a6,0x7
 	srli	s4,a6,0x19
-	srli	s3,s2,0x16
-	xor	a2,a2,s5
-	add	s0,s0,t3
+	add	s0,s0,s2
 	or	s4,s9,s4
-	or	s3,s8,s3
-	or	t6,t6,a0
-	xor	t0,t0,t1
-	xor	a0,t2,s2
+	or	a2,s11,a2
+	xor	a7,a7,t4
+	lw	s11,12(sp)
 	xor	a1,s7,a1
-	srli	s8,a3,0x11
-	slli	s7,a3,0xd
-	xor	a2,a2,s10
-	slli	t3,a3,0xf
-	lw	s10,28(sp)
-	srli	s5,a3,0x13
-	add	t0,t0,s0
-	or	s5,s7,s5
-	xor	t6,s6,t6
-	and	a0,a0,s1
-	and	s6,t2,s2
+	slli	s10,a4,0xe
+	slli	s3,t5,0x1e
+	slli	t0,t5,0x13
+	add	a7,a7,s0
+	srli	s5,a4,0x12
+	srli	s6,t5,0x2
+	srli	a0,t5,0xd
 	xor	a1,a1,s4
-	or	t3,t3,s8
-	add	a1,a1,t0
-	xor	t6,t6,s3
-	xor	a0,a0,s6
-	add	a2,a2,a4
-	xor	t3,t3,s5
-	lw	a4,36(sp)
-	srli	t0,a3,0xa
-	xor	t3,t3,t0
-	add	a0,t6,a0
-	add	a2,a2,s10
-	add	t6,a0,a1
-	add	t5,t5,a1
-	add	a2,a2,t3
-	lw	s9,40(t4)
-	mv	t0,a2
-	srli	s11,a4,0x7
-	slli	s8,t5,0x1a
-	slli	s3,t6,0x1e
-	slli	a0,t6,0x13
-	slli	a2,a4,0x19
-	srli	s7,t5,0x6
-	srli	s6,t6,0x2
-	srli	t3,t6,0xd
+	add	a1,a1,a7
+	or	s6,s6,s3
+	lw	a7,4(sp)
+	slli	s8,t5,0xa
+	or	s5,s10,s5
+	or	a0,a0,t0
+	srli	s3,t5,0x16
+	xor	t0,t6,t5
+	srli	s10,a4,0x3
+	or	s3,s8,s3
+	slli	s7,s11,0xd
+	slli	s8,s11,0xf
+	xor	a0,s6,a0
+	and	t0,t0,t2
+	and	s6,t6,t5
+	xor	a2,a2,s5
+	srli	s2,s11,0x11
+	srli	s5,s11,0x13
+	xor	t0,t0,s6
+	or	s5,s7,s5
+	xor	a0,a0,s3
+	xor	a2,a2,s10
+	or	s2,s8,s2
+	lw	s9,24(t1)
+	add	a0,a0,t0
+	add	a2,a2,a7
+	srli	t0,s11,0xa
+	xor	s2,s2,s5
+	add	a7,a0,a1
+	xor	s2,s2,t0
+	add	a0,s1,a1
+	add	a2,a2,a5
+	add	a5,a2,s2
+	slli	s8,a0,0x1a
+	slli	s4,a0,0x15
+	slli	s3,a7,0x1e
+	slli	t0,a7,0x13
+	srli	s7,a0,0x6
+	srli	a1,a0,0xb
+	srli	s6,a7,0x2
+	srli	s0,a7,0xd
+	xor	s1,t3,a6
 	or	s7,s7,s8
 	or	s6,s6,s3
-	slli	s8,t6,0xa
-	or	t3,t3,a0
-	srli	s3,t6,0x16
-	xor	a0,s2,t6
-	or	a2,s11,a2
-	lw	s11,48(sp)
-	srli	s10,a4,0x12
-	slli	s4,t5,0x15
+	slli	s8,a7,0xa
+	add	s2,a5,s9
+	or	a1,a1,s4
+	slli	s9,a0,0x7
+	srli	s4,a0,0x19
+	or	s0,s0,t0
+	srli	s3,a7,0x16
+	xor	t0,t5,a7
+	or	s4,s9,s4
 	or	s3,s8,s3
-	slli	s5,a4,0xe
+	lw	s9,20(sp)
+	and	s1,s1,a0
+	xor	s0,s6,s0
+	and	t0,t0,t6
+	and	s6,t5,a7
+	srli	s11,a3,0x7
+	slli	s10,a3,0xe
+	add	s2,s2,t4
+	xor	s0,s0,s3
+	slli	a2,a3,0x19
+	srli	s5,a3,0x12
+	xor	s1,s1,t3
+	xor	a1,s7,a1
+	xor	t0,t0,s6
+	or	s5,s10,s5
+	add	s1,s1,s2
+	or	a2,s11,a2
+	xor	a1,a1,s4
+	add	t0,s0,t0
+	lw	s0,16(sp)
+	add	a1,a1,s1
+	srli	s10,a3,0x3
+	srli	s8,s9,0x11
+	slli	s7,s9,0xd
+	xor	a2,a2,s5
+	slli	t4,s9,0xf
+	srli	s5,s9,0x13
+	add	t0,t0,a1
+	add	t2,t2,a1
+	or	s5,s7,s5
+	lw	a1,24(sp)
+	xor	a2,a2,s10
+	or	t4,t4,s8
+	lw	s2,28(t1)
+	add	a2,a2,s0
+	xor	t4,t4,s5
+	srli	s0,s9,0xa
+	xor	t4,t4,s0
+	add	a2,a2,a4
+	add	a4,a2,t4
+	srli	s11,a1,0x7
+	slli	s10,a1,0xe
+	xor	s1,a6,a0
+	slli	s8,t2,0x1a
+	slli	s4,t2,0x15
+	slli	a2,a1,0x19
+	srli	s5,a1,0x12
+	srli	s7,t2,0x6
+	srli	a1,t2,0xb
+	or	s7,s7,s8
+	slli	s9,t2,0x7
+	and	s1,s1,t2
+	or	a1,a1,s4
+	add	s2,a4,s2
+	srli	s4,t2,0x19
+	slli	s3,t0,0x1e
+	slli	t4,t0,0x13
+	or	s5,s10,s5
+	add	s2,s2,t3
+	lw	s10,24(sp)
+	or	s4,s9,s4
+	srli	s6,t0,0x2
+	srli	s0,t0,0xd
+	xor	s1,s1,a6
+	xor	a1,s7,a1
+	or	s6,s6,s3
+	slli	s8,t0,0xa
+	add	s1,s1,s2
+	or	s0,s0,t4
+	srli	s3,t0,0x16
+	xor	t4,a7,t0
+	xor	a1,a1,s4
+	add	a1,a1,s1
+	or	s3,s8,s3
+	lw	s1,28(sp)
+	or	a2,s11,a2
+	xor	s0,s6,s0
+	and	t4,t4,t5
+	and	s6,a7,t0
+	xor	s0,s0,s3
+	srli	s10,s10,0x3
+	xor	a2,a2,s5
+	xor	t4,t4,s6
+	add	t4,s0,t4
+	srli	s8,a5,0x11
+	slli	s7,a5,0xd
+	xor	a2,a2,s10
+	slli	t3,a5,0xf
+	srli	s5,a5,0x13
+	or	t3,t3,s8
+	or	s5,s7,s5
+	add	a2,a2,s1
+	add	s1,t4,a1
+	lw	t4,32(sp)
+	lw	s9,32(t1)
+	xor	s0,t3,s5
+	srli	s2,a5,0xa
+	add	t3,t6,a1
+	xor	s0,s0,s2
+	add	a2,a2,a3
+	add	a3,a2,s0
+	srli	s11,t4,0x7
+	slli	s10,t4,0xe
+	xor	s0,a0,t2
+	slli	s8,t3,0x1a
+	slli	s4,t3,0x15
+	slli	s3,s1,0x1e
+	slli	a2,t4,0x19
+	srli	s5,t4,0x12
+	srli	s7,t3,0x6
+	slli	t4,s1,0x13
+	srli	a1,t3,0xb
+	srli	s6,s1,0x2
+	srli	t6,s1,0xd
+	or	s7,s7,s8
+	or	s6,s6,s3
+	slli	s8,s1,0xa
+	and	s0,s0,t3
+	add	s2,a3,s9
+	or	a1,a1,s4
+	slli	s9,t3,0x7
+	srli	s4,t3,0x19
+	or	t6,t6,t4
+	srli	s3,s1,0x16
+	xor	t4,t0,s1
+	or	s5,s10,s5
+	add	s2,s2,a6
+	or	s4,s9,s4
+	or	s3,s8,s3
+	lw	s10,32(sp)
+	xor	s0,s0,a0
+	xor	a1,s7,a1
+	xor	t6,s6,t6
+	and	t4,t4,a7
+	and	s6,t0,s1
+	add	s0,s0,s2
+	xor	t6,t6,s3
+	xor	a1,a1,s4
+	xor	t4,t4,s6
+	add	a1,a1,s0
+	or	a2,s11,a2
+	add	t4,t6,t4
+	lw	s11,36(sp)
+	add	t4,t4,a1
+	add	t5,t5,a1
+	srli	s10,s10,0x3
+	lw	a1,24(sp)
+	xor	a2,a2,s5
+	srli	s8,a4,0x11
+	slli	s7,a4,0xd
+	xor	a2,a2,s10
+	slli	a6,a4,0xf
+	srli	s5,a4,0x13
+	or	s5,s7,s5
+	or	a6,a6,s8
+	add	a2,a2,s11
+	xor	a6,a6,s5
+	srli	t6,a4,0xa
+	add	a2,a2,a1
+	lw	a1,40(sp)
+	xor	a6,a6,t6
+	add	a2,a2,a6
+	mv	s9,a2
+	srli	s11,a1,0x7
+	slli	a2,a1,0x19
+	or	a2,s11,a2
+	lw	s11,40(sp)
+	lw	s2,36(t1)
+	slli	s10,a1,0xe
+	srli	s5,a1,0x12
+	or	s5,s10,s5
+	xor	s0,t2,t3
+	slli	s8,t5,0x1a
+	slli	s4,t5,0x15
+	slli	s3,t4,0x1e
+	slli	a6,t4,0x13
+	srli	s10,s11,0x3
+	srli	s7,t5,0x6
 	srli	a1,t5,0xb
-	xor	t3,s6,t3
-	and	a0,a0,t2
-	and	s6,s2,t6
-	or	s5,s5,s10
-	xor	t3,t3,s3
-	srli	s10,a4,0x3
-	sw	t0,28(sp)
-	lw	a4,44(sp)
-	add	t0,t0,s9
+	srli	s6,t4,0x2
+	srli	t6,t4,0xd
+	xor	a2,a2,s5
+	or	s7,s7,s8
+	or	s6,s6,s3
+	slli	s8,t4,0xa
+	and	s0,s0,t5
+	sw	s9,24(sp)
+	add	s2,s9,s2
 	or	a1,a1,s4
 	slli	s9,t5,0x7
 	srli	s4,t5,0x19
-	xor	a0,a0,s6
-	or	s4,s9,s4
-	srli	s8,s11,0x11
-	lw	s9,44(t4)
-	add	a0,t3,a0
-	add	t0,t0,t1
-	srli	t3,s11,0xa
-	xor	a1,s7,a1
-	xor	a2,a2,s5
-	slli	s7,s11,0xd
-	slli	t1,s11,0xf
-	srli	s5,s11,0x13
-	lw	s11,32(sp)
-	xor	s0,a7,a6
-	or	s5,s7,s5
+	or	t6,t6,a6
+	srli	s3,t4,0x16
+	xor	a6,s1,t4
 	xor	a2,a2,s10
-	or	t1,t1,s8
-	and	s0,s0,t5
-	add	a2,a2,a4
-	xor	t1,t1,s5
-	lw	a4,40(sp)
-	xor	s0,s0,a7
-	xor	t1,t1,t3
-	add	a2,a2,s11
-	add	s11,a2,t1
-	add	t0,t0,s0
+	lw	s10,8(sp)
+	add	s2,s2,a0
+	or	s4,s9,s4
+	or	s3,s8,s3
+	xor	s0,s0,t2
+	xor	a1,s7,a1
+	xor	t6,s6,t6
+	and	a6,a6,t0
+	and	s6,s1,t4
+	add	s0,s0,s2
+	xor	t6,t6,s3
 	xor	a1,a1,s4
-	add	a1,a1,t0
-	slli	s10,a4,0xe
-	mv	t0,s11
-	slli	a2,a4,0x19
-	srli	s11,a4,0x7
-	srli	s5,a4,0x12
-	add	s0,a0,a1
-	add	s1,s1,a1
-	or	s5,s10,s5
-	or	a2,s11,a2
-	srli	s10,a4,0x3
-	lw	s11,28(sp)
-	lw	a4,12(sp)
-	xor	t3,a6,t5
-	slli	s8,s1,0x1a
-	slli	s4,s1,0x15
+	xor	a6,a6,s6
+	add	a1,a1,s0
+	add	a6,t6,a6
+	srli	s8,a3,0x11
+	slli	s7,a3,0xd
+	add	a2,a2,s10
+	slli	a0,a3,0xf
+	lw	s10,32(sp)
+	srli	s5,a3,0x13
+	add	s0,a6,a1
+	lw	s9,40(t1)
+	or	s5,s7,s5
+	lw	a6,44(sp)
+	or	a0,a0,s8
+	xor	a0,a0,s5
+	srli	s2,a3,0xa
+	add	t6,a7,a1
+	add	a2,a2,s10
+	xor	a0,a0,s2
+	add	s2,a2,a0
+	srli	s11,a6,0x7
+	slli	s10,a6,0xe
+	xor	a7,t3,t5
+	slli	s8,t6,0x1a
+	slli	s4,t6,0x15
 	slli	s3,s0,0x1e
 	slli	a0,s0,0x13
-	srli	s7,s1,0x6
-	srli	a1,s1,0xb
+	slli	a2,a6,0x19
+	srli	s5,a6,0x12
+	srli	s7,t6,0x6
+	srli	a1,t6,0xb
 	srli	s6,s0,0x2
-	srli	t1,s0,0xd
-	xor	a2,a2,s5
+	srli	a6,s0,0xd
+	sw	s2,32(sp)
 	or	s7,s7,s8
 	or	s6,s6,s3
 	slli	s8,s0,0xa
-	and	t3,t3,s1
-	sw	t0,32(sp)
+	and	a7,a7,t6
+	add	s2,s2,s9
 	or	a1,a1,s4
-	add	t0,t0,s9
-	srli	s4,s1,0x19
-	slli	s9,s1,0x7
-	or	t1,t1,a0
+	slli	s9,t6,0x7
+	srli	s4,t6,0x19
+	or	a6,a6,a0
 	srli	s3,s0,0x16
-	xor	a0,t6,s0
-	xor	a2,a2,s10
-	add	t0,t0,a7
+	xor	a0,t4,s0
+	or	s5,s10,s5
+	add	s2,s2,t2
+	lw	s10,44(sp)
+	and	t2,t4,s0
 	or	s4,s9,s4
 	or	s3,s8,s3
-	xor	t3,t3,a6
-	srli	s8,s11,0x11
+	xor	a7,a7,t3
 	xor	a1,s7,a1
-	xor	t1,s6,t1
-	slli	s7,s11,0xd
-	and	s6,t6,s0
-	and	a0,a0,s2
-	slli	a7,s11,0xf
-	srli	s5,s11,0x13
-	add	a2,a2,a4
-	lw	a4,36(sp)
-	add	t3,t3,t0
-	xor	t1,t1,s3
-	or	s5,s7,s5
+	xor	a6,s6,a6
+	and	a0,a0,s1
+	lw	s9,24(sp)
+	add	a7,a7,s2
+	xor	a6,a6,s3
 	xor	a1,a1,s4
-	xor	a0,a0,s6
-	or	a7,a7,s8
-	add	a1,a1,t3
-	lw	s9,48(t4)
-	add	a0,t1,a0
-	xor	a7,a7,s5
-	srli	t1,s11,0xa
-	add	t0,a0,a1
-	add	t2,t2,a1
-	add	a2,a2,a4
-	xor	a7,a7,t1
-	lw	a4,20(sp)
-	add	t3,a2,a7
-	xor	t1,t5,s1
-	slli	s8,t2,0x1a
-	slli	s4,t2,0x15
-	slli	s3,t0,0x1e
-	slli	a0,t0,0x13
-	srli	s7,t2,0x6
-	srli	a1,t2,0xb
-	srli	s6,t0,0x2
-	srli	a7,t0,0xd
+	xor	a0,a0,t2
+	add	a1,a1,a7
+	add	a0,a6,a0
+	or	a2,s11,a2
+	lw	s11,12(sp)
+	add	t2,a0,a1
+	add	t0,t0,a1
+	srli	s10,s10,0x3
+	lw	a1,40(sp)
+	xor	a2,a2,s5
+	srli	s8,s9,0x11
+	slli	s7,s9,0xd
+	slli	s5,s9,0xf
+	srli	s6,s9,0x13
+	xor	a2,a2,s10
+	or	s6,s7,s6
+	or	s5,s5,s8
+	add	a2,a2,s11
+	srli	a6,s9,0xa
+	add	a2,a2,a1
+	xor	s5,s5,s6
+	lw	a1,48(sp)
+	xor	s5,s5,a6
+	add	s11,a2,s5
+	mv	s9,s11
+	slli	a2,a1,0x19
+	srli	s11,a1,0x7
+	or	a2,s11,a2
+	lw	s11,48(sp)
+	lw	s2,44(t1)
+	slli	s10,a1,0xe
+	slli	s8,t0,0x1a
+	slli	s3,t2,0x1e
+	slli	a0,t2,0x13
+	srli	s5,a1,0x12
+	srli	s7,t0,0x6
+	srli	s6,t2,0x2
+	srli	a6,t2,0xd
 	or	s7,s7,s8
 	or	s6,s6,s3
-	slli	s8,t0,0xa
-	and	t1,t1,t2
-	sw	t3,36(sp)
-	or	a1,a1,s4
-	add	t3,t3,s9
-	srli	s4,t2,0x19
-	slli	s9,t2,0x7
-	or	a7,a7,a0
-	srli	s3,t0,0x16
-	xor	a0,s0,t0
-	srli	s11,a4,0x7
-	add	t3,t3,a6
-	or	s4,s9,s4
-	or	s3,s8,s3
-	slli	a2,a4,0x19
-	xor	t1,t1,t5
-	xor	a1,s7,a1
-	xor	a7,s6,a7
-	and	a0,a0,t6
-	and	s6,s0,t0
-	add	t1,t1,t3
-	xor	a7,a7,s3
-	or	a2,s11,a2
-	xor	a1,a1,s4
-	lw	s11,32(sp)
-	xor	a0,a0,s6
-	add	a1,a1,t1
-	slli	s10,a4,0xe
-	add	a0,a7,a0
-	srli	s5,a4,0x12
-	add	t3,a0,a1
+	slli	s8,t2,0xa
 	or	s5,s10,s5
-	lw	a0,4(sp)
-	srli	s10,a4,0x3
-	srli	s8,s11,0x11
-	lw	a4,40(sp)
-	slli	s7,s11,0xd
+	or	a6,a6,a0
+	srli	s10,s11,0x3
+	srli	s3,t2,0x16
+	lw	s11,32(sp)
+	xor	a7,t5,t6
+	slli	s4,t0,0x15
+	or	s3,s8,s3
+	srli	a1,t0,0xb
+	xor	a6,s6,a6
+	sw	s9,40(sp)
+	xor	a6,a6,s3
+	and	a7,a7,t0
+	lw	s3,20(sp)
+	add	s2,s9,s2
+	or	a1,a1,s4
+	slli	s9,t0,0x7
+	srli	s4,t0,0x19
 	xor	a2,a2,s5
-	slli	a6,s11,0xf
+	xor	a0,s0,t2
+	add	s2,s2,t3
+	or	s4,s9,s4
+	srli	s8,s11,0x11
+	xor	a7,a7,t5
+	xor	a1,s7,a1
+	slli	t3,s11,0xf
+	slli	s7,s11,0xd
 	srli	s5,s11,0x13
 	xor	a2,a2,s10
+	lw	s10,44(sp)
+	and	s6,s0,t2
+	add	a7,a7,s2
 	or	s5,s7,s5
-	or	a6,a6,s8
-	srli	t1,s11,0xa
-	add	a7,a2,a5
-	srli	s11,a0,0x7
-	add	a2,s2,a1
-	xor	a6,a6,s5
+	and	a0,a0,t4
+	lw	s7,0(sp)
+	xor	a1,a1,s4
+	or	t3,t3,s8
+	add	a1,a1,a7
+	xor	a0,a0,s6
+	srli	a7,s11,0xa
+	add	a2,a2,s3
+	xor	t3,t3,s5
+	lw	s2,48(t1)
+	xor	t3,t3,a7
+	add	a0,a6,a0
+	add	a2,a2,s10
+	add	a6,a0,a1
+	add	s1,s1,a1
+	add	a2,a2,t3
+	slli	s10,s7,0xe
+	srli	s5,s7,0x12
+	mv	s9,a2
+	srli	s11,s7,0x7
+	xor	t3,t6,t0
+	slli	s8,s1,0x1a
+	slli	s4,s1,0x15
+	slli	s3,a6,0x1e
+	slli	a0,a6,0x13
+	or	s5,s10,s5
+	slli	a2,s7,0x19
+	lw	s10,0(sp)
+	srli	s7,s1,0x6
+	srli	a1,s1,0xb
+	srli	s6,a6,0x2
+	srli	a7,a6,0xd
+	sw	s9,44(sp)
+	or	s7,s7,s8
+	or	s6,s6,s3
+	slli	s8,a6,0xa
+	and	t3,t3,s1
+	add	s2,s9,s2
+	or	a1,a1,s4
+	slli	s9,s1,0x7
+	srli	s4,s1,0x19
+	or	a7,a7,a0
+	srli	s3,a6,0x16
+	xor	a0,t2,a6
+	add	s2,s2,t5
+	or	s4,s9,s4
+	or	s3,s8,s3
+	or	a2,s11,a2
+	xor	t3,t3,t6
+	xor	a1,s7,a1
+	xor	a7,s6,a7
+	and	a0,a0,s0
+	and	s6,t2,a6
+	add	t3,t3,s2
+	xor	a7,a7,s3
+	srli	s10,s10,0x3
+	xor	a2,a2,s5
+	xor	a1,a1,s4
+	xor	a0,a0,s6
+	add	a1,a1,t3
+	xor	a2,a2,s10
+	add	a0,a7,a0
+	add	a7,a0,a1
+	lw	s11,40(sp)
+	lw	a0,4(sp)
+	add	t3,a2,a5
+	add	a2,t4,a1
+	lw	a1,48(sp)
+	srli	s8,s11,0x11
+	slli	s7,s11,0xd
+	srli	s2,s11,0xa
+	add	t3,t3,a1
+	slli	t5,s11,0xf
+	srli	s5,s11,0x13
 	slli	a1,a0,0x19
-	lw	s9,52(t4)
-	add	a7,a7,a4
-	xor	a6,a6,t1
-	lw	a4,36(sp)
+	srli	s11,a0,0x7
 	or	a1,s11,a1
 	lw	s11,4(sp)
-	add	a6,a7,a6
-	slli	s10,a0,0xe
-	srli	s5,a0,0x12
+	or	s5,s7,s5
+	or	t5,t5,s8
+	srli	s10,a0,0x12
+	xor	t5,t5,s5
+	slli	s5,a0,0xe
+	lw	s9,52(t1)
+	or	s5,s5,s10
+	srli	s10,s11,0x3
+	lw	s11,44(sp)
+	xor	t5,t5,s2
 	slli	s8,a2,0x1a
 	slli	s4,a2,0x15
 	srli	s7,a2,0x6
 	srli	a0,a2,0xb
-	mv	s2,a6
+	add	t5,t3,t5
+	xor	s2,t0,s1
 	or	s7,s7,s8
-	or	s5,s10,s5
-	slli	s3,t3,0x1e
-	slli	a6,t3,0x13
+	slli	s3,a7,0x1e
+	slli	t3,a7,0x13
 	or	a0,a0,s4
-	srli	s6,t3,0x2
-	srli	t1,t3,0xd
-	xor	a7,s1,t2
+	srli	s6,a7,0x2
+	srli	t4,a7,0xd
+	sw	t5,48(sp)
 	or	s6,s6,s3
-	srli	s10,s11,0x3
-	sw	s2,40(sp)
-	lw	s11,16(sp)
-	add	s2,s2,s9
-	or	t1,t1,a6
-	slli	s8,t3,0xa
-	xor	a6,t0,t3
+	add	t5,t5,s9
+	or	t4,t4,t3
+	slli	s9,a2,0x7
+	slli	s8,a7,0xa
+	xor	t3,a6,a7
 	xor	a0,s7,a0
 	xor	a1,a1,s5
-	slli	s7,a4,0xd
-	srli	s5,a4,0x13
-	srli	s3,t3,0x16
-	add	s2,s2,t5
+	slli	s7,s11,0xd
+	srli	s5,s11,0x13
+	and	s2,s2,a2
+	srli	s4,a2,0x19
+	srli	s3,a7,0x16
+	xor	s2,s2,t0
+	or	s4,s9,s4
 	or	s3,s8,s3
 	or	s5,s7,s5
-	srli	s8,a4,0x11
-	lw	s7,20(sp)
-	slli	s9,a2,0x7
-	xor	t1,s6,t1
-	and	a6,a6,s0
-	and	s6,t0,t3
-	slli	t5,a4,0xf
-	and	a7,a7,a2
-	srli	s4,a2,0x19
-	or	s4,s9,s4
-	xor	t1,t1,s3
-	xor	a1,a1,s10
-	xor	a7,a7,s1
-	xor	a6,a6,s6
-	or	t5,t5,s8
-	add	a7,a7,s2
-	add	a6,t1,a6
-	srli	s2,a4,0xa
-	add	t1,a1,s11
+	srli	s8,s11,0x11
+	lw	s7,0(sp)
+	add	t5,t5,t6
+	xor	t4,s6,t4
+	and	t3,t3,t2
+	and	s6,a6,a7
+	slli	t6,s11,0xf
+	add	t5,t5,s2
+	xor	t4,t4,s3
 	xor	a0,a0,s4
-	xor	t5,t5,s5
-	lw	s9,56(t4)
-	add	a0,a0,a7
-	add	t1,t1,s7
-	xor	t5,t5,s2
-	lw	s2,0(sp)
-	add	a1,a6,a0
-	add	a6,t1,t5
-	mv	a4,a6
-	add	a7,t6,a0
-	slli	s11,s2,0x19
-	srli	a0,s2,0x7
-	slli	s10,s2,0xe
-	srli	s5,s2,0x12
-	add	s2,a4,s9
-	add	s2,s2,s1
-	lw	a4,40(sp)
-	lw	s1,0(sp)
-	xor	t6,t2,a2
-	slli	s8,a7,0x1a
-	slli	s4,a7,0x15
-	slli	s3,a1,0x1e
-	slli	t1,a1,0x13
-	sw	a6,20(sp)
-	srli	s7,a7,0x6
-	srli	a6,a7,0xb
-	srli	s6,a1,0x2
-	srli	t5,a1,0xd
+	xor	t3,t3,s6
+	xor	a1,a1,s10
+	or	t6,t6,s8
+	add	a0,a0,t5
+	add	t3,t4,t3
+	xor	t6,t6,s5
+	srli	t4,s11,0xa
+	add	a1,a1,a4
+	add	s2,t3,a0
+	xor	t6,t6,t4
+	add	a0,s0,a0
+	add	a1,a1,s7
+	lw	s0,16(sp)
+	add	a1,a1,t6
+	sw	a1,0(sp)
+	lw	s9,56(t1)
+	slli	s11,s0,0x19
+	slli	s10,s0,0xe
+	srli	a1,s0,0x7
+	srli	s5,s0,0x12
+	lw	s0,0(sp)
+	or	s5,s10,s5
+	slli	s8,a0,0x1a
+	add	s0,s0,s9
+	lw	s10,48(sp)
+	add	s0,s0,t0
+	slli	s3,s2,0x1e
+	lw	t0,16(sp)
+	slli	t4,s2,0x13
+	srli	s7,a0,0x6
+	srli	s6,s2,0x2
+	srli	t5,s2,0xd
 	or	s7,s7,s8
 	or	s6,s6,s3
-	or	a6,a6,s4
-	slli	s9,a7,0x7
-	or	t5,t5,t1
-	slli	s8,a1,0xa
-	or	a0,a0,s11
-	or	s5,s10,s5
-	and	t6,t6,a7
-	srli	s4,a7,0x19
-	srli	s3,a1,0x16
-	xor	t1,t3,a1
-	or	s4,s9,s4
+	xor	t6,s1,a2
+	slli	s4,a0,0x15
+	or	t5,t5,t4
+	slli	s8,s2,0xa
+	srli	t3,a0,0xb
+	srli	s3,s2,0x16
 	or	s3,s8,s3
-	lw	s11,4(sp)
-	xor	t6,t6,t2
-	xor	a6,s7,a6
+	or	t3,t3,s4
+	slli	s9,a0,0x7
+	or	a1,a1,s11
 	xor	t5,s6,t5
-	and	t1,t1,t0
-	slli	s6,a4,0xd
-	and	s7,t3,a1
-	xor	a0,a0,s5
-	srli	s9,s1,0x3
-	srli	s8,a4,0x11
-	slli	s1,a4,0xf
-	srli	s5,a4,0x13
-	add	t6,t6,s2
+	and	t6,t6,a0
+	srli	s4,a0,0x19
+	xor	t4,a7,s2
+	or	s4,s9,s4
 	xor	t5,t5,s3
+	xor	t6,t6,s1
+	lw	s3,60(t1)
+	xor	t3,s7,t3
+	lw	s11,4(sp)
+	and	t4,t4,a6
+	and	s7,a7,s2
+	xor	a1,a1,s5
+	srli	s9,t0,0x3
+	slli	s6,s10,0xd
+	slli	t0,s10,0xf
+	srli	s8,s10,0x11
+	srli	s5,s10,0x13
+	add	t6,t6,s0
 	or	s5,s6,s5
-	xor	a6,a6,s4
-	xor	t1,t1,s7
-	xor	a0,a0,s9
-	or	s1,s1,s8
-	add	a6,a6,t6
-	add	t1,t5,t1
-	srli	t6,a4,0xa
-	lw	s3,60(t4)
-	add	t5,a0,a3
-	xor	s1,s1,s5
-	add	a0,t1,a6
-	xor	s1,s1,t6
-	add	t1,s0,a6
+	xor	t3,t3,s4
+	xor	t4,t4,s7
+	xor	a1,a1,s9
+	or	t0,t0,s8
+	add	t3,t3,t6
+	add	t4,t5,t4
+	xor	t0,t0,s5
+	add	t5,a1,a3
+	srli	t6,s10,0xa
+	add	a1,t2,t3
+	xor	t0,t0,t6
 	add	t5,t5,s11
-	add	a4,t5,s1
-	slli	s6,t1,0x1a
-	slli	s2,t1,0x15
-	slli	s1,a0,0x1e
-	slli	s0,a0,0x13
-	xor	t6,a2,a7
-	srli	a6,t1,0x6
-	srli	s5,t1,0xb
-	srli	s4,a0,0x2
-	srli	t5,a0,0xd
-	add	s3,a4,s3
-	or	a6,a6,s6
-	or	s5,s5,s2
-	or	s4,s4,s1
-	or	t5,t5,s0
-	and	t6,t6,t1
-	slli	s2,t1,0x7
-	srli	s7,t1,0x19
-	slli	s6,a0,0xa
-	srli	s1,a0,0x16
-	xor	s0,a1,a0
-	add	s3,s3,t2
-	sw	a4,4(sp)
+	add	t4,t4,t3
+	add	s7,t5,t0
+	slli	s6,a1,0x1a
+	slli	s0,a1,0x15
+	xor	t6,a2,a0
+	srli	t3,a1,0x6
+	srli	s5,a1,0xb
+	add	s3,s7,s3
+	or	t3,t3,s6
+	or	s5,s5,s0
+	sw	s7,4(sp)
+	and	t6,t6,a1
+	slli	s0,a1,0x7
+	srli	s7,a1,0x19
+	add	s3,s3,s1
 	xor	t6,t6,a2
-	xor	a6,a6,s5
-	or	s2,s2,s7
-	xor	t5,s4,t5
-	or	s1,s6,s1
-	and	s0,s0,t3
-	and	t2,a1,a0
-	lw	a4,56(sp)
+	xor	t3,t3,s5
+	or	s0,s0,s7
+	slli	t2,t4,0x1e
+	slli	t0,t4,0x13
 	add	t6,t6,s3
-	xor	a6,a6,s2
-	xor	t5,t5,s1
-	xor	t2,s0,t2
-	add	a6,a6,t6
-	add	t5,t5,t2
-	addi	t4,t4,64
-	add	t0,t0,a6
-	add	a6,t5,a6
-	bne	t4,a4,lab7
-	lw	s4,60(sp)
-	lw	s5,64(sp)
-	lw	s6,68(sp)
-	lw	s7,72(sp)
-	lw	s8,76(sp)
-	lw	s9,80(sp)
-	lw	s10,84(sp)
-	lw	s11,88(sp)
-	lw	s3,92(sp)
+	srli	s4,t4,0x2
+	srli	t5,t4,0xd
+	xor	t3,t3,s0
+	or	s4,s4,t2
+	or	t5,t5,t0
+	add	t3,t3,t6
+	slli	s6,t4,0xa
+	srli	t2,t4,0x16
+	xor	t0,s2,t4
+	add	t6,a6,t3
+	xor	t5,s4,t5
+	or	t2,s6,t2
+	and	t0,t0,a7
+	and	s1,s2,t4
+	lw	a6,56(sp)
+	xor	t5,t5,t2
+	xor	s1,t0,s1
+	add	t5,t5,s1
+	addi	t1,t1,64
+	add	t3,t5,t3
+	bne	t1,a6,lab7
+	lw	a5,60(sp)
 	lw	s0,204(sp)
-	add	s4,s4,a6
-	add	s5,s5,a0
-	add	s6,s6,a1
-	add	s7,s7,t3
-	add	s8,s8,t0
-	add	s9,s9,t1
-	add	s10,s10,a7
-	add	s11,s11,a2
-	sw	s4,0(s3)
-	sw	s5,4(s3)
-	sw	s6,8(s3)
-	sw	s7,12(s3)
-	sw	s8,16(s3)
-	sw	s9,20(s3)
-	sw	s10,24(s3)
-	sw	s11,28(s3)
 	lw	s1,200(sp)
-	lw	s2,196(sp)
+	add	t5,a5,t3
+	lw	a5,64(sp)
 	lw	s3,192(sp)
 	lw	s4,188(sp)
+	add	t3,a5,t4
+	lw	a5,68(sp)
 	lw	s5,184(sp)
 	lw	s6,180(sp)
+	add	t1,a5,s2
+	lw	a5,72(sp)
+	lw	s2,196(sp)
 	lw	s7,176(sp)
+	add	a7,a5,a7
+	lw	a5,76(sp)
 	lw	s8,172(sp)
 	lw	s9,168(sp)
+	add	a6,a5,t6
+	lw	a5,80(sp)
 	lw	s10,164(sp)
 	lw	s11,160(sp)
+	add	a3,a5,a1
+	lw	a5,84(sp)
+	add	a4,a5,a0
+	lw	a5,88(sp)
+	add	a5,a5,a2
+	lw	a2,92(sp)
+	sw	t5,0(a2)
+	sw	t3,4(a2)
+	sw	t1,8(a2)
+	sw	a7,12(a2)
+	sw	a6,16(a2)
+	sw	a3,20(a2)
+	sw	a4,24(a2)
+	sw	a5,28(a2)
 	addi	sp,sp,208
 	ret
 sha256_update:
@@ -1701,7 +1687,7 @@ sha256_update:
 	mv	a2,s5
 	jal	ra,memcpy
 	lui	a2,0x100
-	addi	a2,a2,152 # 100098 <K>
+	addi	a2,a2,32 # 100020 <K>
 	mv	a1,s4
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
@@ -1722,7 +1708,7 @@ lab8: 	li	a5,63
 	addi	s2,s2,64
 	lui	s5,0x100
 	add	s2,s1,s2
-	addi	s5,s5,152 # 100098 <K>
+	addi	s5,s5,32 # 100020 <K>
 lab11: 	mv	a1,s1
 	mv	a2,s5
 	mv	a0,s0
@@ -1777,8 +1763,8 @@ benchmark_body.isra.0:
 	sw	a0,8(sp)
 	blez	a0,lab14
 	lui	a5,0x100
-	addi	a5,a5,120 # 100078 <H0.0>
-	lw	a4,0(a5)
+	mv	a5,a5
+	lw	a4,0(a5) # 100000 <H0.0>
 	sw	a5,44(sp)
 	sw	zero,4(sp)
 	sw	a4,12(sp)
@@ -1797,12 +1783,12 @@ benchmark_body.isra.0:
 	sw	a4,36(sp)
 	sw	a5,40(sp)
 	lui	a5,0x100
-	addi	s11,a5,88 # 100058 <buffer>
+	addi	s11,a5,412 # 10019c <buffer>
 	j	lab15
 lab17: 	lui	s3,0x100
 	sub	a2,a5,a2
-	addi	s3,s3,152 # 100098 <K>
-lab21: 	li	a1,0
+	addi	s3,s3,32 # 100020 <K>
+lab18: 	li	a1,0
 	jal	ra,memset
 	lw	a3,80(sp)
 	lw	a2,84(sp)
@@ -2011,7 +1997,7 @@ lab21: 	li	a1,0
 	sw	a5,4(sp)
 	beq	a5,a4,lab14
 lab15: 	lui	a5,0x100
-	mv	a2,a5
+	addi	a2,a5,324 # 100144 <msg>
 	lw	a5,12(sp)
 	li	a6,0
 	li	a1,56
@@ -2051,32 +2037,17 @@ lab15: 	lui	a5,0x100
 	addi	a4,sp,48
 	add	a5,a5,a4
 	li	a4,-128
-	sb	a4,-72(a5) # fffb8 <_min_stack+0xfbfb8>
+	sb	a4,-72(a5)
 	addi	a2,a2,1
 	addi	a4,sp,88
 	li	a5,56
 	add	a0,a4,a2
 	bgeu	a5,a2,lab17
 	li	a5,64
-	sub	a5,a5,a2
-	li	a3,4
-	mv	a4,a0
-	bltu	a5,a3,lab18
-	sb	zero,0(a0)
-	sb	zero,1(a0)
-	sb	zero,2(a0)
-	sb	zero,3(a0)
-	addi	a4,a0,4
-	addi	a5,a5,-4
-lab18: 	li	a3,2
-	bltu	a5,a3,lab19
-	sb	zero,0(a4)
-	sb	zero,1(a4)
-	addi	a5,a5,-2
-	addi	a4,a4,2
-lab19: 	beqz	a5,lab20
-	sb	zero,0(a4)
-lab20: 	lw	a5,44(sp)
+	sub	a2,a5,a2
+	li	a1,0
+	jal	ra,memset
+	lw	a5,44(sp)
 	addi	a0,sp,48
 	addi	a1,sp,88
 	addi	s3,a5,32
@@ -2084,7 +2055,7 @@ lab20: 	lw	a5,44(sp)
 	jal	ra,_nettle_sha256_compress
 	li	a2,56
 	addi	a0,sp,88
-	j	lab21
+	j	lab18
 lab14: 	lw	ra,220(sp)
 	lw	s0,216(sp)
 	lw	s1,212(sp)
@@ -2104,8 +2075,8 @@ lab16: 	li	a0,1
 	jal	ra,exit
 benchmark_body.constprop.0:
 	lui	a5,0x100
-	addi	a5,a5,120 # 100078 <H0.0>
-	lw	a4,0(a5)
+	mv	a5,a5
+	lw	a4,0(a5) # 100000 <H0.0>
 	addi	sp,sp,-224
 	sw	a5,44(sp)
 	sw	a4,12(sp)
@@ -2139,12 +2110,12 @@ benchmark_body.constprop.0:
 	lui	a5,0x100
 	sw	s10,176(sp)
 	sw	a4,36(sp)
-	addi	s11,a5,88 # 100058 <buffer>
-	j	lab22
-lab25: 	lui	s3,0x100
+	addi	s11,a5,412 # 10019c <buffer>
+	j	lab19
+lab22: 	lui	s3,0x100
 	sub	a2,a5,a2
-	addi	s3,s3,152 # 100098 <K>
-lab29: 	li	a1,0
+	addi	s3,s3,32 # 100020 <K>
+lab23: 	li	a1,0
 	jal	ra,memset
 	lw	a3,80(sp)
 	lw	a2,84(sp)
@@ -2350,9 +2321,9 @@ lab29: 	li	a1,0
 	sw	a3,20(s11)
 	sw	a4,24(s11)
 	sw	a5,8(sp)
-	beqz	a5,lab23
-lab22: 	lui	a5,0x100
-	mv	a2,a5
+	beqz	a5,lab20
+lab19: 	lui	a5,0x100
+	addi	a2,a5,324 # 100144 <msg>
 	lw	a5,12(sp)
 	li	a6,0
 	li	a1,56
@@ -2387,37 +2358,22 @@ lab22: 	lui	a5,0x100
 	jal	ra,sha256_update
 	lw	a2,152(sp)
 	li	a5,63
-	bltu	a5,a2,lab24
+	bltu	a5,a2,lab21
 	addi	a5,a2,112
 	addi	a4,sp,48
 	add	a5,a5,a4
 	li	a4,-128
-	sb	a4,-72(a5) # fffb8 <_min_stack+0xfbfb8>
+	sb	a4,-72(a5)
 	addi	a2,a2,1
 	addi	a4,sp,88
 	li	a5,56
 	add	a0,a4,a2
-	bgeu	a5,a2,lab25
+	bgeu	a5,a2,lab22
 	li	a5,64
-	sub	a5,a5,a2
-	li	a3,4
-	mv	a4,a0
-	bltu	a5,a3,lab26
-	sb	zero,0(a0)
-	sb	zero,1(a0)
-	sb	zero,2(a0)
-	sb	zero,3(a0)
-	addi	a4,a0,4
-	addi	a5,a5,-4
-lab26: 	li	a3,2
-	bltu	a5,a3,lab27
-	sb	zero,0(a4)
-	sb	zero,1(a4)
-	addi	a5,a5,-2
-	addi	a4,a4,2
-lab27: 	beqz	a5,lab28
-	sb	zero,0(a4)
-lab28: 	lw	a5,44(sp)
+	sub	a2,a5,a2
+	li	a1,0
+	jal	ra,memset
+	lw	a5,44(sp)
 	addi	a0,sp,48
 	addi	a1,sp,88
 	addi	s3,a5,32
@@ -2425,8 +2381,8 @@ lab28: 	lw	a5,44(sp)
 	jal	ra,_nettle_sha256_compress
 	li	a2,56
 	addi	a0,sp,88
-	j	lab29
-lab23: 	lw	ra,220(sp)
+	j	lab23
+lab20: 	lw	ra,220(sp)
 	lw	s0,216(sp)
 	lw	s1,212(sp)
 	lw	s2,208(sp)
@@ -2442,7 +2398,7 @@ lab23: 	lw	ra,220(sp)
 	li	a0,0
 	addi	sp,sp,224
 	ret
-lab24: 	li	a0,1
+lab21: 	li	a0,1
 	jal	ra,exit
 sha256_digest:
 	addi	sp,sp,-32
@@ -2454,81 +2410,81 @@ sha256_digest:
 	sw	s4,8(sp)
 	sw	s5,4(sp)
 	li	a5,32
-	bltu	a5,a1,lab30
-	mv	s3,a2
+	bltu	a5,a1,lab24
+	mv	s1,a2
 	lw	a2,104(a0)
 	li	a5,63
 	mv	s0,a0
-	bltu	a5,a2,lab30
+	bltu	a5,a2,lab24
 	add	a5,a0,a2
 	li	a4,-128
 	addi	a2,a2,1
-	addi	s5,a0,40
+	addi	s4,a0,40
 	sb	a4,40(a5)
 	li	a5,56
-	mv	s1,a1
-	add	a0,s5,a2
-	bltu	a5,a2,lab31
-	lui	s2,0x100
+	mv	s3,a1
+	add	a0,s4,a2
+	bltu	a5,a2,lab25
+	lui	s5,0x100
 	sub	a2,a5,a2
-	lui	s4,0x100
-	addi	s2,s2,152 # 100098 <K>
-lab35: 	li	a1,0
+	lui	s2,0x100
+	addi	s5,s5,32 # 100020 <K>
+lab26: 	li	a1,0
 	jal	ra,memset
 	lw	a3,32(s0)
-	lw	a2,36(s0)
+	lw	a6,36(s0)
 	lw	a5,104(s0)
 	srli	a4,a3,0x17
-	slli	a2,a2,0x9
+	slli	a6,a6,0x9
 	slli	a5,a5,0x3
 	slli	a3,a3,0x9
-	or	a2,a4,a2
+	or	a6,a4,a6
 	or	a3,a3,a5
-	srli	a7,a2,0x10
-	srli	a6,a3,0x10
-	lui	a1,0xffff0
-	addi	a1,a1,255 # ffff00ff <_stack+0xffee80ff>
-	srli	a4,a2,0x18
+	srli	a7,a6,0x10
+	srli	a0,a3,0x10
+	lui	a2,0xffff0
+	addi	a2,a2,255 # ffff00ff <_stack+0xffee80ff>
+	srli	a4,a6,0x18
 	srli	a5,a3,0x18
 	zext.b	a7,a7
-	zext.b	a6,a6
+	zext.b	a0,a0
 	slli	a7,a7,0x8
-	and	a4,a4,a1
-	srli	a0,a2,0x8
-	slli	a6,a6,0x8
-	and	a5,a5,a1
+	and	a4,a4,a2
+	srli	a1,a6,0x8
+	slli	a0,a0,0x8
+	and	a5,a5,a2
 	lui	t1,0xff010
-	srli	a1,a3,0x8
+	srli	a2,a3,0x8
 	addi	t1,t1,-1 # ff00ffff <_stack+0xfef07fff>
 	or	a4,a4,a7
-	or	a5,a5,a6
-	zext.b	a0,a0
+	or	a5,a5,a0
 	zext.b	a1,a1
+	zext.b	a2,a2
 	and	a4,a4,t1
 	and	a5,a5,t1
-	slli	a0,a0,0x10
 	slli	a1,a1,0x10
-	lui	a6,0x1000
-	addi	a6,a6,-1 # ffffff <_stack+0xef7fff>
-	or	a4,a4,a0
-	or	a5,a5,a1
-	and	a4,a4,a6
-	and	a5,a5,a6
+	slli	a2,a2,0x10
+	lui	a0,0x1000
+	addi	a0,a0,-1 # ffffff <_stack+0xef7fff>
+	or	a4,a4,a1
+	or	a5,a5,a2
+	slli	a6,a6,0x18
 	slli	a3,a3,0x18
-	slli	a2,a2,0x18
-	or	a4,a4,a2
+	and	a4,a4,a0
+	and	a5,a5,a0
+	or	a4,a4,a6
 	or	a5,a5,a3
 	sw	a5,100(s0)
 	sw	a4,96(s0)
-	mv	a2,s2
-	mv	a1,s5
+	mv	a2,s5
+	mv	a1,s4
 	mv	a0,s0
 	jal	ra,_nettle_sha256_compress
 	mv	a2,s0
-	mv	a1,s3
-	mv	a0,s1
+	mv	a1,s1
+	mv	a0,s3
 	jal	ra,_nettle_write_be32
-	addi	a1,s4,120 # 100078 <H0.0>
+	mv	a1,s2
 	mv	a0,s0
 	li	a2,32
 	jal	ra,memcpy
@@ -2546,49 +2502,29 @@ lab35: 	li	a1,0
 	lw	s5,4(sp)
 	addi	sp,sp,32
 	ret
-lab31: 	li	a5,64
-	sub	a5,a5,a2
-	li	a4,4
-	bgeu	a5,a4,lab32
-	li	a4,2
-	bgeu	a5,a4,lab33
-lab37: 	bnez	a5,lab34
-lab36: 	lui	s4,0x100
-	addi	s2,s4,120 # 100078 <H0.0>
-	addi	s2,s2,32
-	mv	a2,s2
+lab25: 	li	a5,64
+	lui	s2,0x100
+	sub	a2,a5,a2
+	li	a1,0
+	mv	s5,s2
+	jal	ra,memset
+	addi	s5,s5,32
+	mv	a2,s5
 	mv	a0,s0
-	mv	a1,s5
+	mv	a1,s4
 	jal	ra,_nettle_sha256_compress
-	mv	a0,s5
+	mv	a0,s4
 	li	a2,56
-	j	lab35
-lab34: 	sb	zero,0(a0)
-	j	lab36
-lab33: 	sb	zero,0(a0)
-	sb	zero,1(a0)
-	addi	a5,a5,-2
-	addi	a0,a0,2
-	beqz	a5,lab36
-	j	lab34
-lab32: 	sb	zero,0(a0)
-	sb	zero,1(a0)
-	sb	zero,2(a0)
-	sb	zero,3(a0)
-	addi	a5,a5,-4
-	li	a4,2
-	addi	a0,a0,4
-	bltu	a5,a4,lab37
-	j	lab33
-lab30: 	li	a0,1
+	j	lab26
+lab24: 	li	a0,1
 	jal	ra,exit
 verify_benchmark:
 	lui	a4,0x100
 	lui	a3,0x100
-	addi	a4,a4,88 # 100058 <buffer>
-	mv	a3,a3
+	addi	a4,a4,412 # 10019c <buffer>
+	addi	a3,a3,324 # 100144 <msg>
 	lbu	a1,1(a4)
-	lbu	t3,57(a3) # 100039 <hash+0x1>
+	lbu	t3,57(a3)
 	lbu	t4,56(a3)
 	lbu	a2,2(a4)
 	lbu	a5,0(a4)
@@ -2859,69 +2795,6 @@ __CTOR_END__:
 	unimp
 
 
-	.data
-
-msg:
-	.2byte	0x6261
-	.4byte	0x63626463
-	.2byte	0x6564
-	.4byte	0x66656463
-	.2byte	0x6564
-	.2byte	0x6766
-	.2byte	0x6665
-	.4byte	0x67666867
-	.2byte	0x6968
-	.4byte	0x6a696867
-	.2byte	0x6968
-	.2byte	0x6b6a
-	.2byte	0x6a69
-	.4byte	0x6b6a6c6b
-	.2byte	0x6d6c
-	.4byte	0x6e6d6c6b
-	.2byte	0x6d6c
-	.2byte	0x6f6e
-	.2byte	0x6e6d
-	.4byte	0x6f6e706f
-	.2byte	0x7170
-hash:
-	.2byte	0x8d24
-	.2byte	0x616a
-	.2byte	0x6d2
-	.2byte	0xb838
-	.2byte	0xc0e5
-	.2byte	0x9326
-	.2byte	0x3e0c
-	.2byte	0x3960
-	.4byte	0x59e43ca3
-	.2byte	0xff64
-	.2byte	0x6721
-	.2byte	0xecf6
-	.2byte	0xd4ed
-	.2byte	0xdb19
-	.2byte	0xc106
-
-
-	.bss
-
-buffer:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-
-
 	.section .rodata
 
 H0.0:
@@ -3035,20 +2908,98 @@ K:
 	.2byte	0x78f2
 	.2byte	0xc671
 nettle_sha256:
-	.2byte	0x1b4
+	.2byte	0x13c
 	.2byte	0x10
 	.2byte	0x70
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x20
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x40
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x2cc
-	.4byte	0x0000
-	.2byte	0x1cf0
-	.4byte	0x0000
-	.2byte	0x28dc
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x1cb8
+	.2byte	0x0000
+	.2byte	0x282c
+	.2byte	0x0000
 	.4byte	0x32616873
 	.2byte	0x3635
-	.4byte	0x00
+	.byte	0x00
+
+
+	.data
+
+msg:
+	.2byte	0x6261
+	.4byte	0x63626463
+	.2byte	0x6564
+	.4byte	0x66656463
+	.2byte	0x6564
+	.2byte	0x6766
+	.2byte	0x6665
+	.4byte	0x67666867
+	.2byte	0x6968
+	.4byte	0x6a696867
+	.2byte	0x6968
+	.2byte	0x6b6a
+	.2byte	0x6a69
+	.4byte	0x6b6a6c6b
+	.2byte	0x6d6c
+	.4byte	0x6e6d6c6b
+	.2byte	0x6d6c
+	.2byte	0x6f6e
+	.2byte	0x6e6d
+	.4byte	0x6f6e706f
+	.2byte	0x7170
+hash:
+	.2byte	0x8d24
+	.2byte	0x616a
+	.2byte	0x6d2
+	.2byte	0xb838
+	.2byte	0xc0e5
+	.2byte	0x9326
+	.2byte	0x3e0c
+	.2byte	0x3960
+	.4byte	0x59e43ca3
+	.2byte	0xff64
+	.2byte	0x6721
+	.2byte	0xecf6
+	.2byte	0xd4ed
+	.2byte	0xdb19
+	.2byte	0xc106
+
+
+	.bss
+
+buffer:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+_impure_ptr:
+	.2byte	0x0000
+	.2byte	0x0000
+__ctype_ptr__:
+	.2byte	0x0000
+	.2byte	0x0000
+_ctype_:
+	.2byte	0x0000
+	.2byte	0x0000
+__errno:
+	.2byte	0x0000
+	.2byte	0x0000
+__locale_ctype_ptr:
+	.2byte	0x0000
+	.2byte	0x0000

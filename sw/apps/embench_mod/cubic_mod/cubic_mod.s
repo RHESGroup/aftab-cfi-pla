@@ -4,102 +4,103 @@
 
 benchmark_body.constprop.0:
 	lui	a2,0x100
-	lw	a1,568(a2) # 100238 <init_jk+0x28>
-	lw	a2,572(a2)
+	lw	a1,504(a2) # 1001f8 <init_jk+0x28>
+	lw	a2,508(a2)
 	addi	sp,sp,-576
 	sw	a1,40(sp)
 	sw	a2,44(sp)
 	lui	a2,0x100
-	lw	a1,576(a2) # 100240 <init_jk+0x30>
-	lw	a2,580(a2)
+	lw	a1,512(a2) # 100200 <init_jk+0x30>
+	lw	a2,516(a2)
 	lui	a3,0x100
 	sw	a1,48(sp)
 	sw	a2,52(sp)
 	lui	a2,0x100
-	lw	a1,584(a2) # 100248 <init_jk+0x38>
-	lw	a2,588(a2)
-	sw	s4,552(sp)
+	lw	a1,520(a2) # 100208 <init_jk+0x38>
+	lw	a2,524(a2)
 	sw	s6,544(sp)
-	lw	s4,560(a3) # 100230 <init_jk+0x20>
-	lw	s6,564(a3)
+	sw	s7,540(sp)
+	lw	s6,496(a3) # 1001f0 <init_jk+0x20>
+	lw	s7,500(a3)
 	lui	a3,0x100
 	sw	a2,60(sp)
-	lw	a2,592(a3) # 100250 <init_jk+0x40>
-	lw	a3,596(a3)
-	sw	s1,564(sp)
+	lw	a2,528(a3) # 100210 <init_jk+0x40>
+	lw	a3,532(a3)
 	sw	s2,560(sp)
+	sw	s5,548(sp)
 	sw	a3,68(sp)
 	lui	a3,0x100
 	sw	s9,532(sp)
 	sw	a2,64(sp)
 	sw	ra,572(sp)
-	lw	a2,600(a3) # 100258 <init_jk+0x48>
+	lw	a2,536(a3) # 100218 <init_jk+0x48>
 	sw	s0,568(sp)
+	sw	s1,564(sp)
 	sw	s3,556(sp)
-	sw	s5,548(sp)
-	sw	s7,540(sp)
+	sw	s4,552(sp)
 	sw	s8,536(sp)
 	sw	s10,528(sp)
 	sw	s11,524(sp)
 	sw	a1,56(sp)
-	lw	a3,604(a3)
+	lw	a3,540(a3)
 	sw	a2,72(sp)
 	lui	a4,0x100
 	sw	a3,76(sp)
 	lui	a3,0x100
-	lw	a2,608(a3) # 100260 <init_jk+0x50>
-	lw	a3,612(a3)
+	lw	a2,544(a3) # 100220 <init_jk+0x50>
+	lw	a3,548(a3)
 	lui	a5,0x100
 	sw	a2,80(sp)
 	sw	a3,84(sp)
 	lui	a3,0x100
-	lw	a2,616(a3) # 100268 <init_jk+0x58>
-	lw	a3,620(a3)
-	li	s9,10
+	lw	a2,552(a3) # 100228 <init_jk+0x58>
+	lw	a3,556(a3)
+	li	s5,10
 	sw	a2,88(sp)
 	sw	a3,92(sp)
 	lui	a3,0x100
-	lw	a2,624(a3) # 100270 <init_jk+0x60>
-	lw	a3,628(a3)
+	lw	a2,560(a3) # 100230 <init_jk+0x60>
+	lw	a3,564(a3)
 	addi	s2,sp,128
 	sw	a2,96(sp)
 	sw	a3,100(sp)
-	lw	a3,552(a4) # 100228 <init_jk+0x18>
-	lw	a4,556(a4)
-	addi	s1,sp,124
+	lw	a3,488(a4) # 1001e8 <init_jk+0x18>
+	lw	a4,492(a4)
+	addi	s9,sp,124
 	sw	a3,32(sp)
 	sw	a4,36(sp)
-	lw	a4,544(a5) # 100220 <init_jk+0x10>
-	lw	a5,548(a5)
+	lw	a4,480(a5) # 1001e0 <init_jk+0x10>
+	lw	a5,484(a5)
+	sw	s5,104(sp)
 	sw	a4,20(sp)
 	sw	a5,24(sp)
 	lui	a5,0x100
-	mv	a5,a5
+	addi	a5,a5,1280 # 100500 <res0>
 	sw	a5,108(sp)
-lab6: 	li	a2,384
+lab4: 	li	a2,384
 	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
-	lw	s8,44(sp)
-	lw	s7,40(sp)
+	lw	s0,40(sp)
+	lw	s1,44(sp)
 	lw	a4,48(sp)
 	lw	a5,52(sp)
 	lw	a2,56(sp)
 	lw	a3,60(sp)
-	mv	a7,s8
-	mv	a0,s4
-	mv	a1,s6
-	mv	a6,s7
+	mv	a0,s6
+	mv	a1,s7
+	mv	a6,s0
+	mv	a7,s1
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lw	t1,124(sp)
 	lui	t3,0x100
 	sw	s2,4(sp)
-	sw	t1,36(t3) # 100024 <soln_cnt0>
+	sw	t1,1316(t3) # 100524 <soln_cnt0>
 	lw	t3,108(sp)
 	lw	t1,128(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	lw	a4,64(sp)
 	sw	t1,0(t3)
 	lw	t1,132(sp)
@@ -108,25 +109,24 @@ lab6: 	li	a2,384
 	sw	t1,4(t3)
 	lw	t1,136(sp)
 	lw	a3,76(sp)
-	mv	a7,s8
+	mv	a0,s6
 	sw	t1,8(t3)
 	lw	t1,140(sp)
-	mv	a0,s4
-	mv	a1,s6
+	mv	a1,s7
+	mv	a6,s0
 	sw	t1,12(t3)
 	lw	t1,144(sp)
-	mv	a6,s7
-	li	s8,2
+	mv	a7,s1
+	mv	s4,s6
 	sw	t1,16(t3)
 	lw	t1,148(sp)
-	mv	s3,s4
-	mv	s0,s6
+	mv	s3,s7
 	sw	t1,20(t3)
 	jal	ra,SolveCubic
 	lw	t1,124(sp)
 	lui	t3,0x100
 	lw	t2,132(sp)
-	sw	t1,32(t3) # 100020 <soln_cnt1>
+	sw	t1,1312(t3) # 100520 <soln_cnt1>
 	lw	a6,80(sp)
 	lw	t1,128(sp)
 	lw	a7,84(sp)
@@ -135,98 +135,93 @@ lab6: 	li	a2,384
 	lw	a2,96(sp)
 	lw	a3,100(sp)
 	lui	t3,0x100
-	mv	a0,s4
-	mv	a1,s6
+	mv	a0,s6
+	mv	a1,s7
 	sw	s2,4(sp)
-	sw	s1,0(sp)
-	sw	t1,24(t3) # 100018 <res1>
-	sw	t2,28(t3)
+	sw	s9,0(sp)
+	sw	t1,1304(t3) # 100518 <res1>
+	sw	t2,1308(t3)
 	jal	ra,SolveCubic
 	lui	a5,0x100
-	lw	a6,632(a5) # 100278 <init_jk+0x68>
-	lw	a7,636(a5)
+	lw	a6,568(a5) # 100238 <init_jk+0x68>
+	lw	a7,572(a5)
 	lui	a5,0x100
-	lw	a2,640(a5) # 100280 <init_jk+0x70>
-	lw	a3,644(a5)
-	mv	a4,s4
-	mv	a0,s4
-	mv	a5,s6
-	mv	a1,s6
+	lw	a2,576(a5) # 100240 <init_jk+0x70>
+	lw	a3,580(a5)
+	mv	a4,s6
+	mv	a5,s7
+	mv	a0,s6
+	mv	a1,s7
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	sw	s9,104(sp)
-	sw	s4,16(sp)
-lab5: 	lw	s11,32(sp)
-	lw	s10,36(sp)
-	sw	s8,28(sp)
-	li	s7,2
-	li	s5,1
-	mv	s4,s11
-	mv	s8,s10
-lab3: 	lw	s11,20(sp)
-	lw	s10,24(sp)
-	li	s9,2
+	li	a5,2
+	sw	a5,28(sp)
+	sw	s6,16(sp)
+lab6: 	lw	s1,32(sp)
+	lw	s0,36(sp)
+	li	s10,2
+	li	s8,1
+lab5: 	lw	s11,20(sp)
+	lw	s6,24(sp)
+	li	s5,2
 lab1: 	lui	a6,0x100
-	lw	a7,652(a6) # 10028c <init_jk+0x7c>
-	lw	a6,648(a6)
+	lw	a7,588(a6) # 10024c <init_jk+0x7c>
+	lw	a6,584(a6)
 	mv	a4,s11
-	mv	a5,s10
-	mv	a2,s4
-	mv	a0,s3
-	mv	a3,s8
-	mv	a1,s0
+	mv	a5,s6
+	mv	a2,s1
+	mv	a0,s4
+	mv	a3,s0
+	mv	a1,s3
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lui	a6,0x100
-	lw	a7,660(a6) # 100294 <init_jk+0x84>
-	lw	a6,656(a6)
+	lw	a7,596(a6) # 100254 <init_jk+0x84>
+	lw	a6,592(a6)
 	mv	a4,s11
-	mv	a5,s10
-	mv	a2,s4
-	mv	a0,s3
-	mv	a3,s8
-	mv	a1,s0
+	mv	a5,s6
+	mv	a2,s1
+	mv	a0,s4
+	mv	a3,s0
+	mv	a1,s3
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lui	a5,0x100
-	lw	a2,664(a5) # 100298 <init_jk+0x88>
-	lw	a3,668(a5)
+	lw	a2,600(a5) # 100258 <init_jk+0x88>
+	lw	a3,604(a5)
 	mv	a0,s11
-	mv	a1,s10
+	mv	a1,s6
 	jal	ra,__adddf3
 	mv	s11,a0
-	mv	s10,a1
-	beq	s9,s5,lab0
-	li	s9,1
+	mv	s6,a1
+	beq	s5,s8,lab0
+	li	s5,1
 	j	lab1
-lab0: 	lw	a2,16(sp)
-	mv	a0,s4
-	mv	a1,s8
-	mv	a3,s6
-	jal	ra,__subdf3
-	mv	s4,a0
-	mv	s8,a1
-	beq	s7,s5,lab2
-	li	s7,1
-	j	lab3
-lab2: 	lw	a2,16(sp)
-	lw	s8,28(sp)
-	mv	a0,s3
+lab0: 	lw	s6,16(sp)
+	mv	a0,s1
 	mv	a1,s0
-	mv	a3,s6
-	jal	ra,__adddf3
-	mv	s3,a0
+	mv	a2,s6
+	mv	a3,s7
+	jal	ra,__subdf3
+	mv	s1,a0
 	mv	s0,a1
-	beq	s8,s7,lab4
-	li	s8,1
-	j	lab5
-lab4: 	lw	s9,104(sp)
-	lw	s4,16(sp)
-	addi	s9,s9,-1
-	bnez	s9,lab6
+	bne	s10,s5,lab2
+	mv	a0,s4
+	mv	a1,s3
+	mv	a2,s6
+	mv	a3,s7
+	jal	ra,__adddf3
+	lw	a5,28(sp)
+	mv	s4,a0
+	mv	s3,a1
+	bne	a5,s10,lab3
+	lw	a5,104(sp)
+	addi	a5,a5,-1
+	sw	a5,104(sp)
+	bnez	a5,lab4
 	lw	ra,572(sp)
 	lw	s0,568(sp)
 	lw	s1,564(sp)
@@ -243,108 +238,112 @@ lab4: 	lw	s9,104(sp)
 	li	a0,0
 	addi	sp,sp,576
 	ret
-benchmark_body.isra.0:
-	blez	a0,lab7
-	lui	a1,0x100
-	lw	a5,568(a1) # 100238 <init_jk+0x28>
-	addi	sp,sp,-592
-	lw	a6,572(a1)
-	lui	a1,0x100
-	sw	a5,56(sp)
-	lw	a5,576(a1) # 100240 <init_jk+0x30>
-	sw	a6,60(sp)
-	lw	a6,580(a1)
-	lui	a1,0x100
-	sw	a5,64(sp)
-	lw	a5,584(a1) # 100248 <init_jk+0x38>
-	lui	a2,0x100
-	sw	a6,68(sp)
-	sw	a5,72(sp)
-	lw	a6,588(a1)
-	lw	a5,564(a2) # 100234 <init_jk+0x24>
-	sw	s4,568(sp)
-	lw	s4,560(a2)
-	lui	a2,0x100
-	sw	a6,76(sp)
+lab2: 	li	s10,1
+	j	lab5
+lab3: 	li	a5,1
 	sw	a5,28(sp)
-	lw	a6,596(a2) # 100254 <init_jk+0x44>
-	lw	a5,592(a2)
-	lui	a2,0x100
-	sw	s1,580(sp)
-	sw	s2,576(sp)
-	sw	s9,548(sp)
-	sw	a6,84(sp)
+	j	lab6
+benchmark_body.isra.0:
+	addi	sp,sp,-592
 	sw	ra,588(sp)
 	sw	s0,584(sp)
+	sw	s1,580(sp)
+	sw	s2,576(sp)
 	sw	s3,572(sp)
+	sw	s4,568(sp)
 	sw	s5,564(sp)
 	sw	s6,560(sp)
 	sw	s7,556(sp)
 	sw	s8,552(sp)
+	sw	s9,548(sp)
 	sw	s10,544(sp)
 	sw	s11,540(sp)
-	sw	a5,80(sp)
-	lw	a5,600(a2) # 100258 <init_jk+0x48>
-	lw	a6,604(a2)
+	sw	a0,120(sp)
+	blez	a0,lab7
 	lui	a2,0x100
-	sw	a5,88(sp)
-	lw	a5,608(a2) # 100260 <init_jk+0x50>
-	sw	a6,92(sp)
-	lw	a6,612(a2)
-	lui	a2,0x100
-	sw	a5,96(sp)
-	lw	a5,616(a2) # 100268 <init_jk+0x58>
-	sw	a6,100(sp)
-	lw	a6,620(a2)
-	lui	a2,0x100
-	sw	a5,104(sp)
-	lw	a5,624(a2) # 100270 <init_jk+0x60>
+	lw	a1,504(a2) # 1001f8 <init_jk+0x28>
+	lw	a2,508(a2)
 	lui	a3,0x100
+	sw	a1,56(sp)
+	sw	a2,60(sp)
+	lui	a2,0x100
+	lw	a1,512(a2) # 100200 <init_jk+0x30>
+	lw	a2,516(a2)
+	lw	s6,496(a3) # 1001f0 <init_jk+0x20>
+	sw	a1,64(sp)
+	sw	a2,68(sp)
+	lui	a2,0x100
+	lw	a1,520(a2) # 100208 <init_jk+0x38>
+	lw	a2,524(a2)
+	lw	s7,500(a3)
+	lui	a3,0x100
+	sw	a2,76(sp)
+	lw	a2,528(a3) # 100210 <init_jk+0x40>
+	lw	a3,532(a3)
 	lui	a4,0x100
-	sw	a5,112(sp)
-	lw	a5,552(a3) # 100228 <init_jk+0x18>
-	sw	a6,108(sp)
-	lw	a6,628(a2)
-	sw	a5,44(sp)
-	lw	a5,556(a3)
-	sw	a6,116(sp)
-	li	s9,0
-	sw	a5,48(sp)
-	lw	a5,544(a4) # 100220 <init_jk+0x10>
+	sw	a2,80(sp)
+	sw	a3,84(sp)
+	lui	a3,0x100
+	lw	a2,536(a3) # 100218 <init_jk+0x48>
+	lw	a3,540(a3)
+	sw	a1,72(sp)
+	sw	a2,88(sp)
+	sw	a3,92(sp)
+	lui	a3,0x100
+	lw	a2,544(a3) # 100220 <init_jk+0x50>
+	lw	a3,548(a3)
+	lui	a5,0x100
+	sw	a2,96(sp)
+	sw	a3,100(sp)
+	lui	a3,0x100
+	lw	a2,552(a3) # 100228 <init_jk+0x58>
+	lw	a3,556(a3)
+	li	s5,0
+	sw	a2,104(sp)
+	sw	a3,108(sp)
+	lui	a3,0x100
+	lw	a2,560(a3) # 100230 <init_jk+0x60>
+	lw	a3,564(a3)
 	addi	s2,sp,144
-	addi	s1,sp,140
-	sw	a5,32(sp)
-	lw	a5,548(a4)
-	lui	a4,0x100
-	sw	a0,124(sp)
+	sw	a2,112(sp)
+	sw	a3,116(sp)
+	lw	a3,488(a4) # 1001e8 <init_jk+0x18>
+	lw	a4,492(a4)
+	addi	s9,sp,140
+	sw	a3,44(sp)
+	sw	a4,48(sp)
+	lw	a4,480(a5) # 1001e0 <init_jk+0x10>
+	lw	a5,484(a5)
+	sw	s5,52(sp)
+	sw	a4,32(sp)
 	sw	a5,36(sp)
-	mv	a5,a4
-	sw	a5,120(sp)
-lab14: 	li	a2,384
+	lui	a5,0x100
+	addi	a5,a5,1280 # 100500 <res0>
+	sw	a5,124(sp)
+lab12: 	li	a2,384
 	li	a1,0
 	mv	a0,s2
 	jal	ra,memset
-	lw	s0,28(sp)
-	lw	s5,56(sp)
-	lw	s6,60(sp)
+	lw	s0,56(sp)
+	lw	s1,60(sp)
 	lw	a4,64(sp)
 	lw	a5,68(sp)
 	lw	a2,72(sp)
 	lw	a3,76(sp)
-	mv	a0,s4
-	mv	a1,s0
-	mv	a6,s5
-	mv	a7,s6
+	mv	a0,s6
+	mv	a1,s7
+	mv	a6,s0
+	mv	a7,s1
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lw	t1,140(sp)
 	lui	t3,0x100
 	sw	s2,4(sp)
-	sw	t1,36(t3) # 100024 <soln_cnt0>
-	lw	t3,120(sp)
+	sw	t1,1316(t3) # 100524 <soln_cnt0>
+	lw	t3,124(sp)
 	lw	t1,144(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	lw	a4,80(sp)
 	sw	t1,0(t3)
 	lw	t1,148(sp)
@@ -353,24 +352,24 @@ lab14: 	li	a2,384
 	sw	t1,4(t3)
 	lw	t1,152(sp)
 	lw	a3,92(sp)
-	mv	a0,s4
+	mv	a0,s6
 	sw	t1,8(t3)
 	lw	t1,156(sp)
-	mv	a1,s0
-	mv	a6,s5
+	mv	a1,s7
+	mv	a6,s0
 	sw	t1,12(t3)
 	lw	t1,160(sp)
-	mv	a7,s6
-	li	s8,2
+	mv	a7,s1
+	mv	s4,s6
 	sw	t1,16(t3)
 	lw	t1,164(sp)
-	mv	s3,s4
+	mv	s3,s7
 	sw	t1,20(t3)
 	jal	ra,SolveCubic
 	lw	t1,140(sp)
 	lui	t3,0x100
 	lw	t2,148(sp)
-	sw	t1,32(t3) # 100020 <soln_cnt1>
+	sw	t1,1312(t3) # 100520 <soln_cnt1>
 	lw	a6,96(sp)
 	lw	t1,144(sp)
 	lw	a7,100(sp)
@@ -379,98 +378,95 @@ lab14: 	li	a2,384
 	lw	a2,112(sp)
 	lw	a3,116(sp)
 	lui	t3,0x100
-	mv	a0,s4
-	mv	a1,s0
+	mv	a0,s6
+	mv	a1,s7
 	sw	s2,4(sp)
-	sw	s1,0(sp)
-	sw	t1,24(t3) # 100018 <res1>
-	sw	t2,28(t3)
+	sw	s9,0(sp)
+	sw	t1,1304(t3) # 100518 <res1>
+	sw	t2,1308(t3)
 	jal	ra,SolveCubic
 	lui	a5,0x100
-	lw	a6,632(a5) # 100278 <init_jk+0x68>
-	lw	a7,636(a5)
+	lw	a6,568(a5) # 100238 <init_jk+0x68>
+	lw	a7,572(a5)
 	lui	a5,0x100
-	lw	a2,640(a5) # 100280 <init_jk+0x70>
-	lw	a3,644(a5)
-	mv	a4,s4
-	mv	a0,s4
-	mv	a5,s0
-	mv	a1,s0
+	lw	a2,576(a5) # 100240 <init_jk+0x70>
+	lw	a3,580(a5)
+	mv	a4,s6
+	mv	a5,s7
+	mv	a0,s6
+	mv	a1,s7
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
-	sw	s9,52(sp)
-lab13: 	lw	s10,44(sp)
-	lw	s11,48(sp)
-	sw	s8,40(sp)
-	li	s6,2
-	li	s5,1
-	mv	s7,s10
-	mv	s8,s11
-lab11: 	lw	s11,32(sp)
-	lw	s10,36(sp)
-	li	s9,2
+	li	a5,2
+	sw	a5,40(sp)
+	sw	s6,28(sp)
+lab14: 	lw	s1,44(sp)
+	lw	s0,48(sp)
+	li	s10,2
+	li	s8,1
+lab13: 	lw	s11,32(sp)
+	lw	s6,36(sp)
+	li	s5,2
 lab9: 	lui	a6,0x100
-	lw	a7,652(a6) # 10028c <init_jk+0x7c>
-	lw	a6,648(a6)
+	lw	a7,588(a6) # 10024c <init_jk+0x7c>
+	lw	a6,584(a6)
 	mv	a4,s11
-	mv	a5,s10
-	mv	a2,s7
-	mv	a0,s3
-	mv	a3,s8
-	mv	a1,s0
+	mv	a5,s6
+	mv	a2,s1
+	mv	a0,s4
+	mv	a3,s0
+	mv	a1,s3
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lui	a6,0x100
-	lw	a7,660(a6) # 100294 <init_jk+0x84>
-	lw	a6,656(a6)
+	lw	a7,596(a6) # 100254 <init_jk+0x84>
+	lw	a6,592(a6)
 	mv	a4,s11
-	mv	a5,s10
-	mv	a2,s7
-	mv	a0,s3
-	mv	a3,s8
-	mv	a1,s0
+	mv	a5,s6
+	mv	a2,s1
+	mv	a0,s4
+	mv	a3,s0
+	mv	a1,s3
 	sw	s2,4(sp)
-	sw	s1,0(sp)
+	sw	s9,0(sp)
 	jal	ra,SolveCubic
 	lui	a5,0x100
-	lw	a2,664(a5) # 100298 <init_jk+0x88>
-	lw	a3,668(a5)
+	lw	a2,600(a5) # 100258 <init_jk+0x88>
+	lw	a3,604(a5)
 	mv	a0,s11
-	mv	a1,s10
+	mv	a1,s6
 	jal	ra,__adddf3
 	mv	s11,a0
-	mv	s10,a1
-	beq	s9,s5,lab8
-	li	s9,1
+	mv	s6,a1
+	beq	s5,s8,lab8
+	li	s5,1
 	j	lab9
-lab8: 	lw	a3,28(sp)
-	mv	a0,s7
-	mv	a1,s8
-	mv	a2,s4
-	jal	ra,__subdf3
-	mv	s7,a0
-	mv	s8,a1
-	beq	s6,s5,lab10
-	li	s6,1
-	j	lab11
-lab10: 	lw	a3,28(sp)
-	lw	s8,40(sp)
-	mv	a0,s3
+lab8: 	lw	s6,28(sp)
+	mv	a0,s1
 	mv	a1,s0
-	mv	a2,s4
-	jal	ra,__adddf3
-	mv	s3,a0
+	mv	a2,s6
+	mv	a3,s7
+	jal	ra,__subdf3
+	mv	s1,a0
 	mv	s0,a1
-	beq	s8,s6,lab12
-	li	s8,1
-	j	lab13
-lab12: 	lw	s9,52(sp)
-	lw	a5,124(sp)
-	addi	s9,s9,1
-	bne	s9,a5,lab14
-	lw	ra,588(sp)
+	bne	s10,s5,lab10
+	mv	a0,s4
+	mv	a1,s3
+	mv	a2,s6
+	mv	a3,s7
+	jal	ra,__adddf3
+	lw	a5,40(sp)
+	mv	s4,a0
+	mv	s3,a1
+	bne	a5,s10,lab11
+	lw	a5,52(sp)
+	lw	a4,120(sp)
+	addi	a5,a5,1
+	sw	a5,52(sp)
+	bne	a5,a4,lab12
+lab7: 	lw	ra,588(sp)
 	lw	s0,584(sp)
 	lw	s1,580(sp)
 	lw	s2,576(sp)
@@ -485,10 +481,14 @@ lab12: 	lw	s9,52(sp)
 	lw	s11,540(sp)
 	addi	sp,sp,592
 	ret
-lab7: 	ret
+lab10: 	li	s10,1
+	j	lab13
+lab11: 	li	a5,1
+	sw	a5,40(sp)
+	j	lab14
 verify_benchmark:
 	lui	a5,0x100
-	lw	a4,36(a5) # 100024 <soln_cnt0>
+	lw	a4,1316(a5) # 100524 <soln_cnt0>
 	addi	sp,sp,-32
 	sw	s0,24(sp)
 	sw	ra,28(sp)
@@ -512,17 +512,17 @@ lab16: 	lw	ra,28(sp)
 	ret
 lab15: 	lui	s2,0x100
 	lui	a5,0x100
-	mv	s2,s2
-	lw	a2,0(s2) # 100000 <res0>
+	addi	s2,s2,1280 # 100500 <res0>
+	lw	a2,0(s2)
 	lw	a3,4(s2)
-	lw	a0,672(a5) # 1002a0 <init_jk+0x90>
-	lw	a1,676(a5)
+	lw	a0,608(a5) # 100260 <init_jk+0x90>
+	lw	a1,612(a5)
 	lui	s1,0x80000
 	not	s1,s1
 	jal	ra,__subdf3
 	lui	a5,0x100
-	lw	s4,680(a5) # 1002a8 <init_jk+0x98>
-	lw	s5,684(a5)
+	lw	s4,616(a5) # 100268 <init_jk+0x98>
+	lw	s5,620(a5)
 	mv	a4,a0
 	and	a5,a1,s1
 	mv	a0,a4
@@ -534,8 +534,8 @@ lab15: 	lui	s2,0x100
 	lui	a5,0x100
 	lw	a2,8(s2)
 	lw	a3,12(s2)
-	lw	a0,688(a5) # 1002b0 <init_jk+0xa0>
-	lw	a1,692(a5)
+	lw	a0,624(a5) # 100270 <init_jk+0xa0>
+	lw	a1,628(a5)
 	jal	ra,__subdf3
 	mv	a4,a0
 	and	a5,a1,s1
@@ -548,8 +548,8 @@ lab15: 	lui	s2,0x100
 	lui	s3,0x100
 	lw	a2,16(s2)
 	lw	a3,20(s2)
-	lw	a0,696(s3) # 1002b8 <init_jk+0xa8>
-	lw	a1,700(s3)
+	lw	a0,632(s3) # 100278 <init_jk+0xa8>
+	lw	a1,636(s3)
 	jal	ra,__subdf3
 	mv	a4,a0
 	and	a5,a1,s1
@@ -560,14 +560,14 @@ lab15: 	lui	s2,0x100
 	jal	ra,__ltdf2
 	bgez	a0,lab16
 	lui	a5,0x100
-	lw	a4,32(a5) # 100020 <soln_cnt1>
+	lw	a4,1312(a5) # 100520 <soln_cnt1>
 	li	a5,1
 	bne	a4,a5,lab16
 	lui	a5,0x100
-	lw	a2,24(a5) # 100018 <res1>
-	lw	a3,28(a5)
-	lw	a0,696(s3)
-	lw	a1,700(s3)
+	lw	a2,1304(a5) # 100518 <res1>
+	lw	a3,1308(a5)
+	lw	a0,632(s3)
+	lw	a1,636(s3)
 	jal	ra,__subdf3
 	mv	a4,a0
 	and	a5,a1,s1
@@ -1044,7 +1044,7 @@ SolveCubic:
 	jal	ra,__divdf3
 	lw	s1,224(sp)
 	lw	s0,228(sp)
-	lw	s8,232(sp)
+	lw	s11,232(sp)
 	lw	s9,236(sp)
 	mv	a2,a1
 	mv	a1,a0
@@ -1059,11 +1059,11 @@ SolveCubic:
 	lw	s2,236(sp)
 	sw	s1,208(sp)
 	sw	s0,212(sp)
-	sw	s8,216(sp)
+	sw	s11,216(sp)
 	sw	s9,220(sp)
 	sw	s1,192(sp)
 	sw	s0,196(sp)
-	sw	s8,200(sp)
+	sw	s11,200(sp)
 	sw	s9,204(sp)
 	jal	ra,__multf3
 	lui	a5,0x40008
@@ -1073,7 +1073,7 @@ SolveCubic:
 	addi	a2,sp,176
 	addi	a1,sp,192
 	addi	a0,sp,208
-	lw	s11,232(sp)
+	lw	s8,232(sp)
 	lw	s10,236(sp)
 	sw	s5,192(sp)
 	sw	s4,196(sp)
@@ -1095,7 +1095,7 @@ SolveCubic:
 	sw	a5,160(sp)
 	lw	a5,212(sp)
 	sw	a4,176(sp)
-	sw	s11,184(sp)
+	sw	s8,184(sp)
 	sw	a5,164(sp)
 	lw	a5,216(sp)
 	sw	s10,188(sp)
@@ -1120,23 +1120,23 @@ SolveCubic:
 	sw	zero,152(sp)
 	sw	a5,172(sp)
 	jal	ra,__divtf3
-	lw	a3,188(sp)
-	lw	a4,184(sp)
+	lw	a3,184(sp)
+	lw	a4,180(sp)
 	lw	a5,176(sp)
 	addi	a2,sp,192
 	addi	a1,sp,208
 	addi	a0,sp,224
 	sw	a3,16(sp)
-	lw	s11,180(sp)
+	lw	s8,188(sp)
 	sw	a4,12(sp)
 	sw	a5,8(sp)
 	sw	s1,208(sp)
 	sw	s0,212(sp)
-	sw	s8,216(sp)
+	sw	s11,216(sp)
 	sw	s9,220(sp)
 	sw	s1,192(sp)
 	sw	s0,196(sp)
-	sw	s8,200(sp)
+	sw	s11,200(sp)
 	sw	s9,204(sp)
 	jal	ra,__addtf3
 	lw	a5,224(sp)
@@ -1149,7 +1149,7 @@ SolveCubic:
 	sw	a5,196(sp)
 	lw	a5,232(sp)
 	sw	s0,180(sp)
-	sw	s8,184(sp)
+	sw	s11,184(sp)
 	sw	a5,200(sp)
 	lw	a5,236(sp)
 	sw	s9,188(sp)
@@ -1165,7 +1165,7 @@ SolveCubic:
 	sw	a5,180(sp)
 	lw	a5,216(sp)
 	sw	s0,164(sp)
-	sw	s8,168(sp)
+	sw	s11,168(sp)
 	sw	a5,184(sp)
 	lw	a5,220(sp)
 	sw	s9,172(sp)
@@ -1184,7 +1184,7 @@ SolveCubic:
 	sw	s1,160(sp)
 	lw	s10,204(sp)
 	sw	s0,164(sp)
-	sw	s8,168(sp)
+	sw	s11,168(sp)
 	sw	s9,172(sp)
 	sw	zero,144(sp)
 	sw	zero,148(sp)
@@ -1301,13 +1301,13 @@ SolveCubic:
 	lw	s3,88(sp)
 	lw	s2,92(sp)
 	sw	s6,208(sp)
-	sw	s7,216(sp)
-	sw	s10,220(sp)
+	sw	s7,212(sp)
+	sw	s10,216(sp)
 	sw	s6,192(sp)
-	sw	s7,200(sp)
-	sw	s10,204(sp)
-	sw	s11,212(sp)
-	sw	s11,196(sp)
+	sw	s7,196(sp)
+	sw	s10,200(sp)
+	sw	s8,220(sp)
+	sw	s8,204(sp)
 	jal	ra,__multf3
 	lw	a5,224(sp)
 	addi	a2,sp,176
@@ -1322,11 +1322,11 @@ SolveCubic:
 	sw	s7,12(sp)
 	sw	a5,200(sp)
 	lw	a5,236(sp)
-	sw	s7,184(sp)
+	sw	s7,180(sp)
 	sw	s10,16(sp)
 	sw	a5,204(sp)
-	sw	s10,188(sp)
-	sw	s11,180(sp)
+	sw	s10,184(sp)
+	sw	s8,188(sp)
 	jal	ra,__multf3
 	lw	a4,208(sp)
 	addi	a2,sp,192
@@ -1382,7 +1382,7 @@ SolveCubic:
 	lw	a0,24(sp)
 	lw	a1,28(sp)
 	li	a5,1
-	sw	a5,0(a4) # 100000 <res0>
+	sw	a5,0(a4)
 	jal	ra,sqrt
 	mv	s7,a0
 	addi	a0,sp,224
@@ -1402,8 +1402,8 @@ SolveCubic:
 	mv	a2,s7
 	jal	ra,__adddf3
 	lui	s6,0x100
-	lw	a2,728(s6) # 1002d8 <init_jk+0xc8>
-	lw	a3,732(s6)
+	lw	a2,664(s6) # 100298 <init_jk+0xc8>
+	lw	a3,668(s6)
 	jal	ra,pow
 	lw	a5,8(sp)
 	mv	s6,a0
@@ -1411,10 +1411,10 @@ SolveCubic:
 	sw	a5,224(sp)
 	lw	a5,12(sp)
 	mv	s1,a1
-	sw	s11,228(sp)
-	sw	a5,232(sp)
+	sw	s8,236(sp)
+	sw	a5,228(sp)
 	lw	a5,16(sp)
-	sw	a5,236(sp)
+	sw	a5,232(sp)
 	jal	ra,__trunctfdf2
 	mv	a3,s1
 	mv	a2,s6
@@ -1440,8 +1440,8 @@ SolveCubic:
 	bltz	a0,lab18
 	xor	s2,s0,s3
 lab18: 	lui	a5,0x100
-	lw	a2,704(a5) # 1002c0 <init_jk+0xb0>
-	lw	a3,708(a5)
+	lw	a2,640(a5) # 100280 <init_jk+0xb0>
+	lw	a3,644(a5)
 	lw	a0,40(sp)
 	lw	a1,44(sp)
 	jal	ra,__divdf3
@@ -1499,23 +1499,22 @@ lab17: 	lw	a2,304(sp)
 	addi	a0,sp,224
 	mv	s2,a1
 	sw	s6,224(sp)
-	sw	s11,228(sp)
-	sw	s7,232(sp)
-	sw	s10,236(sp)
+	sw	s7,228(sp)
+	sw	s10,232(sp)
+	sw	s8,236(sp)
 	jal	ra,__trunctfdf2
 	lui	s6,0x100
 	mv	s5,a0
 	mv	s4,a1
 	jal	ra,sqrt
-	lw	a2,704(s6) # 1002c0 <init_jk+0xb0>
-	lw	a3,708(s6)
-	mv	a5,a0
+	lw	a2,640(s6) # 100280 <init_jk+0xb0>
+	lw	a3,644(s6)
+	mv	s8,a0
 	mv	s7,a1
 	mv	a0,s3
 	mv	a1,s2
-	mv	s10,a5
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
+	jal	ra,cos
 	mv	a4,a0
 	mv	a5,a1
 	lui	a3,0x40008
@@ -1526,7 +1525,7 @@ lab17: 	lw	a2,304(sp)
 	sw	s0,212(sp)
 	mv	s1,a4
 	mv	s0,a5
-	sw	s8,216(sp)
+	sw	s11,216(sp)
 	sw	s9,220(sp)
 	sw	a3,204(sp)
 	lui	s9,0x100
@@ -1534,9 +1533,9 @@ lab17: 	lw	a2,304(sp)
 	sw	zero,196(sp)
 	sw	zero,200(sp)
 	jal	ra,__divtf3
-	lw	a2,656(s9) # 100290 <init_jk+0x80>
-	lw	a3,660(s9)
-	mv	a0,s10
+	lw	a2,592(s9) # 100250 <init_jk+0x80>
+	lw	a3,596(s9)
+	mv	a0,s8
 	mv	a1,s7
 	jal	ra,__muldf3
 	mv	a3,s0
@@ -1583,8 +1582,8 @@ lab17: 	lw	a2,304(sp)
 	mv	a1,s4
 	jal	ra,sqrt
 	lui	a3,0x100
-	lw	a2,712(a3) # 1002c8 <init_jk+0xb8>
-	lw	a3,716(a3)
+	lw	a2,648(a3) # 100288 <init_jk+0xb8>
+	lw	a3,652(a3)
 	mv	a4,a0
 	mv	a5,a1
 	mv	a0,s3
@@ -1592,14 +1591,14 @@ lab17: 	lw	a2,304(sp)
 	sw	a4,12(sp)
 	sw	a5,8(sp)
 	jal	ra,__adddf3
-	lw	a2,704(s6)
-	lw	a3,708(s6)
+	lw	a2,640(s6)
+	lw	a3,644(s6)
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
+	jal	ra,cos
 	lw	a4,12(sp)
 	lw	a5,8(sp)
-	lw	a2,656(s9)
-	lw	a3,660(s9)
+	lw	a2,592(s9)
+	lw	a3,596(s9)
 	mv	s11,a0
 	mv	s10,a1
 	mv	a0,a4
@@ -1645,19 +1644,19 @@ lab17: 	lw	a2,304(sp)
 	mv	a1,s4
 	jal	ra,sqrt
 	lui	a5,0x100
-	lw	a2,720(a5) # 1002d0 <init_jk+0xc0>
-	lw	a3,724(a5)
+	lw	a2,656(a5) # 100290 <init_jk+0xc0>
+	lw	a3,660(a5)
 	mv	s5,a0
 	mv	s4,a1
 	mv	a0,s3
 	mv	a1,s2
 	jal	ra,__adddf3
-	lw	a2,704(s6)
-	lw	a3,708(s6)
+	lw	a2,640(s6)
+	lw	a3,644(s6)
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
-	lw	a2,656(s9)
-	lw	a3,660(s9)
+	jal	ra,cos
+	lw	a2,592(s9)
+	lw	a3,596(s9)
 	mv	s3,a0
 	mv	s2,a1
 	mv	a0,s5
@@ -1712,54 +1711,11 @@ __CTOR_END__:
 	unimp
 
 
-	.bss
-
-res0:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-res1:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-soln_cnt1:
-	.4byte	0x0000
-	.4byte	0x0000
-soln_cnt0:
-	.4byte	0x0000
-	.4byte	0x0000
-_impure_ptr:
-	.4byte	0x0000
-	.4byte	0x0000
-__ctype_ptr__:
-	.4byte	0x0000
-	.4byte	0x0000
-_ctype_:
-	.4byte	0x0000
-	.4byte	0x0000
-__errno:
-	.4byte	0x0000
-	.4byte	0x0000
-__locale_ctype_ptr:
-	.4byte	0x0000
-	.4byte	0x0000
-
-
 	.section .rodata
 
 npio2_hw_4:
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 npio2_hw:
 	.4byte	0x3ff921fb
 	.4byte	0x400921fb
@@ -1902,43 +1858,86 @@ two_over_pi:
 	.4byte	0xe27b0073
 	.2byte	0x60
 	.4byte	0xc08c6b
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 PIo2:
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x4000
 	.4byte	0x3ff921fb
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 	.2byte	0x442d
 	.2byte	0x3e74
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x8000
 	.2byte	0x4698
 	.2byte	0x3cf8
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x6000
 	.2byte	0xcc51
 	.2byte	0x3b78
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x8000
 	.4byte	0x39f01b83
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x4000
 	.2byte	0x2520
 	.2byte	0x387a
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x8000
 	.2byte	0x8222
 	.4byte	0x36e3
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0xf31d
 	.2byte	0x3569
 init_jk:
 	.2byte	0x2
-	.4byte	0x0000
+	.2byte	0x0000
 	.4byte	0x00000003
 	.2byte	0x4
-	.4byte	0x0000
+	.2byte	0x0000
 	.2byte	0x6
-	.4byte	0x0000
+	.2byte	0x0000
+
+
+	.bss
+
+res0:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+res1:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+soln_cnt1:
+	.2byte	0x0000
+	.2byte	0x0000
+soln_cnt0:
+	.2byte	0x0000
+	.2byte	0x0000
+_impure_ptr:
+	.2byte	0x0000
+	.2byte	0x0000
+__ctype_ptr__:
+	.2byte	0x0000
+	.2byte	0x0000
+_ctype_:
+	.2byte	0x0000
+	.2byte	0x0000
+__errno:
+	.2byte	0x0000
+	.2byte	0x0000
+__locale_ctype_ptr:
+	.2byte	0x0000
+	.2byte	0x0000

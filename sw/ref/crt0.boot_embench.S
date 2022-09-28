@@ -11,17 +11,17 @@ reset_handler:
   csrrwi x1, mtvec, 0x11
 
   /* PLA configuration loading */
-  la x5, config_mem_words
-  cflc0 0(x5)
-  cflc1 4(x5)
-  cflc2 8(x5)
-  cflc3 12(x5)
-  cflc4 16(x5)
-  cflc5 20(x5)
-  cflc6 24(x5)
-  cflc7 28(x5)
-  cflc8 32(x5)
-  cflc9 36(x5)
+  /* la x5, config_mem_words */
+  /* cflc0 0(x5) */
+  /* cflc1 4(x5) */
+  /* cflc2 8(x5) */
+  /* cflc3 12(x5) */
+  /* cflc4 16(x5) */
+  /* cflc5 20(x5) */
+  /* cflc6 24(x5) */
+  /* cflc7 28(x5) */
+  /* cflc8 32(x5) */
+  /* cflc9 36(x5) */
 
   /* set all registers to zero */
   mv  x1, x0
@@ -305,20 +305,20 @@ default_exc_handler:
 
 
 
-  .section .rodata
+  /* .section .rodata */
 
 
-config_mem_words:
-  .word 0x01010101
-  .word 0x02020202
-  .word 0x03030303
-  .word 0x04040404
-  .word 0x05050505
-  .word 0x06060606
-  .word 0x07070707
-  .word 0x08080808
-  .word 0x09090909
-  .word 0x0A0A0A0A
+/* config_mem_words: */
+  /* .word 0x01010101 */
+  /* .word 0x02020202 */
+  /* .word 0x03030303 */
+  /* .word 0x04040404 */
+  /* .word 0x05050505 */
+  /* .word 0x06060606 */
+  /* .word 0x07070707 */
+  /* .word 0x08080808 */
+  /* .word 0x09090909 */
+  /* .word 0x0A0A0A0A */
 
 
 

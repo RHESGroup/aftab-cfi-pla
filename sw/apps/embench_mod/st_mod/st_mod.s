@@ -3,29 +3,8 @@
 	.type  main, @function
 
 benchmark_body.isra.0:
-	blez	a0,lab0
-	lui	a5,0x100
-	lw	a6,1636(a5) # 100664 <_bss_end+0x8>
-	lw	a5,1632(a5)
 	addi	sp,sp,-128
-	sw	a6,20(sp)
-	sw	a5,16(sp)
-	lui	a5,0x100
-	lw	a6,1644(a5) # 10066c <_bss_end+0x10>
-	lw	a5,1640(a5)
-	sw	s8,88(sp)
 	sw	ra,124(sp)
-	sw	a5,40(sp)
-	lui	a5,0x100
-	mv	a5,a5
-	sw	a5,52(sp)
-	lui	a5,0x100
-	addi	s8,a5,800 # 100320 <ArrayB>
-	lui	a5,0x100
-	addi	a5,a5,1600 # 100640 <Coef>
-	sw	a5,12(sp)
-	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9c3>
 	sw	s0,120(sp)
 	sw	s1,116(sp)
 	sw	s2,112(sp)
@@ -34,17 +13,38 @@ benchmark_body.isra.0:
 	sw	s5,100(sp)
 	sw	s6,96(sp)
 	sw	s7,92(sp)
+	sw	s8,88(sp)
 	sw	s9,84(sp)
 	sw	s10,80(sp)
 	sw	s11,76(sp)
-	sw	a6,44(sp)
-	sw	zero,56(sp)
-	sw	a5,8(sp)
 	sw	a0,60(sp)
-lab12: 	lw	s5,52(sp)
+	blez	a0,lab0
+	lui	a5,0x100
+	lw	a6,4(a5) # 100004 <_min_stack+0xfc004>
+	lw	a5,0(a5)
+	lui	s11,0x100
+	sw	a6,20(sp)
+	sw	a5,16(sp)
+	lui	a5,0x100
+	lw	a6,12(a5) # 10000c <_min_stack+0xfc00c>
+	lw	a5,8(a5)
+	lui	s5,0x100
+	sw	a6,44(sp)
+	sw	a5,40(sp)
+	lui	a5,0x100
+	addi	a5,a5,48 # 100030 <ArrayA>
+	sw	a5,52(sp)
+	addi	a5,s11,1648 # 100670 <Coef>
+	sw	a5,12(sp)
+	lui	a5,0x2
+	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9bb>
+	sw	zero,56(sp)
+	addi	s5,s5,848 # 100350 <ArrayB>
+	sw	a5,8(sp)
+lab12: 	lw	s7,52(sp)
 	li	s0,0
 	li	s1,0
-	mv	s10,s5
+	mv	s4,s7
 	li	s2,100
 lab1: 	slli	a0,s0,0x5
 	add	a0,a0,s0
@@ -53,54 +53,54 @@ lab1: 	slli	a0,s0,0x5
 	add	a0,a0,s0
 	addi	a0,a0,81
 	rem	s0,a0,a5
-	addi	s5,s5,8
+	addi	s7,s7,8
 	mv	a0,s0
 	jal	ra,__floatsidf
 	lw	a2,16(sp)
 	lw	a3,20(sp)
 	jal	ra,__divdf3
-	mv	s4,a0
+	mv	s6,a0
 	mv	a0,s1
 	mv	s3,a1
 	jal	ra,__floatsidf
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s4
+	mv	a0,s6
 	mv	a1,s3
 	jal	ra,__adddf3
-	sw	a0,-8(s5)
-	sw	a1,-4(s5)
+	sw	a0,-8(s7)
+	sw	a1,-4(s7)
 	addi	s1,s1,1
 	bne	s1,s2,lab1
 	lw	s1,52(sp)
-	li	a6,0
 	li	a4,0
+	li	a5,0
 lab2: 	lw	a2,0(s1)
 	lw	a3,4(s1)
-	mv	a0,a6
-	mv	a1,a4
+	mv	a0,a4
+	mv	a1,a5
 	jal	ra,__adddf3
 	addi	s1,s1,8
-	mv	a6,a0
-	mv	a4,a1
-	bne	s8,s1,lab2
+	mv	a4,a0
+	mv	a5,a1
+	bne	s5,s1,lab2
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	lui	a5,0x100
-	sw	a0,1616(a5) # 100650 <SumA>
-	sw	a1,1620(a5)
+	sw	a0,1664(a5) # 100680 <SumA>
+	sw	a1,1668(a5)
 	jal	ra,__divdf3
 	lw	s3,52(sp)
 	sw	a0,28(sp)
 	sw	a1,32(sp)
 	li	s2,0
 	li	s1,0
-	mv	s4,a0
-	mv	s5,a1
+	mv	s6,a0
+	mv	s7,a1
 lab3: 	lw	a0,0(s3)
 	lw	a1,4(s3)
-	mv	a2,s4
-	mv	a3,s5
+	mv	a2,s6
+	mv	a3,s7
 	jal	ra,__subdf3
 	mv	a2,a0
 	mv	a3,a1
@@ -113,7 +113,7 @@ lab3: 	lw	a0,0(s3)
 	addi	s3,s3,8
 	mv	s2,a0
 	mv	s1,a1
-	bne	s8,s3,lab3
+	bne	s5,s3,lab3
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	jal	ra,__divdf3
@@ -129,10 +129,10 @@ lab3: 	lw	a0,0(s3)
 	li	a3,0
 	jal	ra,__gedf2
 	bltz	a0,lab5
-lab4: 	mv	s9,s8
-	mv	s5,s8
-	li	s1,0
-	li	s2,100
+lab4: 	mv	s6,s5
+	mv	s10,s5
+	li	s2,0
+	li	s1,100
 lab6: 	slli	a0,s0,0x5
 	add	a0,a0,s0
 	lw	a5,8(sp)
@@ -140,57 +140,56 @@ lab6: 	slli	a0,s0,0x5
 	add	a0,a0,s0
 	addi	a0,a0,81
 	rem	s0,a0,a5
-	addi	s5,s5,8
+	addi	s10,s10,8
 	mv	a0,s0
 	jal	ra,__floatsidf
 	lw	a2,16(sp)
 	lw	a3,20(sp)
 	jal	ra,__divdf3
-	mv	s4,a0
-	mv	a0,s1
+	mv	s7,a0
+	mv	a0,s2
 	mv	s3,a1
 	jal	ra,__floatsidf
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s4
+	mv	a0,s7
 	mv	a1,s3
 	jal	ra,__adddf3
-	sw	a0,-8(s5)
-	sw	a1,-4(s5)
-	addi	s1,s1,1
-	bne	s1,s2,lab6
+	sw	a0,-8(s10)
+	sw	a1,-4(s10)
+	addi	s2,s2,1
+	bne	s2,s1,lab6
 	lui	a5,0x100
-	sw	s0,1624(a5) # 100658 <Seed>
-	li	a6,0
-	mv	s0,s8
+	sw	s0,1672(a5) # 100688 <Seed>
 	li	a4,0
-lab7: 	lw	a2,0(s0)
-	lw	a3,4(s0)
-	mv	a0,a6
-	mv	a1,a4
+	mv	s0,s5
+	li	a5,0
+lab7: 	lw	a3,4(s0)
+	lw	a2,0(s0)
+	mv	a0,a4
+	mv	a1,a5
 	jal	ra,__adddf3
-	lw	a5,12(sp)
+	lw	a3,12(sp)
 	addi	s0,s0,8
-	mv	a6,a0
-	mv	a4,a1
-	bne	a5,s0,lab7
+	mv	a4,a0
+	mv	a5,a1
+	bne	a3,s0,lab7
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	lui	a5,0x100
-	sw	a0,1608(a5) # 100648 <SumB>
-	sw	a1,1612(a5)
+	sw	a0,1656(a5) # 100678 <SumB>
+	sw	a1,1660(a5)
 	jal	ra,__divdf3
 	sw	a0,36(sp)
-	sw	a1,48(sp)
-	mv	s2,s8
+	mv	s10,a1
+	mv	s2,s5
 	li	s1,0
 	li	s0,0
 	mv	s3,a0
-	mv	s4,a1
 lab8: 	lw	a0,0(s2)
 	lw	a1,4(s2)
 	mv	a2,s3
-	mv	a3,s4
+	mv	a3,s10
 	jal	ra,__subdf3
 	mv	a2,a0
 	mv	a3,a1
@@ -221,97 +220,97 @@ lab8: 	lw	a0,0(s2)
 	jal	ra,__gedf2
 	bltz	a0,lab10
 lab9: 	li	s7,0
-	li	a4,0
 	li	s11,0
-	li	s5,0
-	li	s4,0
-	mv	s3,s10
-	mv	s2,a4
+	sw	s10,48(sp)
+	li	s3,0
+	li	s2,0
+	li	s1,0
+	li	s0,0
 	mv	a5,s7
-lab11: 	lw	a0,0(s3)
-	lw	a1,4(s3)
+	mv	s10,s11
+lab11: 	lw	a0,0(s4)
+	lw	a1,4(s4)
 	lw	a2,28(sp)
 	lw	a3,32(sp)
 	sw	a5,24(sp)
-	addi	s3,s3,8
+	addi	s4,s4,8
 	jal	ra,__subdf3
-	mv	s6,a0
-	mv	s10,a1
-	lw	a0,0(s9)
-	lw	a1,4(s9)
+	mv	s7,a0
+	mv	s11,a1
+	lw	a0,0(s6)
+	lw	a1,4(s6)
 	lw	a2,36(sp)
 	lw	a3,48(sp)
-	addi	s9,s9,8
+	addi	s6,s6,8
 	jal	ra,__subdf3
-	mv	s1,a0
-	mv	s0,a1
-	mv	a2,s1
-	mv	a3,s0
-	mv	a0,s6
-	mv	a1,s10
-	jal	ra,__muldf3
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s5
-	mv	a1,s4
-	jal	ra,__adddf3
-	mv	a2,s6
-	mv	a3,s10
-	mv	s5,a0
-	mv	s4,a1
-	mv	a0,s6
-	mv	a1,s10
-	jal	ra,__muldf3
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s2
+	mv	s9,a0
+	mv	s8,a1
+	mv	a2,s9
+	mv	a3,s8
+	mv	a0,s7
 	mv	a1,s11
-	jal	ra,__adddf3
-	mv	a2,s1
-	mv	a3,s0
-	mv	s2,a0
-	mv	s11,a1
+	jal	ra,__muldf3
+	mv	a2,a0
+	mv	a3,a1
 	mv	a0,s1
 	mv	a1,s0
+	jal	ra,__adddf3
+	mv	a2,s7
+	mv	a3,s11
+	mv	s1,a0
+	mv	s0,a1
+	mv	a0,s7
+	mv	a1,s11
+	jal	ra,__muldf3
+	mv	a2,a0
+	mv	a3,a1
+	mv	a0,s3
+	mv	a1,s2
+	jal	ra,__adddf3
+	mv	a2,s9
+	mv	a3,s8
+	mv	s3,a0
+	mv	s2,a1
+	mv	a0,s9
+	mv	a1,s8
 	jal	ra,__muldf3
 	lw	a5,24(sp)
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,a5
-	mv	a1,s7
+	mv	a1,s10
 	jal	ra,__adddf3
 	mv	a5,a0
-	mv	s7,a1
-	bne	s8,s3,lab11
-	mv	s6,a1
+	mv	s10,a1
+	bne	s5,s4,lab11
 	mv	s7,a0
-	mv	a1,s11
-	mv	a0,s2
+	mv	a1,s2
+	mv	a0,s3
 	jal	ra,sqrt
-	mv	s1,a0
-	mv	s0,a1
+	mv	s3,a0
+	mv	s2,a1
 	mv	a0,s7
-	mv	a1,s6
+	mv	a1,s10
 	jal	ra,sqrt
+	mv	a2,a0
+	mv	a3,a1
+	mv	a0,s3
+	mv	a1,s2
+	jal	ra,__muldf3
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s1
 	mv	a1,s0
-	jal	ra,__muldf3
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s5
-	mv	a1,s4
 	jal	ra,__divdf3
 	lui	a5,0x100
-	sw	a0,1600(a5) # 100640 <Coef>
-	sw	a1,1604(a5)
+	sw	a0,1648(a5) # 100670 <Coef>
+	sw	a1,1652(a5)
 	lw	a5,56(sp)
 	lw	a4,60(sp)
 	addi	a5,a5,1
 	sw	a5,56(sp)
 	bne	a5,a4,lab12
-	lw	ra,124(sp)
+lab0: 	lw	ra,124(sp)
 	lw	s0,120(sp)
 	lw	s1,116(sp)
 	lw	s2,112(sp)
@@ -326,7 +325,6 @@ lab11: 	lw	a0,0(s3)
 	lw	s11,76(sp)
 	addi	sp,sp,128
 	ret
-lab0: 	ret
 lab5: 	mv	a0,s2
 	mv	a1,s1
 	jal	ra,sqrt
@@ -337,47 +335,47 @@ lab10: 	mv	a0,s1
 	j	lab9
 benchmark_body.constprop.0:
 	lui	a5,0x100
-	lw	a6,1636(a5) # 100664 <_bss_end+0x8>
-	lw	a5,1632(a5)
+	lw	a6,4(a5) # 100004 <_min_stack+0xfc004>
+	lw	a5,0(a5)
 	addi	sp,sp,-128
 	sw	a6,20(sp)
 	sw	a5,16(sp)
 	lui	a5,0x100
-	lw	a6,1644(a5) # 10066c <_bss_end+0x10>
-	lw	a5,1640(a5)
-	sw	s8,88(sp)
-	sw	ra,124(sp)
+	lw	a6,12(a5) # 10000c <_min_stack+0xfc00c>
+	lw	a5,8(a5)
+	sw	s11,76(sp)
+	lui	s11,0x100
 	sw	a5,48(sp)
 	li	a5,13
 	sw	a5,60(sp)
 	lui	a5,0x100
-	mv	a5,a5
+	addi	a5,a5,48 # 100030 <ArrayA>
 	sw	a5,56(sp)
-	lui	a5,0x100
-	addi	s8,a5,800 # 100320 <ArrayB>
-	lui	a5,0x100
-	addi	a5,a5,1600 # 100640 <Coef>
+	addi	a5,s11,1648 # 100670 <Coef>
 	sw	a5,24(sp)
 	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9c3>
+	sw	s5,100(sp)
+	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9bb>
+	lui	s5,0x100
+	sw	ra,124(sp)
 	sw	s0,120(sp)
 	sw	s1,116(sp)
 	sw	s2,112(sp)
 	sw	s3,108(sp)
 	sw	s4,104(sp)
-	sw	s5,100(sp)
 	sw	s6,96(sp)
 	sw	s7,92(sp)
+	sw	s8,88(sp)
 	sw	s9,84(sp)
 	sw	s10,80(sp)
-	sw	s11,76(sp)
 	sw	a6,52(sp)
+	addi	s5,s5,848 # 100350 <ArrayB>
 	sw	a5,12(sp)
-lab24: 	lw	s5,56(sp)
+lab24: 	lw	s8,56(sp)
 	li	s0,0
-	li	s1,0
-	mv	s10,s5
-	li	s2,100
+	li	s2,0
+	mv	s1,s8
+	li	s3,100
 lab13: 	slli	a0,s0,0x5
 	add	a0,a0,s0
 	lw	a5,12(sp)
@@ -385,142 +383,52 @@ lab13: 	slli	a0,s0,0x5
 	add	a0,a0,s0
 	addi	a0,a0,81
 	rem	s0,a0,a5
-	addi	s5,s5,8
+	addi	s8,s8,8
 	mv	a0,s0
 	jal	ra,__floatsidf
 	lw	a2,16(sp)
 	lw	a3,20(sp)
 	jal	ra,__divdf3
-	mv	s4,a0
-	mv	a0,s1
-	mv	s3,a1
+	mv	s6,a0
+	mv	a0,s2
+	mv	s4,a1
 	jal	ra,__floatsidf
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s4
-	mv	a1,s3
+	mv	a0,s6
+	mv	a1,s4
 	jal	ra,__adddf3
-	sw	a0,-8(s5)
-	sw	a1,-4(s5)
-	addi	s1,s1,1
-	bne	s1,s2,lab13
-	lw	s1,56(sp)
-	li	a6,0
+	sw	a0,-8(s8)
+	sw	a1,-4(s8)
+	addi	s2,s2,1
+	bne	s2,s3,lab13
+	lw	s2,56(sp)
 	li	a4,0
-lab14: 	lw	a2,0(s1)
-	lw	a3,4(s1)
-	mv	a0,a6
-	mv	a1,a4
+	li	a5,0
+lab14: 	lw	a2,0(s2)
+	lw	a3,4(s2)
+	mv	a0,a4
+	mv	a1,a5
 	jal	ra,__adddf3
-	addi	s1,s1,8
-	mv	a6,a0
-	mv	a4,a1
-	bne	s8,s1,lab14
+	addi	s2,s2,8
+	mv	a4,a0
+	mv	a5,a1
+	bne	s5,s2,lab14
 	lw	a2,48(sp)
 	lw	a3,52(sp)
 	lui	a5,0x100
-	sw	a0,1616(a5) # 100650 <SumA>
-	sw	a1,1620(a5)
+	sw	a0,1664(a5) # 100680 <SumA>
+	sw	a1,1668(a5)
 	jal	ra,__divdf3
-	lw	s3,56(sp)
+	lw	s8,56(sp)
 	sw	a0,32(sp)
 	sw	a1,36(sp)
+	li	s6,0
 	li	s2,0
-	li	s1,0
-	mv	s4,a0
-	mv	s5,a1
-lab15: 	lw	a0,0(s3)
-	lw	a1,4(s3)
-	mv	a2,s4
-	mv	a3,s5
-	jal	ra,__subdf3
-	mv	a2,a0
-	mv	a3,a1
-	jal	ra,__muldf3
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s2
-	mv	a1,s1
-	jal	ra,__adddf3
-	addi	s3,s3,8
-	mv	s2,a0
-	mv	s1,a1
-	bne	s8,s3,lab15
-	lw	a2,48(sp)
-	lw	a3,52(sp)
-	jal	ra,__divdf3
-	li	a2,0
-	li	a3,0
-	mv	s2,a0
-	mv	s1,a1
-	jal	ra,__unorddf2
-	bnez	a0,lab16
-	mv	a0,s2
-	mv	a1,s1
-	li	a2,0
-	li	a3,0
-	jal	ra,__gedf2
-	bltz	a0,lab17
-lab16: 	mv	s9,s8
-	mv	s5,s8
-	li	s1,0
-	li	s2,100
-lab18: 	slli	a0,s0,0x5
-	add	a0,a0,s0
-	lw	a5,12(sp)
-	slli	a0,a0,0x2
-	add	a0,a0,s0
-	addi	a0,a0,81
-	rem	s0,a0,a5
-	addi	s5,s5,8
-	mv	a0,s0
-	jal	ra,__floatsidf
-	lw	a2,16(sp)
-	lw	a3,20(sp)
-	jal	ra,__divdf3
-	mv	s4,a0
-	mv	a0,s1
-	mv	s3,a1
-	jal	ra,__floatsidf
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s4
-	mv	a1,s3
-	jal	ra,__adddf3
-	sw	a0,-8(s5)
-	sw	a1,-4(s5)
-	addi	s1,s1,1
-	bne	s1,s2,lab18
-	lui	a5,0x100
-	sw	s0,1624(a5) # 100658 <Seed>
-	li	a6,0
-	mv	s0,s8
-	li	a4,0
-lab19: 	lw	a2,0(s0)
-	lw	a3,4(s0)
-	mv	a0,a6
-	mv	a1,a4
-	jal	ra,__adddf3
-	lw	a5,24(sp)
-	addi	s0,s0,8
-	mv	a6,a0
-	mv	a4,a1
-	bne	a5,s0,lab19
-	lw	a2,48(sp)
-	lw	a3,52(sp)
-	lui	a5,0x100
-	sw	a0,1608(a5) # 100648 <SumB>
-	sw	a1,1612(a5)
-	jal	ra,__divdf3
-	sw	a0,40(sp)
-	sw	a1,44(sp)
-	mv	s2,s8
-	li	s1,0
-	li	s0,0
 	mv	s3,a0
 	mv	s4,a1
-lab20: 	lw	a0,0(s2)
-	lw	a1,4(s2)
+lab15: 	lw	a0,0(s8)
+	lw	a1,4(s8)
 	mv	a2,s3
 	mv	a3,s4
 	jal	ra,__subdf3
@@ -529,115 +437,204 @@ lab20: 	lw	a0,0(s2)
 	jal	ra,__muldf3
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s1
-	mv	a1,s0
+	mv	a0,s6
+	mv	a1,s2
 	jal	ra,__adddf3
-	lw	a5,24(sp)
-	addi	s2,s2,8
-	mv	s1,a0
-	mv	s0,a1
-	bne	a5,s2,lab20
+	addi	s8,s8,8
+	mv	s6,a0
+	mv	s2,a1
+	bne	s5,s8,lab15
 	lw	a2,48(sp)
 	lw	a3,52(sp)
 	jal	ra,__divdf3
 	li	a2,0
 	li	a3,0
-	mv	s1,a0
+	mv	s6,a0
+	mv	s2,a1
+	jal	ra,__unorddf2
+	bnez	a0,lab16
+	mv	a0,s6
+	mv	a1,s2
+	li	a2,0
+	li	a3,0
+	jal	ra,__gedf2
+	bltz	a0,lab17
+lab16: 	mv	s2,s5
+	mv	s11,s5
+	li	s8,0
+	li	s6,100
+lab18: 	slli	a0,s0,0x5
+	add	a0,a0,s0
+	lw	a5,12(sp)
+	slli	a0,a0,0x2
+	add	a0,a0,s0
+	addi	a0,a0,81
+	rem	s0,a0,a5
+	addi	s11,s11,8
+	mv	a0,s0
+	jal	ra,__floatsidf
+	lw	a2,16(sp)
+	lw	a3,20(sp)
+	jal	ra,__divdf3
+	mv	s4,a0
+	mv	a0,s8
+	mv	s3,a1
+	jal	ra,__floatsidf
+	mv	a2,a0
+	mv	a3,a1
+	mv	a0,s4
+	mv	a1,s3
+	jal	ra,__adddf3
+	sw	a0,-8(s11)
+	sw	a1,-4(s11)
+	addi	s8,s8,1
+	bne	s8,s6,lab18
+	lui	a5,0x100
+	sw	s0,1672(a5) # 100688 <Seed>
+	li	a4,0
+	mv	s0,s5
+	li	a5,0
+lab19: 	lw	a3,4(s0)
+	lw	a2,0(s0)
+	mv	a0,a4
+	mv	a1,a5
+	jal	ra,__adddf3
+	lw	a3,24(sp)
+	addi	s0,s0,8
+	mv	a4,a0
+	mv	a5,a1
+	bne	a3,s0,lab19
+	lw	a2,48(sp)
+	lw	a3,52(sp)
+	lui	a5,0x100
+	sw	a0,1656(a5) # 100678 <SumB>
+	sw	a1,1660(a5)
+	jal	ra,__divdf3
+	sw	a0,40(sp)
+	mv	s11,a1
+	mv	s8,s5
+	li	s6,0
+	li	s0,0
+	mv	s3,a0
+lab20: 	lw	a0,0(s8)
+	lw	a1,4(s8)
+	mv	a2,s3
+	mv	a3,s11
+	jal	ra,__subdf3
+	mv	a2,a0
+	mv	a3,a1
+	jal	ra,__muldf3
+	mv	a2,a0
+	mv	a3,a1
+	mv	a0,s6
+	mv	a1,s0
+	jal	ra,__adddf3
+	lw	a5,24(sp)
+	addi	s8,s8,8
+	mv	s6,a0
+	mv	s0,a1
+	bne	a5,s8,lab20
+	lw	a2,48(sp)
+	lw	a3,52(sp)
+	jal	ra,__divdf3
+	li	a2,0
+	li	a3,0
+	mv	s6,a0
 	mv	s0,a1
 	jal	ra,__unorddf2
 	bnez	a0,lab21
-	mv	a0,s1
+	mv	a0,s6
 	mv	a1,s0
 	li	a2,0
 	li	a3,0
 	jal	ra,__gedf2
 	bltz	a0,lab22
-lab21: 	li	s7,0
-	li	a4,0
-	li	s11,0
-	li	s5,0
-	li	s4,0
-	mv	s3,s10
-	mv	s2,a4
-	mv	a5,s7
-lab23: 	lw	a0,0(s3)
-	lw	a1,4(s3)
+lab21: 	li	s3,0
+	li	s7,0
+	sw	s11,44(sp)
+	li	s9,0
+	li	s8,0
+	li	s6,0
+	li	s0,0
+	mv	a5,s3
+	mv	s11,s7
+lab23: 	lw	a0,0(s1)
+	lw	a1,4(s1)
 	lw	a2,32(sp)
 	lw	a3,36(sp)
 	sw	a5,28(sp)
-	addi	s3,s3,8
+	addi	s1,s1,8
 	jal	ra,__subdf3
-	mv	s6,a0
-	mv	s10,a1
-	lw	a0,0(s9)
-	lw	a1,4(s9)
+	mv	s3,a0
+	mv	s7,a1
+	lw	a0,0(s2)
+	lw	a1,4(s2)
 	lw	a2,40(sp)
 	lw	a3,44(sp)
-	addi	s9,s9,8
+	addi	s2,s2,8
 	jal	ra,__subdf3
-	mv	s1,a0
-	mv	s0,a1
-	mv	a2,s1
-	mv	a3,s0
-	mv	a0,s6
-	mv	a1,s10
-	jal	ra,__muldf3
-	mv	a2,a0
-	mv	a3,a1
-	mv	a0,s5
-	mv	a1,s4
-	jal	ra,__adddf3
-	mv	a2,s6
-	mv	a3,s10
-	mv	s5,a0
+	mv	s10,a0
 	mv	s4,a1
-	mv	a0,s6
-	mv	a1,s10
+	mv	a2,s10
+	mv	a3,s4
+	mv	a0,s3
+	mv	a1,s7
 	jal	ra,__muldf3
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s2
-	mv	a1,s11
-	jal	ra,__adddf3
-	mv	a2,s1
-	mv	a3,s0
-	mv	s2,a0
-	mv	s11,a1
-	mv	a0,s1
+	mv	a0,s6
 	mv	a1,s0
+	jal	ra,__adddf3
+	mv	a2,s3
+	mv	a3,s7
+	mv	s6,a0
+	mv	s0,a1
+	mv	a0,s3
+	mv	a1,s7
+	jal	ra,__muldf3
+	mv	a2,a0
+	mv	a3,a1
+	mv	a0,s9
+	mv	a1,s8
+	jal	ra,__adddf3
+	mv	a2,s10
+	mv	a3,s4
+	mv	s9,a0
+	mv	s8,a1
+	mv	a0,s10
+	mv	a1,s4
 	jal	ra,__muldf3
 	lw	a5,28(sp)
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,a5
-	mv	a1,s7
+	mv	a1,s11
 	jal	ra,__adddf3
 	mv	a5,a0
-	mv	s7,a1
-	bne	s3,s8,lab23
-	mv	s6,a1
-	mv	s7,a0
-	mv	a1,s11
-	mv	a0,s2
+	mv	s11,a1
+	bne	s1,s5,lab23
+	mv	s3,a0
+	mv	a1,s8
+	mv	a0,s9
 	jal	ra,sqrt
-	mv	s1,a0
-	mv	s0,a1
-	mv	a0,s7
-	mv	a1,s6
+	mv	s2,a0
+	mv	s1,a1
+	mv	a0,s3
+	mv	a1,s11
 	jal	ra,sqrt
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s1
-	mv	a1,s0
+	mv	a0,s2
+	mv	a1,s1
 	jal	ra,__muldf3
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s5
-	mv	a1,s4
+	mv	a0,s6
+	mv	a1,s0
 	jal	ra,__divdf3
 	lui	a5,0x100
-	sw	a0,1600(a5) # 100640 <Coef>
-	sw	a1,1604(a5)
+	sw	a0,1648(a5) # 100670 <Coef>
+	sw	a1,1652(a5)
 	lw	a5,60(sp)
 	addi	a5,a5,-1
 	sw	a5,60(sp)
@@ -658,11 +655,11 @@ lab23: 	lw	a0,0(s3)
 	li	a0,0
 	addi	sp,sp,128
 	ret
-lab17: 	mv	a0,s2
-	mv	a1,s1
+lab17: 	mv	a0,s6
+	mv	a1,s2
 	jal	ra,sqrt
 	j	lab16
-lab22: 	mv	a0,s1
+lab22: 	mv	a0,s6
 	mv	a1,s0
 	jal	ra,sqrt
 	j	lab21
@@ -674,7 +671,7 @@ benchmark:
 	j	benchmark_body.constprop.0
 InitSeed:
 	lui	a5,0x100
-	sw	zero,1624(a5) # 100658 <Seed>
+	sw	zero,1672(a5) # 100688 <Seed>
 	ret
 Calc_Sum_Mean:
 	addi	sp,sp,-32
@@ -703,8 +700,8 @@ lab25: 	lw	a2,0(s0)
 	mv	a5,a1
 	bne	s2,s0,lab25
 	lui	a5,0x100
-	lw	a2,1640(a5) # 100668 <_bss_end+0xc>
-	lw	a3,1644(a5)
+	lw	a2,8(a5) # 100008 <_min_stack+0xfc008>
+	lw	a3,12(a5)
 	jal	ra,__divdf3
 	lw	ra,28(sp)
 	lw	s0,24(sp)
@@ -761,8 +758,8 @@ lab26: 	lw	a0,0(s0)
 	mv	s1,a1
 	bne	s5,s0,lab26
 	lui	a5,0x100
-	lw	a2,1640(a5) # 100668 <_bss_end+0xc>
-	lw	a3,1644(a5)
+	lw	a2,8(a5) # 100008 <_min_stack+0xfc008>
+	lw	a3,12(a5)
 	jal	ra,__divdf3
 	sw	a0,0(s7)
 	sw	a1,4(s7)
@@ -884,8 +881,8 @@ lab27: 	lw	a0,0(s9)
 	lw	ra,92(sp)
 	lw	s0,88(sp)
 	lui	a5,0x100
-	sw	a0,1600(a5) # 100640 <Coef>
-	sw	a1,1604(a5)
+	sw	a0,1648(a5) # 100670 <Coef>
+	sw	a1,1652(a5)
 	lw	s1,84(sp)
 	lw	s2,80(sp)
 	lw	s3,76(sp)
@@ -907,49 +904,53 @@ Initialize:
 	sw	s0,40(sp)
 	sw	s1,36(sp)
 	sw	s2,32(sp)
-	lw	s0,1632(a5) # 100660 <_bss_end+0x4>
-	lw	s2,1624(s6) # 100658 <Seed>
-	lw	s1,1636(a5)
-	sw	s4,24(sp)
-	lui	s4,0x2
+	lw	s0,0(a5) # 100000 <_min_stack+0xfc000>
+	lw	s2,1672(s6) # 100688 <Seed>
+	lw	s1,4(a5)
 	sw	s3,28(sp)
+	lui	s3,0x2
+	sw	s4,24(sp)
 	sw	s5,20(sp)
+	sw	s7,12(sp)
 	sw	s9,4(sp)
 	sw	ra,44(sp)
-	sw	s7,12(sp)
 	sw	s8,8(sp)
+	sw	s10,0(sp)
+	mv	s5,a0
 	mv	s9,a0
-	li	s3,0
-	addi	s4,s4,-97 # 1f9f <__DTOR_END__+0x9c3>
-	li	s5,100
+	li	s7,0
+	addi	s3,s3,-97 # 1f9f <__DTOR_END__+0x9bb>
+	li	s4,100
 lab28: 	slli	a0,s2,0x5
 	add	a0,a0,s2
 	slli	a0,a0,0x2
 	add	a0,a0,s2
 	addi	a0,a0,81
-	rem	s2,a0,s4
+	rem	s2,a0,s3
 	addi	s9,s9,8
 	mv	a0,s2
 	jal	ra,__floatsidf
 	mv	a2,s0
 	mv	a3,s1
 	jal	ra,__divdf3
-	mv	s8,a0
-	mv	a0,s3
-	mv	s7,a1
+	mv	s10,a0
+	mv	a0,s7
+	mv	s8,a1
 	jal	ra,__floatsidf
 	mv	a2,a0
 	mv	a3,a1
-	mv	a0,s8
-	mv	a1,s7
+	mv	a0,s10
+	mv	a1,s8
 	jal	ra,__adddf3
 	sw	a0,-8(s9)
 	sw	a1,-4(s9)
-	addi	s3,s3,1
-	bne	s3,s5,lab28
+	addi	s7,s7,1
+	bne	s7,s4,lab28
 	lw	ra,44(sp)
 	lw	s0,40(sp)
-	sw	s2,1624(s6)
+	sw	s2,1672(s6)
+	sw	a0,792(s5)
+	sw	a1,796(s5)
 	lw	s1,36(sp)
 	lw	s2,32(sp)
 	lw	s3,28(sp)
@@ -959,28 +960,29 @@ lab28: 	slli	a0,s2,0x5
 	lw	s7,12(sp)
 	lw	s8,8(sp)
 	lw	s9,4(sp)
+	lw	s10,0(sp)
 	addi	sp,sp,48
 	ret
 RandomInteger:
 	lui	a4,0x100
-	lw	a5,1624(a4) # 100658 <Seed>
+	lw	a5,1672(a4) # 100688 <Seed>
 	slli	a0,a5,0x5
 	add	a0,a0,a5
 	slli	a0,a0,0x2
 	add	a0,a0,a5
 	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9c3>
+	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x9bb>
 	addi	a0,a0,81
 	rem	a0,a0,a5
-	sw	a0,1624(a4)
+	sw	a0,1672(a4)
 	ret
 verify_benchmark:
 	lui	a5,0x100
-	lw	a2,1616(a5) # 100650 <SumA>
-	lw	a3,1620(a5)
+	lw	a2,1664(a5) # 100680 <SumA>
+	lw	a3,1668(a5)
 	lui	a5,0x100
-	lw	a0,1648(a5) # 100670 <_bss_end+0x14>
-	lw	a1,1652(a5)
+	lw	a0,16(a5) # 100010 <_min_stack+0xfc010>
+	lw	a1,20(a5)
 	addi	sp,sp,-16
 	sw	s0,8(sp)
 	sw	s2,4(sp)
@@ -988,8 +990,8 @@ verify_benchmark:
 	sw	ra,12(sp)
 	jal	ra,__subdf3
 	lui	a5,0x100
-	lw	s2,1656(a5) # 100678 <_bss_end+0x1c>
-	lw	s3,1660(a5)
+	lw	s2,24(a5) # 100018 <_min_stack+0xfc018>
+	lw	s3,28(a5)
 	lui	s0,0x80000
 	not	s0,s0
 	and	a5,a1,s0
@@ -999,11 +1001,11 @@ verify_benchmark:
 	jal	ra,__ltdf2
 	bgez	a0,lab29
 	lui	a5,0x100
-	lw	a2,1608(a5) # 100648 <SumB>
-	lw	a3,1612(a5)
+	lw	a2,1656(a5) # 100678 <SumB>
+	lw	a3,1660(a5)
 	lui	a5,0x100
-	lw	a0,1664(a5) # 100680 <_bss_end+0x24>
-	lw	a1,1668(a5)
+	lw	a0,32(a5) # 100020 <_min_stack+0xfc020>
+	lw	a1,36(a5)
 	jal	ra,__subdf3
 	and	a5,a1,s0
 	mv	a2,s2
@@ -1019,11 +1021,11 @@ lab29: 	lw	ra,12(sp)
 	addi	sp,sp,16
 	ret
 lab30: 	lui	a5,0x100
-	lw	a2,1600(a5) # 100640 <Coef>
-	lw	a3,1604(a5)
+	lw	a2,1648(a5) # 100670 <Coef>
+	lw	a3,1652(a5)
 	lui	a5,0x100
-	lw	a0,1672(a5) # 100688 <_bss_end+0x2c>
-	lw	a1,1676(a5)
+	lw	a0,40(a5) # 100028 <_min_stack+0xfc028>
+	lw	a1,44(a5)
 	jal	ra,__subdf3
 	and	a5,a1,s0
 	mv	a2,s2
@@ -1333,822 +1335,822 @@ __CTOR_END__:
 	.bss
 
 ArrayA:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 ArrayB:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 Coef:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 SumB:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 SumA:
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 Seed:
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000

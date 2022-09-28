@@ -12,6 +12,7 @@ countPrimes:
 	li	a4,3
 	li	a0,1
 	li	t1,1
+	li	t3,41
 lab6: 	mul	a5,a7,a7
 	bge	a4,a5,lab0
 	addi	a7,a7,-1
@@ -34,8 +35,7 @@ lab2: 	beq	a4,a5,lab4
 	ret
 lab0: 	addi	a7,a7,1
 	j	lab6
-lab1: 	li	a5,41
-	blt	a5,t1,lab7
+lab1: 	blt	t3,t1,lab7
 	mul	a3,a4,a4
 	slli	a5,t1,0x2
 	addi	a5,a5,336

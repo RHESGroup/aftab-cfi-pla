@@ -35,7 +35,7 @@ benchmark_body.constprop.0:
 	sw	s0,24(sp)
 	sw	s1,20(sp)
 	li	s3,170
-	addi	s2,s2,16 # 100010 <crc_32_tab>
+	mv	s2,s2
 lab4: 	li	a0,0
 	jal	ra,srand_beebs
 	li	s1,1024
@@ -71,7 +71,7 @@ crc32pseudo:
 	sw	ra,12(sp)
 	li	s1,1024
 	li	s0,-1
-	addi	s2,s2,16 # 100010 <crc_32_tab>
+	mv	s2,s2
 lab5: 	jal	ra,rand_beebs
 	xor	a5,s0,a0
 	zext.b	a5,a5
@@ -120,48 +120,48 @@ main:
 	ret
 rand_beebs:
 	lui	a4,0x100
-	lw	a0,12(a4) # 10000c <seed>
+	lw	a0,1140(a4) # 100474 <seed>
 	lui	a5,0x41c65
 	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b5ce6d>
 	mul	a0,a0,a5
 	lui	a5,0x3
-	addi	a5,a5,57 # 3039 <__DTOR_END__+0x26b1>
+	addi	a5,a5,57 # 3039 <__DTOR_END__+0x26ad>
 	add	a0,a0,a5
 	slli	a0,a0,0x1
 	srli	a0,a0,0x1
-	sw	a0,12(a4)
+	sw	a0,1140(a4)
 	srli	a0,a0,0x10
 	ret
 srand_beebs:
 	lui	a5,0x100
-	sw	a0,12(a5) # 10000c <seed>
+	sw	a0,1140(a5) # 100474 <seed>
 	ret
 init_heap_beebs:
 	andi	a5,a1,3
 	bnez	a5,lab6
 	lui	a5,0x100
 	add	a1,a0,a1
-	sw	a0,8(a5) # 100008 <heap_ptr>
+	sw	a0,1136(a5) # 100470 <heap_ptr>
 	lui	a5,0x100
-	sw	a1,4(a5) # 100004 <heap_end>
+	sw	a1,1132(a5) # 10046c <heap_end>
 	lui	a5,0x100
-	sw	zero,0(a5) # 100000 <heap_requested>
+	sw	zero,1128(a5) # 100468 <heap_requested>
 	ret
 lab6: 	lui	a3,0x100
 	lui	a2,0x100
 	lui	a0,0x100
 	addi	sp,sp,-16
-	addi	a3,a3,1056 # 100420 <__func__.0+0x10>
-	addi	a2,a2,1040 # 100410 <__func__.0>
+	addi	a3,a3,1040 # 100410 <__func__.0+0x10>
+	addi	a2,a2,1024 # 100400 <__func__.0>
 	li	a1,65
-	addi	a0,a0,1088 # 100440 <__func__.0+0x30>
+	addi	a0,a0,1072 # 100430 <__func__.0+0x30>
 	sw	ra,12(sp)
 	jal	ra,__assert_func
 check_heap_beebs:
 	lui	a5,0x100
-	lw	a4,0(a5) # 100000 <heap_requested>
+	lw	a4,1128(a5) # 100468 <heap_requested>
 	lui	a5,0x100
-	lw	a5,4(a5) # 100004 <heap_end>
+	lw	a5,1132(a5) # 10046c <heap_end>
 	add	a0,a0,a4
 	sltu	a0,a5,a0
 	xori	a0,a0,1
@@ -170,49 +170,49 @@ malloc_beebs:
 	mv	a5,a0
 	beqz	a0,lab7
 	lui	a2,0x100
-	lw	a0,8(a2) # 100008 <heap_ptr>
+	lw	a0,1136(a2) # 100470 <heap_ptr>
 	lui	a3,0x100
-	lw	a1,0(a3) # 100000 <heap_requested>
+	lw	a1,1128(a3) # 100468 <heap_requested>
 	add	a4,a0,a5
 	andi	a6,a4,3
 	add	a5,a5,a1
 	bnez	a6,lab8
-	lui	a1,0x100
-	lw	a1,4(a1) # 100004 <heap_end>
-	sw	a5,0(a3)
-	bltu	a1,a4,lab7
-lab9: 	sw	a4,8(a2)
+	sw	a5,1128(a3)
+	lui	a5,0x100
+	lw	a5,1132(a5) # 10046c <heap_end>
+	bltu	a5,a4,lab7
+lab9: 	sw	a4,1136(a2)
 	ret
 lab8: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
+	sw	a5,1128(a3)
+	lui	a5,0x100
+	lw	a5,1132(a5) # 10046c <heap_end>
 	add	a4,a4,a1
-	lui	a1,0x100
-	lw	a1,4(a1) # 100004 <heap_end>
-	sw	a5,0(a3)
-	bgeu	a1,a4,lab9
+	bgeu	a5,a4,lab9
 lab7: 	li	a0,0
 	ret
 calloc_beebs:
 	mul	a2,a0,a1
 	beqz	a2,lab10
 	lui	a0,0x100
-	lw	a3,8(a0) # 100008 <heap_ptr>
+	lw	a5,1136(a0) # 100470 <heap_ptr>
 	lui	a1,0x100
-	lw	a5,0(a1) # 100000 <heap_requested>
-	add	a4,a3,a2
-	andi	a7,a4,3
-	add	a5,a2,a5
+	lw	a4,1128(a1) # 100468 <heap_requested>
+	add	a3,a5,a2
+	andi	a7,a3,3
+	add	a4,a2,a4
 	bnez	a7,lab11
-	lui	a6,0x100
-	lw	a6,4(a6) # 100004 <heap_end>
-	sw	a5,0(a1)
-	bltu	a6,a4,lab10
-lab12: 	sw	a4,8(a0)
-	beqz	a3,lab10
+	sw	a4,1128(a1)
+	lui	a4,0x100
+	lw	a4,1132(a4) # 10046c <heap_end>
+	bltu	a4,a3,lab10
+lab13: 	sw	a3,1136(a0)
+	beqz	a5,lab12
 	addi	sp,sp,-16
 	li	a1,0
-	mv	a0,a3
+	mv	a0,a5
 	sw	ra,12(sp)
 	jal	ra,memset
 	lw	ra,12(sp)
@@ -220,89 +220,90 @@ lab12: 	sw	a4,8(a0)
 	ret
 lab11: 	li	a6,4
 	sub	a6,a6,a7
-	add	a5,a5,a6
 	add	a4,a4,a6
-	lui	a6,0x100
-	lw	a6,4(a6) # 100004 <heap_end>
-	sw	a5,0(a1)
-	bgeu	a6,a4,lab12
-lab10: 	li	a3,0
-	mv	a0,a3
+	sw	a4,1128(a1)
+	lui	a4,0x100
+	lw	a4,1132(a4) # 10046c <heap_end>
+	add	a3,a3,a6
+	bgeu	a4,a3,lab13
+lab10: 	li	a5,0
+lab12: 	mv	a0,a5
 	ret
 realloc_beebs:
 	mv	a5,a0
-	beqz	a0,lab13
-	beqz	a1,lab13
+	beqz	a0,lab14
+	beqz	a1,lab14
 	lui	a6,0x100
-	lw	a0,8(a6) # 100008 <heap_ptr>
+	lw	a0,1136(a6) # 100470 <heap_ptr>
 	lui	a2,0x100
-	lw	a4,0(a2) # 100000 <heap_requested>
+	lw	a4,1128(a2) # 100468 <heap_requested>
 	add	a3,a0,a1
 	andi	a7,a3,3
 	add	a4,a1,a4
-	bnez	a7,lab14
-	lui	a7,0x100
-	lw	a7,4(a7) # 100004 <heap_end>
-	sw	a4,0(a2)
-	bltu	a7,a3,lab13
-lab18: 	sw	a3,8(a6)
-	beqz	a0,lab13
-	addi	a4,a1,-1
-	li	a3,6
-	bgeu	a3,a4,lab15
-	or	a4,a5,a0
-	andi	a4,a4,3
-	bnez	a4,lab15
+	bnez	a7,lab15
+	sw	a4,1128(a2)
+	lui	a4,0x100
+	lw	a4,1132(a4) # 10046c <heap_end>
+	bltu	a4,a3,lab14
+lab19: 	sw	a3,1136(a6)
+	beqz	a0,lab14
 	addi	a4,a5,1
 	sub	a4,a0,a4
+	or	a3,a5,a0
 	sltiu	a4,a4,3
-	bnez	a4,lab15
+	andi	a3,a3,3
+	xori	a4,a4,1
+	seqz	a3,a3
+	and	a4,a4,a3
+	beqz	a4,lab16
+	addi	a4,a1,-1
+	sltiu	a4,a4,7
+	bnez	a4,lab16
 	andi	a6,a1,-4
 	mv	a4,a5
 	mv	a3,a0
 	add	a6,a6,a5
-lab16: 	lw	a2,0(a4)
+lab17: 	lw	a2,0(a4)
 	addi	a4,a4,4
 	addi	a3,a3,4
 	sw	a2,-4(a3)
-	bne	a4,a6,lab16
-	andi	a3,a1,3
+	bne	a4,a6,lab17
 	andi	a4,a1,-4
-	beqz	a3,lab17
+	beq	a1,a4,lab18
 	add	a3,a5,a4
 	lbu	a6,0(a3)
 	add	a2,a0,a4
 	addi	a3,a4,1
 	sb	a6,0(a2)
-	bgeu	a3,a1,lab17
+	bgeu	a3,a1,lab18
 	add	a2,a5,a3
 	lbu	a2,0(a2)
 	add	a3,a0,a3
 	addi	a4,a4,2
 	sb	a2,0(a3)
-	bgeu	a4,a1,lab17
+	bgeu	a4,a1,lab18
 	add	a5,a5,a4
 	lbu	a5,0(a5)
 	add	a4,a0,a4
 	sb	a5,0(a4)
 	ret
-lab14: 	li	t1,4
+lab15: 	li	t1,4
 	sub	a7,t1,a7
 	add	a4,a4,a7
+	sw	a4,1128(a2)
+	lui	a4,0x100
+	lw	a4,1132(a4) # 10046c <heap_end>
 	add	a3,a3,a7
-	lui	a7,0x100
-	lw	a7,4(a7) # 100004 <heap_end>
-	sw	a4,0(a2)
-	bgeu	a7,a3,lab18
-lab13: 	li	a0,0
-lab17: 	ret
-lab15: 	mv	a4,a0
+	bgeu	a4,a3,lab19
+lab14: 	li	a0,0
+lab18: 	ret
+lab16: 	mv	a4,a0
 	add	a1,a5,a1
-lab19: 	lbu	a3,0(a5)
+lab20: 	lbu	a3,0(a5)
 	addi	a5,a5,1
 	addi	a4,a4,1
 	sb	a3,-1(a4)
-	bne	a5,a1,lab19
+	bne	a5,a1,lab20
 	ret
 free_beebs:
 	ret
@@ -508,27 +509,11 @@ __CTOR_END__:
 	unimp
 
 
-	.bss
-
-heap_requested:
-	.4byte	0x0000
-	.4byte	0x0000
-heap_end:
-	.4byte	0x0000
-	.4byte	0x0000
-heap_ptr:
-	.4byte	0x0000
-	.4byte	0x0000
-seed:
-	.4byte	0x0000
-	.4byte	0x0000
-
-
 	.section .rodata
 
 crc_32_tab:
-	.4byte	0x0000
-	.4byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 	.2byte	0x3096
 	.4byte	0x612c7707
 	.2byte	0xee0e
@@ -939,22 +924,53 @@ __func__.0:
 	.2byte	0x3d20
 	.2byte	0x203d
 	.2byte	0x30
-	.4byte	0x6f6f722f
-	.2byte	0x2f74
-	.2byte	0x6544
-	.4byte	0x6f746b73
-	.2byte	0x2f70
-	.2byte	0x6661
-	.2byte	0x6174
-	.2byte	0x2d62
-	.4byte	0x2d696663
-	.2byte	0x6c70
-	.2byte	0x2f61
-	.4byte	0x732f7773
-	.2byte	0x7075
-	.2byte	0x6f70
-	.2byte	0x7472
-	.4byte	0x6372732f
-	.4byte	0x6565622f
-	.2byte	0x7362
-	.4byte	0x632e63
+	.4byte	0x64656d2f
+	.2byte	0x6169
+	.4byte	0x5f66732f
+	.4byte	0x72616853
+	.2byte	0x6465
+	.4byte	0x7466612f
+	.2byte	0x6261
+	.2byte	0x632d
+	.2byte	0x6966
+	.2byte	0x702d
+	.2byte	0x616c
+	.4byte	0x2f77732f
+	.4byte	0x70707573
+	.4byte	0x2f74726f
+	.4byte	0x2f637273
+	.2byte	0x6562
+	.2byte	0x6265
+	.4byte	0x632e6373
+	.byte	0x00
+
+
+	.bss
+
+heap_requested:
+	.2byte	0x0000
+	.2byte	0x0000
+heap_end:
+	.2byte	0x0000
+	.2byte	0x0000
+heap_ptr:
+	.2byte	0x0000
+	.2byte	0x0000
+seed:
+	.2byte	0x0000
+	.2byte	0x0000
+_impure_ptr:
+	.2byte	0x0000
+	.2byte	0x0000
+__ctype_ptr__:
+	.2byte	0x0000
+	.2byte	0x0000
+_ctype_:
+	.2byte	0x0000
+	.2byte	0x0000
+__errno:
+	.2byte	0x0000
+	.2byte	0x0000
+__locale_ctype_ptr:
+	.2byte	0x0000
+	.2byte	0x0000
