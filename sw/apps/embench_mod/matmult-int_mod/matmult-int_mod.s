@@ -11,7 +11,7 @@ benchmark_body.constprop.0:
 	sw	s1,52(sp)
 	sw	s3,44(sp)
 	sw	s4,40(sp)
-	addi	s0,s0,1600 # 102640 <_bss_end+0xa8>
+	addi	s0,s0,1600 # 102640 <_bss_end+0xbc>
 	lui	s4,0x100
 	addi	s2,s2,-896 # 100c80 <ArrayA_ref>
 	lui	s1,0x102
@@ -123,7 +123,7 @@ benchmark_body.isra.0:
 	sw	s4,40(sp)
 	lui	s2,0x101
 	lui	s1,0x102
-	addi	s0,s0,1600 # 102640 <_bss_end+0xa8>
+	addi	s0,s0,1600 # 102640 <_bss_end+0xbc>
 	lui	t1,0x101
 	lui	s4,0x102
 	sw	s3,44(sp)
@@ -275,7 +275,7 @@ RandomInteger:
 	slli	a0,a0,0x2
 	add	a0,a0,a5
 	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x1493>
+	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x15cb>
 	addi	a0,a0,81
 	rem	a0,a0,a5
 	sw	a0,1408(a4)
@@ -320,7 +320,7 @@ initialise_benchmark:
 	addi	a2,a2,1680
 	addi	a0,a0,1680
 	li	a5,0
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1493>
+	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x15cb>
 lab22: 	addi	a3,a2,-80
 lab21: 	slli	a4,a5,0x5
 	add	a4,a4,a5
@@ -339,7 +339,7 @@ lab21: 	slli	a4,a5,0x5
 	lui	a1,0x2
 	addi	a2,a2,784
 	addi	a0,a0,1680
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x1493>
+	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x15cb>
 lab24: 	addi	a3,a2,-80
 lab23: 	slli	a4,a5,0x5
 	add	a4,a4,a5
@@ -377,7 +377,7 @@ lab25: 	lw	a6,0(a5)
 	mv	a1,sp
 	li	a2,1600
 	addi	a0,a0,-192 # 101f40 <ResultArray>
-	jal	ra,memcmp
+	jal	ra,__DTOR_END__
 	lw	ra,1612(sp)
 	seqz	a0,a0
 	addi	sp,sp,1616
@@ -408,187 +408,62 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
 memset:
-	li	a0,0
+	li	t1,15
+	mv	a4,a0
+	bgeu	t1,a2,lab26
+	andi	a5,a4,15
+	bnez	a5,lab27
+lab31: 	bnez	a1,lab28
+lab30: 	andi	a3,a2,-16
+	andi	a2,a2,15
+	add	a3,a3,a4
+lab29: 	sw	a1,0(a4)
+	sw	a1,4(a4)
+	sw	a1,8(a4)
+	sw	a1,12(a4)
+	addi	a4,a4,16
+	bltu	a4,a3,lab29
+	bnez	a2,lab26
 	ret
-memcmp:
-	li	a0,0
+lab26: 	sub	a3,t1,a2
+	slli	a3,a3,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	jr	12(a3)
+	sb	a1,14(a4)
+	sb	a1,13(a4)
+	sb	a1,12(a4)
+	sb	a1,11(a4)
+	sb	a1,10(a4)
+	sb	a1,9(a4)
+	sb	a1,8(a4)
+	sb	a1,7(a4)
+	sb	a1,6(a4)
+	sb	a1,5(a4)
+	sb	a1,4(a4)
+	sb	a1,3(a4)
+	sb	a1,2(a4)
+	sb	a1,1(a4)
+	sb	a1,0(a4)
 	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
-	li	a0,0
-	ret
+lab28: 	zext.b	a1,a1
+	slli	a3,a1,0x8
+	or	a1,a1,a3
+	slli	a3,a1,0x10
+	or	a1,a1,a3
+	j	lab30
+lab27: 	slli	a3,a5,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	mv	t0,ra
+	jalr	-96(a3)
+	mv	ra,t0
+	addi	a5,a5,-16
+	sub	a4,a4,a5
+	add	a2,a2,a5
+	bgeu	t1,a2,lab26
+	j	lab31
 __CTOR_LIST__:
 	unimp
 	unimp
@@ -5251,20 +5126,5 @@ ResultArray:
 	.2byte	0x0000
 	.2byte	0x0000
 Seed:
-	.2byte	0x0000
-	.2byte	0x0000
-_impure_ptr:
-	.2byte	0x0000
-	.2byte	0x0000
-__ctype_ptr__:
-	.2byte	0x0000
-	.2byte	0x0000
-_ctype_:
-	.2byte	0x0000
-	.2byte	0x0000
-__errno:
-	.2byte	0x0000
-	.2byte	0x0000
-__locale_ctype_ptr:
 	.2byte	0x0000
 	.2byte	0x0000

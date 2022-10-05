@@ -1952,187 +1952,62 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
 memset:
-	li	a0,0
+	li	t1,15
+	mv	a4,a0
+	bgeu	t1,a2,lab148
+	andi	a5,a4,15
+	bnez	a5,lab149
+lab153: 	bnez	a1,lab150
+lab152: 	andi	a3,a2,-16
+	andi	a2,a2,15
+	add	a3,a3,a4
+lab151: 	sw	a1,0(a4)
+	sw	a1,4(a4)
+	sw	a1,8(a4)
+	sw	a1,12(a4)
+	addi	a4,a4,16
+	bltu	a4,a3,lab151
+	bnez	a2,lab148
 	ret
-memcmp:
-	li	a0,0
+lab148: 	sub	a3,t1,a2
+	slli	a3,a3,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	jr	12(a3)
+	sb	a1,14(a4)
+	sb	a1,13(a4)
+	sb	a1,12(a4)
+	sb	a1,11(a4)
+	sb	a1,10(a4)
+	sb	a1,9(a4)
+	sb	a1,8(a4)
+	sb	a1,7(a4)
+	sb	a1,6(a4)
+	sb	a1,5(a4)
+	sb	a1,4(a4)
+	sb	a1,3(a4)
+	sb	a1,2(a4)
+	sb	a1,1(a4)
+	sb	a1,0(a4)
 	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
-	li	a0,0
-	ret
+lab150: 	zext.b	a1,a1
+	slli	a3,a1,0x8
+	or	a1,a1,a3
+	slli	a3,a1,0x10
+	or	a1,a1,a3
+	j	lab152
+lab149: 	slli	a3,a5,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	mv	t0,ra
+	jalr	-96(a3)
+	mv	ra,t0
+	addi	a5,a5,-16
+	sub	a4,a4,a5
+	add	a2,a2,a5
+	bgeu	t1,a2,lab148
+	j	lab153
 __CTOR_LIST__:
 	unimp
 	unimp
@@ -2452,20 +2327,5 @@ tm_entered_WIEDERHOLSPERRE_FH_TUERMODUL_CTRLexited_BEREIT_FH_TUERMODUL_CTRL:
 	.2byte	0x0000
 	.2byte	0x0000
 tm_entered_EINSCHALTSTROM_MESSEN_BLOCK_ERKENNUNG_CTRLch_BLOCK_ERKENNUNG_CTRL__N_copy:
-	.2byte	0x0000
-	.2byte	0x0000
-_impure_ptr:
-	.2byte	0x0000
-	.2byte	0x0000
-__ctype_ptr__:
-	.2byte	0x0000
-	.2byte	0x0000
-_ctype_:
-	.2byte	0x0000
-	.2byte	0x0000
-__errno:
-	.2byte	0x0000
-	.2byte	0x0000
-__locale_ctype_ptr:
 	.2byte	0x0000
 	.2byte	0x0000

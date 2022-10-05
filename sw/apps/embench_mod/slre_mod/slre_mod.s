@@ -24,7 +24,7 @@ lab3: 	lui	a4,0x1
 	andi	a0,a0,1
 	beqz	a0,lab4
 	lui	a4,0x100
-	addi	a4,a4,137 # 100089 <_ctype_+0x1>
+	addi	a4,a4,65 # 100041 <_ctype_+0x1>
 	add	a2,a4,a5
 	lbu	a2,0(a2)
 	li	a1,1
@@ -49,7 +49,7 @@ lab0: 	lbu	a5,1(a0)
 	li	a4,100
 	bne	a5,a4,lab4
 	lui	a5,0x100
-	addi	a5,a5,137 # 100089 <_ctype_+0x1>
+	addi	a5,a5,65 # 100041 <_ctype_+0x1>
 	add	a5,a3,a5
 	lbu	a5,0(a5)
 	li	a0,1
@@ -60,7 +60,7 @@ lab8: 	li	a4,120
 	bne	a5,a4,lab4
 	lbu	a2,2(a0)
 	lui	a4,0x100
-	addi	a4,a4,137 # 100089 <_ctype_+0x1>
+	addi	a4,a4,65 # 100041 <_ctype_+0x1>
 	add	a5,a4,a2
 	lbu	a5,0(a5)
 	li	a6,1
@@ -68,7 +68,7 @@ lab8: 	li	a4,120
 	andi	a7,a5,3
 	bne	a7,a6,lab11
 	lui	a5,0x100
-	addi	a5,a5,169 # 1000a9 <_bss_end+0x15>
+	addi	a5,a5,97 # 100061 <_ctype_+0x21>
 	add	a2,a2,a5
 	lbu	a5,0(a2)
 	addi	a1,a1,32
@@ -85,7 +85,7 @@ lab12: 	lbu	a2,3(a0)
 	andi	a6,a4,3
 	bne	a6,a0,lab13
 	lui	a4,0x100
-	addi	a4,a4,169 # 1000a9 <_bss_end+0x15>
+	addi	a4,a4,97 # 100061 <_ctype_+0x21>
 	add	a2,a2,a4
 	lbu	a4,0(a2)
 	addi	a1,a1,32
@@ -101,7 +101,7 @@ lab4: 	li	a0,1
 	beq	a5,a3,lab2
 	j	lab10
 lab9: 	lui	a5,0x100
-	addi	a5,a5,137 # 100089 <_ctype_+0x1>
+	addi	a5,a5,65 # 100041 <_ctype_+0x1>
 	add	a5,a3,a5
 	lbu	a5,0(a5)
 	li	a0,1
@@ -109,7 +109,7 @@ lab9: 	lui	a5,0x100
 	bnez	a5,lab10
 	ret
 lab7: 	lui	a5,0x100
-	addi	a5,a5,137 # 100089 <_ctype_+0x1>
+	addi	a5,a5,65 # 100041 <_ctype_+0x1>
 	add	a5,a3,a5
 	lbu	a5,0(a5)
 	li	a0,1
@@ -141,7 +141,7 @@ bar:
 	lui	s6,0x100
 	mv	s1,a5
 	lui	s5,0x1
-	addi	a5,s6,137 # 100089 <_ctype_+0x1>
+	addi	a5,s6,65 # 100041 <_ctype_+0x1>
 	mv	s11,a1
 	mv	s2,a0
 	mv	s3,a4
@@ -742,7 +742,7 @@ foo:
 	sw	a5,8(sp)
 	lui	a5,0x100
 	lui	a2,0x1
-	addi	a5,a5,137 # 100089 <_ctype_+0x1>
+	addi	a5,a5,65 # 100041 <_ctype_+0x1>
 	mv	s9,a1
 	li	s6,0
 	li	s7,0
@@ -960,7 +960,7 @@ lab140: 	bge	s7,s5,lab141
 	sw	a5,0(sp)
 	lui	a5,0x100
 	mv	a0,a5
-	jal	ra,strchr
+	jal	ra,__DTOR_END__
 	beqz	a0,lab141
 	lw	a5,0(sp)
 	li	a3,91
@@ -975,7 +975,7 @@ lab133: 	addi	a6,a6,2
 lab137: 	li	a4,41
 	bne	a5,a4,lab144
 	lw	a5,1600(s0)
-	addi	a5,a5,-1 # fffff <_min_stack+0xfbfff>
+	addi	a5,a5,-1 # fffff <_min_stack+0xf7fff>
 	slli	a5,a5,0x4
 	add	a4,s0,a5
 	lw	a4,4(a4)
@@ -1068,7 +1068,7 @@ lab152: 	mv	a0,s0
 	jal	ra,strlen
 	lui	a4,0xfffff
 	lui	a5,0x1
-	addi	a4,a4,1676 # fffff68c <_stack+0xffef768c>
+	addi	a4,a4,1676 # fffff68c <_stack+0xffeef68c>
 	addi	a5,a5,-1664 # 980 <bar+0x4e4>
 	add	a5,a5,a4
 	lui	a2,0x100
@@ -1076,7 +1076,7 @@ lab152: 	mv	a0,s0
 	add	a4,a5,sp
 	mv	a3,s1
 	mv	a0,s0
-	addi	a2,a2,64 # 100040 <text>
+	addi	a2,a2,324 # 100144 <text>
 	jal	ra,foo
 	addi	sp,sp,416
 	lw	ra,2028(sp)
@@ -1105,16 +1105,16 @@ benchmark_body.constprop.0:
 	lui	s5,0x100
 	sw	s2,32(sp)
 	sw	s4,24(sp)
-	addi	s2,s5,64 # 100040 <text>
+	addi	s2,s5,324 # 100144 <text>
 	lui	s4,0x100
 	sw	s3,28(sp)
 	sw	ra,44(sp)
 	sw	s0,40(sp)
 	sw	s1,36(sp)
 	li	s3,110
-	addi	s4,s4,112 # 100070 <regexes>
+	addi	s4,s4,372 # 100174 <regexes>
 	addi	s2,s2,64
-lab154: 	addi	a0,s5,64
+lab154: 	addi	a0,s5,324
 	jal	ra,strlen
 	mv	s1,a0
 	sw	zero,4(sp)
@@ -1152,13 +1152,13 @@ benchmark_body.isra.0:
 	sw	s6,16(sp)
 	blez	a0,lab155
 	lui	s6,0x100
-	addi	s2,s6,64 # 100040 <text>
+	addi	s2,s6,324 # 100144 <text>
 	lui	s5,0x100
 	mv	s4,a0
 	li	s3,0
-	addi	s5,s5,112 # 100070 <regexes>
+	addi	s5,s5,372 # 100174 <regexes>
 	addi	s2,s2,64
-lab157: 	addi	a0,s6,64
+lab157: 	addi	a0,s6,324
 	jal	ra,strlen
 	mv	s1,a0
 	sw	zero,4(sp)
@@ -1216,7 +1216,7 @@ lab159: 	mv	a0,s0
 	jal	ra,strlen
 	lui	a4,0xfffff
 	lui	a5,0x1
-	addi	a4,a4,1676 # fffff68c <_stack+0xffef768c>
+	addi	a4,a4,1676 # fffff68c <_stack+0xffeef68c>
 	addi	a5,a5,-1664 # 980 <bar+0x4e4>
 	add	a5,a5,a4
 	mv	a1,a0
@@ -1284,187 +1284,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
-memset:
-	li	a0,0
-	ret
-memcmp:
-	li	a0,0
-	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
-	li	a0,0
-	ret
 __CTOR_LIST__:
 	unimp
 	unimp
@@ -1479,7 +1298,7 @@ __CTOR_END__:
 
 	.section .rodata
 
-start_rodata:
+_ctype__40:
 	.2byte	0x245e
 	.2byte	0x2928
 	.2byte	0x5b2e
@@ -1508,7 +1327,137 @@ start_rodata:
 	.2byte	0x6261
 	.2byte	0x635e
 	.2byte	0x295d
-	.2byte	0x2b00
+	.4byte	0x2000002b
+_ctype_:
+	.2byte	0x2000
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2828
+	.2byte	0x2828
+	.2byte	0x2028
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x8820
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x410
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x1004
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x4141
+	.2byte	0x4141
+	.2byte	0x4141
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x4242
+	.2byte	0x4242
+	.2byte	0x4242
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x20
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.byte	0x00
 
 
 	.data
@@ -1542,22 +1491,3 @@ regexes:
 	.2byte	0x10
 	.2byte	0x30
 	.2byte	0x10
-
-
-	.bss
-
-_impure_ptr:
-	.2byte	0x0000
-	.2byte	0x0000
-__ctype_ptr__:
-	.2byte	0x0000
-	.2byte	0x0000
-_ctype_:
-	.2byte	0x0000
-	.2byte	0x0000
-__errno:
-	.2byte	0x0000
-	.2byte	0x0000
-__locale_ctype_ptr:
-	.2byte	0x0000
-	.2byte	0x0000

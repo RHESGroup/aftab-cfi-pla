@@ -530,7 +530,7 @@ benchmark_body.constprop.0:
 	addi	s10,s11,-1296 # 100af0 <b>
 	sw	a5,8(sp)
 	li	s0,87
-	addi	s1,s1,400 # 100190 <_min_stack+0xfc190>
+	addi	s1,s1,400 # 100190 <_min_stack+0xf8190>
 	addi	a3,s5,1600 # 100640 <output>
 	addi	s6,a0,-1696 # 100960 <a>
 	addi	s9,s9,-1396 # 100a8c <a+0x12c>
@@ -538,7 +538,7 @@ benchmark_body.constprop.0:
 	addi	s7,s7,-1196 # 100b54 <b+0x64>
 	addi	s4,s5,1600
 	li	s3,50
-	addi	s2,s2,-1366 # aaaa <_min_stack+0x6aaa>
+	addi	s2,s2,-1366 # aaaa <_min_stack+0x2aaa>
 	addi	s11,s11,-1296
 lab23: 	lw	a5,8(sp)
 	addi	a4,sp,16
@@ -565,7 +565,7 @@ lab15: 	lw	t5,0(a5)
 	sw	a6,8(a4)
 	sw	a1,12(a4)
 	addi	a5,a5,16
-	addi	a2,a2,800 # 100320 <_min_stack+0xfc320>
+	addi	a2,a2,800 # 100320 <_min_stack+0xf8320>
 	addi	a4,a4,16
 	bne	a5,a2,lab15
 	addi	a6,sp,416
@@ -685,7 +685,7 @@ lab22: 	lw	a4,0(a6)
 	sw	a3,12(sp)
 	sw	t6,400(s4)
 	sw	t5,-896(a5) # 100c80 <e>
-	addi	s0,s0,-1 # fffff <_min_stack+0xfbfff>
+	addi	s0,s0,-1 # fffff <_min_stack+0xf7fff>
 	jal	ra,jpegdct
 	lw	a3,12(sp)
 	bnez	s0,lab23
@@ -731,11 +731,11 @@ benchmark_body.isra.0:
 	lui	s9,0x101
 	lui	s8,0x101
 	lui	s0,0x101
-	addi	a5,a5,-1366 # aaaa <_min_stack+0x6aaa>
+	addi	a5,a5,-1366 # aaaa <_min_stack+0x2aaa>
 	addi	s11,s10,-1296 # 100af0 <b>
 	mv	s1,s1
 	li	s3,0
-	addi	s2,s2,400 # 100190 <_min_stack+0xfc190>
+	addi	s2,s2,400 # 100190 <_min_stack+0xf8190>
 	addi	t6,s6,1600 # 100640 <output>
 	addi	s7,a0,-1696 # 100960 <a>
 	addi	s9,s9,-1396 # 100a8c <a+0x12c>
@@ -770,7 +770,7 @@ lab26: 	lw	a3,12(a5)
 	sw	a1,4(a4)
 	sw	a2,8(a4)
 	addi	a5,a5,16
-	addi	a3,a3,800 # 100320 <_min_stack+0xfc320>
+	addi	a3,a3,800 # 100320 <_min_stack+0xf8320>
 	addi	a4,a4,16
 	bne	a5,a3,lab26
 	addi	a2,sp,416
@@ -923,7 +923,7 @@ verify_benchmark:
 	lui	a4,0x100
 	addi	sp,sp,-816
 	mv	a4,a4
-	addi	a5,a4,800 # 100320 <_min_stack+0xfc320>
+	addi	a5,a4,800 # 100320 <_min_stack+0xf8320>
 	sw	ra,812(sp)
 	mv	a3,sp
 	addi	a4,a4,1600
@@ -942,12 +942,12 @@ lab35: 	lw	a6,0(a5)
 	li	a2,800
 	mv	a1,sp
 	addi	a0,a0,1600 # 100640 <output>
-	jal	ra,memcmp
+	jal	ra,__DTOR_END__
 	bnez	a0,lab36
 	lui	a5,0x101
 	lh	a4,-888(a5) # 100c88 <c>
 	lui	a5,0x3
-	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x13db>
+	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x15ef>
 	beq	a4,a5,lab37
 lab38: 	lw	ra,812(sp)
 	addi	sp,sp,816
@@ -959,12 +959,12 @@ lab36: 	lw	ra,812(sp)
 lab37: 	lui	a5,0x101
 	lw	a4,-892(a5) # 100c84 <d>
 	lui	a5,0xe5a96
-	addi	a5,a5,-1558 # e5a959ea <_stack+0xe598d9ea>
+	addi	a5,a5,-1558 # e5a959ea <_stack+0xe59859ea>
 	bne	a4,a5,lab38
 	lui	a5,0x101
 	lw	a0,-896(a5) # 100c80 <e>
 	lui	a5,0x1a56a
-	addi	a5,a5,1558 # 1a56a616 <_stack+0x1a462616>
+	addi	a5,a5,1558 # 1a56a616 <_stack+0x1a45a616>
 	add	a0,a0,a5
 	seqz	a0,a0
 	j	lab38
@@ -992,187 +992,6 @@ start_trigger:
 	li	a0,0
 	ret
 stop_trigger:
-	li	a0,0
-	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
-memset:
-	li	a0,0
-	ret
-memcmp:
-	li	a0,0
-	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
 	li	a0,0
 	ret
 __CTOR_LIST__:
@@ -2783,20 +2602,4 @@ d:
 	.2byte	0x0000
 	.2byte	0x0000
 c:
-	.2byte	0x0000
-	.2byte	0x0000
-_impure_ptr:
-	.2byte	0x0000
-	.2byte	0x0000
-__ctype_ptr__:
-	.2byte	0x0000
-	.2byte	0x0000
-_ctype_:
-	.2byte	0x0000
-	.2byte	0x0000
-__errno:
-	.2byte	0x0000
-	.2byte	0x0000
-__locale_ctype_ptr:
-	.2byte	0x0000
 	.2byte	0x0000

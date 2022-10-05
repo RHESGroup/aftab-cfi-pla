@@ -733,10 +733,10 @@ benchmark:
 	j	benchmark_body.constprop.0
 initialise_benchmark:
 	lui	a2,0x100
-	lw	a0,0(a2) # 100000 <_min_stack+0xfc000>
+	lw	a0,0(a2) # 100000 <_min_stack+0xf8000>
 	lw	a1,4(a2)
 	lui	a3,0x100
-	lw	a2,8(a3) # 100008 <_min_stack+0xfc008>
+	lw	a2,8(a3) # 100008 <_min_stack+0xf8008>
 	lw	a3,12(a3)
 	lui	a5,0x100
 	lui	a4,0x100
@@ -745,7 +745,7 @@ initialise_benchmark:
 	lui	a5,0x100
 	sw	a2,32(a5) # 100020 <in_b>
 	sw	a3,36(a5)
-	lw	a2,16(a4) # 100010 <_min_stack+0xfc010>
+	lw	a2,16(a4) # 100010 <_min_stack+0xf8010>
 	lw	a3,20(a4)
 	lui	a5,0x100
 	sw	a2,40(a5) # 100028 <in_a>

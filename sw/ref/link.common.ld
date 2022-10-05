@@ -3,13 +3,13 @@ __DYNAMIC  =  0;
 
 MEMORY
 {
-    instrram    : ORIGIN = 0x00000000, LENGTH = 0x8000 /*  32 K */
-    dataram     : ORIGIN = 0x00100000, LENGTH = 0x4000  /* 16 K */
-    stack       : ORIGIN = 0x00104000, LENGTH = 0x4000  /* 16 K */
+    instrram    : ORIGIN = 0x00000000, LENGTH = 0x10000  /* 64 K */
+    dataram     : ORIGIN = 0x00100000, LENGTH = 0x8000   /* 32 K */
+    stack       : ORIGIN = 0x00108000, LENGTH = 0x8000   /* 32 K */
 }
 
 /* Stack information variables */
-_min_stack     = 0x4000;   
+_min_stack     = 0x8000;   
 _stack_len     = LENGTH(stack);
 _stack_start   = ORIGIN(stack) + LENGTH(stack);
 
@@ -130,12 +130,12 @@ SECTIONS
         [ .stabstr ]
     }
 
-    .bss :
+/*    .bss :
     {
         . = ALIGN(4);
         _end = .;
     } > dataram
-
+*/
 
 }
 

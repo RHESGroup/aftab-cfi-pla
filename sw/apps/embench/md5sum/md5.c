@@ -219,17 +219,26 @@ benchmark_body (int rpt, int len)
     uint8_t *p;
     // display result
     p=(uint8_t *)&h0;
+#ifdef DEBUG
     printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+#endif
 
     p=(uint8_t *)&h1;
+#ifdef DEBUG
     printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+#endif
 
     p=(uint8_t *)&h2;
+#ifdef DEBUG
     printf("%2.2x%2.2x%2.2x%2.2x", p[0], p[1], p[2], p[3]);
+#endif
 
     p=(uint8_t *)&h3;
+#ifdef DEBUG
     printf("%2.2x%2.2x%2.2x%2.2x\n", p[0], p[1], p[2], p[3]);
-  }
+#endif  
+
+    }
 
   return h0 ^ h1 ^ h2 ^ h3;
 }

@@ -73,7 +73,7 @@ initialise_benchmark:
 	ret
 verify_benchmark:
 	lui	a5,0xfffff
-	addi	a5,a5,584 # fffff248 <_stack+0xffef7248>
+	addi	a5,a5,584 # fffff248 <_stack+0xffeef248>
 	add	a0,a0,a5
 	seqz	a0,a0
 	ret

@@ -110,19 +110,19 @@ verify_benchmark:
 	addi	a1,s1,572 # 10023c <r_ref.2>
 	sw	s0,8(sp)
 	sw	ra,12(sp)
-	jal	ra,memcmp
+	jal	ra,__DTOR_END__
 	li	s0,0
 	bnez	a0,lab6
 	mv	s0,a0
 	lw	a0,36(s2)
 	li	a2,64
 	addi	a1,s1,636
-	jal	ra,memcmp
+	jal	ra,__DTOR_END__
 	bnez	a0,lab6
 	lw	a0,40(s2)
 	li	a2,64
 	addi	a1,s1,700
-	jal	ra,memcmp
+	jal	ra,__DTOR_END__
 	seqz	s0,a0
 lab6: 	lw	ra,12(sp)
 	mv	a0,s0
@@ -163,187 +163,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
-memset:
-	li	a0,0
-	ret
-memcmp:
-	li	a0,0
-	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
-	li	a0,0
-	ret
 upsampleCb:
 	lui	a6,0x100
 	addi	a6,a6,1120 # 100460 <gCoeffBuf>
@@ -363,7 +182,7 @@ upsampleCb:
 	addi	a6,a6,392
 	addi	t5,a7,64
 	li	t3,88
-	addi	a2,a2,-256 # 7f00 <__DTOR_END__+0x1d5c>
+	addi	a2,a2,-256 # 7f00 <memcpy+0x1ef8>
 	li	t1,198
 lab16: 	addi	a4,a6,-8
 	mv	a3,t4
@@ -621,7 +440,7 @@ upsampleCbH:
 	addi	a6,a6,392
 	addi	t5,a7,128
 	li	t3,88
-	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d5c>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
 	li	t1,198
 lab32: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -878,7 +697,7 @@ upsampleCr:
 	addi	a6,a6,136
 	addi	t5,a7,64
 	li	t3,103
-	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d5c>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
 	li	t1,183
 lab63: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -1137,7 +956,7 @@ upsampleCrH:
 	addi	a6,a6,136
 	addi	t5,a7,128
 	li	t3,103
-	addi	a1,a1,-256 # 7f00 <__DTOR_END__+0x1d5c>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
 	li	t1,183
 lab80: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -1372,7 +1191,7 @@ getChar:
 	addi	sp,sp,-16
 	sw	s1,4(sp)
 	lui	s1,0x101
-	lbu	a5,-600(s1) # 100da8 <gInBufLeft>
+	lbu	a5,-620(s1) # 100d94 <gInBufLeft>
 	sw	ra,12(sp)
 	sw	s0,8(sp)
 	sw	s2,0(sp)
@@ -1380,40 +1199,40 @@ getChar:
 	lui	s0,0x100
 	lui	s2,0x101
 	addi	s0,s0,1120 # 100460 <gCoeffBuf>
-lab101: 	lbu	a4,-599(s2) # 100da9 <gInBufOfs>
+lab101: 	lbu	a4,-619(s2) # 100d95 <gInBufOfs>
 	lw	ra,12(sp)
 	addi	a5,a5,-1
 	add	s0,s0,a4
 	lbu	a0,896(s0)
 	lw	s0,8(sp)
 	addi	a4,a4,1
-	sb	a5,-600(s1)
-	sb	a4,-599(s2)
+	sb	a5,-620(s1)
+	sb	a4,-619(s2)
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	sp,sp,16
 	ret
 lab99: 	lui	a4,0x101
 	lui	a5,0x101
-	lw	a3,-672(a4) # 100d60 <g_pCallback_data>
+	lw	a3,-692(a4) # 100d4c <g_pCallback_data>
 	lui	s0,0x100
-	lw	a5,-668(a5) # 100d64 <g_pNeedBytesCallback>
+	lw	a5,-688(a5) # 100d50 <g_pNeedBytesCallback>
 	addi	s0,s0,1120 # 100460 <gCoeffBuf>
 	lui	s2,0x101
 	li	a4,4
-	sb	zero,-600(s1)
-	addi	a2,s1,-600
+	sb	zero,-620(s1)
+	addi	a2,s1,-620
 	li	a1,252
 	addi	a0,s0,900
-	sb	a4,-599(s2) # 100da9 <gInBufOfs>
+	sb	a4,-619(s2) # 100d95 <gInBufOfs>
 	jalr	a5
 	beqz	a0,lab100
 	lui	a5,0x101
-	sb	a0,-675(a5) # 100d5d <gCallbackStatus>
-lab100: 	lbu	a5,-600(s1)
+	sb	a0,-695(a5) # 100d49 <gCallbackStatus>
+lab100: 	lbu	a5,-620(s1)
 	bnez	a5,lab101
 	lui	a4,0x101
-	lbu	a5,-598(a4) # 100daa <gTemFlag>
+	lbu	a5,-618(a4) # 100d96 <gTemFlag>
 	lw	ra,12(sp)
 	lw	s0,8(sp)
 	not	a5,a5
@@ -1421,7 +1240,7 @@ lab100: 	lbu	a5,-600(s1)
 	snez	a0,a5
 	neg	a0,a0
 	andi	a0,a0,38
-	sb	a5,-598(a4)
+	sb	a5,-618(a4)
 	lw	s1,4(sp)
 	lw	s2,0(sp)
 	addi	a0,a0,217
@@ -1433,16 +1252,16 @@ getBits.constprop.1:
 	sw	s3,12(sp)
 	lui	s2,0x101
 	lui	s3,0x101
-	lbu	a5,-604(s3) # 100da4 <gBitsLeft>
+	lbu	a5,-624(s3) # 100d90 <gBitsLeft>
 	sw	s0,24(sp)
-	lhu	s0,-602(s2) # 100da6 <gBitBuf>
+	lhu	s0,-622(s2) # 100d92 <gBitBuf>
 	sw	s1,20(sp)
 	sw	ra,28(sp)
 	sll	a5,s0,a5
-	sh	a5,-602(s2)
+	sh	a5,-622(s2)
 	jal	ra,getChar
-	lhu	a5,-602(s2)
-	lbu	a4,-604(s3)
+	lhu	a5,-622(s2)
+	lbu	a4,-624(s3)
 	li	s1,8
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -1458,16 +1277,16 @@ getBits.constprop.1:
 	bgeu	a2,a4,lab102
 	lui	a3,0x1000
 	slli	a5,a5,0x8
-	addi	a3,a3,-256 # ffff00 <_stack+0xef7f00>
+	addi	a3,a3,-256 # ffff00 <_stack+0xeeff00>
 	and	a5,a5,a3
 	addi	a4,a4,-8
 	slli	a5,a5,0x10
-	sb	a4,-604(s3)
+	sb	a4,-624(s3)
 	srli	a5,a5,0x10
 lab103: 	lw	ra,28(sp)
 	mv	a0,s0
 	lw	s0,24(sp)
-	sh	a5,-602(s2)
+	sh	a5,-622(s2)
 	lw	s1,20(sp)
 	lw	s2,16(sp)
 	lw	s3,12(sp)
@@ -1476,10 +1295,10 @@ lab103: 	lw	ra,28(sp)
 lab102: 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
 	sll	a5,a5,a4
-	sh	a5,-602(s2)
+	sh	a5,-622(s2)
 	jal	ra,getChar
-	lhu	a5,-602(s2)
-	lbu	a4,-604(s3)
+	lhu	a5,-622(s2)
+	lbu	a4,-624(s3)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
@@ -1492,7 +1311,7 @@ getOctet.part.0:
 	addi	sp,sp,-16
 	sw	s1,4(sp)
 	lui	s1,0x101
-	lbu	a4,-600(s1) # 100da8 <gInBufLeft>
+	lbu	a4,-620(s1) # 100d94 <gInBufLeft>
 	sw	ra,12(sp)
 	sw	s0,8(sp)
 	sw	s2,0(sp)
@@ -1500,7 +1319,7 @@ getOctet.part.0:
 	lui	s0,0x100
 	lui	s2,0x101
 	addi	s0,s0,1120 # 100460 <gCoeffBuf>
-lab107: 	lbu	a5,-599(s2) # 100da9 <gInBufOfs>
+lab107: 	lbu	a5,-619(s2) # 100d95 <gInBufOfs>
 	addi	a4,a4,-1
 	zext.b	a4,a4
 	add	a2,s0,a5
@@ -1508,8 +1327,8 @@ lab107: 	lbu	a5,-599(s2) # 100da9 <gInBufOfs>
 	lbu	a2,896(a2)
 	addi	a5,a5,1
 	zext.b	a5,a5
-	sb	a4,-600(s1)
-	sb	a5,-599(s2)
+	sb	a4,-620(s1)
+	sb	a5,-619(s2)
 	bnez	a2,lab105
 	lw	ra,12(sp)
 	lw	s0,8(sp)
@@ -1519,33 +1338,33 @@ lab107: 	lbu	a5,-599(s2) # 100da9 <gInBufOfs>
 	ret
 lab104: 	lui	a4,0x101
 	lui	a5,0x101
-	lw	a3,-672(a4) # 100d60 <g_pCallback_data>
+	lw	a3,-692(a4) # 100d4c <g_pCallback_data>
 	lui	s0,0x100
-	lw	a5,-668(a5) # 100d64 <g_pNeedBytesCallback>
+	lw	a5,-688(a5) # 100d50 <g_pNeedBytesCallback>
 	addi	s0,s0,1120 # 100460 <gCoeffBuf>
 	lui	s2,0x101
 	li	a4,4
-	sb	zero,-600(s1)
-	addi	a2,s1,-600
+	sb	zero,-620(s1)
+	addi	a2,s1,-620
 	li	a1,252
 	addi	a0,s0,900
-	sb	a4,-599(s2) # 100da9 <gInBufOfs>
+	sb	a4,-619(s2) # 100d95 <gInBufOfs>
 	jalr	a5
 	beqz	a0,lab106
 	lui	a5,0x101
-	sb	a0,-675(a5) # 100d5d <gCallbackStatus>
-lab106: 	lbu	a4,-600(s1)
+	sb	a0,-695(a5) # 100d49 <gCallbackStatus>
+lab106: 	lbu	a4,-620(s1)
 	bnez	a4,lab107
 	lui	a0,0x101
-	lbu	a1,-598(a0) # 100daa <gTemFlag>
-	lbu	a5,-599(s2)
+	lbu	a1,-618(a0) # 100d96 <gTemFlag>
+	lbu	a5,-619(s2)
 	not	a1,a1
 	zext.b	a1,a1
 	snez	a2,a1
 	neg	a2,a2
 	addi	a3,a5,-1
 	andi	a2,a2,38
-	sb	a1,-598(a0)
+	sb	a1,-618(a0)
 	zext.b	a3,a3
 	addi	a2,a2,217
 lab105: 	addi	a5,a5,-2
@@ -1553,13 +1372,13 @@ lab105: 	addi	a5,a5,-2
 	add	a3,s0,a3
 	sb	a2,896(a3)
 	add	s0,s0,a5
-	sb	a5,-599(s2)
+	sb	a5,-619(s2)
 	li	a5,-1
 	sb	a5,896(s0)
 	lw	ra,12(sp)
 	lw	s0,8(sp)
 	addi	a4,a4,2
-	sb	a4,-600(s1)
+	sb	a4,-620(s1)
 	lw	s2,0(sp)
 	lw	s1,4(sp)
 	addi	sp,sp,16
@@ -1570,8 +1389,8 @@ huffDecode:
 	sw	s8,40(sp)
 	lui	s7,0x101
 	lui	s8,0x101
-	lhu	a5,-602(s7) # 100da6 <gBitBuf>
-	lbu	a4,-604(s8) # 100da4 <gBitsLeft>
+	lhu	a5,-622(s7) # 100d92 <gBitBuf>
+	lbu	a4,-624(s8) # 100d90 <gBitsLeft>
 	sw	s0,72(sp)
 	sw	s1,68(sp)
 	sw	ra,76(sp)
@@ -1595,12 +1414,12 @@ lab118: 	slli	a5,a5,0x1
 	srli	a5,a5,0x10
 	lui	a6,0x10
 	lui	s3,0x100
-	sb	a4,-604(s8)
-	sh	a5,-602(s7)
+	sb	a4,-624(s8)
+	sh	a5,-622(s7)
 	srli	a3,a3,0x10
 	addi	s11,s0,32
 	li	s10,0
-	addi	s6,a6,-1 # ffff <__DTOR_END__+0x9e5b>
+	addi	s6,a6,-1 # ffff <_min_stack+0x7fff>
 	li	s1,255
 	lui	s5,0x101
 	addi	s3,s3,1120 # 100460 <gCoeffBuf>
@@ -1611,8 +1430,8 @@ lab113: 	slli	a5,a5,0x1
 	slli	a5,a5,0x10
 	zext.b	a4,a4
 	srli	a5,a5,0x10
-	sb	a4,-604(s8)
-	sh	a5,-602(s7)
+	sb	a4,-624(s8)
+	sh	a5,-622(s7)
 	li	a2,16
 	or	a3,s9,s2
 	beq	s10,a2,lab110
@@ -1629,8 +1448,8 @@ lab111: 	slli	s9,a1,0x10
 	jal	ra,getChar
 	mv	a2,a0
 	beq	a0,s1,lab114
-lab115: 	lhu	a5,-602(s7)
-	lbu	a4,-604(s8)
+lab115: 	lhu	a5,-622(s7)
+	lbu	a4,-624(s8)
 	or	a5,a5,a2
 	addi	a4,a4,8
 	slli	a5,a5,0x10
@@ -1641,20 +1460,20 @@ lab114: 	sw	a0,12(sp)
 	jal	ra,getChar
 	lw	a2,12(sp)
 	beqz	a0,lab115
-	lbu	a5,-599(s5) # 100da9 <gInBufOfs>
-	lbu	a1,-600(s4) # 100da8 <gInBufLeft>
+	lbu	a5,-619(s5) # 100d95 <gInBufOfs>
+	lbu	a1,-620(s4) # 100d94 <gInBufLeft>
 	addi	a4,a5,-1
 	zext.b	a4,a4
 	addi	a5,a5,-2
 	zext.b	a5,a5
 	add	a4,s3,a4
 	sb	a0,896(a4)
-	sb	a5,-599(s5)
+	sb	a5,-619(s5)
 	add	a0,s3,a5
 	addi	a4,a1,2
 	li	a5,-1
 	sb	a5,896(a0)
-	sb	a4,-600(s4)
+	sb	a4,-620(s4)
 	j	lab115
 lab110: 	li	a0,0
 lab116: 	lw	ra,76(sp)
@@ -1688,8 +1507,8 @@ lab108: 	jal	ra,getChar
 	li	a5,255
 	mv	s3,a0
 	beq	a0,a5,lab117
-lab119: 	lhu	a5,-602(s7)
-	lbu	a4,-604(s8)
+lab119: 	lhu	a5,-622(s7)
+	lbu	a4,-624(s8)
 	or	a5,a5,s3
 	addi	a4,a4,8
 	slli	a5,a5,0x10
@@ -1703,14 +1522,14 @@ getBits.constprop.2:
 	sw	s4,24(sp)
 	lui	s4,0x101
 	sw	s0,40(sp)
-	lhu	s0,-602(s4) # 100da6 <gBitBuf>
+	lhu	s0,-622(s4) # 100d92 <gBitBuf>
 	sw	s1,36(sp)
 	sw	s2,32(sp)
 	sw	s3,28(sp)
 	sw	ra,44(sp)
 	lui	s3,0x101
 	li	a3,8
-	lbu	a4,-604(s3) # 100da4 <gBitsLeft>
+	lbu	a4,-624(s3) # 100d90 <gBitsLeft>
 	mv	s1,a0
 	mv	a5,s0
 	mv	s2,a0
@@ -1718,8 +1537,8 @@ getBits.constprop.2:
 	bltu	a4,s2,lab121
 lab123: 	sub	a4,a4,s2
 	sll	a5,a5,s2
-	sb	a4,-604(s3)
-	sh	a5,-602(s4)
+	sb	a4,-624(s3)
+	sh	a5,-622(s4)
 lab125: 	li	a5,16
 	sub	a5,a5,s1
 	lw	ra,44(sp)
@@ -1735,13 +1554,13 @@ lab125: 	li	a5,16
 	ret
 lab120: 	sll	a4,s0,a4
 	addi	s2,a0,-8
-	sh	a4,-602(s4)
+	sh	a4,-622(s4)
 	jal	ra,getChar
 	li	a5,255
 	zext.b	s2,s2
 	beq	a0,a5,lab122
-lab126: 	lhu	a5,-602(s4)
-	lbu	a4,-604(s3)
+lab126: 	lhu	a5,-622(s4)
+	lbu	a4,-624(s3)
 	li	a3,8
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -1755,12 +1574,12 @@ lab126: 	lhu	a5,-602(s4)
 	or	s0,s0,a3
 	bgeu	a4,s2,lab123
 lab121: 	sll	a5,a5,a4
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	jal	ra,getChar
 	li	a5,255
 	beq	a0,a5,lab124
-lab127: 	lhu	a5,-602(s4)
-	lbu	a4,-604(s3)
+lab127: 	lhu	a5,-622(s4)
+	lbu	a4,-624(s3)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
 	sub	a3,s2,a4
@@ -1768,8 +1587,8 @@ lab127: 	lhu	a5,-602(s4)
 	addi	a4,a4,8
 	sll	a5,a5,a3
 	sub	a4,a4,s2
-	sh	a5,-602(s4)
-	sb	a4,-604(s3)
+	sh	a5,-622(s4)
+	sb	a4,-624(s3)
 	j	lab125
 lab122: 	sw	a0,12(sp)
 	jal	ra,getOctet.part.0
@@ -1790,8 +1609,8 @@ processMarkers:
 	sw	a5,136(sp)
 	lui	a5,0x100
 	addi	a3,a5,852 # 100354 <CSWTCH.306>
-	lbu	a4,-604(s9) # 100da4 <gBitsLeft>
-	lhu	a5,-602(s5) # 100da6 <gBitBuf>
+	lbu	a4,-624(s9) # 100d90 <gBitsLeft>
+	lhu	a5,-622(s5) # 100d92 <gBitBuf>
 	sw	s10,160(sp)
 	sw	ra,204(sp)
 	sw	s0,200(sp)
@@ -1816,8 +1635,8 @@ lab129: 	mv	s0,a5
 	slli	a5,a5,0x10
 	zext.b	a4,a4
 	srli	a5,a5,0x10
-	sb	a4,-604(s9)
-	sh	a5,-602(s5)
+	sb	a4,-624(s9)
+	sh	a5,-622(s5)
 	srai	s0,s0,0x8
 	bne	s0,s3,lab129
 lab131: 	addi	a1,a4,-8
@@ -1828,8 +1647,8 @@ lab131: 	addi	a1,a4,-8
 	slli	a5,a2,0x10
 	zext.b	a4,a1
 	srli	a5,a5,0x10
-	sb	a4,-604(s9)
-	sh	a5,-602(s5)
+	sb	a4,-624(s9)
+	sh	a5,-622(s5)
 	beq	a3,s3,lab131
 	zext.b	a1,a3
 	beqz	a3,lab129
@@ -1847,9 +1666,9 @@ lab177: 	li	a5,215
 	sw	a5,4(sp)
 	beqz	a5,lab135
 	lui	a3,0x10
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
-	addi	a3,a3,-1 # ffff <__DTOR_END__+0x9e5b>
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
+	addi	a3,a3,-1 # ffff <_min_stack+0x7fff>
 	li	s8,7
 	li	s7,8
 	sw	a3,0(sp)
@@ -1859,11 +1678,11 @@ lab175: 	addi	a4,a4,-8
 	slli	a5,a5,0x8
 	zext.b	a4,a4
 	slli	a5,a5,0x10
-	sb	a4,-604(s9)
+	sb	a4,-624(s9)
 	srli	a5,a5,0x10
 lab176: 	srli	a3,s0,0x8
 	andi	a1,a3,14
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	sw	a1,8(sp)
 	srai	a2,s0,0x8
 	bnez	a1,lab137
@@ -1872,7 +1691,7 @@ lab176: 	srli	a3,s0,0x8
 	bltu	a0,a1,lab137
 	lui	a0,0x101
 	srli	a3,a3,0x3
-	lbu	a1,-596(a0) # 100dac <gValidHuffTables>
+	lbu	a1,-616(a0) # 100d98 <gValidHuffTables>
 	andi	a3,a3,2
 	andi	a2,a2,1
 	or	s11,a3,a2
@@ -1881,7 +1700,7 @@ lab176: 	srli	a3,s0,0x8
 	or	a2,a1,a2
 	lw	a1,12(sp)
 	slli	a3,s11,0x2
-	sb	a2,-596(a0)
+	sb	a2,-616(a0)
 	add	a3,a1,a3
 	lw	s6,0(a3)
 	lw	s0,16(a3)
@@ -1891,7 +1710,7 @@ lab138: 	addi	a4,a4,-8
 	slli	s4,a5,0x8
 	zext.b	a4,a4
 	slli	s4,s4,0x10
-	sb	a4,-604(s9)
+	sb	a4,-624(s9)
 	srli	s4,s4,0x10
 lab219: 	srai	a3,a5,0x8
 	srli	s2,a5,0x8
@@ -1907,7 +1726,7 @@ lab219: 	srai	a3,a5,0x8
 	srli	a4,s4,0x8
 	slli	s3,s3,0x10
 	sw	a4,84(sp)
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	slli	a4,s2,0x10
 	srli	s3,s3,0x10
 	srli	a4,a4,0x10
@@ -1920,7 +1739,7 @@ lab210: 	slli	a3,s3,0x8
 	add	a4,a4,s4
 	srli	a3,s3,0x8
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a3,80(sp)
 	srli	s2,s2,0x10
 	srli	a4,a4,0x10
@@ -1934,7 +1753,7 @@ lab211: 	srai	a2,s2,0x8
 	srli	a2,s2,0x8
 	slli	a3,a3,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,88(sp)
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
@@ -1947,7 +1766,7 @@ lab212: 	srai	a2,a3,0x8
 	srli	a3,a3,0x8
 	slli	s2,a6,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,32(sp)
 	sw	a3,92(sp)
 	srli	s2,s2,0x10
@@ -1962,7 +1781,7 @@ lab213: 	srai	a2,s2,0x8
 	srli	a2,s2,0x8
 	slli	a3,a3,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,96(sp)
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
@@ -1975,7 +1794,7 @@ lab214: 	srai	a2,a3,0x8
 	srli	a3,a3,0x8
 	slli	s2,a6,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,40(sp)
 	sw	a3,100(sp)
 	srli	s2,s2,0x10
@@ -1990,7 +1809,7 @@ lab215: 	srai	a2,s2,0x8
 	srli	a2,s2,0x8
 	slli	a3,a3,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,104(sp)
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
@@ -2003,7 +1822,7 @@ lab216: 	srai	a2,a3,0x8
 	srli	a3,a3,0x8
 	slli	s2,a6,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,48(sp)
 	sw	a3,108(sp)
 	srli	s2,s2,0x10
@@ -2013,7 +1832,7 @@ lab217: 	addi	a5,a5,-8
 	slli	a3,s2,0x8
 	zext.b	a5,a5
 	slli	a3,a3,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	srli	a3,a3,0x10
 lab218: 	srai	a2,s2,0x8
 	add	a4,a4,a2
@@ -2027,7 +1846,7 @@ lab218: 	srai	a2,s2,0x8
 	slli	a6,a3,0x8
 	zext.b	a5,a5
 	slli	s2,a6,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	srli	s2,s2,0x10
 lab209: 	srai	a2,a3,0x8
 	add	a4,a4,a2
@@ -2041,7 +1860,7 @@ lab209: 	srai	a2,a3,0x8
 	slli	a3,s2,0x8
 	zext.b	a5,a5
 	slli	a3,a3,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	srli	a3,a3,0x10
 lab208: 	srai	a2,s2,0x8
 	add	a4,a4,a2
@@ -2055,7 +1874,7 @@ lab208: 	srai	a2,s2,0x8
 	slli	a6,a3,0x8
 	zext.b	a5,a5
 	slli	s2,a6,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	srli	s2,s2,0x10
 lab207: 	srai	a2,a3,0x8
 	add	a4,a4,a2
@@ -2074,7 +1893,7 @@ lab207: 	srai	a2,a3,0x8
 	srli	a2,s2,0x8
 	slli	a3,a3,0x10
 	slli	a4,a4,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	sw	a2,128(sp)
 	srli	a3,a3,0x10
 	srli	a4,a4,0x10
@@ -2087,7 +1906,7 @@ lab204: 	srai	a2,a3,0x8
 	add	a4,a4,a2
 	slli	s2,a7,0x10
 	sw	a3,132(sp)
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	slli	a3,a4,0x10
 	sw	a2,72(sp)
 	srli	s2,s2,0x10
@@ -2097,13 +1916,13 @@ lab205: 	addi	a5,a5,-8
 	zext.b	a4,a5
 	slli	a5,s2,0x8
 	slli	a5,a5,0x10
-	sb	a4,-604(s9)
+	sb	a4,-624(s9)
 	srli	a5,a5,0x10
 lab206: 	srai	a2,s2,0x8
 	add	a3,a3,a2
 	sw	a2,16(sp)
 	srli	a2,s2,0x8
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	slli	s2,a3,0x10
 	li	a0,1
 	sw	a2,76(sp)
@@ -2125,8 +1944,8 @@ lab158: 	addi	a2,s11,1
 	slli	a5,a7,0x10
 	zext.b	a4,t1
 	srli	a5,a5,0x10
-	sb	a4,-604(s9)
-	sh	a5,-602(s5)
+	sb	a4,-624(s9)
+	sh	a5,-622(s5)
 	sb	a6,0(a0)
 	zext.b	s11,a2
 	bltu	a1,s2,lab158
@@ -2441,10 +2260,10 @@ lab189: 	lw	a2,8(sp)
 	mv	s0,a5
 	bltu	s8,a4,lab175
 lab136: 	sll	a4,a5,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
@@ -2454,10 +2273,10 @@ lab136: 	sll	a4,a5,a4
 	srli	a5,a5,0x10
 	j	lab176
 lab130: 	sll	a5,a5,a4
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	a3,s0,0x8
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -2466,16 +2285,16 @@ lab130: 	sll	a5,a5,a4
 	sll	a5,a5,a2
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	beq	a3,s3,lab131
 	zext.b	a1,a3
 	beqz	a3,lab129
 	j	lab177
 lab128: 	sll	a5,a5,a4
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	s0,s0,0x8
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -2484,7 +2303,7 @@ lab128: 	sll	a5,a5,a4
 	sll	a5,a5,a3
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	bne	s0,s3,lab129
 	j	lab131
 lab134: 	li	a5,1
@@ -2515,7 +2334,7 @@ lab133: 	addi	a5,a1,59
 	li	a4,1
 	sll	a4,a4,a5
 	lui	a5,0x80
-	addi	a5,a5,-2040 # 7f808 <__DTOR_END__+0x79664>
+	addi	a5,a5,-2040 # 7f808 <_min_stack+0x77808>
 	and	a5,a4,a5
 	bnez	a5,lab178
 	andi	a4,a4,1911
@@ -2532,8 +2351,8 @@ lab132: 	li	a5,219
 	jal	ra,getBits.constprop.1
 	li	a5,4
 	beq	a0,a5,lab184
-lab135: 	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+lab135: 	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	j	lab137
 lab183: 	bne	a1,a5,lab180
 lab179: 	jal	ra,getBits.constprop.1
@@ -2543,8 +2362,8 @@ lab179: 	jal	ra,getBits.constprop.1
 	slli	s0,a5,0x10
 	srli	s0,s0,0x10
 	beqz	s0,lab135
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	li	s2,7
 	li	s1,8
 lab187: 	addi	a1,a4,-8
@@ -2555,8 +2374,8 @@ lab186: 	slli	a5,a2,0x10
 	zext.b	a4,a1
 	srli	a5,a5,0x10
 	slli	s0,a3,0x10
-	sb	a4,-604(s9)
-	sh	a5,-602(s5)
+	sb	a4,-624(s9)
+	sh	a5,-622(s5)
 	srli	s0,s0,0x10
 	beqz	s0,lab137
 	addi	a1,a4,-8
@@ -2564,10 +2383,10 @@ lab186: 	slli	a5,a2,0x10
 	addi	a3,s0,-1
 	bltu	s2,a4,lab186
 lab185: 	sll	a5,a5,a4
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	addi	s0,s0,-1
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -2577,17 +2396,17 @@ lab185: 	sll	a5,a5,a4
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
 	slli	s0,s0,0x10
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	srli	s0,s0,0x10
 	bnez	s0,lab187
 	j	lab137
 lab178: 	li	a0,18
 	j	lab181
 lab157: 	sll	a5,a5,a4
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	add	a2,s0,s11
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -2599,7 +2418,7 @@ lab157: 	sll	a5,a5,a4
 	srai	a3,s3,0x8
 	srli	a5,a5,0x10
 	sb	a3,0(a2)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	zext.b	a3,s11
 	mv	s11,a3
 	bltu	a3,s2,lab158
@@ -2672,10 +2491,10 @@ lab159: 	lw	a0,0(sp)
 	j	lab203
 lab152: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2695,11 +2514,11 @@ lab152: 	sll	a5,s2,a5
 lab153: 	sll	a5,a3,a5
 	sw	a4,72(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
+	lhu	a6,-622(s5)
 	lw	a3,16(sp)
-	lbu	a5,-604(s9)
+	lbu	a5,-624(s9)
 	lw	a4,72(sp)
 	or	a7,a6,a0
 	slli	a7,a7,0x10
@@ -2718,10 +2537,10 @@ lab153: 	sll	a5,a3,a5
 	bltu	s8,a5,lab205
 lab154: 	sll	a5,s2,a5
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	lw	a3,16(sp)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -2734,10 +2553,10 @@ lab154: 	sll	a5,s2,a5
 lab151: 	sll	a5,a3,a5
 	sw	a4,64(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a6,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,64(sp)
 	or	a6,a6,a0
 	slli	a6,a6,0x10
@@ -2750,10 +2569,10 @@ lab151: 	sll	a5,a3,a5
 	j	lab207
 lab150: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2766,10 +2585,10 @@ lab150: 	sll	a5,s2,a5
 lab149: 	sll	a5,a3,a5
 	sw	a4,56(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a6,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,56(sp)
 	or	a6,a6,a0
 	slli	a6,a6,0x10
@@ -2781,10 +2600,10 @@ lab149: 	sll	a5,a3,a5
 	srli	s2,s2,0x10
 	j	lab209
 lab140: 	sll	a4,s4,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a4,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a4,-622(s5)
+	lbu	a5,-624(s9)
 	or	s3,a4,a0
 	slli	s3,s3,0x10
 	sub	a4,s7,a5
@@ -2802,10 +2621,10 @@ lab140: 	sll	a4,s4,a4
 	bltu	s8,a5,lab210
 lab141: 	sll	a5,s3,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2823,10 +2642,10 @@ lab141: 	sll	a5,s3,a5
 	bltu	s8,a5,lab211
 lab142: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2846,11 +2665,11 @@ lab142: 	sll	a5,s2,a5
 lab143: 	sll	a5,a3,a5
 	sw	a4,32(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
+	lhu	a6,-622(s5)
 	lw	a3,16(sp)
-	lbu	a5,-604(s9)
+	lbu	a5,-624(s9)
 	lw	a4,32(sp)
 	or	a6,a6,a0
 	slli	a6,a6,0x10
@@ -2869,10 +2688,10 @@ lab143: 	sll	a5,a3,a5
 	bltu	s8,a5,lab213
 lab144: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2892,11 +2711,11 @@ lab144: 	sll	a5,s2,a5
 lab145: 	sll	a5,a3,a5
 	sw	a4,40(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
+	lhu	a6,-622(s5)
 	lw	a3,16(sp)
-	lbu	a5,-604(s9)
+	lbu	a5,-624(s9)
 	lw	a4,40(sp)
 	or	a6,a6,a0
 	slli	a6,a6,0x10
@@ -2915,10 +2734,10 @@ lab145: 	sll	a5,a3,a5
 	bltu	s8,a5,lab215
 lab146: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2938,11 +2757,11 @@ lab146: 	sll	a5,s2,a5
 lab147: 	sll	a5,a3,a5
 	sw	a4,48(sp)
 	sw	a3,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a6,-602(s5)
+	lhu	a6,-622(s5)
 	lw	a3,16(sp)
-	lbu	a5,-604(s9)
+	lbu	a5,-624(s9)
 	lw	a4,48(sp)
 	or	a6,a6,a0
 	slli	a6,a6,0x10
@@ -2961,10 +2780,10 @@ lab147: 	sll	a5,a3,a5
 	bltu	s8,a5,lab217
 lab148: 	sll	a5,s2,a5
 	sw	a4,16(sp)
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a5,-624(s9)
 	lw	a4,16(sp)
 	or	a3,a3,a0
 	slli	a3,a3,0x10
@@ -2976,10 +2795,10 @@ lab148: 	sll	a5,s2,a5
 	j	lab218
 lab139: 	sll	a4,a5,a4
 	sw	a5,16(sp)
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a3,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a3,-622(s5)
+	lbu	a4,-624(s9)
 	lw	a5,16(sp)
 	or	s4,a3,a0
 	slli	s4,s4,0x10
@@ -3000,27 +2819,27 @@ lab182: 	jal	ra,getBits.constprop.1
 	lui	s3,0x101
 	sw	s1,4(sp)
 	addi	s0,a5,1280
-lab227: 	lbu	a5,-604(s9)
+lab227: 	lbu	a5,-624(s9)
 	li	a4,7
-	lhu	s4,-602(s5)
+	lhu	s4,-622(s5)
 	bgeu	a4,a5,lab220
 	addi	a5,a5,-8
 	slli	s2,s4,0x8
 	zext.b	a4,a5
 	slli	s2,s2,0x10
-	sb	a4,-604(s9)
+	sb	a4,-624(s9)
 	srli	s2,s2,0x10
 lab233: 	srli	a5,s4,0x8
 	srli	a2,s4,0xc
 	andi	a3,a5,14
-	sh	s2,-602(s5)
+	sh	s2,-622(s5)
 	sw	a2,0(sp)
 	andi	a5,a5,15
 	bnez	a3,lab221
 	beqz	a5,lab222
-	lbu	a5,-597(s3) # 100dab <gValidQuantTables>
+	lbu	a5,-617(s3) # 100d97 <gValidQuantTables>
 	ori	a5,a5,2
-	sb	a5,-597(s3)
+	sb	a5,-617(s3)
 	lw	a5,0(sp)
 	bnez	a5,lab223
 	lw	a5,136(sp)
@@ -3036,8 +2855,8 @@ lab225: 	addi	a2,a4,-8
 	zext.b	a4,a2
 	srli	s2,s2,0x10
 	sh	a5,0(s6)
-	sb	a4,-604(s9)
-	sh	s2,-602(s5)
+	sb	a4,-624(s9)
+	sh	s2,-622(s5)
 	addi	s6,s6,2
 	bne	s1,s6,lab225
 lab228: 	mv	a5,s0
@@ -3067,10 +2886,10 @@ lab226: 	lh	a1,0(a5)
 lab221: 	mv	a5,s2
 	j	lab137
 lab224: 	sll	a4,s2,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	s7,s2,0x8
 	or	s2,a5,a0
 	slli	s2,s2,0x10
@@ -3080,13 +2899,13 @@ lab224: 	sll	a4,s2,a4
 	slli	s2,s2,0x10
 	srli	s2,s2,0x10
 	sh	s7,0(s6)
-	sh	s2,-602(s5)
+	sh	s2,-622(s5)
 	addi	s6,s6,2
 	bne	s1,s6,lab225
 	j	lab228
-lab222: 	lbu	a5,-597(s3)
+lab222: 	lbu	a5,-617(s3)
 	ori	a5,a5,1
-	sb	a5,-597(s3)
+	sb	a5,-617(s3)
 	lw	a5,0(sp)
 	bnez	a5,lab229
 	lui	a5,0x101
@@ -3101,18 +2920,18 @@ lab231: 	addi	a2,a4,-8
 	zext.b	a4,a2
 	srli	s2,s2,0x10
 	sh	a5,0(s6)
-	sb	a4,-604(s9)
-	sh	s2,-602(s5)
+	sb	a4,-624(s9)
+	sh	s2,-622(s5)
 	addi	s6,s6,2
 	bne	s0,s6,lab231
 lab236: 	lui	a5,0x101
 	addi	a5,a5,-1824 # 1008e0 <gQuant0>
 	j	lab232
 lab230: 	sll	a4,s2,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	s7,s2,0x8
 	or	s2,a5,a0
 	slli	s2,s2,0x10
@@ -3122,17 +2941,17 @@ lab230: 	sll	a4,s2,a4
 	slli	s2,s2,0x10
 	srli	s2,s2,0x10
 	sh	s7,0(s6)
-	sh	s2,-602(s5)
+	sh	s2,-622(s5)
 	addi	s6,s6,2
 	bne	s6,s0,lab231
 	lui	a5,0x101
 	addi	a5,a5,-1824 # 1008e0 <gQuant0>
 	j	lab232
 lab220: 	sll	a5,s4,a5
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	or	s2,a5,a0
 	slli	s2,s2,0x10
 	li	a5,8
@@ -3151,7 +2970,7 @@ lab239: 	addi	a5,a4,-8
 	slli	s6,s2,0x8
 	bgeu	s7,a4,lab234
 lab237: 	slli	s6,s6,0x10
-	sb	a5,-604(s9)
+	sb	a5,-624(s9)
 	srli	s6,s6,0x10
 lab238: 	srai	s11,s2,0x8
 	slli	s11,s11,0x8
@@ -3166,8 +2985,8 @@ lab238: 	srai	s11,s2,0x8
 	add	a3,s11,a3
 	bgeu	s7,a5,lab235
 	sh	a3,0(s1)
-	sb	a4,-604(s9)
-	sh	s2,-602(s5)
+	sb	a4,-624(s9)
+	sh	s2,-622(s5)
 	addi	s1,s1,2
 	beq	s1,s0,lab236
 	addi	a5,a4,-8
@@ -3175,10 +2994,10 @@ lab238: 	srai	s11,s2,0x8
 	slli	s6,s2,0x8
 	bltu	s7,a4,lab237
 lab234: 	sll	a4,s2,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a4,-602(s5)
-	lbu	a5,-604(s9)
+	lhu	a4,-622(s5)
+	lbu	a5,-624(s9)
 	or	s6,a4,a0
 	slli	s6,s6,0x10
 	srli	s6,s6,0x10
@@ -3188,10 +3007,10 @@ lab234: 	sll	a4,s2,a4
 	srli	s6,s6,0x10
 	j	lab238
 lab235: 	sll	a5,s6,a5
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	s6,s6,0x8
 	or	s2,a5,a0
 	slli	s2,s2,0x10
@@ -3202,7 +3021,7 @@ lab235: 	sll	a5,s6,a5
 	srli	s2,s2,0x10
 	add	s11,s11,s6
 	sh	s11,0(s1)
-	sh	s2,-602(s5)
+	sh	s2,-622(s5)
 	addi	s1,s1,2
 	bne	s0,s1,lab239
 	lui	a5,0x101
@@ -3216,7 +3035,7 @@ lab223: 	lw	a5,136(sp)
 	j	lab240
 lab242: 	slli	s6,s6,0x10
 	srli	s6,s6,0x10
-	sb	a6,-604(s9)
+	sb	a6,-624(s9)
 lab243: 	srai	s7,s2,0x8
 	slli	s7,s7,0x8
 	slli	a3,s6,0x8
@@ -3230,8 +3049,8 @@ lab243: 	srai	s7,s2,0x8
 	add	a5,s7,a5
 	bgeu	s4,a6,lab241
 	sh	a5,0(s11)
-	sb	a4,-604(s9)
-	sh	s2,-602(s5)
+	sb	a4,-624(s9)
+	sh	s2,-622(s5)
 	addi	s11,s11,2
 	beq	s1,s11,lab228
 lab240: 	addi	a5,a4,-8
@@ -3239,10 +3058,10 @@ lab240: 	addi	a5,a4,-8
 	slli	s6,s2,0x8
 	bltu	s4,a4,lab242
 	sll	a4,s2,a4
-	sh	a4,-602(s5)
+	sh	a4,-622(s5)
 	jal	ra,getChar
-	lhu	a4,-602(s5)
-	lbu	a6,-604(s9)
+	lhu	a4,-622(s5)
+	lbu	a6,-624(s9)
 	or	s6,a4,a0
 	slli	s6,s6,0x10
 	srli	s6,s6,0x10
@@ -3252,10 +3071,10 @@ lab240: 	addi	a5,a4,-8
 	srli	s6,s6,0x10
 	j	lab243
 lab241: 	sll	a5,s6,a6
-	sh	a5,-602(s5)
+	sh	a5,-622(s5)
 	jal	ra,getChar
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
 	srai	s6,s6,0x8
 	or	s2,a5,a0
 	slli	s2,s2,0x10
@@ -3266,21 +3085,21 @@ lab241: 	sll	a5,s6,a6
 	srli	s2,s2,0x10
 	add	s7,s7,s6
 	sh	s7,0(s11)
-	sh	s2,-602(s5)
+	sh	s2,-622(s5)
 	addi	s11,s11,2
 	bne	s1,s11,lab240
 	j	lab228
 lab184: 	jal	ra,getBits.constprop.1
 	lui	a3,0x101
-	lhu	a5,-602(s5)
-	lbu	a4,-604(s9)
-	sh	a0,-628(a3) # 100d8c <gRestartInterval>
+	lhu	a5,-622(s5)
+	lbu	a4,-624(s9)
+	sh	a0,-648(a3) # 100d78 <gRestartInterval>
 	j	lab137
 getBits.constprop.0:
 	addi	sp,sp,-32
 	sw	s3,12(sp)
 	lui	s3,0x101
-	lbu	a5,-604(s3) # 100da4 <gBitsLeft>
+	lbu	a5,-624(s3) # 100d90 <gBitsLeft>
 	sw	s0,24(sp)
 	sw	s2,16(sp)
 	lui	s0,0x101
@@ -3290,15 +3109,15 @@ getBits.constprop.0:
 	sw	s5,4(sp)
 	sw	s6,0(sp)
 	li	a4,7
-	lhu	s2,-602(s0) # 100da6 <gBitBuf>
+	lhu	s2,-622(s0) # 100d92 <gBitBuf>
 	bgeu	a4,a5,lab244
 	addi	a4,a5,-8
 	slli	a5,s2,0x8
 	slli	a5,a5,0x10
-	sb	a4,-604(s3)
+	sb	a4,-624(s3)
 	srli	a5,a5,0x10
 lab248: 	lw	ra,28(sp)
-	sh	a5,-602(s0)
+	sh	a5,-622(s0)
 	lw	s0,24(sp)
 	lw	s1,20(sp)
 	lw	s3,12(sp)
@@ -3310,28 +3129,28 @@ lab248: 	lw	ra,28(sp)
 	addi	sp,sp,32
 	ret
 lab244: 	lui	s5,0x101
-	lbu	a4,-600(s5) # 100da8 <gInBufLeft>
+	lbu	a4,-620(s5) # 100d94 <gInBufLeft>
 	sll	a5,s2,a5
-	sh	a5,-602(s0)
+	sh	a5,-622(s0)
 	mv	s1,a0
 	beqz	a4,lab245
 	lui	s4,0x100
 	lui	s6,0x101
 	addi	s4,s4,1120 # 100460 <gCoeffBuf>
-lab250: 	lbu	a5,-599(s6) # 100da9 <gInBufOfs>
+lab250: 	lbu	a5,-619(s6) # 100d95 <gInBufOfs>
 	addi	a4,a4,-1
-	sb	a4,-600(s5)
+	sb	a4,-620(s5)
 	addi	a4,a5,1
 	add	s4,s4,a5
-	sb	a4,-599(s6)
+	sb	a4,-619(s6)
 	lbu	a5,896(s4)
 	beqz	s1,lab246
 	li	a4,255
 	beq	a5,a4,lab247
 lab246: 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
-lab251: 	lhu	a4,-602(s0)
-	lbu	a3,-604(s3)
+lab251: 	lhu	a4,-622(s0)
+	lbu	a3,-624(s3)
 	or	a5,a5,a4
 	li	a4,8
 	sub	a4,a4,a3
@@ -3341,29 +3160,29 @@ lab251: 	lhu	a4,-602(s0)
 	j	lab248
 lab245: 	lui	a4,0x101
 	lui	a5,0x101
-	lw	a3,-672(a4) # 100d60 <g_pCallback_data>
+	lw	a3,-692(a4) # 100d4c <g_pCallback_data>
 	lui	s4,0x100
-	lw	a5,-668(a5) # 100d64 <g_pNeedBytesCallback>
+	lw	a5,-688(a5) # 100d50 <g_pNeedBytesCallback>
 	addi	s4,s4,1120 # 100460 <gCoeffBuf>
 	lui	s6,0x101
 	li	a4,4
-	sb	zero,-600(s5)
-	addi	a2,s5,-600
+	sb	zero,-620(s5)
+	addi	a2,s5,-620
 	li	a1,252
 	addi	a0,s4,900
-	sb	a4,-599(s6) # 100da9 <gInBufOfs>
+	sb	a4,-619(s6) # 100d95 <gInBufOfs>
 	jalr	a5
 	beqz	a0,lab249
 	lui	a5,0x101
-	sb	a0,-675(a5) # 100d5d <gCallbackStatus>
-lab249: 	lbu	a4,-600(s5)
+	sb	a0,-695(a5) # 100d49 <gCallbackStatus>
+lab249: 	lbu	a4,-620(s5)
 	bnez	a4,lab250
 	lui	a3,0x101
-	lbu	a4,-598(a3) # 100daa <gTemFlag>
+	lbu	a4,-618(a3) # 100d96 <gTemFlag>
 	li	a5,217
 	not	a4,a4
 	zext.b	a4,a4
-	sb	a4,-598(a3)
+	sb	a4,-618(a3)
 	beqz	a4,lab251
 	beqz	s1,lab252
 lab247: 	jal	ra,getOctet.part.0
@@ -3373,7 +3192,7 @@ pjpeg_decode_mcu:
 	addi	sp,sp,-112
 	lui	a5,0x101
 	sw	s6,80(sp)
-	lbu	s6,-675(a5) # 100d5d <gCallbackStatus>
+	lbu	s6,-695(a5) # 100d49 <gCallbackStatus>
 	sw	ra,108(sp)
 	sw	s0,104(sp)
 	sw	s1,100(sp)
@@ -3388,7 +3207,7 @@ pjpeg_decode_mcu:
 	sw	s11,60(sp)
 	bnez	s6,lab253
 	lui	a5,0x101
-	lhu	a5,-658(a5) # 100d6e <gNumMCUSRemaining>
+	lhu	a5,-678(a5) # 100d5a <gNumMCUSRemaining>
 	bnez	a5,lab254
 	li	s6,1
 lab253: 	lw	ra,108(sp)
@@ -3408,31 +3227,31 @@ lab253: 	lw	ra,108(sp)
 	addi	sp,sp,112
 	ret
 lab254: 	lui	s2,0x101
-	lhu	a4,-628(s2) # 100d8c <gRestartInterval>
+	lhu	a4,-648(s2) # 100d78 <gRestartInterval>
 	bnez	a4,lab255
 	lui	a4,0x101
 	sw	a4,40(sp)
-	lbu	a4,-650(a4) # 100d76 <gMaxBlocksPerMCU>
+	lbu	a4,-670(a4) # 100d62 <gMaxBlocksPerMCU>
 	beqz	a4,lab256
 lab272: 	lui	a5,0x101
-	addi	a5,a5,-592 # 100db0 <gLastDC>
+	addi	a5,a5,-612 # 100d9c <gLastDC>
 	sw	a5,28(sp)
 	lui	a5,0x101
-	addi	a5,a5,-664 # 100d68 <gMCUOrg>
+	addi	a5,a5,-684 # 100d54 <gMCUOrg>
 	sw	a5,24(sp)
 	lui	a5,0x101
-	addi	a5,a5,-640 # 100d80 <gCompDCTab>
+	addi	a5,a5,-660 # 100d6c <gCompDCTab>
 	sw	a5,20(sp)
 	lui	a5,0x101
-	addi	a5,a5,-624 # 100d90 <gCompQuant>
+	addi	a5,a5,-644 # 100d7c <gCompQuant>
 	lui	a3,0x101
 	sw	a5,32(sp)
 	lui	a5,0x100
 	addi	s7,a5,1120 # 100460 <gCoeffBuf>
-	addi	a5,a3,-644 # 100d7c <gCompACTab>
+	addi	a5,a3,-664 # 100d68 <gCompACTab>
 	lui	a3,0x101
 	sw	a5,16(sp)
-	addi	a5,a3,1120 # 101460 <_end+0x6a8>
+	addi	a5,a3,1120 # 101460 <_bss_end+0x6be>
 	sw	a5,36(sp)
 	lui	a5,0x100
 	lui	a4,0x100
@@ -3481,7 +3300,7 @@ lab260: 	lw	a3,28(sp)
 	add	a5,a3,a5
 	lhu	a0,0(a5)
 	lui	a3,0x101
-	lbu	a1,-676(a3) # 100d5c <gReduce>
+	lbu	a1,-696(a3) # 100d48 <gReduce>
 	add	a4,a4,a0
 	slli	a4,a4,0x10
 	srli	a4,a4,0x10
@@ -3530,7 +3349,7 @@ lab265: 	lh	a5,0(s7)
 	srai	a5,a5,0x1f
 	zext.b	a5,a5
 lab268: 	lui	a4,0x101
-	lw	a4,-648(a4) # 100d78 <gScanType>
+	lw	a4,-668(a4) # 100d64 <gScanType>
 	li	a2,4
 	bltu	a2,a4,lab269
 	lui	a2,0x100
@@ -3540,23 +3359,23 @@ lab268: 	lui	a4,0x101
 	lw	a4,0(a4)
 	jr	a4
 lab255: 	lui	s1,0x101
-	lhu	a5,-632(s1) # 100d88 <gRestartsLeft>
+	lhu	a5,-652(s1) # 100d74 <gRestartsLeft>
 	bnez	a5,lab270
 	j	lab271
 lab270: 	lui	a4,0x101
 	sw	a4,40(sp)
-	lbu	a4,-650(a4) # 100d76 <gMaxBlocksPerMCU>
+	lbu	a4,-670(a4) # 100d62 <gMaxBlocksPerMCU>
 	addi	a5,a5,-1
-	sh	a5,-632(s1)
+	sh	a5,-652(s1)
 	bnez	a4,lab272
 lab286: 	lui	a5,0x101
-	lbu	a5,-675(a5) # 100d5d <gCallbackStatus>
+	lbu	a5,-695(a5) # 100d49 <gCallbackStatus>
 	bnez	a5,lab273
 	lui	a5,0x101
-	lhu	a5,-658(a5) # 100d6e <gNumMCUSRemaining>
+	lhu	a5,-678(a5) # 100d5a <gNumMCUSRemaining>
 lab256: 	addi	a5,a5,-1
 	lui	a4,0x101
-	sh	a5,-658(a4) # 100d6e <gNumMCUSRemaining>
+	sh	a5,-678(a4) # 100d5a <gNumMCUSRemaining>
 	j	lab253
 	li	a4,2
 	bne	s5,a4,lab274
@@ -3599,7 +3418,7 @@ lab277: 	sb	a5,640(s7)
 lab269: 	lw	a5,40(sp)
 	addi	s5,s5,1
 	zext.b	s5,s5
-	lbu	a5,-650(a5)
+	lbu	a5,-670(a5)
 	bltu	s5,a5,lab285
 	lw	s6,44(sp)
 	j	lab286
@@ -3755,7 +3574,7 @@ lab264: 	srli	s9,s9,0x4
 	bge	s2,s1,lab304
 lab266: 	li	s6,28
 lab351: 	lui	a5,0x101
-	lbu	a5,-675(a5) # 100d5d <gCallbackStatus>
+	lbu	a5,-695(a5) # 100d49 <gCallbackStatus>
 	beqz	a5,lab253
 lab273: 	mv	s6,a5
 	j	lab253
@@ -4508,7 +4327,7 @@ lab313: 	sh	a4,2(a2)
 	bne	a2,s0,lab314
 	j	lab330
 lab317: 	lui	a5,0x101
-	lw	a5,-648(a5) # 100d78 <gScanType>
+	lw	a5,-668(a5) # 100d64 <gScanType>
 	li	a4,4
 	bltu	a4,a5,lab269
 	lui	a4,0x100
@@ -5373,39 +5192,39 @@ lab423: 	sb	a4,576(s7)
 	sb	a5,576(s7)
 	j	lab269
 lab349: 	lui	a3,0x101
-	lhu	a4,-630(a3) # 100d8a <gNextRestartNum>
+	lhu	a4,-650(a3) # 100d76 <gNextRestartNum>
 	addi	a5,a4,208
 	bne	a0,a5,lab347
-	lhu	a2,-628(s2)
+	lhu	a2,-648(s2)
 	lui	a5,0x101
 	addi	a4,a4,1
-	addi	a1,a5,-592 # 100db0 <gLastDC>
+	addi	a1,a5,-612 # 100d9c <gLastDC>
 	andi	a4,a4,7
-	sh	a4,-630(a3)
-	sw	zero,-592(a5)
+	sh	a4,-650(a3)
+	sw	zero,-612(a5)
 	li	a4,8
 	lui	a5,0x101
 	sh	zero,4(a1)
 	li	a0,1
-	sb	a4,-604(a5) # 100da4 <gBitsLeft>
-	sh	a2,-632(s1)
+	sb	a4,-624(a5) # 100d90 <gBitsLeft>
+	sh	a2,-652(s1)
 	jal	ra,getBits.constprop.0
 	li	a0,1
 	jal	ra,getBits.constprop.0
-	lhu	a5,-632(s1)
+	lhu	a5,-652(s1)
 	j	lab270
 pjpeg_decode_init:
 	lui	a5,0x101
-	sw	a1,-668(a5) # 100d64 <g_pNeedBytesCallback>
+	sw	a1,-688(a5) # 100d50 <g_pNeedBytesCallback>
 	lui	a5,0x101
-	sw	a2,-672(a5) # 100d60 <g_pCallback_data>
+	sw	a2,-692(a5) # 100d4c <g_pCallback_data>
 	lui	a5,0x101
-	sb	a3,-676(a5) # 100d5c <gReduce>
+	sb	a3,-696(a5) # 100d48 <gReduce>
 	lui	a5,0x101
-	sh	zero,-606(a5) # 100da2 <gImageXSize>
+	sh	zero,-626(a5) # 100d8e <gImageXSize>
 	lui	a5,0x101
 	addi	sp,sp,-96
-	sh	zero,-608(a5) # 100da0 <gImageYSize>
+	sh	zero,-628(a5) # 100d8c <gImageYSize>
 	lui	a5,0x101
 	sw	ra,92(sp)
 	sw	s0,88(sp)
@@ -5421,7 +5240,7 @@ pjpeg_decode_init:
 	sw	s10,48(sp)
 	sw	s11,44(sp)
 	lui	s0,0x101
-	sb	zero,-609(a5) # 100d9f <gCompsInFrame>
+	sb	zero,-629(a5) # 100d8b <gCompsInFrame>
 	lui	a5,0x101
 	sw	zero,0(a0)
 	sw	zero,4(a0)
@@ -5434,31 +5253,31 @@ pjpeg_decode_init:
 	sw	zero,32(a0)
 	sw	zero,36(a0)
 	sw	zero,40(a0)
-	sh	zero,-628(a5) # 100d8c <gRestartInterval>
-	sb	zero,-675(s0) # 100d5d <gCallbackStatus>
+	sh	zero,-648(a5) # 100d78 <gRestartInterval>
+	sb	zero,-695(s0) # 100d49 <gCallbackStatus>
 	lui	a5,0x101
-	sb	zero,-633(a5) # 100d87 <gCompsInScan>
+	sb	zero,-653(a5) # 100d73 <gCompsInScan>
 	lui	a5,0x101
-	sb	zero,-596(a5) # 100dac <gValidHuffTables>
+	sb	zero,-616(a5) # 100d98 <gValidHuffTables>
 	lui	a5,0x101
-	sb	zero,-597(a5) # 100dab <gValidQuantTables>
+	sb	zero,-617(a5) # 100d97 <gValidQuantTables>
 	lui	a5,0x101
-	sb	zero,-598(a5) # 100daa <gTemFlag>
+	sb	zero,-618(a5) # 100d96 <gTemFlag>
 	lui	a5,0x101
-	sb	zero,-599(a5) # 100da9 <gInBufOfs>
+	sb	zero,-619(a5) # 100d95 <gInBufOfs>
 	lui	a5,0x101
-	sb	zero,-600(a5) # 100da8 <gInBufLeft>
+	sb	zero,-620(a5) # 100d94 <gInBufLeft>
 	mv	s5,a0
 	li	a5,8
 	lui	s4,0x101
 	lui	s3,0x101
 	li	a0,0
-	sb	a5,-604(s3) # 100da4 <gBitsLeft>
-	sh	zero,-602(s4) # 100da6 <gBitBuf>
+	sb	a5,-624(s3) # 100d90 <gBitsLeft>
+	sh	zero,-622(s4) # 100d92 <gBitBuf>
 	jal	ra,getBits.constprop.0
 	li	a0,0
 	jal	ra,getBits.constprop.0
-	lbu	s9,-675(s0)
+	lbu	s9,-695(s0)
 	beqz	s9,lab424
 lab432: 	lw	ra,92(sp)
 	lw	s0,88(sp)
@@ -5485,11 +5304,11 @@ lab424: 	li	a0,0
 	li	a5,255
 	zext.b	s10,a0
 	beq	s6,a5,lab425
-lab433: 	lhu	a5,-602(s4)
-	lbu	a4,-604(s3)
+lab433: 	lhu	a5,-622(s4)
+	lbu	a4,-624(s3)
 	lui	s9,0x1
 	li	s2,7
-	addi	s9,s9,-1 # fff <upsampleCr+0xc7>
+	addi	s9,s9,-1 # fff <upsampleCr+0x2db>
 	li	s7,8
 	li	s11,255
 	li	s6,216
@@ -5502,24 +5321,24 @@ lab429: 	slli	a5,a3,0x10
 	srli	a5,a5,0x10
 	addi	s9,s9,-1
 	slli	s9,s9,0x10
-	sb	a2,-604(s3)
-	sh	a5,-602(s4)
+	sb	a2,-624(s3)
+	sh	a5,-622(s4)
 	srai	a4,s1,0x8
 	srli	s9,s9,0x10
 	srli	s1,s1,0x8
 	beq	s10,s11,lab427
 lab430: 	beqz	s9,lab428
-	lbu	a4,-604(s3)
+	lbu	a4,-624(s3)
 	mv	s10,s1
 	slli	a3,a5,0x8
 	mv	s1,a5
 	addi	a2,a4,-8
 	bltu	s2,a4,lab429
 lab426: 	sll	a5,a5,a4
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	jal	ra,getChar
-	lhu	a5,-602(s4)
-	lbu	a4,-604(s3)
+	lhu	a5,-622(s4)
+	lbu	a4,-624(s3)
 	addi	s9,s9,-1
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -5529,7 +5348,7 @@ lab426: 	sll	a5,a5,a4
 	slli	a5,a5,0x10
 	srli	a5,a5,0x10
 	slli	s9,s9,0x10
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	srai	a4,s1,0x8
 	srli	s9,s9,0x10
 	srli	s1,s1,0x8
@@ -5537,7 +5356,7 @@ lab426: 	sll	a5,a5,a4
 lab427: 	beq	a4,s6,lab431
 	bne	a4,s8,lab430
 lab428: 	li	s9,19
-lab434: 	lbu	a4,-675(s0)
+lab434: 	lbu	a4,-695(s0)
 	beqz	a4,lab432
 	mv	s9,a4
 	j	lab432
@@ -5571,7 +5390,7 @@ lab437: 	jal	ra,getBits.constprop.1
 	addi	a3,a0,-1
 	lui	a5,0x101
 	slli	a4,a3,0x10
-	sh	a0,-608(a5) # 100da0 <gImageYSize>
+	sh	a0,-628(a5) # 100d8c <gImageYSize>
 	srli	a4,a4,0x10
 	lui	s7,0x4
 	bgeu	a4,s7,lab440
@@ -5579,14 +5398,14 @@ lab437: 	jal	ra,getBits.constprop.1
 	addi	a3,a0,-1
 	lui	a5,0x101
 	slli	a4,a3,0x10
-	sh	a0,-606(a5) # 100da2 <gImageXSize>
+	sh	a0,-626(a5) # 100d8e <gImageXSize>
 	srli	a4,a4,0x10
 	bgeu	a4,s7,lab441
 	li	a0,0
 	jal	ra,getBits.constprop.0
 	zext.b	a4,a0
 	lui	a5,0x101
-	sb	a4,-609(a5) # 100d9f <gCompsInFrame>
+	sb	a4,-629(a5) # 100d8b <gCompsInFrame>
 	li	a3,3
 	bltu	a3,a4,lab442
 	slli	a3,a4,0x1
@@ -5597,16 +5416,16 @@ lab437: 	jal	ra,getBits.constprop.1
 	lui	a4,0x101
 	lui	s7,0x101
 	lui	s10,0x101
-	addi	a5,a4,-624 # 100d90 <gCompQuant>
-	addi	s6,s7,-616 # 100d98 <gCompHSamp>
-	addi	s8,s10,-620 # 100d94 <gCompVSamp>
+	addi	a5,a4,-644 # 100d7c <gCompQuant>
+	addi	s6,s7,-636 # 100d84 <gCompHSamp>
+	addi	s8,s10,-640 # 100d80 <gCompVSamp>
 	sw	a5,0(sp)
 	li	s1,4
 	li	s11,1
 	j	lab445
 lab449: 	slli	s2,a4,0x4
 	slli	s2,s2,0x10
-	sb	a5,-604(s3)
+	sb	a5,-624(s3)
 	srli	s2,s2,0x10
 lab450: 	add	a3,s6,s9
 	srai	a4,a4,0xc
@@ -5615,8 +5434,8 @@ lab450: 	add	a3,s6,s9
 	addi	a3,a5,-4
 	slli	a4,s2,0x4
 	bgeu	a2,a5,lab446
-	sb	a3,-604(s3)
-	sh	a4,-602(s4)
+	sb	a3,-624(s3)
+	sh	a4,-622(s4)
 lab471: 	add	a5,s8,s9
 	srai	s2,s2,0xc
 	sb	s2,0(a5)
@@ -5630,26 +5449,26 @@ lab471: 	add	a5,s8,s9
 	zext.b	s9,s9
 	bltu	s11,a5,lab447
 	lui	a5,0x101
-	lbu	a3,-609(a5) # 100d9f <gCompsInFrame>
+	lbu	a3,-629(a5) # 100d8b <gCompsInFrame>
 	bgeu	s9,a3,lab448
 lab445: 	li	a0,0
 	jal	ra,getBits.constprop.0
-	lbu	a3,-604(s3)
+	lbu	a3,-624(s3)
 	lui	a5,0x101
-	addi	a5,a5,-612 # 100d9c <gCompIdent>
+	addi	a5,a5,-632 # 100d88 <gCompIdent>
 	add	a5,a5,s9
 	sb	a0,0(a5)
 	li	a2,3
 	addi	a5,a3,-4
-	lhu	a4,-602(s4)
+	lhu	a4,-622(s4)
 	zext.b	a5,a5
 	bltu	a2,a3,lab449
 	sll	a3,a4,a3
 	sw	a4,4(sp)
-	sh	a3,-602(s4)
+	sh	a3,-622(s4)
 	jal	ra,getChar
-	lhu	a3,-602(s4)
-	lbu	a5,-604(s3)
+	lhu	a3,-622(s4)
+	lbu	a5,-624(s3)
 	lw	a4,4(sp)
 	or	s2,a3,a0
 	slli	s2,s2,0x10
@@ -5660,9 +5479,9 @@ lab445: 	li	a0,0
 	zext.b	a5,a5
 	slli	s2,s2,0x10
 	srli	s2,s2,0x10
-	sb	a5,-604(s3)
+	sb	a5,-624(s3)
 	j	lab450
-lab448: 	lbu	s9,-675(s0)
+lab448: 	lbu	s9,-695(s0)
 	bnez	s9,lab432
 	beq	a3,s11,lab451
 	li	a2,3
@@ -5677,41 +5496,41 @@ lab448: 	lbu	s9,-675(s0)
 	bne	a3,s11,lab432
 	lbu	a3,2(s8)
 	bne	a3,s11,lab432
-	lbu	a3,-616(s7)
+	lbu	a3,-636(s7)
 	beq	a3,s11,lab452
 	li	a4,2
 	li	s9,27
 	bne	a3,a4,lab432
-	lbu	a4,-620(s10)
+	lbu	a4,-640(s10)
 	li	a2,1
 	beq	a4,a2,lab453
 	bne	a4,a3,lab432
 	lui	a5,0x101
 	li	a3,4
 	lui	s6,0x101
-	addi	a4,a5,-664 # 100d68 <gMCUOrg>
+	addi	a4,a5,-684 # 100d54 <gMCUOrg>
 	li	a2,6
-	sw	a3,-648(s6) # 100d78 <gScanType>
-	sw	zero,-664(a5)
+	sw	a3,-668(s6) # 100d64 <gScanType>
+	sw	zero,-684(a5)
 	lui	a3,0x101
 	li	a5,513
-	sb	a2,-650(a3) # 100d76 <gMaxBlocksPerMCU>
+	sb	a2,-670(a3) # 100d62 <gMaxBlocksPerMCU>
 	sh	a5,4(a4)
 	li	a2,15
 	li	a5,16
 lab476: 	lui	a4,0x101
-	lhu	a3,-606(a4) # 100da2 <gImageXSize>
+	lhu	a3,-626(a4) # 100d8e <gImageXSize>
 	lui	a1,0x101
 	lui	a0,0x101
 	li	a4,16
 	sw	a1,8(sp)
-	sb	a4,-651(a1) # 100d75 <gMaxMCUXSize>
+	sb	a4,-671(a1) # 100d61 <gMaxMCUXSize>
 	sw	a0,4(sp)
-	sb	a5,-652(a0) # 100d74 <gMaxMCUYSize>
+	sb	a5,-672(a0) # 100d60 <gMaxMCUYSize>
 	addi	a3,a3,15
 	li	a1,4
 lab470: 	lui	a4,0x101
-	lhu	a4,-608(a4) # 100da0 <gImageYSize>
+	lhu	a4,-628(a4) # 100d8c <gImageYSize>
 	addi	a5,a5,-8
 	snez	a5,a5
 	add	a4,a4,a2
@@ -5724,12 +5543,12 @@ lab470: 	lui	a4,0x101
 	srli	a5,a5,0x10
 	mul	a3,a4,a5
 	lui	s1,0x101
-	sh	a4,-654(s1) # 100d72 <gMaxMCUSPerRow>
+	sh	a4,-674(s1) # 100d5e <gMaxMCUSPerRow>
 	lui	a4,0x101
-	sh	a5,-656(a4) # 100d70 <gMaxMCUSPerCol>
+	sh	a5,-676(a4) # 100d5c <gMaxMCUSPerCol>
 	addi	a0,sp,31
 	lui	a5,0x101
-	sh	a3,-658(a5) # 100d6e <gNumMCUSRemaining>
+	sh	a3,-678(a5) # 100d5a <gNumMCUSRemaining>
 	jal	ra,processMarkers
 	mv	s9,a0
 	bnez	a0,lab434
@@ -5746,7 +5565,7 @@ lab470: 	lui	a4,0x101
 	slli	a4,a5,0x1
 	lui	a3,0x101
 	slli	s11,a2,0x10
-	sb	a5,-633(a3) # 100d87 <gCompsInScan>
+	sb	a5,-653(a3) # 100d73 <gCompsInScan>
 	srli	s11,s11,0x10
 	addi	a4,a4,3
 	bne	s11,a4,lab454
@@ -5755,19 +5574,19 @@ lab470: 	lui	a4,0x101
 	li	a4,2
 	bltu	a4,a5,lab454
 	lui	a5,0x101
-	addi	s7,a5,-636 # 100d84 <gCompList>
+	addi	s7,a5,-656 # 100d70 <gCompList>
 	lui	a5,0x101
-	addi	s9,a5,-640 # 100d80 <gCompDCTab>
+	addi	s9,a5,-660 # 100d6c <gCompDCTab>
 	lui	a5,0x101
 	li	s10,0
-	addi	s8,a5,-644 # 100d7c <gCompACTab>
+	addi	s8,a5,-664 # 100d68 <gCompACTab>
 lab459: 	li	a0,0
 	jal	ra,getBits.constprop.0
 	mv	s2,a0
 	li	a0,0
 	jal	ra,getBits.constprop.0
 	lui	a5,0x101
-	lbu	a4,-609(a5) # 100d9f <gCompsInFrame>
+	lbu	a4,-629(a5) # 100d8b <gCompsInFrame>
 	addi	a3,s11,-2
 	mv	a7,s11
 	slli	s11,a3,0x10
@@ -5776,16 +5595,16 @@ lab459: 	li	a0,0
 	srli	s11,s11,0x10
 	beqz	a4,lab455
 	lui	a2,0x101
-	lbu	a3,-612(a2) # 100d9c <gCompIdent>
+	lbu	a3,-632(a2) # 100d88 <gCompIdent>
 	beq	a3,s2,lab456
 	li	a3,1
 	beq	a4,a3,lab455
-	addi	a3,a2,-612
+	addi	a3,a2,-632
 	lbu	a3,1(a3)
 	beq	a3,s2,lab457
 	li	a3,2
 	beq	a4,a3,lab455
-	addi	a4,a2,-612
+	addi	a4,a2,-632
 	lbu	a4,2(a4)
 	beq	a4,s2,lab458
 lab455: 	li	s9,15
@@ -5793,7 +5612,7 @@ lab455: 	li	s9,15
 lab458: 	li	a6,2
 	li	a4,2
 lab475: 	lui	a3,0x101
-	lbu	a3,-633(a3) # 100d87 <gCompsInScan>
+	lbu	a3,-653(a3) # 100d73 <gCompsInScan>
 	add	a0,s7,s10
 	add	a2,s9,a4
 	srli	a1,a5,0x4
@@ -5811,35 +5630,35 @@ lab475: 	lui	a3,0x101
 	zext.b	a5,a0
 	lui	a4,0x101
 	li	a0,0
-	sb	a5,-677(a4) # 100d5b <spectral_start>
+	sb	a5,-697(a4) # 100d47 <spectral_start>
 	jal	ra,getBits.constprop.0
-	lbu	a5,-604(s3)
+	lbu	a5,-624(s3)
 	zext.b	a4,a0
 	lui	a3,0x101
-	sb	a4,-678(a3) # 100d5a <spectral_end>
+	sb	a4,-698(a3) # 100d46 <spectral_end>
 	li	a4,3
-	lhu	a3,-602(s4)
+	lhu	a3,-622(s4)
 	bgeu	a4,a5,lab460
 	addi	a5,a5,-4
 	slli	a4,a3,0x4
 	zext.b	a5,a5
 	slli	a4,a4,0x10
-	sb	a5,-604(s3)
+	sb	a5,-624(s3)
 	srli	a4,a4,0x10
 lab478: 	srli	a3,a3,0xc
 	lui	a2,0x101
-	sb	a3,-679(a2) # 100d59 <successive_high>
+	sb	a3,-699(a2) # 100d45 <successive_high>
 	li	a3,3
 	bgeu	a3,a5,lab461
 	addi	a5,a5,-4
 	slli	a3,a4,0x4
-	sb	a5,-604(s3)
-	sh	a3,-602(s4)
+	sb	a5,-624(s3)
+	sh	a3,-622(s4)
 lab477: 	addi	a5,s2,-5
 	srli	a4,a4,0xc
 	lui	a3,0x101
 	slli	a5,a5,0x10
-	sb	a4,-680(a3) # 100d58 <successive_low>
+	sb	a4,-700(a3) # 100d44 <successive_low>
 	srli	a5,a5,0x10
 	beqz	a5,lab462
 	mv	s2,a5
@@ -5850,12 +5669,12 @@ lab463: 	addi	s2,s2,-1
 	jal	ra,getBits.constprop.0
 	bnez	s2,lab463
 lab462: 	lui	a5,0x101
-	lbu	a3,-633(a5) # 100d87 <gCompsInScan>
+	lbu	a3,-653(a5) # 100d73 <gCompsInScan>
 	beqz	a3,lab464
 	lui	a5,0x101
-	lbu	a2,-636(a5) # 100d84 <gCompList>
+	lbu	a2,-656(a5) # 100d70 <gCompList>
 	lui	a4,0x101
-	lbu	a1,-596(a4) # 100dac <gValidHuffTables>
+	lbu	a1,-616(a4) # 100d98 <gValidHuffTables>
 	add	a4,s8,a2
 	lbu	a4,0(a4)
 	add	a0,s9,a2
@@ -5894,7 +5713,7 @@ lab462: 	lui	a5,0x101
 	bne	a1,a5,lab465
 lab466: 	lw	a1,0(sp)
 	lui	a4,0x101
-	lbu	a4,-597(a4) # 100dab <gValidQuantTables>
+	lbu	a4,-617(a4) # 100d97 <gValidQuantTables>
 	add	a2,a1,a2
 	lbu	a5,0(a2)
 	snez	a5,a5
@@ -5921,21 +5740,21 @@ lab466: 	lw	a1,0(sp)
 	beqz	a4,lab467
 lab464: 	lui	a5,0x101
 	lui	a4,0x101
-	lhu	a5,-628(a5) # 100d8c <gRestartInterval>
-	addi	a3,a4,-592 # 100db0 <gLastDC>
-	sw	zero,-592(a4)
+	lhu	a5,-648(a5) # 100d78 <gRestartInterval>
+	addi	a3,a4,-612 # 100d9c <gLastDC>
+	sw	zero,-612(a4)
 	sh	zero,4(a3)
 	beqz	a5,lab468
 	lui	a4,0x101
-	sh	a5,-632(a4) # 100d88 <gRestartsLeft>
+	sh	a5,-652(a4) # 100d74 <gRestartsLeft>
 	lui	a5,0x101
-	sh	zero,-630(a5) # 100d8a <gNextRestartNum>
-lab468: 	lbu	a2,-604(s3)
+	sh	zero,-650(a5) # 100d76 <gNextRestartNum>
+lab468: 	lbu	a2,-624(s3)
 	lui	a5,0x101
 	lui	a4,0x101
-	lhu	a3,-602(s4)
-	lbu	a5,-599(a5) # 100da9 <gInBufOfs>
-	lbu	a4,-600(a4) # 100da8 <gInBufLeft>
+	lhu	a3,-622(s4)
+	lbu	a5,-619(a5) # 100d95 <gInBufOfs>
+	lbu	a4,-620(a4) # 100d94 <gInBufLeft>
 	bnez	a2,lab469
 	lui	s2,0x100
 	addi	s2,s2,1120 # 100460 <gCoeffBuf>
@@ -5945,34 +5764,34 @@ lab472: 	addi	a5,a5,-1
 	add	a2,s2,a5
 	srli	a3,a3,0x8
 	addi	a4,a4,1
-	sb	a5,-599(a1) # 100da9 <gInBufOfs>
+	sb	a5,-619(a1) # 100d95 <gInBufOfs>
 	lui	a5,0x101
-	sb	a4,-600(a5) # 100da8 <gInBufLeft>
+	sb	a4,-620(a5) # 100d94 <gInBufLeft>
 	sb	a3,896(a2)
 	li	a5,8
 	li	a0,1
-	sb	a5,-604(s3)
+	sb	a5,-624(s3)
 	jal	ra,getBits.constprop.0
 	li	a0,1
 	jal	ra,getBits.constprop.0
-	lbu	s9,-675(s0)
+	lbu	s9,-695(s0)
 	bnez	s9,lab432
 	lui	a5,0x101
-	lhu	t5,-606(a5) # 100da2 <gImageXSize>
+	lhu	t5,-626(a5) # 100d8e <gImageXSize>
 	lui	a5,0x101
-	lhu	t4,-608(a5) # 100da0 <gImageYSize>
+	lhu	t4,-628(a5) # 100d8c <gImageYSize>
 	lui	a5,0x101
-	lbu	t3,-609(a5) # 100d9f <gCompsInFrame>
+	lbu	t3,-629(a5) # 100d8b <gCompsInFrame>
 	lui	a5,0x101
-	lhu	a0,-656(a5) # 100d70 <gMaxMCUSPerCol>
+	lhu	a0,-676(a5) # 100d5c <gMaxMCUSPerCol>
 	lw	a5,8(sp)
-	lw	t1,-648(s6)
-	lhu	a6,-654(s1)
-	lbu	a1,-651(a5)
+	lw	t1,-668(s6)
+	lhu	a6,-674(s1)
+	lbu	a1,-671(a5)
 	lw	a5,4(sp)
 	addi	a3,s2,640
 	addi	a4,s2,128
-	lbu	a2,-652(a5)
+	lbu	a2,-672(a5)
 	addi	s2,s2,384
 	sw	t5,0(s5)
 	sw	t4,4(s5)
@@ -5986,28 +5805,28 @@ lab472: 	addi	a5,a5,-1
 	sw	a4,36(s5)
 	sw	s2,40(s5)
 	j	lab432
-lab451: 	lbu	a3,-616(s7)
+lab451: 	lbu	a3,-636(s7)
 	li	s9,27
 	bne	a3,s11,lab432
-	lbu	a3,-620(s10)
+	lbu	a3,-640(s10)
 	bne	a3,s11,lab432
 	lui	a5,0x101
 	lui	s6,0x101
-	sb	s11,-650(a5) # 100d76 <gMaxBlocksPerMCU>
+	sb	s11,-670(a5) # 100d62 <gMaxBlocksPerMCU>
 	lui	a5,0x101
-	sb	zero,-664(a5) # 100d68 <gMCUOrg>
-	sw	zero,-648(s6) # 100d78 <gScanType>
+	sb	zero,-684(a5) # 100d54 <gMCUOrg>
+	sw	zero,-668(s6) # 100d64 <gScanType>
 	li	a2,7
 	li	a5,8
 lab474: 	lui	a4,0x101
-	lhu	a3,-606(a4) # 100da2 <gImageXSize>
+	lhu	a3,-626(a4) # 100d8e <gImageXSize>
 	lui	a1,0x101
 	lui	a0,0x101
 	li	a4,8
 	sw	a1,8(sp)
-	sb	a4,-651(a1) # 100d75 <gMaxMCUXSize>
+	sb	a4,-671(a1) # 100d61 <gMaxMCUXSize>
 	sw	a0,4(sp)
-	sb	a5,-652(a0) # 100d74 <gMaxMCUYSize>
+	sb	a5,-672(a0) # 100d60 <gMaxMCUYSize>
 	addi	a3,a3,7
 	li	a1,3
 	j	lab470
@@ -6016,18 +5835,18 @@ lab435: 	li	s9,37
 lab439: 	li	s9,7
 	j	lab434
 lab446: 	sll	a5,s2,a5
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	jal	ra,getChar
-	lhu	a5,-602(s4)
-	lbu	a4,-604(s3)
+	lhu	a5,-622(s4)
+	lbu	a4,-624(s3)
 	or	a5,a5,a0
 	slli	a5,a5,0x10
 	sub	a3,s1,a4
 	srli	a5,a5,0x10
 	sll	a5,a5,a3
 	addi	a4,a4,4
-	sh	a5,-602(s4)
-	sb	a4,-604(s3)
+	sh	a5,-622(s4)
+	sb	a4,-624(s3)
 	j	lab471
 lab454: 	li	s9,14
 	j	lab434
@@ -6042,7 +5861,7 @@ lab469: 	addi	a5,a5,-1
 	zext.b	a4,a4
 	sb	a3,896(a2)
 	j	lab472
-lab452: 	lbu	a4,-620(s10)
+lab452: 	lbu	a4,-640(s10)
 	li	a5,1
 	beq	a4,a5,lab473
 	li	a3,2
@@ -6051,12 +5870,12 @@ lab452: 	lbu	a4,-620(s10)
 	li	a5,3
 	lui	s6,0x101
 	li	a4,4
-	sw	a5,-648(s6) # 100d78 <gScanType>
+	sw	a5,-668(s6) # 100d64 <gScanType>
 	lui	a5,0x101
-	sb	a4,-650(a5) # 100d76 <gMaxBlocksPerMCU>
+	sb	a4,-670(a5) # 100d62 <gMaxBlocksPerMCU>
 	lui	a5,0x101
 	lui	a4,0x2010
-	sw	a4,-664(a5) # 100d68 <gMCUOrg>
+	sw	a4,-684(a5) # 100d54 <gMCUOrg>
 	li	a2,15
 	li	a5,16
 	j	lab474
@@ -6076,12 +5895,12 @@ lab442: 	li	s9,10
 	j	lab434
 lab453: 	lui	a5,0x101
 	li	a4,4
-	sb	a4,-650(a5) # 100d76 <gMaxBlocksPerMCU>
+	sb	a4,-670(a5) # 100d62 <gMaxBlocksPerMCU>
 	lui	s6,0x101
 	lui	a5,0x101
 	lui	a4,0x2010
-	sw	a4,-664(a5) # 100d68 <gMCUOrg>
-	sw	a3,-648(s6) # 100d78 <gScanType>
+	sw	a4,-684(a5) # 100d54 <gMCUOrg>
+	sw	a3,-668(s6) # 100d64 <gScanType>
 	li	a2,7
 	li	a5,8
 	j	lab476
@@ -6089,10 +5908,10 @@ lab447: 	li	s9,36
 	j	lab434
 lab461: 	sll	a5,a4,a5
 	sw	a4,12(sp)
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	jal	ra,getChar
-	lhu	a5,-602(s4)
-	lbu	a3,-604(s3)
+	lhu	a5,-622(s4)
+	lbu	a3,-624(s3)
 	li	a2,4
 	or	a5,a5,a0
 	slli	a5,a5,0x10
@@ -6101,17 +5920,17 @@ lab461: 	sll	a5,a4,a5
 	sll	a5,a5,a2
 	addi	a3,a3,4
 	lw	a4,12(sp)
-	sh	a5,-602(s4)
-	sb	a3,-604(s3)
+	sh	a5,-622(s4)
+	sb	a3,-624(s3)
 	j	lab477
 lab467: 	li	s9,23
 	j	lab434
 lab460: 	sll	a5,a3,a5
 	sw	a3,12(sp)
-	sh	a5,-602(s4)
+	sh	a5,-622(s4)
 	jal	ra,getChar
-	lhu	a4,-602(s4)
-	lbu	a5,-604(s3)
+	lhu	a4,-622(s4)
+	lbu	a5,-624(s3)
 	li	a2,4
 	or	a4,a4,a0
 	slli	a4,a4,0x10
@@ -6123,22 +5942,22 @@ lab460: 	sll	a5,a3,a5
 	slli	a4,a4,0x10
 	lw	a3,12(sp)
 	srli	a4,a4,0x10
-	sb	a5,-604(s3)
+	sb	a5,-624(s3)
 	j	lab478
 lab473: 	lui	s6,0x101
-	sw	a4,-648(s6) # 100d78 <gScanType>
+	sw	a4,-668(s6) # 100d64 <gScanType>
 	lui	a4,0x101
 	lui	a5,0x101
-	sb	a2,-650(a4) # 100d76 <gMaxBlocksPerMCU>
+	sb	a2,-670(a4) # 100d62 <gMaxBlocksPerMCU>
 	li	a4,256
-	addi	a3,a5,-664 # 100d68 <gMCUOrg>
-	sh	a4,-664(a5)
+	addi	a3,a5,-684 # 100d54 <gMCUOrg>
+	sh	a4,-684(a5)
 	li	a5,2
 	sb	a5,2(a3)
 	li	a2,7
 	li	a5,8
 	j	lab474
-lab444: 	lbu	s9,-675(s0)
+lab444: 	lbu	s9,-695(s0)
 	bnez	s9,lab432
 	li	s9,26
 	j	lab432
@@ -6498,49 +6317,49 @@ b_ref.0:
 	.2byte	0x3030
 	.4byte	0x2f2f2f2f
 	.4byte	0x2f2f2f2f
-	.2byte	0x39cc
+	.2byte	0x37b8
 	.2byte	0x0000
-	.2byte	0x3980
+	.2byte	0x376c
 	.2byte	0x0000
-	.2byte	0x395c
+	.2byte	0x3748
 	.2byte	0x0000
-	.2byte	0x3938
+	.2byte	0x3724
 	.2byte	0x0000
-	.2byte	0x39ac
+	.2byte	0x3798
 	.2byte	0x0000
-	.2byte	0x399c
+	.2byte	0x3788
 	.2byte	0x0000
-	.2byte	0x3970
+	.2byte	0x375c
 	.2byte	0x0000
-	.2byte	0x394c
+	.2byte	0x3738
 	.2byte	0x0000
-	.2byte	0x5580
+	.2byte	0x536c
 	.2byte	0x0000
-	.2byte	0x5388
+	.2byte	0x5174
 	.2byte	0x0000
-	.2byte	0x5028
+	.2byte	0x4e14
 	.2byte	0x0000
-	.2byte	0x4834
+	.2byte	0x4620
 	.2byte	0x0000
-	.2byte	0x4934
+	.2byte	0x4720
 	.2byte	0x0000
-	.2byte	0x48e4
+	.2byte	0x46d0
 	.2byte	0x0000
-	.2byte	0x4894
+	.2byte	0x4680
 	.2byte	0x0000
-	.2byte	0x4874
+	.2byte	0x4660
 	.2byte	0x0000
-	.2byte	0x5314
+	.2byte	0x5100
 	.2byte	0x0000
-	.2byte	0x52d4
+	.2byte	0x50c0
 	.2byte	0x0000
-	.2byte	0x5294
+	.2byte	0x5080
 	.2byte	0x0000
-	.2byte	0x5254
+	.2byte	0x5040
 	.2byte	0x0000
-	.2byte	0x5220
+	.2byte	0x500c
 	.2byte	0x0000
-	.2byte	0x5354
+	.2byte	0x5140
 	.2byte	0x0000
 CSWTCH.306:
 	.2byte	0xa40
@@ -6650,5 +6469,1273 @@ ZAG:
 
 	.bss
 
-_end_2:
+pInfo:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gCoeffBuf:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gMCUBufG:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gMCUBufB:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gMCUBufR:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gInBuf:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gQuant0:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gQuant1:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffTab1:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffVal1:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffTab0:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffVal0:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffVal3:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffVal2:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffTab3:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gHuffTab2:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+jpeg_off:
+	.2byte	0x0000
+	.2byte	0x0000
+successive_low:
+	.byte	0x
+successive_high:
+	.byte	0x
+spectral_end:
+	.byte	0x
+spectral_start:
+	.byte	0x
+gReduce:
+	.byte	0x
+gCallbackStatus:
+	.2byte	0x0000
+	.byte	0x
+g_pCallback_data:
+	.2byte	0x0000
+	.2byte	0x0000
+g_pNeedBytesCallback:
+	.2byte	0x0000
+	.2byte	0x0000
+gMCUOrg:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+gNumMCUSRemaining:
+	.2byte	0x0000
+gMaxMCUSPerCol:
+	.2byte	0x0000
+gMaxMCUSPerRow:
+	.2byte	0x0000
+gMaxMCUYSize:
+	.byte	0x
+gMaxMCUXSize:
+	.byte	0x
+gMaxBlocksPerMCU:
+	.2byte	0x0000
+gScanType:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompACTab:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompDCTab:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompList:
+	.2byte	0x0000
+	.byte	0x
+gCompsInScan:
+	.byte	0x
+gRestartsLeft:
+	.2byte	0x0000
+gNextRestartNum:
+	.2byte	0x0000
+gRestartInterval:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompQuant:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompVSamp:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompHSamp:
+	.2byte	0x0000
+	.2byte	0x0000
+gCompIdent:
+	.2byte	0x0000
+	.byte	0x
+gCompsInFrame:
+	.byte	0x
+gImageYSize:
+	.2byte	0x0000
+gImageXSize:
+	.2byte	0x0000
+gBitsLeft:
+	.2byte	0x0000
+gBitBuf:
+	.2byte	0x0000
+gInBufLeft:
+	.byte	0x
+gInBufOfs:
+	.byte	0x
+gTemFlag:
+	.byte	0x
+gValidQuantTables:
+	.byte	0x
+gValidHuffTables:
+	.2byte	0x0000
+	.2byte	0x0000
+gLastDC:
+	.2byte	0x0000
+	.2byte	0x0000
 	.2byte	0x0000

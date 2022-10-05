@@ -119,9 +119,9 @@ set(LDSCRIPT_BOOT "link.boot.ld" )
 
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wextra -Wall -Wno-unused-parameter -Wno-unused-variable -Wno-unused-function -fno-data-sections -fno-function-sections -fdiagnostics-color=always")
 # set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT} -nostartfiles -Wl,--gc-sections")
-set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT} -nostartfiles")
+set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT}")
 # set(BOOT_LINKER_FLAGS      "-L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT_BOOT} -nostartfiles -Wl,--gc-sections")
-set(BOOT_LINKER_FLAGS      "-L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT_BOOT} -nostartfiles")
+set(BOOT_LINKER_FLAGS      "-L${CMAKE_CURRENT_SOURCE_DIR}/ref -T${LDSCRIPT_BOOT}")
 
 set(CMAKE_CXX_COMPILER "${CMAKE_C_COMPILER}")
 set(CMAKE_CXX_FLAGS    "${CMAKE_C_FLAGS}")
@@ -225,52 +225,54 @@ set( SUB_DIRS "test_add"
               "test_asm_logical_shift_lui" 
               "test_machine" 
               "test_machine_user"
+              )
 
-              "embench/aha-mont64"
-              "embench/crc32"
-              "embench/cubic"
-              "embench/edn"
-              "embench/huffbench"
-              "embench/matmult-int"
-              "embench/md5sum"
-              "embench/minver"
-              "embench/nbody"
-              "embench/nettle-aes"
-              "embench/nettle-sha256"
-              "embench/nsichneu"
-              "embench/picojpeg"
-              "embench/primecount"
-              "embench/qrduino"
-              "embench/sglib-combined"
-              "embench/slre"
-              "embench/st"
-              "embench/statemate"
-              "embench/tarfind"
-              "embench/ud"
-              "embench/wikisort"
+set( BENCHMARKS "aha-mont64"
+              "crc32"
+              "cubic"
+              "edn"
+              "huffbench"
+              "matmult-int"
+              "md5sum"
+              "minver"
+              "nbody"
+              "nettle-aes"
+              "nettle-sha256"
+              "nsichneu"
+              "picojpeg"
+              "primecount"
+              "qrduino"
+              "sglib-combined"
+              "slre"
+              "st"
+              "statemate"
+              "tarfind"
+              "ud"
+              "wikisort"
+              )
 
-              "embench_mod/aha-mont64_mod"
-              "embench_mod/crc32_mod"
-              "embench_mod/cubic_mod"
-              "embench_mod/edn_mod"
-              "embench_mod/huffbench_mod"
-              "embench_mod/matmult-int_mod"
-              "embench_mod/md5sum_mod"
-              "embench_mod/minver_mod"
-              "embench_mod/nbody_mod"
-              "embench_mod/nettle-aes_mod"
-              "embench_mod/nettle-sha256_mod"
-              "embench_mod/nsichneu_mod"
-              "embench_mod/picojpeg_mod"
-              "embench_mod/primecount_mod"
-              "embench_mod/qrduino_mod"
-              "embench_mod/sglib-combined_mod"
-              "embench_mod/slre_mod"
-              "embench_mod/st_mod"
-              "embench_mod/statemate_mod"
-              "embench_mod/tarfind_mod"
-              "embench_mod/ud_mod"
-              "embench_mod/wikisort_mod"
+set( BENCHMARKS_MOD "aha-mont64_mod"
+              "crc32_mod"
+              "cubic_mod"
+              "edn_mod"
+              "huffbench_mod"
+              "matmult-int_mod"
+              "md5sum_mod"
+              "minver_mod"
+              "nbody_mod"
+              "nettle-aes_mod"
+              "nettle-sha256_mod"
+              "nsichneu_mod"
+              "picojpeg_mod"
+              "primecount_mod"
+              "qrduino_mod"
+              "sglib-combined_mod"
+              "slre_mod"
+              "st_mod"
+              "statemate_mod"
+              "tarfind_mod"
+              "ud_mod"
+              "wikisort_mod"
               )
 
 set( CLEAN_TARGETS "")
@@ -292,6 +294,44 @@ foreach( dir  ${SUB_DIRS})
  list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/l2_stim.slm" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/spi_stim.txt" )
  list(APPEND CLEAN_TARGETS "apps/${dir}/slm_files/tcdm_bank0.slm" )
+endforeach( )
+
+foreach( dir  ${BENCHMARKS})
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/${dir}.bin" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/${dir}.elf" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/${dir}.s19" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/${dir}.read" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/${dir}.lst" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/transcript" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/vsim.wlf" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/vsim.log" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/dram_dump.txt" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/flash_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/l2_ram.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/l2_ram_cut0_hi.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/l2_ram_cut0_lo.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/l2_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/spi_stim.txt" )
+ list(APPEND CLEAN_TARGETS "apps/embench/${dir}/slm_files/tcdm_bank0.slm" )
+endforeach( )
+
+foreach( dir  ${BENCHMARKS_MOD})
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/${dir}.bin" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/${dir}.elf" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/${dir}.s19" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/${dir}.read" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/${dir}.lst" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/transcript" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/vsim.wlf" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/vsim.log" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/dram_dump.txt" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/flash_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/l2_ram.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/l2_ram_cut0_hi.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/l2_ram_cut0_lo.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/l2_stim.slm" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/spi_stim.txt" )
+ list(APPEND CLEAN_TARGETS "apps/embench_mod/${dir}/slm_files/tcdm_bank0.slm" )
 endforeach( )
 
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${CLEAN_TARGETS}")

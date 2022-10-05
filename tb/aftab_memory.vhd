@@ -46,7 +46,7 @@ ENTITY aftab_memory IS
 	GENERIC (
 		dataWidth      : INTEGER := 8;
 		addressWidth   : INTEGER := 32;
-		actual_address : INTEGER := 16;
+		actual_address : INTEGER := 17;
 		size           : INTEGER := 2**actual_address 
 	);  
 	PORT (
@@ -72,10 +72,10 @@ ARCHITECTURE behavioral OF aftab_memory IS
 	CONSTANT end_iram : INTEGER := 16#FFFFF#;
 	
 	CONSTANT base_dram : INTEGER := 16#100000#; 
-	CONSTANT end_dram : INTEGER := 16#107FFF#;
+	CONSTANT end_dram : INTEGER := 16#10FFFF#;
 
-	CONSTANT base_dram_actual : INTEGER := 16#8000#;
-	CONSTANT size_dram : INTEGER := 16#8000#;
+	CONSTANT base_dram_actual : INTEGER := 16#10000#;
+	CONSTANT size_dram : INTEGER := 16#10000#;
 	
 BEGIN
 

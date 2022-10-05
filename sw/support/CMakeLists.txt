@@ -3,10 +3,10 @@ set(SOURCES
     src/beebsc.c
     src/board.c
     src/chip.c
-    src/dummy-crt0.c
-    src/dummy-libc.c
-    src/dummy-libgcc.c
-    src/dummy-libm.c
+    # src/dummy-crt0.c
+    # src/dummy-libc.c
+    # src/dummy-libgcc.c
+    # src/dummy-libm.c
     src/boardsupport.c
     )
 

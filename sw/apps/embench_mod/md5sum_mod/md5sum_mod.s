@@ -24,7 +24,7 @@ md5:
 	mv	a5,a5
 	addi	a4,sp,16
 	addi	a7,a6,256
-lab0: 	lw	a0,0(a5) # 100000 <_min_stack+0xfc000>
+lab0: 	lw	a0,0(a5) # 100000 <_min_stack+0xf8000>
 	lw	a1,4(a5)
 	lw	a2,8(a5)
 	lw	a3,12(a5)
@@ -49,25 +49,25 @@ lab1: 	lw	a0,0(a5)
 	addi	a4,a4,16
 	bne	a5,a6,lab1
 	lui	a5,0x67452
-	addi	a5,a5,769 # 67452301 <_stack+0x6734a301>
-	lui	s8,0x101
-	sw	a5,-340(s8) # 100eac <h0>
+	addi	a5,a5,769 # 67452301 <_stack+0x67342301>
+	lui	s8,0x102
+	sw	a5,-1188(s8) # 101b5c <h0>
 	lui	a5,0xefcdb
-	addi	a5,a5,-1143 # efcdab89 <_stack+0xefbd2b89>
-	lui	s7,0x101
-	sw	a5,-344(s7) # 100ea8 <h1>
+	addi	a5,a5,-1143 # efcdab89 <_stack+0xefbcab89>
+	lui	s7,0x102
+	sw	a5,-1192(s7) # 101b58 <h1>
 	lui	a5,0x98bae
 	addi	s5,s1,8
-	addi	a5,a5,-770 # 98badcfe <_stack+0x98aa5cfe>
-	lui	s4,0x101
+	addi	a5,a5,-770 # 98badcfe <_stack+0x98a9dcfe>
+	lui	s4,0x102
 	andi	s5,s5,-64
-	sw	a5,-348(s4) # 100ea4 <h2>
+	sw	a5,-1196(s4) # 101b54 <h2>
 	lui	a5,0x10325
-	addi	a5,a5,1142 # 10325476 <_stack+0x1021d476>
+	addi	a5,a5,1142 # 10325476 <_stack+0x10215476>
 	li	a1,1
 	addi	a0,s5,120
-	lui	s3,0x101
-	sw	a5,-352(s3) # 100ea0 <h3>
+	lui	s3,0x102
+	sw	a5,-1200(s3) # 101b50 <h3>
 	jal	ra,calloc_beebs
 	mv	a2,s1
 	mv	a1,s2
@@ -88,11 +88,11 @@ lab1: 	lw	a0,0(a5)
 	sb	a2,2(a4)
 	sb	a3,3(a4)
 	blez	s5,lab2
-	lw	s11,-340(s8)
-	lw	s10,-344(s7)
-	lw	s9,-348(s4)
+	lw	s11,-1188(s8)
+	lw	s10,-1192(s7)
+	lw	s9,-1196(s4)
 	li	t0,0
-	lw	s4,-352(s3)
+	lw	s4,-1200(s3)
 	li	t2,15
 	li	s1,31
 	li	s2,47
@@ -173,12 +173,12 @@ lab7: 	andi	t6,t4,15
 	add	s9,s9,a3
 	add	s4,s4,a1
 	blt	t0,s5,lab9
-	lui	a5,0x101
-	sw	s9,-348(a5) # 100ea4 <h2>
-	lui	a5,0x101
-	sw	s11,-340(s8)
-	sw	s10,-344(s7)
-	sw	s4,-352(a5) # 100ea0 <h3>
+	lui	a5,0x102
+	sw	s9,-1196(a5) # 101b54 <h2>
+	lui	a5,0x102
+	sw	s11,-1188(s8)
+	sw	s10,-1192(s7)
+	sw	s4,-1200(a5) # 101b50 <h3>
 lab2: 	mv	a0,s0
 	lw	s0,584(sp)
 	lw	ra,588(sp)
@@ -196,185 +196,93 @@ lab2: 	mv	a0,s0
 	addi	sp,sp,592
 	j	free_beebs
 benchmark_body.constprop.0:
-	addi	sp,sp,-80
-	sw	s6,48(sp)
-	sw	s7,44(sp)
-	sw	s8,40(sp)
-	sw	s9,36(sp)
-	sw	s10,32(sp)
-	lui	s9,0x101
-	lui	s8,0x101
-	lui	s7,0x101
-	lui	s6,0x101
-	lui	s10,0x1
-	sw	s0,72(sp)
-	sw	s1,68(sp)
-	sw	s2,64(sp)
-	sw	s3,60(sp)
-	sw	s4,56(sp)
-	sw	s5,52(sp)
-	sw	s11,28(sp)
-	sw	ra,76(sp)
-	li	s5,51
-	lui	s11,0x100
-	addi	s4,s9,-340 # 100eac <h0>
-	lui	s3,0x100
-	addi	s2,s8,-344 # 100ea8 <h1>
-	addi	s1,s7,-348 # 100ea4 <h2>
-	addi	s0,s6,-352 # 100ea0 <h3>
-	addi	s10,s10,-1016 # c08 <rand>
-lab11: 	mv	a1,s10
-	addi	a0,s11,664 # 100298 <heap>
+	addi	sp,sp,-32
+	sw	s2,16(sp)
+	lui	s2,0x1
+	sw	s1,20(sp)
+	sw	s3,12(sp)
+	sw	ra,28(sp)
+	sw	s0,24(sp)
+	li	s1,51
+	lui	s3,0x101
+	addi	s2,s2,-1016 # c08 <fiprintf+0x4c>
+lab11: 	mv	a1,s2
+	addi	a0,s3,-224 # 100f20 <heap>
 	jal	ra,init_heap_beebs
 	li	a0,1000
 	jal	ra,malloc_beebs
+	mv	s0,a0
 	li	a5,0
 	li	a3,1000
-lab10: 	add	a4,a0,a5
+lab10: 	add	a4,s0,a5
 	sb	a5,0(a4)
 	addi	a5,a5,1
 	bne	a5,a3,lab10
+	mv	a0,s0
 	li	a1,1000
-	sw	a0,12(sp)
 	jal	ra,md5
-	lw	a0,12(sp)
-	addi	s5,s5,-1
+	addi	s1,s1,-1
+	mv	a0,s0
 	jal	ra,free_beebs
-	lbu	a4,3(s4)
-	lbu	a3,2(s4)
-	lbu	a2,1(s4)
-	lbu	a1,-340(s9)
-	addi	a0,s3,528 # 100210 <__func__.0+0x10>
-	jal	ra,printf
-	lbu	a4,3(s2)
-	lbu	a3,2(s2)
-	lbu	a2,1(s2)
-	lbu	a1,-344(s8)
-	addi	a0,s3,528
-	jal	ra,printf
-	lbu	a4,3(s1)
-	lbu	a3,2(s1)
-	lbu	a2,1(s1)
-	lbu	a1,-348(s7)
-	addi	a0,s3,528
-	jal	ra,printf
-	lbu	a4,3(s0)
-	lbu	a3,2(s0)
-	lbu	a2,1(s0)
-	lbu	a1,-352(s6)
-	lui	a5,0x100
-	addi	a0,a5,552 # 100228 <__func__.0+0x28>
-	jal	ra,printf
-	bnez	s5,lab11
-	lw	a5,-340(s9)
-	lw	a3,-344(s8)
-	lw	a4,-348(s7)
-	lw	a0,-352(s6)
-	lw	ra,76(sp)
-	lw	s0,72(sp)
+	bnez	s1,lab11
+	lui	a4,0x102
+	lui	a5,0x102
+	lw	a3,-1192(a4) # 101b58 <h1>
+	lw	a5,-1188(a5) # 101b5c <h0>
+	lui	a4,0x102
+	lw	a4,-1196(a4) # 101b54 <h2>
+	lui	a2,0x102
+	lw	a0,-1200(a2) # 101b50 <h3>
+	lw	ra,28(sp)
+	lw	s0,24(sp)
 	xor	a5,a5,a3
 	xor	a5,a5,a4
-	lw	s1,68(sp)
-	lw	s2,64(sp)
-	lw	s3,60(sp)
-	lw	s4,56(sp)
-	lw	s5,52(sp)
-	lw	s6,48(sp)
-	lw	s7,44(sp)
-	lw	s8,40(sp)
-	lw	s9,36(sp)
-	lw	s10,32(sp)
-	lw	s11,28(sp)
+	lw	s1,20(sp)
+	lw	s2,16(sp)
+	lw	s3,12(sp)
 	xor	a0,a5,a0
-	addi	sp,sp,80
+	addi	sp,sp,32
 	ret
 benchmark_body.constprop.1.isra.0:
 	blez	a0,lab12
-	addi	sp,sp,-80
-	sw	s7,44(sp)
-	sw	s8,40(sp)
-	sw	s9,36(sp)
-	sw	s10,32(sp)
-	sw	s11,28(sp)
-	lui	s10,0x101
-	lui	s11,0x101
-	lui	s9,0x101
-	lui	s8,0x101
-	lui	s7,0x1
-	sw	s0,72(sp)
-	sw	s1,68(sp)
-	sw	s2,64(sp)
-	sw	s3,60(sp)
-	sw	s4,56(sp)
-	sw	s5,52(sp)
-	sw	s6,48(sp)
-	sw	ra,76(sp)
-	mv	s6,a0
-	li	s5,0
-	addi	s4,s11,-340 # 100eac <h0>
-	lui	s3,0x100
-	addi	s2,s10,-344 # 100ea8 <h1>
-	addi	s1,s9,-348 # 100ea4 <h2>
-	addi	s0,s8,-352 # 100ea0 <h3>
-	addi	s7,s7,-1016 # c08 <rand>
-lab14: 	lui	a5,0x100
-	addi	a0,a5,664 # 100298 <heap>
-	mv	a1,s7
+	addi	sp,sp,-32
+	sw	s3,12(sp)
+	lui	s3,0x1
+	sw	s1,20(sp)
+	sw	s2,16(sp)
+	sw	s4,8(sp)
+	sw	ra,28(sp)
+	sw	s0,24(sp)
+	mv	s2,a0
+	li	s1,0
+	lui	s4,0x101
+	addi	s3,s3,-1016 # c08 <fiprintf+0x4c>
+lab14: 	mv	a1,s3
+	addi	a0,s4,-224 # 100f20 <heap>
 	jal	ra,init_heap_beebs
 	li	a0,1000
 	jal	ra,malloc_beebs
+	mv	s0,a0
 	li	a5,0
 	li	a3,1000
-lab13: 	add	a4,a0,a5
+lab13: 	add	a4,s0,a5
 	sb	a5,0(a4)
 	addi	a5,a5,1
 	bne	a5,a3,lab13
+	mv	a0,s0
 	li	a1,1000
-	sw	a0,12(sp)
 	jal	ra,md5
-	lw	a0,12(sp)
-	addi	s5,s5,1
+	addi	s1,s1,1
+	mv	a0,s0
 	jal	ra,free_beebs
-	lbu	a4,3(s4)
-	lbu	a3,2(s4)
-	lbu	a2,1(s4)
-	lbu	a1,-340(s11)
-	addi	a0,s3,528 # 100210 <__func__.0+0x10>
-	jal	ra,printf
-	lbu	a4,3(s2)
-	lbu	a3,2(s2)
-	lbu	a2,1(s2)
-	lbu	a1,-344(s10)
-	addi	a0,s3,528
-	jal	ra,printf
-	lbu	a4,3(s1)
-	lbu	a3,2(s1)
-	lbu	a2,1(s1)
-	lbu	a1,-348(s9)
-	addi	a0,s3,528
-	jal	ra,printf
-	lbu	a4,3(s0)
-	lbu	a3,2(s0)
-	lbu	a2,1(s0)
-	lbu	a1,-352(s8)
-	lui	a5,0x100
-	addi	a0,a5,552 # 100228 <__func__.0+0x28>
-	jal	ra,printf
-	bne	s5,s6,lab14
-	lw	ra,76(sp)
-	lw	s0,72(sp)
-	lw	s1,68(sp)
-	lw	s2,64(sp)
-	lw	s3,60(sp)
-	lw	s4,56(sp)
-	lw	s5,52(sp)
-	lw	s6,48(sp)
-	lw	s7,44(sp)
-	lw	s8,40(sp)
-	lw	s9,36(sp)
-	lw	s10,32(sp)
-	lw	s11,28(sp)
-	addi	sp,sp,80
+	bne	s1,s2,lab14
+	lw	ra,28(sp)
+	lw	s0,24(sp)
+	lw	s1,20(sp)
+	lw	s2,16(sp)
+	lw	s3,12(sp)
+	lw	s4,8(sp)
+	addi	sp,sp,32
 	ret
 lab12: 	ret
 initialise_benchmark:
@@ -385,7 +293,7 @@ benchmark:
 	j	benchmark_body.constprop.0
 verify_benchmark:
 	lui	a5,0xcc099
-	addi	a5,a5,-948 # cc098c4c <_stack+0xcbf90c4c>
+	addi	a5,a5,-948 # cc098c4c <_stack+0xcbf88c4c>
 	add	a0,a0,a5
 	seqz	a0,a0
 	ret
@@ -407,49 +315,49 @@ main:
 	addi	sp,sp,32
 	ret
 rand_beebs:
-	lui	a4,0x101
-	lw	a0,-324(a4) # 100ebc <seed>
+	lui	a4,0x102
+	lw	a0,-1172(a4) # 101b6c <seed>
 	lui	a5,0x41c65
-	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b5ce6d>
+	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b54e6d>
 	mul	a0,a0,a5
 	lui	a5,0x3
-	addi	a5,a5,57 # 3039 <__DTOR_END__+0x222d>
+	addi	a5,a5,57 # 3039 <__sfvwrite_r+0x301>
 	add	a0,a0,a5
 	slli	a0,a0,0x1
 	srli	a0,a0,0x1
-	sw	a0,-324(a4)
+	sw	a0,-1172(a4)
 	srli	a0,a0,0x10
 	ret
 srand_beebs:
-	lui	a5,0x101
-	sw	a0,-324(a5) # 100ebc <seed>
+	lui	a5,0x102
+	sw	a0,-1172(a5) # 101b6c <seed>
 	ret
 init_heap_beebs:
 	andi	a5,a1,3
 	bnez	a5,lab15
-	lui	a5,0x101
+	lui	a5,0x102
 	add	a1,a0,a1
-	sw	a0,-328(a5) # 100eb8 <heap_ptr>
-	lui	a5,0x101
-	sw	a1,-332(a5) # 100eb4 <heap_end>
-	lui	a5,0x101
-	sw	zero,-336(a5) # 100eb0 <heap_requested>
+	sw	a0,-1176(a5) # 101b68 <heap_ptr>
+	lui	a5,0x102
+	sw	a1,-1180(a5) # 101b64 <heap_end>
+	lui	a5,0x102
+	sw	zero,-1184(a5) # 101b60 <heap_requested>
 	ret
 lab15: 	lui	a3,0x100
 	lui	a2,0x100
 	lui	a0,0x100
 	addi	sp,sp,-16
-	addi	a3,a3,576 # 100240 <__func__.0+0x40>
+	addi	a3,a3,528 # 100210 <__func__.0+0x10>
 	addi	a2,a2,512 # 100200 <__func__.0>
 	li	a1,65
-	addi	a0,a0,608 # 100260 <__func__.0+0x60>
+	addi	a0,a0,560 # 100230 <__func__.0+0x30>
 	sw	ra,12(sp)
-	jal	ra,__assert_func
+	jal	ra,__DTOR_END__
 check_heap_beebs:
-	lui	a5,0x101
-	lw	a4,-336(a5) # 100eb0 <heap_requested>
-	lui	a5,0x101
-	lw	a5,-332(a5) # 100eb4 <heap_end>
+	lui	a5,0x102
+	lw	a4,-1184(a5) # 101b60 <heap_requested>
+	lui	a5,0x102
+	lw	a5,-1180(a5) # 101b64 <heap_end>
 	add	a0,a0,a4
 	sltu	a0,a5,a0
 	xori	a0,a0,1
@@ -457,26 +365,26 @@ check_heap_beebs:
 malloc_beebs:
 	mv	a5,a0
 	beqz	a0,lab16
-	lui	a2,0x101
-	lw	a0,-328(a2) # 100eb8 <heap_ptr>
-	lui	a3,0x101
-	lw	a1,-336(a3) # 100eb0 <heap_requested>
+	lui	a2,0x102
+	lw	a0,-1176(a2) # 101b68 <heap_ptr>
+	lui	a3,0x102
+	lw	a1,-1184(a3) # 101b60 <heap_requested>
 	add	a4,a0,a5
 	andi	a6,a4,3
 	add	a5,a5,a1
 	bnez	a6,lab17
-	sw	a5,-336(a3)
-	lui	a5,0x101
-	lw	a5,-332(a5) # 100eb4 <heap_end>
+	sw	a5,-1184(a3)
+	lui	a5,0x102
+	lw	a5,-1180(a5) # 101b64 <heap_end>
 	bltu	a5,a4,lab16
-lab18: 	sw	a4,-328(a2)
+lab18: 	sw	a4,-1176(a2)
 	ret
 lab17: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
-	sw	a5,-336(a3)
-	lui	a5,0x101
-	lw	a5,-332(a5) # 100eb4 <heap_end>
+	sw	a5,-1184(a3)
+	lui	a5,0x102
+	lw	a5,-1180(a5) # 101b64 <heap_end>
 	add	a4,a4,a1
 	bgeu	a5,a4,lab18
 lab16: 	li	a0,0
@@ -484,19 +392,19 @@ lab16: 	li	a0,0
 calloc_beebs:
 	mul	a2,a0,a1
 	beqz	a2,lab19
-	lui	a0,0x101
-	lw	a5,-328(a0) # 100eb8 <heap_ptr>
-	lui	a1,0x101
-	lw	a4,-336(a1) # 100eb0 <heap_requested>
+	lui	a0,0x102
+	lw	a5,-1176(a0) # 101b68 <heap_ptr>
+	lui	a1,0x102
+	lw	a4,-1184(a1) # 101b60 <heap_requested>
 	add	a3,a5,a2
 	andi	a7,a3,3
 	add	a4,a2,a4
 	bnez	a7,lab20
-	sw	a4,-336(a1)
-	lui	a4,0x101
-	lw	a4,-332(a4) # 100eb4 <heap_end>
+	sw	a4,-1184(a1)
+	lui	a4,0x102
+	lw	a4,-1180(a4) # 101b64 <heap_end>
 	bltu	a4,a3,lab19
-lab22: 	sw	a3,-328(a0)
+lab22: 	sw	a3,-1176(a0)
 	beqz	a5,lab21
 	addi	sp,sp,-16
 	li	a1,0
@@ -509,9 +417,9 @@ lab22: 	sw	a3,-328(a0)
 lab20: 	li	a6,4
 	sub	a6,a6,a7
 	add	a4,a4,a6
-	sw	a4,-336(a1)
-	lui	a4,0x101
-	lw	a4,-332(a4) # 100eb4 <heap_end>
+	sw	a4,-1184(a1)
+	lui	a4,0x102
+	lw	a4,-1180(a4) # 101b64 <heap_end>
 	add	a3,a3,a6
 	bgeu	a4,a3,lab22
 lab19: 	li	a5,0
@@ -521,19 +429,19 @@ realloc_beebs:
 	mv	a5,a0
 	beqz	a0,lab23
 	beqz	a1,lab23
-	lui	a6,0x101
-	lw	a0,-328(a6) # 100eb8 <heap_ptr>
-	lui	a2,0x101
-	lw	a4,-336(a2) # 100eb0 <heap_requested>
+	lui	a6,0x102
+	lw	a0,-1176(a6) # 101b68 <heap_ptr>
+	lui	a2,0x102
+	lw	a4,-1184(a2) # 101b60 <heap_requested>
 	add	a3,a0,a1
 	andi	a7,a3,3
 	add	a4,a1,a4
 	bnez	a7,lab24
-	sw	a4,-336(a2)
-	lui	a4,0x101
-	lw	a4,-332(a4) # 100eb4 <heap_end>
+	sw	a4,-1184(a2)
+	lui	a4,0x102
+	lw	a4,-1180(a4) # 101b64 <heap_end>
 	bltu	a4,a3,lab23
-lab28: 	sw	a3,-328(a6)
+lab28: 	sw	a3,-1176(a6)
 	beqz	a0,lab23
 	addi	a4,a5,1
 	sub	a4,a0,a4
@@ -578,9 +486,9 @@ lab26: 	lw	a2,0(a4)
 lab24: 	li	t1,4
 	sub	a7,t1,a7
 	add	a4,a4,a7
-	sw	a4,-336(a2)
-	lui	a4,0x101
-	lw	a4,-332(a4) # 100eb4 <heap_end>
+	sw	a4,-1184(a2)
+	lui	a4,0x102
+	lw	a4,-1180(a4) # 101b64 <heap_end>
 	add	a3,a3,a7
 	bgeu	a4,a3,lab28
 lab23: 	li	a0,0
@@ -604,187 +512,62 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-memcpy:
-	li	a0,0
-	ret
-memmove:
-	li	a0,0
-	ret
 memset:
-	li	a0,0
+	li	t1,15
+	mv	a4,a0
+	bgeu	t1,a2,lab30
+	andi	a5,a4,15
+	bnez	a5,lab31
+lab35: 	bnez	a1,lab32
+lab34: 	andi	a3,a2,-16
+	andi	a2,a2,15
+	add	a3,a3,a4
+lab33: 	sw	a1,0(a4)
+	sw	a1,4(a4)
+	sw	a1,8(a4)
+	sw	a1,12(a4)
+	addi	a4,a4,16
+	bltu	a4,a3,lab33
+	bnez	a2,lab30
 	ret
-memcmp:
-	li	a0,0
+lab30: 	sub	a3,t1,a2
+	slli	a3,a3,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	jr	12(a3)
+	sb	a1,14(a4)
+	sb	a1,13(a4)
+	sb	a1,12(a4)
+	sb	a1,11(a4)
+	sb	a1,10(a4)
+	sb	a1,9(a4)
+	sb	a1,8(a4)
+	sb	a1,7(a4)
+	sb	a1,6(a4)
+	sb	a1,5(a4)
+	sb	a1,4(a4)
+	sb	a1,3(a4)
+	sb	a1,2(a4)
+	sb	a1,1(a4)
+	sb	a1,0(a4)
 	ret
-rand:
-	li	a0,0
-	ret
-srand:
-	ret
-calloc:
-	li	a0,0
-	ret
-malloc:
-	li	a0,0
-	ret
-free:
-	ret
-__assert_func:
-	j	__assert_func
-strlen:
-	li	a0,0
-	ret
-strcpy:
-	li	a0,0
-	ret
-strchr:
-	li	a0,0
-	ret
-strtol:
-	li	a0,0
-	ret
-strcmp:
-	li	a0,0
-	ret
-strncmp:
-	li	a0,0
-	ret
-strcat:
-	li	a0,0
-	ret
-printf:
-	addi	sp,sp,-32
-	sw	a1,4(sp)
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-fprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sprintf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-putchar:
-	li	a0,0
-	ret
-puts:
-	li	a0,0
-	ret
-clock:
-	li	a0,0
-	ret
-atoi:
-	li	a0,0
-	ret
-atof:
-	li	a0,0
-	li	a1,0
-	ret
-fopen:
-	li	a0,0
-	ret
-fflush:
-	li	a0,0
-	ret
-ferror:
-	li	a0,0
-	ret
-fileno:
-	li	a0,0
-	ret
-fscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-sscanf:
-	addi	sp,sp,-32
-	sw	a2,8(sp)
-	sw	a3,12(sp)
-	sw	a4,16(sp)
-	sw	a5,20(sp)
-	sw	a6,24(sp)
-	sw	a7,28(sp)
-	li	a0,0
-	addi	sp,sp,32
-	ret
-qsort:
-	ret
-fgetc:
-	li	a0,0
-	ret
-getc:
-	li	a0,0
-	ret
-ungetc:
-	li	a0,0
-	ret
-fputc:
-	li	a0,0
-	ret
-putc:
-	li	a0,0
-	ret
-fgets:
-	li	a0,0
-	ret
-fclose:
-	li	a0,0
-	ret
-fwrite:
-	li	a0,0
-	ret
-fputs:
-	li	a0,0
-	ret
-fread:
-	li	a0,0
-	ret
-exit:
-	j	exit
-getenv:
-	li	a0,0
-	ret
-memchr:
-	li	a0,0
-	ret
-__ctype_b_loc:
-	li	a0,0
-	ret
-__ctype_tolower_loc:
-	li	a0,0
-	ret
-tolower:
-	li	a0,0
-	ret
+lab32: 	zext.b	a1,a1
+	slli	a3,a1,0x8
+	or	a1,a1,a3
+	slli	a3,a1,0x10
+	or	a1,a1,a3
+	j	lab34
+lab31: 	slli	a3,a5,0x2
+	auipc	t0,0x0
+	add	a3,a3,t0
+	mv	t0,ra
+	jalr	-96(a3)
+	mv	ra,t0
+	addi	a5,a5,-16
+	sub	a4,a4,a5
+	add	a2,a2,a5
+	bgeu	t1,a2,lab30
+	j	lab35
 __CTOR_LIST__:
 	unimp
 	unimp
@@ -1021,31 +804,7 @@ __func__.0:
 	.byte	0x5f, 0x68, 0x65, 0x61, 0x70, 0x5f
 	.2byte	0x6562
 	.2byte	0x6265
-	.4byte	0x32250073
-	.2byte	0x322e
-	.2byte	0x2578
-	.2byte	0x2e32
-	.2byte	0x7832
-	.2byte	0x3225
-	.2byte	0x322e
-	.2byte	0x2578
-	.2byte	0x2e32
-	.2byte	0x7832
-	.2byte	0x0000
-	.2byte	0x0000
-	.2byte	0x3225
-	.2byte	0x322e
-	.2byte	0x2578
-	.2byte	0x2e32
-	.2byte	0x7832
-	.2byte	0x3225
-	.2byte	0x322e
-	.2byte	0x2578
-	.2byte	0x2e32
-	.2byte	0x7832
-	.2byte	0xa
-	.2byte	0x0000
-	.2byte	0x6568
+	.4byte	0x65680073
 	.2byte	0x7061
 	.byte	0x5f, 0x73, 0x69, 0x7a, 0x65, 0x20
 	.2byte	0x2025
@@ -1074,7 +833,1619 @@ __func__.0:
 	.2byte	0x6562
 	.2byte	0x6265
 	.4byte	0x632e6373
+	.2byte	0x0000
+	.2byte	0x202c
+	.2byte	0x7566
+	.2byte	0x636e
+	.2byte	0x6974
+	.4byte	0x203a6e6f
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x7361
+	.4byte	0x74726573
+	.2byte	0x6f69
+	.2byte	0x206e
+	.2byte	0x2522
+	.4byte	0x66202273
+	.2byte	0x6961
+	.2byte	0x656c
+	.2byte	0x3a64
+	.2byte	0x6620
+	.2byte	0x6c69
+	.2byte	0x2065
+	.2byte	0x2522
+	.4byte	0x202c2273
+	.2byte	0x696c
+	.2byte	0x656e
+	.2byte	0x2520
+	.2byte	0x2564
+	.4byte	0x0a732573
+	.2byte	0x0000
+	.2byte	0x3130
+	.2byte	0x3332
+	.2byte	0x3534
+	.2byte	0x3736
+	.2byte	0x3938
+	.2byte	0x4241
+	.4byte	0x46454443
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x3130
+	.2byte	0x3332
+	.2byte	0x3534
+	.2byte	0x3736
+	.2byte	0x3938
+	.2byte	0x6261
+	.4byte	0x66656463
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x6e28
+	.2byte	0x6c75
+	.2byte	0x296c
+	.2byte	0x0000
+	.2byte	0x1750
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1744
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x11cc
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x15f4
+	.2byte	0x0000
+	.2byte	0x1734
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x160c
+	.2byte	0x0000
+	.2byte	0x16f4
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x16e8
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0xfec
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x15a8
+	.2byte	0x0000
+	.2byte	0x1218
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1310
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1564
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x16b8
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1e6c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x15a8
+	.2byte	0x0000
+	.2byte	0x121c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x16a4
+	.2byte	0x0000
+	.2byte	0x121c
+	.2byte	0x0000
+	.2byte	0x120c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1690
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1650
+	.2byte	0x0000
+	.2byte	0x1314
+	.2byte	0x0000
+	.2byte	0x1618
+	.2byte	0x0000
+	.2byte	0x120c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1564
+	.2byte	0x0000
+	.2byte	0x1204
+	.2byte	0x0000
+	.2byte	0x1e08
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1e10
+	.2byte	0x0000
+	.2byte	0x101c
+	.2byte	0x0000
+	.2byte	0x1204
+	.2byte	0x0000
+blanks.1:
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+zeroes.0:
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.2byte	0x3030
+	.4byte	0x43
+	.2byte	0x4f50
+	.4byte	0x584953
+	.2byte	0x0000
+	.2byte	0x2e
+	.2byte	0x0000
+_ctype_:
+	.2byte	0x2000
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2828
+	.2byte	0x2828
+	.2byte	0x2028
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x2020
+	.2byte	0x8820
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x410
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x404
+	.2byte	0x1004
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x4141
+	.2byte	0x4141
+	.2byte	0x4141
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x101
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x4242
+	.2byte	0x4242
+	.2byte	0x4242
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x202
+	.2byte	0x1010
+	.2byte	0x1010
+	.2byte	0x20
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 	.byte	0x00
+
+
+	.data
+
+impure_data:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x864
+	.2byte	0x10
+	.2byte	0x8cc
+	.2byte	0x10
+	.2byte	0x934
+	.2byte	0x10
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x1
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x330e
+	.2byte	0xabcd
+	.2byte	0x1234
+	.2byte	0xe66d
+	.2byte	0xdeec
+	.2byte	0x5
+	.4byte	0xb
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+__global_locale:
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.4byte	0x43
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x49f4
+	.2byte	0x0000
+	.2byte	0x3c10
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x474
+	.2byte	0x10
+	.2byte	0x470
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0x274
+	.2byte	0x10
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0xffff
+	.2byte	0x0000
+	.2byte	0x1
+	.2byte	0x5341
+	.4byte	0x494943
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x5341
+	.4byte	0x494943
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+__malloc_av_:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0xb0c
+	.2byte	0x10
+	.2byte	0xb0c
+	.2byte	0x10
+	.2byte	0xb14
+	.2byte	0x10
+	.2byte	0xb14
+	.2byte	0x10
+	.2byte	0xb1c
+	.2byte	0x10
+	.2byte	0xb1c
+	.2byte	0x10
+	.2byte	0xb24
+	.2byte	0x10
+	.2byte	0xb24
+	.2byte	0x10
+	.2byte	0xb2c
+	.2byte	0x10
+	.2byte	0xb2c
+	.2byte	0x10
+	.2byte	0xb34
+	.2byte	0x10
+	.2byte	0xb34
+	.2byte	0x10
+	.2byte	0xb3c
+	.2byte	0x10
+	.2byte	0xb3c
+	.2byte	0x10
+	.2byte	0xb44
+	.2byte	0x10
+	.2byte	0xb44
+	.2byte	0x10
+	.2byte	0xb4c
+	.2byte	0x10
+	.2byte	0xb4c
+	.2byte	0x10
+	.2byte	0xb54
+	.2byte	0x10
+	.2byte	0xb54
+	.2byte	0x10
+	.2byte	0xb5c
+	.2byte	0x10
+	.2byte	0xb5c
+	.2byte	0x10
+	.2byte	0xb64
+	.2byte	0x10
+	.2byte	0xb64
+	.2byte	0x10
+	.2byte	0xb6c
+	.2byte	0x10
+	.2byte	0xb6c
+	.2byte	0x10
+	.2byte	0xb74
+	.2byte	0x10
+	.2byte	0xb74
+	.2byte	0x10
+	.2byte	0xb7c
+	.2byte	0x10
+	.2byte	0xb7c
+	.2byte	0x10
+	.2byte	0xb84
+	.2byte	0x10
+	.2byte	0xb84
+	.2byte	0x10
+	.2byte	0xb8c
+	.2byte	0x10
+	.2byte	0xb8c
+	.2byte	0x10
+	.2byte	0xb94
+	.2byte	0x10
+	.2byte	0xb94
+	.2byte	0x10
+	.2byte	0xb9c
+	.2byte	0x10
+	.2byte	0xb9c
+	.2byte	0x10
+	.2byte	0xba4
+	.2byte	0x10
+	.2byte	0xba4
+	.2byte	0x10
+	.2byte	0xbac
+	.2byte	0x10
+	.2byte	0xbac
+	.2byte	0x10
+	.2byte	0xbb4
+	.2byte	0x10
+	.2byte	0xbb4
+	.2byte	0x10
+	.2byte	0xbbc
+	.2byte	0x10
+	.2byte	0xbbc
+	.2byte	0x10
+	.2byte	0xbc4
+	.2byte	0x10
+	.2byte	0xbc4
+	.2byte	0x10
+	.2byte	0xbcc
+	.2byte	0x10
+	.2byte	0xbcc
+	.2byte	0x10
+	.2byte	0xbd4
+	.2byte	0x10
+	.2byte	0xbd4
+	.2byte	0x10
+	.2byte	0xbdc
+	.2byte	0x10
+	.2byte	0xbdc
+	.2byte	0x10
+	.2byte	0xbe4
+	.2byte	0x10
+	.2byte	0xbe4
+	.2byte	0x10
+	.2byte	0xbec
+	.2byte	0x10
+	.2byte	0xbec
+	.2byte	0x10
+	.2byte	0xbf4
+	.2byte	0x10
+	.2byte	0xbf4
+	.2byte	0x10
+	.2byte	0xbfc
+	.2byte	0x10
+	.2byte	0xbfc
+	.2byte	0x10
+	.2byte	0xc04
+	.2byte	0x10
+	.2byte	0xc04
+	.2byte	0x10
+	.2byte	0xc0c
+	.2byte	0x10
+	.2byte	0xc0c
+	.2byte	0x10
+	.2byte	0xc14
+	.2byte	0x10
+	.2byte	0xc14
+	.2byte	0x10
+	.2byte	0xc1c
+	.2byte	0x10
+	.2byte	0xc1c
+	.2byte	0x10
+	.2byte	0xc24
+	.2byte	0x10
+	.2byte	0xc24
+	.2byte	0x10
+	.2byte	0xc2c
+	.2byte	0x10
+	.2byte	0xc2c
+	.2byte	0x10
+	.2byte	0xc34
+	.2byte	0x10
+	.2byte	0xc34
+	.2byte	0x10
+	.2byte	0xc3c
+	.2byte	0x10
+	.2byte	0xc3c
+	.2byte	0x10
+	.2byte	0xc44
+	.2byte	0x10
+	.2byte	0xc44
+	.2byte	0x10
+	.2byte	0xc4c
+	.2byte	0x10
+	.2byte	0xc4c
+	.2byte	0x10
+	.2byte	0xc54
+	.2byte	0x10
+	.2byte	0xc54
+	.2byte	0x10
+	.2byte	0xc5c
+	.2byte	0x10
+	.2byte	0xc5c
+	.2byte	0x10
+	.2byte	0xc64
+	.2byte	0x10
+	.2byte	0xc64
+	.2byte	0x10
+	.2byte	0xc6c
+	.2byte	0x10
+	.2byte	0xc6c
+	.2byte	0x10
+	.2byte	0xc74
+	.2byte	0x10
+	.2byte	0xc74
+	.2byte	0x10
+	.2byte	0xc7c
+	.2byte	0x10
+	.2byte	0xc7c
+	.2byte	0x10
+	.2byte	0xc84
+	.2byte	0x10
+	.2byte	0xc84
+	.2byte	0x10
+	.2byte	0xc8c
+	.2byte	0x10
+	.2byte	0xc8c
+	.2byte	0x10
+	.2byte	0xc94
+	.2byte	0x10
+	.2byte	0xc94
+	.2byte	0x10
+	.2byte	0xc9c
+	.2byte	0x10
+	.2byte	0xc9c
+	.2byte	0x10
+	.2byte	0xca4
+	.2byte	0x10
+	.2byte	0xca4
+	.2byte	0x10
+	.2byte	0xcac
+	.2byte	0x10
+	.2byte	0xcac
+	.2byte	0x10
+	.2byte	0xcb4
+	.2byte	0x10
+	.2byte	0xcb4
+	.2byte	0x10
+	.2byte	0xcbc
+	.2byte	0x10
+	.2byte	0xcbc
+	.2byte	0x10
+	.2byte	0xcc4
+	.2byte	0x10
+	.2byte	0xcc4
+	.2byte	0x10
+	.2byte	0xccc
+	.2byte	0x10
+	.2byte	0xccc
+	.2byte	0x10
+	.2byte	0xcd4
+	.2byte	0x10
+	.2byte	0xcd4
+	.2byte	0x10
+	.2byte	0xcdc
+	.2byte	0x10
+	.2byte	0xcdc
+	.2byte	0x10
+	.2byte	0xce4
+	.2byte	0x10
+	.2byte	0xce4
+	.2byte	0x10
+	.2byte	0xcec
+	.2byte	0x10
+	.2byte	0xcec
+	.2byte	0x10
+	.2byte	0xcf4
+	.2byte	0x10
+	.2byte	0xcf4
+	.2byte	0x10
+	.2byte	0xcfc
+	.2byte	0x10
+	.2byte	0xcfc
+	.2byte	0x10
+	.2byte	0xd04
+	.2byte	0x10
+	.2byte	0xd04
+	.2byte	0x10
+	.2byte	0xd0c
+	.2byte	0x10
+	.2byte	0xd0c
+	.2byte	0x10
+	.2byte	0xd14
+	.2byte	0x10
+	.2byte	0xd14
+	.2byte	0x10
+	.2byte	0xd1c
+	.2byte	0x10
+	.2byte	0xd1c
+	.2byte	0x10
+	.2byte	0xd24
+	.2byte	0x10
+	.2byte	0xd24
+	.2byte	0x10
+	.2byte	0xd2c
+	.2byte	0x10
+	.2byte	0xd2c
+	.2byte	0x10
+	.2byte	0xd34
+	.2byte	0x10
+	.2byte	0xd34
+	.2byte	0x10
+	.2byte	0xd3c
+	.2byte	0x10
+	.2byte	0xd3c
+	.2byte	0x10
+	.2byte	0xd44
+	.2byte	0x10
+	.2byte	0xd44
+	.2byte	0x10
+	.2byte	0xd4c
+	.2byte	0x10
+	.2byte	0xd4c
+	.2byte	0x10
+	.2byte	0xd54
+	.2byte	0x10
+	.2byte	0xd54
+	.2byte	0x10
+	.2byte	0xd5c
+	.2byte	0x10
+	.2byte	0xd5c
+	.2byte	0x10
+	.2byte	0xd64
+	.2byte	0x10
+	.2byte	0xd64
+	.2byte	0x10
+	.2byte	0xd6c
+	.2byte	0x10
+	.2byte	0xd6c
+	.2byte	0x10
+	.2byte	0xd74
+	.2byte	0x10
+	.2byte	0xd74
+	.2byte	0x10
+	.2byte	0xd7c
+	.2byte	0x10
+	.2byte	0xd7c
+	.2byte	0x10
+	.2byte	0xd84
+	.2byte	0x10
+	.2byte	0xd84
+	.2byte	0x10
+	.2byte	0xd8c
+	.2byte	0x10
+	.2byte	0xd8c
+	.2byte	0x10
+	.2byte	0xd94
+	.2byte	0x10
+	.2byte	0xd94
+	.2byte	0x10
+	.2byte	0xd9c
+	.2byte	0x10
+	.2byte	0xd9c
+	.2byte	0x10
+	.2byte	0xda4
+	.2byte	0x10
+	.2byte	0xda4
+	.2byte	0x10
+	.2byte	0xdac
+	.2byte	0x10
+	.2byte	0xdac
+	.2byte	0x10
+	.2byte	0xdb4
+	.2byte	0x10
+	.2byte	0xdb4
+	.2byte	0x10
+	.2byte	0xdbc
+	.2byte	0x10
+	.2byte	0xdbc
+	.2byte	0x10
+	.2byte	0xdc4
+	.2byte	0x10
+	.2byte	0xdc4
+	.2byte	0x10
+	.2byte	0xdcc
+	.2byte	0x10
+	.2byte	0xdcc
+	.2byte	0x10
+	.2byte	0xdd4
+	.2byte	0x10
+	.2byte	0xdd4
+	.2byte	0x10
+	.2byte	0xddc
+	.2byte	0x10
+	.2byte	0xddc
+	.2byte	0x10
+	.2byte	0xde4
+	.2byte	0x10
+	.2byte	0xde4
+	.2byte	0x10
+	.2byte	0xdec
+	.2byte	0x10
+	.2byte	0xdec
+	.2byte	0x10
+	.2byte	0xdf4
+	.2byte	0x10
+	.2byte	0xdf4
+	.2byte	0x10
+	.2byte	0xdfc
+	.2byte	0x10
+	.2byte	0xdfc
+	.2byte	0x10
+	.2byte	0xe04
+	.2byte	0x10
+	.2byte	0xe04
+	.2byte	0x10
+	.2byte	0xe0c
+	.2byte	0x10
+	.2byte	0xe0c
+	.2byte	0x10
+	.2byte	0xe14
+	.2byte	0x10
+	.2byte	0xe14
+	.2byte	0x10
+	.2byte	0xe1c
+	.2byte	0x10
+	.2byte	0xe1c
+	.2byte	0x10
+	.2byte	0xe24
+	.2byte	0x10
+	.2byte	0xe24
+	.2byte	0x10
+	.2byte	0xe2c
+	.2byte	0x10
+	.2byte	0xe2c
+	.2byte	0x10
+	.2byte	0xe34
+	.2byte	0x10
+	.2byte	0xe34
+	.2byte	0x10
+	.2byte	0xe3c
+	.2byte	0x10
+	.2byte	0xe3c
+	.2byte	0x10
+	.2byte	0xe44
+	.2byte	0x10
+	.2byte	0xe44
+	.2byte	0x10
+	.2byte	0xe4c
+	.2byte	0x10
+	.2byte	0xe4c
+	.2byte	0x10
+	.2byte	0xe54
+	.2byte	0x10
+	.2byte	0xe54
+	.2byte	0x10
+	.2byte	0xe5c
+	.2byte	0x10
+	.2byte	0xe5c
+	.2byte	0x10
+	.2byte	0xe64
+	.2byte	0x10
+	.2byte	0xe64
+	.2byte	0x10
+	.2byte	0xe6c
+	.2byte	0x10
+	.2byte	0xe6c
+	.2byte	0x10
+	.2byte	0xe74
+	.2byte	0x10
+	.2byte	0xe74
+	.2byte	0x10
+	.2byte	0xe7c
+	.2byte	0x10
+	.2byte	0xe7c
+	.2byte	0x10
+	.2byte	0xe84
+	.2byte	0x10
+	.2byte	0xe84
+	.2byte	0x10
+	.2byte	0xe8c
+	.2byte	0x10
+	.2byte	0xe8c
+	.2byte	0x10
+	.2byte	0xe94
+	.2byte	0x10
+	.2byte	0xe94
+	.2byte	0x10
+	.2byte	0xe9c
+	.2byte	0x10
+	.2byte	0xe9c
+	.2byte	0x10
+	.2byte	0xea4
+	.2byte	0x10
+	.2byte	0xea4
+	.2byte	0x10
+	.2byte	0xeac
+	.2byte	0x10
+	.2byte	0xeac
+	.2byte	0x10
+	.2byte	0xeb4
+	.2byte	0x10
+	.2byte	0xeb4
+	.2byte	0x10
+	.2byte	0xebc
+	.2byte	0x10
+	.2byte	0xebc
+	.2byte	0x10
+	.2byte	0xec4
+	.2byte	0x10
+	.2byte	0xec4
+	.2byte	0x10
+	.2byte	0xecc
+	.2byte	0x10
+	.2byte	0xecc
+	.2byte	0x10
+	.2byte	0xed4
+	.2byte	0x10
+	.2byte	0xed4
+	.2byte	0x10
+	.2byte	0xedc
+	.2byte	0x10
+	.2byte	0xedc
+	.2byte	0x10
+	.2byte	0xee4
+	.2byte	0x10
+	.2byte	0xee4
+	.2byte	0x10
+	.2byte	0xeec
+	.2byte	0x10
+	.2byte	0xeec
+	.2byte	0x10
+	.2byte	0xef4
+	.2byte	0x10
+	.2byte	0xef4
+	.2byte	0x10
+	.2byte	0xefc
+	.2byte	0x10
+	.2byte	0xefc
+	.2byte	0x10
+	.2byte	0xf04
+	.2byte	0x10
+	.2byte	0xf04
+	.2byte	0x10
 
 
 	.bss
@@ -2620,6 +3991,27 @@ heap:
 	.2byte	0x0000
 	.2byte	0x0000
 	.2byte	0x0000
+__malloc_current_mallinfo:
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
+	.2byte	0x0000
 h3:
 	.2byte	0x0000
 	.2byte	0x0000
@@ -2644,18 +4036,18 @@ heap_ptr:
 seed:
 	.2byte	0x0000
 	.2byte	0x0000
-_impure_ptr:
+__malloc_max_sbrked_mem:
 	.2byte	0x0000
 	.2byte	0x0000
-__ctype_ptr__:
+__malloc_max_total_mem:
 	.2byte	0x0000
 	.2byte	0x0000
-_ctype_:
+__malloc_top_pad:
 	.2byte	0x0000
 	.2byte	0x0000
-__errno:
+errno:
 	.2byte	0x0000
 	.2byte	0x0000
-__locale_ctype_ptr:
+heap_end.0:
 	.2byte	0x0000
 	.2byte	0x0000
