@@ -32,8 +32,8 @@ SECTIONS
 
     .text : {
         . = ALIGN(4);
-        _stext = .;
         *(.text)
+        /*_stext = .;
         _etext  =  .;
         __CTOR_LIST__ = .;
         LONG((__CTOR_END__ - __CTOR_LIST__) / 4 - 2)
@@ -47,7 +47,7 @@ SECTIONS
         __DTOR_END__ = .;
         *(.lit)
         *(.shdata)
-        _endtext = .;
+        _endtext = .;*/
     }  > instrram
 
     /*--------------------------------------------------------------------*/

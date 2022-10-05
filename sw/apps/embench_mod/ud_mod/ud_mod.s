@@ -715,7 +715,7 @@ lab23: 	lw	a6,0(a5)
 	mv	a1,sp
 	li	a2,80
 	addi	a0,a0,1760 # 1006e0 <x>
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	lw	ra,92(sp)
 	or	a0,a0,s0
 	lw	s0,88(sp)
@@ -939,16 +939,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

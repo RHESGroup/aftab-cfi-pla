@@ -3408,16 +3408,6 @@ lab402: 	lui	a4,0x1000
 	bltu	a0,a4,lab403
 	li	a5,24
 	j	lab403
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

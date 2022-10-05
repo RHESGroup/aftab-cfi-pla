@@ -2837,12 +2837,12 @@ benchmark_body:
 	lui	a6,0x101
 	lui	s1,0x100
 	lui	s6,0x101
-	addi	a5,a5,1 # 10001 <__errno+0x7935>
+	addi	a5,a5,1 # 10001 <__errno+0x6a7d>
 	sw	zero,16(sp)
-	addi	s11,a6,64 # 101040 <array2>
+	addi	s11,a6,80 # 101050 <array2>
 	addi	s1,s1,400 # 100190 <array_exp.0>
 	lui	s5,0x103
-	addi	s6,s6,464 # 1011d0 <htab>
+	addi	s6,s6,480 # 1011e0 <htab>
 	li	s7,100
 	li	s4,1
 	sw	a5,28(sp)
@@ -2988,10 +2988,10 @@ lab507: 	addi	a5,t4,-1
 	bnez	t5,lab521
 lab508: 	lui	a5,0x101
 	lui	a1,0x2
-	addi	a0,a5,544 # 101220 <heap>
+	addi	a0,a5,560 # 101230 <heap>
 	jal	ra,init_heap_beebs
 	lw	s0,12(sp)
-	sw	zero,584(s5) # 103248 <the_list>
+	sw	zero,600(s5) # 103258 <the_list>
 	mv	s3,s0
 	j	lab522
 lab525: 	lw	a4,8(a5)
@@ -3006,17 +3006,17 @@ lab523: 	addi	s0,s0,4
 lab522: 	li	a0,12
 	jal	ra,malloc_beebs
 	lw	a4,0(s0)
-	lw	a5,584(s5)
+	lw	a5,600(s5)
 	sw	a4,0(a0)
 	bnez	a5,lab525
-	sw	a0,584(s5)
+	sw	a0,600(s5)
 	sw	zero,8(a0)
 	sw	zero,4(a0)
 	addi	s0,s0,4
 	bne	s0,s1,lab522
-lab524: 	addi	a0,s5,584
+lab524: 	addi	a0,s5,600
 	jal	ra,sglib_dllist_sort
-	lw	a5,584(s5)
+	lw	a5,600(s5)
 	sw	zero,36(sp)
 	beqz	a5,lab526
 lab527: 	mv	a4,a5
@@ -3735,7 +3735,7 @@ lab634: 	lw	ra,28(sp)
 	ret
 verify_benchmark:
 	lui	a5,0x103
-	lw	a4,584(a5) # 103248 <the_list>
+	lw	a4,600(a5) # 103258 <the_list>
 	beqz	a4,lab637
 lab638: 	mv	a5,a4
 	lw	a4,8(a4)
@@ -3757,7 +3757,7 @@ lab637: 	addi	sp,sp,-16
 	sw	s1,4(sp)
 	sw	ra,12(sp)
 	addi	s1,a2,400 # 100190 <array_exp.0>
-	addi	a7,s0,64 # 101040 <array2>
+	addi	a7,s0,80 # 101050 <array2>
 	li	a6,20
 lab644: 	lw	a3,0(a2)
 	remu	a5,a3,a6
@@ -3782,12 +3782,12 @@ lab646: 	lw	ra,12(sp)
 	addi	sp,sp,16
 	ret
 lab645: 	lui	a0,0x101
-	addi	a0,a0,544 # 101220 <heap>
+	addi	a0,a0,560 # 101230 <heap>
 	jal	ra,check_heap_beebs
 	beqz	a0,lab642
 	li	a2,400
 	mv	a1,s1
-	addi	a0,s0,64
+	addi	a0,s0,80
 	jal	ra,memcmp
 	seqz	a0,a0
 	j	lab646
@@ -3817,7 +3817,7 @@ main:
 	ret
 rand_beebs:
 	lui	a4,0x103
-	lw	a0,600(a4) # 103258 <seed>
+	lw	a0,616(a4) # 103268 <seed>
 	lui	a5,0x41c65
 	addi	a5,a5,-403 # 41c64e6d <_stack+0x41b54e6d>
 	mul	a0,a0,a5
@@ -3826,23 +3826,23 @@ rand_beebs:
 	add	a0,a0,a5
 	slli	a0,a0,0x1
 	srli	a0,a0,0x1
-	sw	a0,600(a4)
+	sw	a0,616(a4)
 	srli	a0,a0,0x10
 	ret
 srand_beebs:
 	lui	a5,0x103
-	sw	a0,600(a5) # 103258 <seed>
+	sw	a0,616(a5) # 103268 <seed>
 	ret
 init_heap_beebs:
 	andi	a5,a1,3
 	bnez	a5,lab647
 	lui	a5,0x103
 	add	a1,a0,a1
-	sw	a0,596(a5) # 103254 <heap_ptr>
+	sw	a0,612(a5) # 103264 <heap_ptr>
 	lui	a5,0x103
-	sw	a1,592(a5) # 103250 <heap_end>
+	sw	a1,608(a5) # 103260 <heap_end>
 	lui	a5,0x103
-	sw	zero,588(a5) # 10324c <heap_requested>
+	sw	zero,604(a5) # 10325c <heap_requested>
 	ret
 lab647: 	lui	a3,0x100
 	lui	a2,0x100
@@ -3853,12 +3853,12 @@ lab647: 	lui	a3,0x100
 	li	a1,65
 	addi	a0,a0,848 # 100350 <__func__.0+0x30>
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,__assert_func
 check_heap_beebs:
 	lui	a5,0x103
-	lw	a4,588(a5) # 10324c <heap_requested>
+	lw	a4,604(a5) # 10325c <heap_requested>
 	lui	a5,0x103
-	lw	a5,592(a5) # 103250 <heap_end>
+	lw	a5,608(a5) # 103260 <heap_end>
 	add	a0,a0,a4
 	sltu	a0,a5,a0
 	xori	a0,a0,1
@@ -3867,25 +3867,25 @@ malloc_beebs:
 	mv	a5,a0
 	beqz	a0,lab648
 	lui	a2,0x103
-	lw	a0,596(a2) # 103254 <heap_ptr>
+	lw	a0,612(a2) # 103264 <heap_ptr>
 	lui	a3,0x103
-	lw	a1,588(a3) # 10324c <heap_requested>
+	lw	a1,604(a3) # 10325c <heap_requested>
 	add	a4,a0,a5
 	andi	a6,a4,3
 	add	a5,a5,a1
 	bnez	a6,lab649
-	sw	a5,588(a3)
+	sw	a5,604(a3)
 	lui	a5,0x103
-	lw	a5,592(a5) # 103250 <heap_end>
+	lw	a5,608(a5) # 103260 <heap_end>
 	bltu	a5,a4,lab648
-lab650: 	sw	a4,596(a2)
+lab650: 	sw	a4,612(a2)
 	ret
 lab649: 	li	a1,4
 	sub	a1,a1,a6
 	add	a5,a5,a1
-	sw	a5,588(a3)
+	sw	a5,604(a3)
 	lui	a5,0x103
-	lw	a5,592(a5) # 103250 <heap_end>
+	lw	a5,608(a5) # 103260 <heap_end>
 	add	a4,a4,a1
 	bgeu	a5,a4,lab650
 lab648: 	li	a0,0
@@ -3894,18 +3894,18 @@ calloc_beebs:
 	mul	a2,a0,a1
 	beqz	a2,lab651
 	lui	a0,0x103
-	lw	a5,596(a0) # 103254 <heap_ptr>
+	lw	a5,612(a0) # 103264 <heap_ptr>
 	lui	a1,0x103
-	lw	a4,588(a1) # 10324c <heap_requested>
+	lw	a4,604(a1) # 10325c <heap_requested>
 	add	a3,a5,a2
 	andi	a7,a3,3
 	add	a4,a2,a4
 	bnez	a7,lab652
-	sw	a4,588(a1)
+	sw	a4,604(a1)
 	lui	a4,0x103
-	lw	a4,592(a4) # 103250 <heap_end>
+	lw	a4,608(a4) # 103260 <heap_end>
 	bltu	a4,a3,lab651
-lab654: 	sw	a3,596(a0)
+lab654: 	sw	a3,612(a0)
 	beqz	a5,lab653
 	addi	sp,sp,-16
 	li	a1,0
@@ -3918,9 +3918,9 @@ lab654: 	sw	a3,596(a0)
 lab652: 	li	a6,4
 	sub	a6,a6,a7
 	add	a4,a4,a6
-	sw	a4,588(a1)
+	sw	a4,604(a1)
 	lui	a4,0x103
-	lw	a4,592(a4) # 103250 <heap_end>
+	lw	a4,608(a4) # 103260 <heap_end>
 	add	a3,a3,a6
 	bgeu	a4,a3,lab654
 lab651: 	li	a5,0
@@ -3931,18 +3931,18 @@ realloc_beebs:
 	beqz	a0,lab655
 	beqz	a1,lab655
 	lui	a6,0x103
-	lw	a0,596(a6) # 103254 <heap_ptr>
+	lw	a0,612(a6) # 103264 <heap_ptr>
 	lui	a2,0x103
-	lw	a4,588(a2) # 10324c <heap_requested>
+	lw	a4,604(a2) # 10325c <heap_requested>
 	add	a3,a0,a1
 	andi	a7,a3,3
 	add	a4,a1,a4
 	bnez	a7,lab656
-	sw	a4,588(a2)
+	sw	a4,604(a2)
 	lui	a4,0x103
-	lw	a4,592(a4) # 103250 <heap_end>
+	lw	a4,608(a4) # 103260 <heap_end>
 	bltu	a4,a3,lab655
-lab660: 	sw	a3,596(a6)
+lab660: 	sw	a3,612(a6)
 	beqz	a0,lab655
 	addi	a4,a5,1
 	sub	a4,a0,a4
@@ -3987,9 +3987,9 @@ lab658: 	lw	a2,0(a4)
 lab656: 	li	t1,4
 	sub	a7,t1,a7
 	add	a4,a4,a7
-	sw	a4,588(a2)
+	sw	a4,604(a2)
 	lui	a4,0x103
-	lw	a4,592(a4) # 103250 <heap_end>
+	lw	a4,608(a4) # 103260 <heap_end>
 	add	a3,a3,a7
 	bgeu	a4,a3,lab660
 lab655: 	li	a0,0
@@ -4069,16 +4069,102 @@ lab663: 	slli	a3,a5,0x2
 	add	a2,a2,a5
 	bgeu	t1,a2,lab662
 	j	lab667
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
+strcmp:
+	or	a4,a0,a1
+	li	t2,-1
+	andi	a4,a4,3
+	bnez	a4,lab668
+	lui	a5,0x7f7f8
+	addi	a5,a5,-129 # 7f7f7f7f <_stack+0x7f6e7f7f>
+lab675: 	lw	a2,0(a0)
+	lw	a3,0(a1)
+	and	t0,a2,a5
+	or	t1,a2,a5
+	add	t0,t0,a5
+	or	t0,t0,t1
+	bne	t0,t2,lab669
+	bne	a2,a3,lab670
+	lw	a2,4(a0)
+	lw	a3,4(a1)
+	and	t0,a2,a5
+	or	t1,a2,a5
+	add	t0,t0,a5
+	or	t0,t0,t1
+	bne	t0,t2,lab671
+	bne	a2,a3,lab670
+	lw	a2,8(a0)
+	lw	a3,8(a1)
+	and	t0,a2,a5
+	or	t1,a2,a5
+	add	t0,t0,a5
+	or	t0,t0,t1
+	bne	t0,t2,lab672
+	bne	a2,a3,lab670
+	lw	a2,12(a0)
+	lw	a3,12(a1)
+	and	t0,a2,a5
+	or	t1,a2,a5
+	add	t0,t0,a5
+	or	t0,t0,t1
+	bne	t0,t2,lab673
+	bne	a2,a3,lab670
+	lw	a2,16(a0)
+	lw	a3,16(a1)
+	and	t0,a2,a5
+	or	t1,a2,a5
+	add	t0,t0,a5
+	or	t0,t0,t1
+	bne	t0,t2,lab674
+	addi	a0,a0,20
+	addi	a1,a1,20
+	beq	a2,a3,lab675
+lab670: 	slli	a4,a2,0x10
+	slli	a5,a3,0x10
+	bne	a4,a5,lab676
+	srli	a4,a2,0x10
+	srli	a5,a3,0x10
+	sub	a0,a4,a5
+	zext.b	a1,a0
+	bnez	a1,lab677
+	ret
+lab676: 	srli	a4,a4,0x10
+	srli	a5,a5,0x10
+	sub	a0,a4,a5
+	zext.b	a1,a0
+	bnez	a1,lab677
+	ret
+lab677: 	zext.b	a4,a4
+	zext.b	a5,a5
+	sub	a0,a4,a5
+	ret
+lab668: 	lbu	a2,0(a0)
+	lbu	a3,0(a1)
+	addi	a0,a0,1
+	addi	a1,a1,1
+	bne	a2,a3,lab678
+	bnez	a2,lab668
+lab678: 	sub	a0,a2,a3
+	ret
+lab671: 	addi	a0,a0,4
+	addi	a1,a1,4
+lab669: 	bne	a2,a3,lab668
+	li	a0,0
+	ret
+lab672: 	addi	a0,a0,8
+	addi	a1,a1,8
+	bne	a2,a3,lab668
+	li	a0,0
+	ret
+lab673: 	addi	a0,a0,12
+	addi	a1,a1,12
+	bne	a2,a3,lab668
+	li	a0,0
+	ret
+lab674: 	addi	a0,a0,16
+	addi	a1,a1,16
+	bne	a2,a3,lab668
+	li	a0,0
+	ret
 
 
 	.section .rodata
@@ -4513,187 +4599,187 @@ __func__.0:
 	.2byte	0x6c75
 	.2byte	0x296c
 	.2byte	0x0000
-	.2byte	0x4c24
+	.2byte	0x4df4
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x4c18
+	.2byte	0x4de8
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x46a0
+	.2byte	0x4870
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x4ac8
+	.2byte	0x4c98
+	.2byte	0x0000
+	.2byte	0x4dd8
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x4cb0
+	.2byte	0x0000
+	.2byte	0x4d98
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x4d8c
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x4690
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x4c4c
+	.2byte	0x0000
+	.2byte	0x48bc
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x49b4
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
+	.2byte	0x0000
+	.2byte	0x46c0
 	.2byte	0x0000
 	.2byte	0x4c08
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x4ae0
+	.2byte	0x4d5c
 	.2byte	0x0000
-	.2byte	0x4bc8
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x4bbc
+	.2byte	0x5510
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44c0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x4c4c
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x48c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x4d48
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x48c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x48b0
 	.2byte	0x0000
-	.2byte	0x4a7c
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x46ec
+	.2byte	0x4d34
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x4cf4
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x49b8
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x4cbc
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x48b0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x4c08
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x48a8
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x54ac
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x47e4
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x54b4
 	.2byte	0x0000
-	.2byte	0x44f0
+	.2byte	0x46c0
 	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4a38
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4b8c
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x5340
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4a7c
-	.2byte	0x0000
-	.2byte	0x46f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4b78
-	.2byte	0x0000
-	.2byte	0x46f0
-	.2byte	0x0000
-	.2byte	0x46e0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4b64
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4b24
-	.2byte	0x0000
-	.2byte	0x47e8
-	.2byte	0x0000
-	.2byte	0x4aec
-	.2byte	0x0000
-	.2byte	0x46e0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x4a38
-	.2byte	0x0000
-	.2byte	0x46d8
-	.2byte	0x0000
-	.2byte	0x52dc
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x52e4
-	.2byte	0x0000
-	.2byte	0x44f0
-	.2byte	0x0000
-	.2byte	0x46d8
+	.2byte	0x48a8
 	.2byte	0x0000
 blanks.1:
 	.2byte	0x2020
@@ -4856,11 +4942,11 @@ _ctype_:
 impure_data:
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0x984
+	.2byte	0x98c
 	.2byte	0x10
-	.2byte	0x9ec
+	.2byte	0x9f4
 	.2byte	0x10
-	.2byte	0xa54
+	.2byte	0xa5c
 	.2byte	0x10
 	.2byte	0x0000
 	.2byte	0x0000
@@ -5491,9 +5577,9 @@ __global_locale:
 	.2byte	0x0000
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0x7ff0
+	.2byte	0x8ce4
 	.2byte	0x0000
-	.2byte	0x70e4
+	.2byte	0x7864
 	.2byte	0x0000
 	.2byte	0x0000
 	.2byte	0x0000
@@ -5564,10 +5650,6 @@ __malloc_av_:
 	.2byte	0x0000
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0xc2c
-	.2byte	0x10
-	.2byte	0xc2c
-	.2byte	0x10
 	.2byte	0xc34
 	.2byte	0x10
 	.2byte	0xc34
@@ -6075,6 +6157,10 @@ __malloc_av_:
 	.2byte	0x1024
 	.2byte	0x10
 	.2byte	0x1024
+	.2byte	0x10
+	.2byte	0x102c
+	.2byte	0x10
+	.2byte	0x102c
 	.2byte	0x10
 
 
@@ -10453,6 +10539,9 @@ heap_ptr:
 	.2byte	0x0000
 	.2byte	0x0000
 seed:
+	.2byte	0x0000
+	.2byte	0x0000
+_PathLocale:
 	.2byte	0x0000
 	.2byte	0x0000
 __malloc_max_sbrked_mem:

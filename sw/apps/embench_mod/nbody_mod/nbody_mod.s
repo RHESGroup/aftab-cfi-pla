@@ -6,7 +6,7 @@ bodies_energy.constprop.0:
 	addi	sp,sp,-112
 	sw	s5,84(sp)
 	lui	s5,0x100
-	addi	a5,s5,600 # 100258 <solar_bodies>
+	addi	a5,s5,608 # 100260 <solar_bodies>
 	lw	a2,32(a5)
 	lw	a3,36(a5)
 	sw	s4,88(sp)
@@ -70,13 +70,13 @@ bodies_energy.constprop.0:
 	jal	ra,__adddf3
 	lw	a5,320(s0)
 	lw	a6,324(s0)
-	addi	s6,s5,600
+	addi	s6,s5,608
 	sw	a5,40(sp)
 	li	a5,64
 	sw	a6,44(sp)
 	mv	s4,a0
 	mv	s3,a1
-	addi	s5,s5,600
+	addi	s5,s5,608
 	li	s11,1
 	sw	a5,16(sp)
 lab0: 	slli	s0,s11,0x6
@@ -138,7 +138,7 @@ lab0: 	slli	s0,s11,0x6
 	mv	a0,s10
 	mv	a1,s2
 	jal	ra,__adddf3
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	a5,a1
 	lw	a2,56(s0)
 	lw	a3,60(s0)
@@ -245,7 +245,7 @@ benchmark_body.constprop.0:
 	addi	sp,sp,-112
 	sw	s10,64(sp)
 	lui	s10,0x100
-	addi	s10,s10,600 # 100258 <solar_bodies>
+	addi	s10,s10,608 # 100260 <solar_bodies>
 	sw	s0,104(sp)
 	sw	s1,100(sp)
 	lw	s0,56(s10)
@@ -610,7 +610,7 @@ benchmark_body.isra.0:
 	sw	a0,16(sp)
 	blez	a0,lab3
 	lui	s10,0x100
-	addi	s10,s10,600 # 100258 <solar_bodies>
+	addi	s10,s10,608 # 100260 <solar_bodies>
 	lw	s0,120(s10)
 	lw	s1,124(s10)
 	lw	a2,96(s10)
@@ -1157,7 +1157,7 @@ lab10: 	lw	a2,0(s8)
 	mv	a0,s10
 	mv	a1,s9
 	jal	ra,__adddf3
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	lw	a2,-8(s8)
 	lw	a3,-4(s8)
 	mv	s10,a0
@@ -1212,7 +1212,7 @@ verify_benchmark:
 	addi	sp,sp,-32
 	sw	s0,24(sp)
 	lui	s0,0x100
-	addi	s0,s0,600 # 100258 <solar_bodies>
+	addi	s0,s0,608 # 100260 <solar_bodies>
 	sw	s4,8(sp)
 	lw	a5,4(s0)
 	lui	s4,0x100
@@ -3621,16 +3621,6 @@ lab301: 	lui	a4,0x1000
 	bltu	a0,a4,lab302
 	li	a5,24
 	j	lab302
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata
@@ -3920,11 +3910,11 @@ solar_bodies:
 impure_data:
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0x684
+	.2byte	0x68c
 	.2byte	0x10
-	.2byte	0x6ec
+	.2byte	0x6f4
 	.2byte	0x10
-	.2byte	0x754
+	.2byte	0x75c
 	.2byte	0x10
 	.2byte	0x0000
 	.2byte	0x0000

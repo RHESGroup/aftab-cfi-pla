@@ -275,7 +275,7 @@ RandomInteger:
 	slli	a0,a0,0x2
 	add	a0,a0,a5
 	lui	a5,0x2
-	addi	a5,a5,-97 # 1f9f <__DTOR_END__+0x15cb>
+	addi	a5,a5,-97 # 1f9f <memcmp+0x15db>
 	addi	a0,a0,81
 	rem	a0,a0,a5
 	sw	a0,1408(a4)
@@ -320,7 +320,7 @@ initialise_benchmark:
 	addi	a2,a2,1680
 	addi	a0,a0,1680
 	li	a5,0
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x15cb>
+	addi	a1,a1,-97 # 1f9f <memcmp+0x15db>
 lab22: 	addi	a3,a2,-80
 lab21: 	slli	a4,a5,0x5
 	add	a4,a4,a5
@@ -339,7 +339,7 @@ lab21: 	slli	a4,a5,0x5
 	lui	a1,0x2
 	addi	a2,a2,784
 	addi	a0,a0,1680
-	addi	a1,a1,-97 # 1f9f <__DTOR_END__+0x15cb>
+	addi	a1,a1,-97 # 1f9f <memcmp+0x15db>
 lab24: 	addi	a3,a2,-80
 lab23: 	slli	a4,a5,0x5
 	add	a4,a4,a5
@@ -377,7 +377,7 @@ lab25: 	lw	a6,0(a5)
 	mv	a1,sp
 	li	a2,1600
 	addi	a0,a0,-192 # 101f40 <ResultArray>
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	lw	ra,1612(sp)
 	seqz	a0,a0
 	addi	sp,sp,1616
@@ -464,16 +464,6 @@ lab27: 	slli	a3,a5,0x2
 	add	a2,a2,a5
 	bgeu	t1,a2,lab26
 	j	lab31
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

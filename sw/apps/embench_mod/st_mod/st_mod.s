@@ -32,14 +32,14 @@ benchmark_body.isra.0:
 	sw	a6,44(sp)
 	sw	a5,40(sp)
 	lui	a5,0x100
-	addi	a5,a5,1440 # 1005a0 <ArrayA>
+	addi	a5,a5,1448 # 1005a8 <ArrayA>
 	sw	a5,52(sp)
-	addi	a5,s11,-1056 # 100be0 <Coef>
+	addi	a5,s11,-1048 # 100be8 <Coef>
 	sw	a5,12(sp)
 	lui	a5,0x2
 	addi	a5,a5,-97 # 1f9f <__divdf3+0x49f>
 	sw	zero,56(sp)
-	addi	s5,s5,-1856 # 1008c0 <ArrayB>
+	addi	s5,s5,-1848 # 1008c8 <ArrayB>
 	sw	a5,8(sp)
 lab12: 	lw	s7,52(sp)
 	li	s0,0
@@ -87,8 +87,8 @@ lab2: 	lw	a2,0(s1)
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	lui	a5,0x101
-	sw	a0,-1040(a5) # 100bf0 <SumA>
-	sw	a1,-1036(a5)
+	sw	a0,-1032(a5) # 100bf8 <SumA>
+	sw	a1,-1028(a5)
 	jal	ra,__divdf3
 	lw	s3,52(sp)
 	sw	a0,28(sp)
@@ -160,7 +160,7 @@ lab6: 	slli	a0,s0,0x5
 	addi	s2,s2,1
 	bne	s2,s1,lab6
 	lui	a5,0x101
-	sw	s0,-1032(a5) # 100bf8 <Seed>
+	sw	s0,-1024(a5) # 100c00 <Seed>
 	li	a4,0
 	mv	s0,s5
 	li	a5,0
@@ -177,8 +177,8 @@ lab7: 	lw	a3,4(s0)
 	lw	a2,40(sp)
 	lw	a3,44(sp)
 	lui	a5,0x101
-	sw	a0,-1048(a5) # 100be8 <SumB>
-	sw	a1,-1044(a5)
+	sw	a0,-1040(a5) # 100bf0 <SumB>
+	sw	a1,-1036(a5)
 	jal	ra,__divdf3
 	sw	a0,36(sp)
 	mv	s10,a1
@@ -286,12 +286,12 @@ lab11: 	lw	a0,0(s4)
 	mv	s7,a0
 	mv	a1,s2
 	mv	a0,s3
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	s3,a0
 	mv	s2,a1
 	mv	a0,s7
 	mv	a1,s10
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s3
@@ -303,8 +303,8 @@ lab11: 	lw	a0,0(s4)
 	mv	a1,s0
 	jal	ra,__divdf3
 	lui	a5,0x101
-	sw	a0,-1056(a5) # 100be0 <Coef>
-	sw	a1,-1052(a5)
+	sw	a0,-1048(a5) # 100be8 <Coef>
+	sw	a1,-1044(a5)
 	lw	a5,56(sp)
 	lw	a4,60(sp)
 	addi	a5,a5,1
@@ -327,11 +327,11 @@ lab0: 	lw	ra,124(sp)
 	ret
 lab5: 	mv	a0,s2
 	mv	a1,s1
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	j	lab4
 lab10: 	mv	a0,s1
 	mv	a1,s0
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	j	lab9
 benchmark_body.constprop.0:
 	lui	a5,0x100
@@ -349,9 +349,9 @@ benchmark_body.constprop.0:
 	li	a5,13
 	sw	a5,60(sp)
 	lui	a5,0x100
-	addi	a5,a5,1440 # 1005a0 <ArrayA>
+	addi	a5,a5,1448 # 1005a8 <ArrayA>
 	sw	a5,56(sp)
-	addi	a5,s11,-1056 # 100be0 <Coef>
+	addi	a5,s11,-1048 # 100be8 <Coef>
 	sw	a5,24(sp)
 	lui	a5,0x2
 	sw	s5,100(sp)
@@ -369,7 +369,7 @@ benchmark_body.constprop.0:
 	sw	s9,84(sp)
 	sw	s10,80(sp)
 	sw	a6,52(sp)
-	addi	s5,s5,-1856 # 1008c0 <ArrayB>
+	addi	s5,s5,-1848 # 1008c8 <ArrayB>
 	sw	a5,12(sp)
 lab24: 	lw	s8,56(sp)
 	li	s0,0
@@ -417,8 +417,8 @@ lab14: 	lw	a2,0(s2)
 	lw	a2,48(sp)
 	lw	a3,52(sp)
 	lui	a5,0x101
-	sw	a0,-1040(a5) # 100bf0 <SumA>
-	sw	a1,-1036(a5)
+	sw	a0,-1032(a5) # 100bf8 <SumA>
+	sw	a1,-1028(a5)
 	jal	ra,__divdf3
 	lw	s8,56(sp)
 	sw	a0,32(sp)
@@ -490,7 +490,7 @@ lab18: 	slli	a0,s0,0x5
 	addi	s8,s8,1
 	bne	s8,s6,lab18
 	lui	a5,0x101
-	sw	s0,-1032(a5) # 100bf8 <Seed>
+	sw	s0,-1024(a5) # 100c00 <Seed>
 	li	a4,0
 	mv	s0,s5
 	li	a5,0
@@ -507,8 +507,8 @@ lab19: 	lw	a3,4(s0)
 	lw	a2,48(sp)
 	lw	a3,52(sp)
 	lui	a5,0x101
-	sw	a0,-1048(a5) # 100be8 <SumB>
-	sw	a1,-1044(a5)
+	sw	a0,-1040(a5) # 100bf0 <SumB>
+	sw	a1,-1036(a5)
 	jal	ra,__divdf3
 	sw	a0,40(sp)
 	mv	s11,a1
@@ -616,12 +616,12 @@ lab23: 	lw	a0,0(s1)
 	mv	s3,a0
 	mv	a1,s8
 	mv	a0,s9
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	s2,a0
 	mv	s1,a1
 	mv	a0,s3
 	mv	a1,s11
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s2
@@ -633,8 +633,8 @@ lab23: 	lw	a0,0(s1)
 	mv	a1,s0
 	jal	ra,__divdf3
 	lui	a5,0x101
-	sw	a0,-1056(a5) # 100be0 <Coef>
-	sw	a1,-1052(a5)
+	sw	a0,-1048(a5) # 100be8 <Coef>
+	sw	a1,-1044(a5)
 	lw	a5,60(sp)
 	addi	a5,a5,-1
 	sw	a5,60(sp)
@@ -657,11 +657,11 @@ lab23: 	lw	a0,0(s1)
 	ret
 lab17: 	mv	a0,s6
 	mv	a1,s2
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	j	lab16
 lab22: 	mv	a0,s6
 	mv	a1,s0
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	j	lab21
 initialise_benchmark:
 	ret
@@ -671,7 +671,7 @@ benchmark:
 	j	benchmark_body.constprop.0
 InitSeed:
 	lui	a5,0x101
-	sw	zero,-1032(a5) # 100bf8 <Seed>
+	sw	zero,-1024(a5) # 100c00 <Seed>
 	ret
 Calc_Sum_Mean:
 	addi	sp,sp,-32
@@ -763,7 +763,7 @@ lab26: 	lw	a0,0(s0)
 	jal	ra,__divdf3
 	sw	a0,0(s7)
 	sw	a1,4(s7)
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	lw	ra,44(sp)
 	lw	s0,40(sp)
 	sw	a0,0(s6)
@@ -862,12 +862,12 @@ lab27: 	lw	a0,0(s9)
 	bne	a5,s9,lab27
 	mv	a0,s5
 	mv	a1,s4
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	s1,a0
 	mv	s0,a1
 	mv	a0,s8
 	mv	a1,s7
-	jal	ra,__DTOR_END__
+	jal	ra,sqrt
 	mv	a2,a0
 	mv	a3,a1
 	mv	a0,s1
@@ -881,8 +881,8 @@ lab27: 	lw	a0,0(s9)
 	lw	ra,92(sp)
 	lw	s0,88(sp)
 	lui	a5,0x101
-	sw	a0,-1056(a5) # 100be0 <Coef>
-	sw	a1,-1052(a5)
+	sw	a0,-1048(a5) # 100be8 <Coef>
+	sw	a1,-1044(a5)
 	lw	s1,84(sp)
 	lw	s2,80(sp)
 	lw	s3,76(sp)
@@ -905,7 +905,7 @@ Initialize:
 	sw	s1,36(sp)
 	sw	s2,32(sp)
 	lw	s0,320(a5) # 100140 <__clz_tab+0x104>
-	lw	s2,-1032(s6) # 100bf8 <Seed>
+	lw	s2,-1024(s6) # 100c00 <Seed>
 	lw	s1,324(a5)
 	sw	s3,28(sp)
 	lui	s3,0x2
@@ -948,7 +948,7 @@ lab28: 	slli	a0,s2,0x5
 	bne	s7,s4,lab28
 	lw	ra,44(sp)
 	lw	s0,40(sp)
-	sw	s2,-1032(s6)
+	sw	s2,-1024(s6)
 	sw	a0,792(s5)
 	sw	a1,796(s5)
 	lw	s1,36(sp)
@@ -965,7 +965,7 @@ lab28: 	slli	a0,s2,0x5
 	ret
 RandomInteger:
 	lui	a4,0x101
-	lw	a5,-1032(a4) # 100bf8 <Seed>
+	lw	a5,-1024(a4) # 100c00 <Seed>
 	slli	a0,a5,0x5
 	add	a0,a0,a5
 	slli	a0,a0,0x2
@@ -974,12 +974,12 @@ RandomInteger:
 	addi	a5,a5,-97 # 1f9f <__divdf3+0x49f>
 	addi	a0,a0,81
 	rem	a0,a0,a5
-	sw	a0,-1032(a4)
+	sw	a0,-1024(a4)
 	ret
 verify_benchmark:
 	lui	a5,0x101
-	lw	a2,-1040(a5) # 100bf0 <SumA>
-	lw	a3,-1036(a5)
+	lw	a2,-1032(a5) # 100bf8 <SumA>
+	lw	a3,-1028(a5)
 	lui	a5,0x100
 	lw	a0,336(a5) # 100150 <__clz_tab+0x114>
 	lw	a1,340(a5)
@@ -1001,8 +1001,8 @@ verify_benchmark:
 	jal	ra,__ledf2
 	bgez	a0,lab29
 	lui	a5,0x101
-	lw	a2,-1048(a5) # 100be8 <SumB>
-	lw	a3,-1044(a5)
+	lw	a2,-1040(a5) # 100bf0 <SumB>
+	lw	a3,-1036(a5)
 	lui	a5,0x100
 	lw	a0,352(a5) # 100160 <__clz_tab+0x124>
 	lw	a1,356(a5)
@@ -1021,8 +1021,8 @@ lab29: 	lw	ra,12(sp)
 	addi	sp,sp,16
 	ret
 lab30: 	lui	a5,0x101
-	lw	a2,-1056(a5) # 100be0 <Coef>
-	lw	a3,-1052(a5)
+	lw	a2,-1048(a5) # 100be8 <Coef>
+	lw	a3,-1044(a5)
 	lui	a5,0x100
 	lw	a0,360(a5) # 100168 <__clz_tab+0x12c>
 	lw	a1,364(a5)
@@ -3105,16 +3105,6 @@ lab342: 	lui	a4,0x1000
 	bltu	a0,a4,lab343
 	li	a5,24
 	j	lab343
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata
@@ -3269,11 +3259,11 @@ __clz_tab:
 impure_data:
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0x45c
+	.2byte	0x464
 	.2byte	0x10
-	.2byte	0x4c4
+	.2byte	0x4cc
 	.2byte	0x10
-	.2byte	0x52c
+	.2byte	0x534
 	.2byte	0x10
 	.2byte	0x0000
 	.2byte	0x0000

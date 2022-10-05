@@ -960,7 +960,7 @@ lab140: 	bge	s7,s5,lab141
 	sw	a5,0(sp)
 	lui	a5,0x100
 	mv	a0,a5
-	jal	ra,__DTOR_END__
+	jal	ra,strchr
 	beqz	a0,lab141
 	lw	a5,0(sp)
 	li	a3,91
@@ -1284,16 +1284,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

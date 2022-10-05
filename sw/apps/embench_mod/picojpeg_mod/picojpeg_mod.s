@@ -110,19 +110,19 @@ verify_benchmark:
 	addi	a1,s1,572 # 10023c <r_ref.2>
 	sw	s0,8(sp)
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	li	s0,0
 	bnez	a0,lab6
 	mv	s0,a0
 	lw	a0,36(s2)
 	li	a2,64
 	addi	a1,s1,636
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	bnez	a0,lab6
 	lw	a0,40(s2)
 	li	a2,64
 	addi	a1,s1,700
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	seqz	s0,a0
 lab6: 	lw	ra,12(sp)
 	mv	a0,s0
@@ -182,7 +182,7 @@ upsampleCb:
 	addi	a6,a6,392
 	addi	t5,a7,64
 	li	t3,88
-	addi	a2,a2,-256 # 7f00 <memcpy+0x1ef8>
+	addi	a2,a2,-256 # 7f00 <memcpy+0x1f08>
 	li	t1,198
 lab16: 	addi	a4,a6,-8
 	mv	a3,t4
@@ -440,7 +440,7 @@ upsampleCbH:
 	addi	a6,a6,392
 	addi	t5,a7,128
 	li	t3,88
-	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1f08>
 	li	t1,198
 lab32: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -697,7 +697,7 @@ upsampleCr:
 	addi	a6,a6,136
 	addi	t5,a7,64
 	li	t3,103
-	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1f08>
 	li	t1,183
 lab63: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -956,7 +956,7 @@ upsampleCrH:
 	addi	a6,a6,136
 	addi	t5,a7,128
 	li	t3,103
-	addi	a1,a1,-256 # 7f00 <memcpy+0x1ef8>
+	addi	a1,a1,-256 # 7f00 <memcpy+0x1f08>
 	li	t1,183
 lab80: 	addi	a3,a6,-8
 	mv	a2,t4
@@ -5961,16 +5961,6 @@ lab444: 	lbu	s9,-695(s0)
 	bnez	s9,lab432
 	li	s9,26
 	j	lab432
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata
@@ -6405,7 +6395,7 @@ gWinogradQuant:
 	.4byte	0x23363623
 	.2byte	0x251c
 	.2byte	0x131c
-	.2byte	0x0a13
+	.2byte	0xa13
 CSWTCH.299:
 	.2byte	0x1
 	.2byte	0x2

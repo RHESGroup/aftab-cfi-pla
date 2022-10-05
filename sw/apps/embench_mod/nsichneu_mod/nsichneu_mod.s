@@ -4919,16 +4919,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.bss

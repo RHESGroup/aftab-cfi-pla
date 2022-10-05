@@ -942,12 +942,12 @@ lab35: 	lw	a6,0(a5)
 	li	a2,800
 	mv	a1,sp
 	addi	a0,a0,1600 # 100640 <output>
-	jal	ra,__DTOR_END__
+	jal	ra,memcmp
 	bnez	a0,lab36
 	lui	a5,0x101
 	lh	a4,-888(a5) # 100c88 <c>
 	lui	a5,0x3
-	addi	a5,a5,-2045 # 2803 <__DTOR_END__+0x15ef>
+	addi	a5,a5,-2045 # 2803 <memcmp+0x15ff>
 	beq	a4,a5,lab37
 lab38: 	lw	ra,812(sp)
 	addi	sp,sp,816
@@ -994,16 +994,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

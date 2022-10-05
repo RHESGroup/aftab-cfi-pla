@@ -75,7 +75,7 @@ benchmark_body.constprop.0:
 	sw	a4,20(sp)
 	sw	a5,24(sp)
 	lui	a5,0x101
-	addi	a5,a5,-1368 # 100aa8 <res0>
+	addi	a5,a5,-1360 # 100ab0 <res0>
 	sw	a5,108(sp)
 lab4: 	li	a2,384
 	li	a1,0
@@ -97,7 +97,7 @@ lab4: 	li	a2,384
 	lw	t1,124(sp)
 	lui	t3,0x101
 	sw	s2,4(sp)
-	sw	t1,-1332(t3) # 100acc <soln_cnt0>
+	sw	t1,-1324(t3) # 100ad4 <soln_cnt0>
 	lw	t3,108(sp)
 	lw	t1,128(sp)
 	sw	s9,0(sp)
@@ -126,7 +126,7 @@ lab4: 	li	a2,384
 	lw	t1,124(sp)
 	lui	t3,0x101
 	lw	t2,132(sp)
-	sw	t1,-1336(t3) # 100ac8 <soln_cnt1>
+	sw	t1,-1328(t3) # 100ad0 <soln_cnt1>
 	lw	a6,80(sp)
 	lw	t1,128(sp)
 	lw	a7,84(sp)
@@ -139,8 +139,8 @@ lab4: 	li	a2,384
 	mv	a1,s7
 	sw	s2,4(sp)
 	sw	s9,0(sp)
-	sw	t1,-1344(t3) # 100ac0 <res1>
-	sw	t2,-1340(t3)
+	sw	t1,-1336(t3) # 100ac8 <res1>
+	sw	t2,-1332(t3)
 	jal	ra,SolveCubic
 	lui	a5,0x100
 	lw	a6,944(a5) # 1003b0 <init_jk+0x68>
@@ -318,7 +318,7 @@ benchmark_body.isra.0:
 	sw	a4,32(sp)
 	sw	a5,36(sp)
 	lui	a5,0x101
-	addi	a5,a5,-1368 # 100aa8 <res0>
+	addi	a5,a5,-1360 # 100ab0 <res0>
 	sw	a5,124(sp)
 lab12: 	li	a2,384
 	li	a1,0
@@ -340,7 +340,7 @@ lab12: 	li	a2,384
 	lw	t1,140(sp)
 	lui	t3,0x101
 	sw	s2,4(sp)
-	sw	t1,-1332(t3) # 100acc <soln_cnt0>
+	sw	t1,-1324(t3) # 100ad4 <soln_cnt0>
 	lw	t3,124(sp)
 	lw	t1,144(sp)
 	sw	s9,0(sp)
@@ -369,7 +369,7 @@ lab12: 	li	a2,384
 	lw	t1,140(sp)
 	lui	t3,0x101
 	lw	t2,148(sp)
-	sw	t1,-1336(t3) # 100ac8 <soln_cnt1>
+	sw	t1,-1328(t3) # 100ad0 <soln_cnt1>
 	lw	a6,96(sp)
 	lw	t1,144(sp)
 	lw	a7,100(sp)
@@ -382,8 +382,8 @@ lab12: 	li	a2,384
 	mv	a1,s7
 	sw	s2,4(sp)
 	sw	s9,0(sp)
-	sw	t1,-1344(t3) # 100ac0 <res1>
-	sw	t2,-1340(t3)
+	sw	t1,-1336(t3) # 100ac8 <res1>
+	sw	t2,-1332(t3)
 	jal	ra,SolveCubic
 	lui	a5,0x100
 	lw	a6,944(a5) # 1003b0 <init_jk+0x68>
@@ -488,7 +488,7 @@ lab11: 	li	a5,1
 	j	lab14
 verify_benchmark:
 	lui	a5,0x101
-	lw	a4,-1332(a5) # 100acc <soln_cnt0>
+	lw	a4,-1324(a5) # 100ad4 <soln_cnt0>
 	addi	sp,sp,-32
 	sw	s0,24(sp)
 	sw	ra,28(sp)
@@ -512,7 +512,7 @@ lab16: 	lw	ra,28(sp)
 	ret
 lab15: 	lui	s2,0x101
 	lui	a5,0x100
-	addi	s2,s2,-1368 # 100aa8 <res0>
+	addi	s2,s2,-1360 # 100ab0 <res0>
 	lw	a2,0(s2)
 	lw	a3,4(s2)
 	lw	a0,984(a5) # 1003d8 <init_jk+0x90>
@@ -560,12 +560,12 @@ lab15: 	lui	s2,0x101
 	jal	ra,__ledf2
 	bgez	a0,lab16
 	lui	a5,0x101
-	lw	a4,-1336(a5) # 100ac8 <soln_cnt1>
+	lw	a4,-1328(a5) # 100ad0 <soln_cnt1>
 	li	a5,1
 	bne	a4,a5,lab16
 	lui	a5,0x101
-	lw	a2,-1344(a5) # 100ac0 <res1>
-	lw	a3,-1340(a5)
+	lw	a2,-1336(a5) # 100ac8 <res1>
+	lw	a3,-1332(a5)
 	lw	a0,1008(s3)
 	lw	a1,1012(s3)
 	jal	ra,__subdf3
@@ -1120,7 +1120,7 @@ lab17: 	lw	a2,304(sp)
 	mv	a0,s3
 	mv	a1,s2
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
+	jal	ra,cos
 	mv	a4,a0
 	mv	a5,a1
 	lui	a3,0x40008
@@ -1200,7 +1200,7 @@ lab17: 	lw	a2,304(sp)
 	lw	a2,1016(s6)
 	lw	a3,1020(s6)
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
+	jal	ra,cos
 	lw	a4,12(sp)
 	lw	a5,8(sp)
 	lw	a2,968(s9)
@@ -1260,7 +1260,7 @@ lab17: 	lw	a2,304(sp)
 	lw	a2,1016(s6)
 	lw	a3,1020(s6)
 	jal	ra,__divdf3
-	jal	ra,__DTOR_END__
+	jal	ra,cos
 	lw	a2,968(s9)
 	lw	a3,972(s9)
 	mv	s3,a0
@@ -1307,7 +1307,7 @@ lab17: 	lw	a2,304(sp)
 	j	lab19
 __adddf3:
 	lui	a6,0x100
-	addi	a6,a6,-1 # fffff <__errno+0xf3d6f>
+	addi	a6,a6,-1 # fffff <__errno+0xf3b67>
 	addi	sp,sp,-32
 	and	a7,a6,a1
 	srli	a4,a1,0x14
@@ -1998,7 +1998,7 @@ lab123: 	slli	a4,a4,0x10
 	lui	t2,0x10
 	or	t6,a4,a5
 	sub	s0,s0,a7
-	addi	a7,t2,-1 # ffff <__errno+0x3d6f>
+	addi	a7,t2,-1 # ffff <__errno+0x3b67>
 	and	a5,t6,a7
 	srli	t4,t6,0x10
 	srli	t3,a1,0x10
@@ -2015,7 +2015,7 @@ lab123: 	slli	a4,a4,0x10
 lab124: 	srli	a5,a4,0x10
 	add	a5,a5,t4
 	lui	t4,0x10
-	addi	t4,t4,-1 # ffff <__errno+0x3d6f>
+	addi	t4,t4,-1 # ffff <__errno+0x3b67>
 	and	a4,a4,t4
 	slli	a4,a4,0x10
 	and	t0,t0,t4
@@ -2095,7 +2095,7 @@ lab131: 	slli	a5,t4,0x10
 lab132: 	srli	a7,a0,0x10
 	add	a7,a7,t1
 	lui	t1,0x10
-	addi	t1,t1,-1 # ffff <__errno+0x3d6f>
+	addi	t1,t1,-1 # ffff <__errno+0x3b67>
 	and	a0,a0,t1
 	slli	a0,a0,0x10
 	and	t4,t4,t1
@@ -2252,7 +2252,7 @@ lab134: 	mv	t4,a5
 __eqdf2:
 	srli	a4,a1,0x14
 	lui	a5,0x100
-	addi	a5,a5,-1 # fffff <__errno+0xf3d6f>
+	addi	a5,a5,-1 # fffff <__errno+0xf3b67>
 	srli	a6,a3,0x14
 	mv	t1,a0
 	mv	t4,a0
@@ -2287,7 +2287,7 @@ lab159: 	li	a0,0
 	ret
 __gedf2:
 	lui	a4,0x100
-	addi	a4,a4,-1 # fffff <__errno+0xf3d6f>
+	addi	a4,a4,-1 # fffff <__errno+0xf3b67>
 	srli	a6,a1,0x14
 	and	a7,a4,a1
 	mv	a5,a0
@@ -2345,7 +2345,7 @@ lab164: 	bnez	a1,lab178
 	j	lab179
 __ledf2:
 	lui	a4,0x100
-	addi	a4,a4,-1 # fffff <__errno+0xf3d6f>
+	addi	a4,a4,-1 # fffff <__errno+0xf3b67>
 	srli	a6,a1,0x14
 	and	a7,a4,a1
 	mv	a5,a0
@@ -2460,7 +2460,7 @@ lab231: 	add	s3,s3,a4
 	li	a3,1
 	bgeu	a3,a4,lab206
 lab234: 	lui	t3,0x10
-	addi	t1,t3,-1 # ffff <__errno+0x3d6f>
+	addi	t1,t3,-1 # ffff <__errno+0x3b67>
 	srli	a6,s2,0x10
 	srli	a0,a5,0x10
 	and	s2,s2,t1
@@ -2492,7 +2492,7 @@ lab207: 	and	a3,a4,t1
 	lui	t1,0x10
 	add	a6,a6,t1
 lab208: 	lui	s2,0x10
-	addi	t6,s2,-1 # ffff <__errno+0x3d6f>
+	addi	t6,s2,-1 # ffff <__errno+0x3b67>
 	srli	t1,a4,0x10
 	and	t5,t5,t6
 	and	a4,a4,t6
@@ -2514,7 +2514,7 @@ lab208: 	lui	s2,0x10
 lab209: 	srli	t4,a4,0x10
 	add	t4,t4,s1
 	lui	s1,0x10
-	addi	a0,s1,-1 # ffff <__errno+0x3d6f>
+	addi	a0,s1,-1 # ffff <__errno+0x3b67>
 	and	a4,a4,a0
 	and	t2,t2,a0
 	slli	a4,a4,0x10
@@ -2529,7 +2529,7 @@ lab209: 	srli	t4,a4,0x10
 	bgeu	t6,a0,lab210
 	add	a6,a6,s1
 lab210: 	lui	a0,0x10
-	addi	a0,a0,-1 # ffff <__errno+0x3d6f>
+	addi	a0,a0,-1 # ffff <__errno+0x3b67>
 	and	a5,t6,a0
 	and	t2,t2,a0
 	slli	a5,a5,0x10
@@ -2791,7 +2791,7 @@ lab244: 	li	s0,0
 	j	lab245
 __subdf3:
 	lui	a6,0x100
-	addi	a6,a6,-1 # fffff <__errno+0xf3d6f>
+	addi	a6,a6,-1 # fffff <__errno+0xf3b67>
 	addi	sp,sp,-32
 	and	a7,a6,a1
 	srli	a4,a1,0x14
@@ -2864,7 +2864,7 @@ lab263: 	add	a3,a3,a0
 lab256: 	lui	a4,0x800
 	and	a4,a5,a4
 	beqz	a4,lab258
-	addi	s0,s0,1 # 80001 <__errno+0x73d71>
+	addi	s0,s0,1 # 80001 <__errno+0x73b69>
 	li	a4,2047
 	beq	s0,a4,lab261
 	lui	a4,0xff800
@@ -3300,7 +3300,7 @@ lab327: 	li	a5,0
 	j	lab326
 __unorddf2:
 	lui	a5,0x100
-	addi	a5,a5,-1 # fffff <__errno+0xf3d6f>
+	addi	a5,a5,-1 # fffff <__errno+0xf3b67>
 	and	a4,a5,a1
 	srli	a1,a1,0x14
 	and	a5,a5,a3
@@ -3321,7 +3321,7 @@ lab331: 	ret
 __fixdfsi:
 	srli	a4,a1,0x14
 	lui	a3,0x100
-	addi	a5,a3,-1 # fffff <__errno+0xf3d6f>
+	addi	a5,a3,-1 # fffff <__errno+0xf3b67>
 	andi	a4,a4,2047
 	li	a2,1022
 	and	a5,a5,a1
@@ -3546,7 +3546,7 @@ lab359: 	bne	a3,a5,lab355
 	sub	a2,a2,a5
 lab357: 	add	a1,a6,a3
 	lw	a1,0(a1)
-	addi	a4,a4,1 # 80001 <__errno+0x73d71>
+	addi	a4,a4,1 # 80001 <__errno+0x73b69>
 	addi	a6,a6,4
 	sw	a1,-4(a6)
 	bge	a2,a4,lab357
@@ -3654,7 +3654,7 @@ lab360: 	lw	a6,0(a1)
 	sll	t3,t3,a7
 	or	a6,a6,t3
 	sw	a6,0(t4)
-	addi	t1,t1,1 # 10001 <__errno+0x3d71>
+	addi	t1,t1,1 # 10001 <__errno+0x3b69>
 	addi	a1,a1,4
 	j	lab362
 lab344: 	lw	s5,36(sp)
@@ -3827,7 +3827,7 @@ lab379: 	andi	a7,a2,31
 	sub	a2,a2,a5
 lab381: 	add	a6,a1,a0
 	lw	a6,0(a6)
-	addi	a4,a4,1 # 80001 <__errno+0x73d71>
+	addi	a4,a4,1 # 80001 <__errno+0x73b69>
 	addi	a1,a1,4
 	sw	a6,-4(a1)
 	bge	a2,a4,lab381
@@ -4118,7 +4118,7 @@ lab409: 	lw	a1,0(a2)
 	addi	a2,a2,4
 	or	s1,s1,a1
 	j	lab413
-lab410: 	addi	a2,a4,64 # 80040 <__errno+0x73db0>
+lab410: 	addi	a2,a4,64 # 80040 <__errno+0x73ba8>
 	add	a2,a2,sp
 	lw	a2,-32(a2)
 	li	a7,32
@@ -4181,7 +4181,7 @@ lab404: 	lui	a4,0x80
 	sw	a2,52(sp)
 	and	a3,a5,a4
 	beqz	a3,lab347
-	addi	a4,a4,-1 # 7ffff <__errno+0x73d6f>
+	addi	a4,a4,-1 # 7ffff <__errno+0x73b67>
 	and	a5,a5,a4
 	sw	a5,60(sp)
 	j	lab417
@@ -4285,7 +4285,7 @@ lab434: 	add	a6,a1,a0
 	sub	a5,a4,a5
 	j	lab435
 lab431: 	lw	a6,0(a0)
-	addi	a2,a2,1 # 80001 <__errno+0x73d71>
+	addi	a2,a2,1 # 80001 <__errno+0x73b69>
 	addi	a0,a0,4
 	or	s0,s0,a6
 	j	lab436
@@ -4635,7 +4635,7 @@ lab467: 	lw	a1,0(a4)
 	sll	a1,a1,a0
 	srl	a6,a6,a2
 	or	a1,a1,a6
-	sw	a1,0(t1) # 80000 <__errno+0x73d70>
+	sw	a1,0(t1) # 80000 <__errno+0x73b68>
 	addi	a4,a4,-4
 	j	lab480
 lab469: 	lw	a2,0(a4)
@@ -4690,7 +4690,7 @@ lab482: 	lw	a1,0(a2)
 	sll	t1,t1,a3
 	or	a1,a1,t1
 	sw	a1,0(t3)
-	addi	a7,a7,1 # 80001 <__errno+0x73d71>
+	addi	a7,a7,1 # 80001 <__errno+0x73b69>
 	addi	a2,a2,4
 	j	lab484
 lab468: 	lw	a5,60(sp)
@@ -4750,7 +4750,7 @@ __divtf3:
 	sw	a4,44(sp)
 	addi	a1,sp,32
 	addi	a5,sp,44
-lab488: 	lw	a4,0(a5) # 10000 <__errno+0x3d70>
+lab488: 	lw	a4,0(a5) # 10000 <__errno+0x3b68>
 	lw	a2,-4(a5)
 	addi	a5,a5,-4
 	slli	a4,a4,0x3
@@ -4787,7 +4787,7 @@ lab504: 	slli	a0,s3,0x10
 	sw	a0,60(sp)
 	addi	a1,sp,48
 	addi	a4,sp,60
-lab491: 	lw	a3,0(a4) # 10000 <__errno+0x3d70>
+lab491: 	lw	a3,0(a4) # 10000 <__errno+0x3b68>
 	lw	a2,-4(a4)
 	addi	a4,a4,-4
 	slli	a3,a3,0x3
@@ -4811,7 +4811,7 @@ lab516: 	sub	a3,s2,a5
 	bltu	a2,a5,lab492
 	lui	a2,0x100
 	slli	a5,a5,0x2
-	addi	a2,a2,60 # 10003c <__errno+0xf3dac>
+	addi	a2,a2,60 # 10003c <__errno+0xf3ba4>
 	add	a5,a5,a2
 	lw	a5,0(a5)
 	jr	a5
@@ -5027,7 +5027,7 @@ lab520: 	lw	a4,0(a5)
 	lw	t6,60(sp)
 	lw	a7,52(sp)
 	lui	t5,0x10
-	addi	t5,t5,-1 # ffff <__errno+0x3d6f>
+	addi	t5,t5,-1 # ffff <__errno+0x3b67>
 	lw	t4,56(sp)
 	and	a5,t6,t5
 	lw	a6,48(sp)
@@ -5521,7 +5521,7 @@ lab558: 	lw	a4,76(sp)
 	sw	zero,64(sp)
 	li	a5,1
 	j	lab549
-lab557: 	lw	a1,0(a2) # 100000 <__errno+0xf3d70>
+lab557: 	lw	a1,0(a2) # 100000 <__errno+0xf3b68>
 	lw	t1,4(a2)
 	add	t3,a2,a3
 	srl	a1,a1,a5
@@ -5699,7 +5699,7 @@ __multf3:
 	sw	a4,60(sp)
 	addi	a2,sp,48
 	addi	a5,sp,60
-lab587: 	lw	a4,0(a5) # 10000 <__errno+0x3d70>
+lab587: 	lw	a4,0(a5) # 10000 <__errno+0x3b68>
 	lw	a3,-4(a5)
 	addi	a5,a5,-4
 	slli	a4,a4,0x3
@@ -5736,7 +5736,7 @@ lab629: 	slli	a0,s3,0x10
 	sw	a0,76(sp)
 	addi	a1,sp,64
 	addi	a4,sp,76
-lab590: 	lw	a3,0(a4) # 10000 <__errno+0x3d70>
+lab590: 	lw	a3,0(a4) # 10000 <__errno+0x3b68>
 	lw	a2,-4(a4)
 	addi	a4,a4,-4
 	slli	a3,a3,0x3
@@ -5769,7 +5769,7 @@ lab641: 	add	a5,a5,s0
 lab644: 	lw	a4,48(sp)
 	lw	t3,64(sp)
 	lui	a0,0x10
-	addi	a3,a0,-1 # ffff <__errno+0x3d6f>
+	addi	a3,a0,-1 # ffff <__errno+0x3b67>
 	srli	a7,a4,0x10
 	srli	s4,t3,0x10
 	and	a4,a4,a3
@@ -5807,7 +5807,7 @@ lab595: 	srli	a3,a0,0x10
 	lw	a1,52(sp)
 	sw	a3,12(sp)
 	lui	a3,0x10
-	addi	a2,a3,-1 # ffff <__errno+0x3d6f>
+	addi	a2,a3,-1 # ffff <__errno+0x3b67>
 	and	a0,a0,a2
 	and	a5,a5,a2
 	srli	s2,a1,0x10
@@ -5825,7 +5825,7 @@ lab595: 	srli	a3,a0,0x10
 	bgeu	a6,t4,lab596
 	add	a2,a2,a3
 lab596: 	lui	t1,0x10
-	addi	a3,t1,-1 # ffff <__errno+0x3d6f>
+	addi	a3,t1,-1 # ffff <__errno+0x3b67>
 	srli	s5,a6,0x10
 	and	a6,a6,a3
 	and	a5,a5,a3
@@ -5846,7 +5846,7 @@ lab597: 	srli	a5,a3,0x10
 	lw	t4,72(sp)
 	lui	s0,0x10
 	sw	a5,32(sp)
-	addi	a5,s0,-1 # ffff <__errno+0x3d6f>
+	addi	a5,s0,-1 # ffff <__errno+0x3b67>
 	and	a3,a3,a5
 	and	a2,a2,a5
 	srli	t2,t4,0x10
@@ -5866,7 +5866,7 @@ lab598: 	srli	t6,a5,0x10
 	add	t1,t6,t1
 	lui	s9,0x10
 	sw	t1,36(sp)
-	addi	t1,s9,-1 # ffff <__errno+0x3d6f>
+	addi	t1,s9,-1 # ffff <__errno+0x3b67>
 	and	a5,a5,t1
 	and	a2,a2,t1
 	slli	a5,a5,0x10
@@ -5887,7 +5887,7 @@ lab598: 	srli	t6,a5,0x10
 lab599: 	srli	s10,t6,0x10
 	add	s10,s10,s8
 	lui	s8,0x10
-	addi	s9,s8,-1 # ffff <__errno+0x3d6f>
+	addi	s9,s8,-1 # ffff <__errno+0x3b67>
 	and	t6,t6,s9
 	slli	t6,t6,0x10
 	and	t1,t1,s9
@@ -5954,7 +5954,7 @@ lab600: 	srli	a4,a0,0x10
 	lw	s3,60(sp)
 	lui	a3,0x10
 	sw	a4,32(sp)
-	addi	a4,a3,-1 # ffff <__errno+0x3d6f>
+	addi	a4,a3,-1 # ffff <__errno+0x3b67>
 	and	a7,a0,a4
 	and	a5,a5,a4
 	srli	t6,s3,0x10
@@ -5974,7 +5974,7 @@ lab601: 	srli	a3,a6,0x10
 	add	a4,a3,a4
 	lui	s4,0x10
 	sw	a4,36(sp)
-	addi	a4,s4,-1 # ffff <__errno+0x3d6f>
+	addi	a4,s4,-1 # ffff <__errno+0x3b67>
 	and	a6,a6,a4
 	and	a5,a5,a4
 	slli	a6,a6,0x10
@@ -5992,7 +5992,7 @@ lab602: 	srli	a4,a0,0x10
 	add	a4,a4,a3
 	lui	s7,0x10
 	sw	a4,40(sp)
-	addi	a4,s7,-1 # ffff <__errno+0x3d6f>
+	addi	a4,s7,-1 # ffff <__errno+0x3b67>
 	and	a0,a0,a4
 	and	a5,a5,a4
 	slli	a0,a0,0x10
@@ -6009,7 +6009,7 @@ lab602: 	srli	a4,a0,0x10
 lab603: 	srli	s7,a3,0x10
 	lui	a4,0x10
 	add	s7,s7,t3
-	addi	a4,a4,-1 # ffff <__errno+0x3d6f>
+	addi	a4,a4,-1 # ffff <__errno+0x3b67>
 	lw	t3,32(sp)
 	and	a3,a3,a4
 	and	a5,a5,a4
@@ -6067,7 +6067,7 @@ lab603: 	srli	s7,a3,0x10
 lab604: 	srli	a7,a0,0x10
 	lui	a6,0x10
 	add	a7,a7,s4
-	addi	s4,a6,-1 # ffff <__errno+0x3d6f>
+	addi	s4,a6,-1 # ffff <__errno+0x3b67>
 	and	a0,a0,s4
 	and	a3,a3,s4
 	slli	a0,a0,0x10
@@ -6084,7 +6084,7 @@ lab604: 	srli	a7,a0,0x10
 lab605: 	srli	a6,a1,0x10
 	lui	s5,0x10
 	add	s2,a6,s2
-	addi	a6,s5,-1 # ffff <__errno+0x3d6f>
+	addi	a6,s5,-1 # ffff <__errno+0x3b67>
 	and	a1,a1,a6
 	and	a3,a3,a6
 	slli	a1,a1,0x10
@@ -6101,7 +6101,7 @@ lab605: 	srli	a6,a1,0x10
 lab606: 	srli	s1,a6,0x10
 	add	s1,s1,s4
 	lui	s4,0x10
-	addi	t5,s4,-1 # ffff <__errno+0x3d6f>
+	addi	t5,s4,-1 # ffff <__errno+0x3b67>
 	and	a3,a3,t5
 	mul	s5,s0,t1
 	and	a6,a6,t5
@@ -6118,7 +6118,7 @@ lab606: 	srli	s1,a6,0x10
 lab607: 	srli	a2,a3,0x10
 	lui	s4,0x10
 	add	s0,a2,s0
-	addi	a2,s4,-1 # ffff <__errno+0x3d6f>
+	addi	a2,s4,-1 # ffff <__errno+0x3b67>
 	and	a3,a3,a2
 	and	t5,t5,a2
 	slli	a3,a3,0x10
@@ -6135,7 +6135,7 @@ lab607: 	srli	a2,a3,0x10
 lab608: 	srli	s4,a2,0x10
 	add	s4,s4,s5
 	lui	s5,0x10
-	addi	t2,s5,-1 # ffff <__errno+0x3d6f>
+	addi	t2,s5,-1 # ffff <__errno+0x3b67>
 	add	t3,t3,a0
 	sltu	a0,t3,a0
 	add	a4,a4,a7
@@ -6857,7 +6857,7 @@ lab682: 	bne	a3,a5,lab678
 	sub	a2,a2,a5
 lab680: 	add	a1,a6,a3
 	lw	a1,0(a1)
-	addi	a4,a4,1 # 80001 <__errno+0x73d71>
+	addi	a4,a4,1 # 80001 <__errno+0x73b69>
 	addi	a6,a6,4
 	sw	a1,-4(a6)
 	bge	a2,a4,lab680
@@ -7138,7 +7138,7 @@ lab702: 	andi	a7,a2,31
 	sub	a2,a2,a5
 lab704: 	add	a6,a1,a0
 	lw	a6,0(a6)
-	addi	a4,a4,1 # 80001 <__errno+0x73d71>
+	addi	a4,a4,1 # 80001 <__errno+0x73b69>
 	addi	a1,a1,4
 	sw	a6,-4(a1)
 	bge	a2,a4,lab704
@@ -7429,7 +7429,7 @@ lab732: 	lw	a1,0(a2)
 	addi	a2,a2,4
 	or	s1,s1,a1
 	j	lab736
-lab733: 	addi	a2,a4,64 # 80040 <__errno+0x73db0>
+lab733: 	addi	a2,a4,64 # 80040 <__errno+0x73ba8>
 	add	a2,a2,sp
 	lw	a2,-32(a2)
 	li	a7,32
@@ -7492,7 +7492,7 @@ lab727: 	lui	a4,0x80
 	sw	a2,52(sp)
 	and	a3,a5,a4
 	beqz	a3,lab670
-	addi	a4,a4,-1 # 7ffff <__errno+0x73d6f>
+	addi	a4,a4,-1 # 7ffff <__errno+0x73b67>
 	and	a5,a5,a4
 	sw	a5,60(sp)
 	j	lab740
@@ -7596,7 +7596,7 @@ lab757: 	add	a6,a1,a0
 	sub	a5,a4,a5
 	j	lab758
 lab754: 	lw	a6,0(a0)
-	addi	a2,a2,1 # 80001 <__errno+0x73d71>
+	addi	a2,a2,1 # 80001 <__errno+0x73b69>
 	addi	a0,a0,4
 	or	s0,s0,a6
 	j	lab759
@@ -7946,7 +7946,7 @@ lab790: 	lw	a1,0(a4)
 	sll	a1,a1,a0
 	srl	a6,a6,a2
 	or	a1,a1,a6
-	sw	a1,0(t1) # 80000 <__errno+0x73d70>
+	sw	a1,0(t1) # 80000 <__errno+0x73b68>
 	addi	a4,a4,-4
 	j	lab803
 lab792: 	lw	a2,0(a4)
@@ -8001,7 +8001,7 @@ lab805: 	lw	a1,0(a2)
 	sll	t1,t1,a3
 	or	a1,a1,t1
 	sw	a1,0(t3)
-	addi	a7,a7,1 # 80001 <__errno+0x73d71>
+	addi	a7,a7,1 # 80001 <__errno+0x73b69>
 	addi	a2,a2,4
 	j	lab807
 lab791: 	lw	a5,60(sp)
@@ -8368,7 +8368,7 @@ lab842: 	lui	a4,0x100
 	srl	a0,a0,a5
 	addi	a5,a4,120 # 100078 <__clz_tab>
 	add	a5,a5,a0
-	lbu	a0,0(a5) # 10000 <__errno+0x3d70>
+	lbu	a0,0(a5) # 10000 <__errno+0x3b68>
 	sub	a0,a3,a0
 	ret
 lab841: 	lui	a4,0x1000
@@ -8432,16 +8432,6 @@ lab844: 	slli	a3,a5,0x2
 	add	a2,a2,a5
 	bgeu	t1,a2,lab843
 	j	lab848
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata
@@ -8810,11 +8800,11 @@ init_jk:
 impure_data:
 	.2byte	0x0000
 	.2byte	0x0000
-	.2byte	0x964
+	.2byte	0x96c
 	.2byte	0x10
-	.2byte	0x9cc
+	.2byte	0x9d4
 	.2byte	0x10
-	.2byte	0xa34
+	.2byte	0xa3c
 	.2byte	0x10
 	.2byte	0x0000
 	.2byte	0x0000

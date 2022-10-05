@@ -694,7 +694,7 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	addi	sp,sp,-80
 	sw	s4,60(sp)
 	lui	s4,0x103
-	addi	a5,s4,-932 # 102c5c <encrypted>
+	addi	a5,s4,-928 # 102c60 <encrypted>
 	lw	a4,264(a5)
 	sw	s9,40(sp)
 	lw	s9,260(a5)
@@ -712,7 +712,7 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	lui	s3,0x102
 	sw	a4,12(sp)
 	lw	a4,488(a5)
-	addi	s8,s4,-932
+	addi	s8,s4,-928
 	lui	s7,0xffff0
 	sw	a4,16(sp)
 	lw	a4,492(a5)
@@ -729,7 +729,7 @@ _nettle_aes_encrypt.part.0.constprop.0:
 	sw	s1,72(sp)
 	sw	s10,36(sp)
 	sw	s11,32(sp)
-	addi	s4,s4,-932
+	addi	s4,s4,-928
 	addi	s3,s3,1552 # 102610 <plaintext>
 	addi	a5,a5,1292 # 10150c <_aes_encrypt_table>
 	sw	a4,28(sp)
@@ -1092,7 +1092,7 @@ _aes_set_key.constprop.0:
 	slli	t6,t6,0x8
 	or	a5,a5,s0
 	lui	a2,0x103
-	addi	a2,a2,-932 # 102c5c <encrypted>
+	addi	a2,a2,-928 # 102c60 <encrypted>
 	or	a5,a5,a7
 	or	a3,a3,t3
 	or	a4,a4,s7
@@ -1321,7 +1321,7 @@ lab18: 	ret
 lab16: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 aes_set_encrypt_key:
 	addi	a6,a1,-16
 	li	a4,16
@@ -1350,7 +1350,7 @@ lab23: 	li	a0,14
 lab22: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 _nettle_aes_invert:
 	slli	a7,a0,0x2
 	beq	a2,a1,lab25
@@ -1445,7 +1445,7 @@ benchmark_body.constprop.0:
 	sw	s1,36(sp)
 	sw	s4,24(sp)
 	sw	s5,20(sp)
-	addi	s1,s6,-932 # 102c5c <encrypted>
+	addi	s1,s6,-928 # 102c60 <encrypted>
 	lui	s5,0x102
 	lui	s4,0x103
 	sw	s0,40(sp)
@@ -1455,7 +1455,7 @@ benchmark_body.constprop.0:
 	sw	ra,44(sp)
 	li	s3,78
 	addi	s5,s5,1808 # 102710 <key>
-	addi	s4,s4,-188 # 102f44 <decrypted>
+	addi	s4,s4,-184 # 102f48 <decrypted>
 	lui	s7,0x100
 	li	s2,14
 	addi	s0,s1,504
@@ -1473,7 +1473,7 @@ lab32: 	sw	s2,256(s1)
 	li	a0,14
 	jal	ra,_nettle_aes_invert
 	addi	s3,s3,-1
-	addi	a5,s6,-932
+	addi	a5,s6,-928
 	mv	a4,s4
 	li	a3,256
 	addi	a2,s7,1036 # 10040c <_aes_decrypt_table>
@@ -1502,7 +1502,7 @@ benchmark_body.isra.0:
 	sw	s1,36(sp)
 	sw	s5,20(sp)
 	sw	s6,16(sp)
-	addi	s1,s7,-932 # 102c5c <encrypted>
+	addi	s1,s7,-928 # 102c60 <encrypted>
 	lui	s6,0x102
 	lui	s5,0x103
 	sw	s0,40(sp)
@@ -1514,7 +1514,7 @@ benchmark_body.isra.0:
 	mv	s4,a0
 	li	s3,0
 	addi	s6,s6,1808 # 102710 <key>
-	addi	s5,s5,-188 # 102f44 <decrypted>
+	addi	s5,s5,-184 # 102f48 <decrypted>
 	lui	s8,0x100
 	li	s2,14
 	addi	s0,s1,504
@@ -1532,7 +1532,7 @@ lab34: 	sw	s2,256(s1)
 	li	a0,14
 	jal	ra,_nettle_aes_invert
 	addi	s3,s3,1
-	addi	a5,s7,-932
+	addi	a5,s7,-928
 	mv	a4,s5
 	li	a3,256
 	addi	a2,s8,1036 # 10040c <_aes_decrypt_table>
@@ -1611,7 +1611,7 @@ lab36: 	li	s1,14
 	li	a1,8
 	j	lab38
 lab35: 	li	a0,1
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 _nettle_aes_encrypt:
 	andi	a6,a3,15
 	bnez	a6,lab39
@@ -1619,7 +1619,7 @@ _nettle_aes_encrypt:
 lab39: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 _nettle_aes_decrypt:
 	andi	a6,a3,15
 	bnez	a6,lab40
@@ -1627,7 +1627,7 @@ _nettle_aes_decrypt:
 lab40: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 aes_encrypt:
 	andi	a7,a1,15
 	bnez	a7,lab41
@@ -1643,7 +1643,7 @@ aes_encrypt:
 lab41: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 aes_decrypt:
 	andi	a7,a1,15
 	bnez	a7,lab42
@@ -1659,11 +1659,11 @@ aes_decrypt:
 lab42: 	addi	sp,sp,-16
 	li	a0,1
 	sw	ra,12(sp)
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 verify_benchmark:
 	lui	a2,0x102
 	lui	a3,0x103
-	addi	a3,a3,-932 # 102c5c <encrypted>
+	addi	a3,a3,-928 # 102c60 <encrypted>
 	addi	a1,a2,1552 # 102610 <plaintext>
 	addi	a1,a1,288
 	addi	a2,a2,1552
@@ -1720,16 +1720,6 @@ start_trigger:
 stop_trigger:
 	li	a0,0
 	ret
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

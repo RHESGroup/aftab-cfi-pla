@@ -1783,7 +1783,7 @@ benchmark_body.isra.0:
 	sw	a4,36(sp)
 	sw	a5,40(sp)
 	lui	a5,0x100
-	addi	s11,a5,1484 # 1005cc <buffer>
+	addi	s11,a5,1488 # 1005d0 <buffer>
 	j	lab15
 lab17: 	lui	s3,0x100
 	sub	a2,a5,a2
@@ -2072,7 +2072,7 @@ lab14: 	lw	ra,220(sp)
 	addi	sp,sp,224
 	ret
 lab16: 	li	a0,1
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 benchmark_body.constprop.0:
 	lui	a5,0x100
 	mv	a5,a5
@@ -2110,7 +2110,7 @@ benchmark_body.constprop.0:
 	lui	a5,0x100
 	sw	s10,176(sp)
 	sw	a4,36(sp)
-	addi	s11,a5,1484 # 1005cc <buffer>
+	addi	s11,a5,1488 # 1005d0 <buffer>
 	j	lab19
 lab22: 	lui	s3,0x100
 	sub	a2,a5,a2
@@ -2399,7 +2399,7 @@ lab20: 	lw	ra,220(sp)
 	addi	sp,sp,224
 	ret
 lab21: 	li	a0,1
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 sha256_digest:
 	addi	sp,sp,-32
 	sw	ra,28(sp)
@@ -2517,11 +2517,11 @@ lab25: 	li	a5,64
 	li	a2,56
 	j	lab26
 lab24: 	li	a0,1
-	jal	ra,__DTOR_END__
+	jal	ra,exit
 verify_benchmark:
 	lui	a4,0x100
 	lui	a3,0x100
-	addi	a4,a4,1484 # 1005cc <buffer>
+	addi	a4,a4,1488 # 1005d0 <buffer>
 	addi	a3,a3,328 # 100148 <msg>
 	lbu	a1,1(a4)
 	lbu	t3,57(a3)
@@ -2658,16 +2658,6 @@ lab28: 	slli	a3,a5,0x2
 	add	a2,a2,a5
 	bgeu	t1,a2,lab27
 	j	lab32
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

@@ -2008,16 +2008,6 @@ lab149: 	slli	a3,a5,0x2
 	add	a2,a2,a5
 	bgeu	t1,a2,lab148
 	j	lab153
-__CTOR_LIST__:
-	unimp
-	unimp
-	unimp
-	unimp
-__CTOR_END__:
-	unimp
-	unimp
-	unimp
-	unimp
 
 
 	.section .rodata

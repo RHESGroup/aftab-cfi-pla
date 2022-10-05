@@ -12,11 +12,7 @@ DEFAULT_SIM_TIME_NS=1000000
 
 VSIM=`which vsim`
 
-# USE THIS FOR NON MOD
-TARGET_C_FLAGS="-O3 -nostartfiles -Wl,--gc-sections"
-
-# USE THIS FOR MOD
-# TARGET_C_FLAGS="-O3 -nostartfiles"
+TARGET_C_FLAGS="-O3 -nostartfiles"
 
 # # if you want to have compressed instructions, set this to 1
 # RVC=0
