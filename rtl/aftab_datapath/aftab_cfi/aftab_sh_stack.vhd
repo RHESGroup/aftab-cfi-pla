@@ -23,17 +23,18 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 		PORT (
 			clk, rst          : IN STD_LOGIC;
 			push, pop : IN STD_LOGIC;
-			pointerFlagF, pointerFlagE        : OUT STD_LOGIC;
 			ptrOut            : OUT STD_LOGIC_VECTOR(stack_len_add - 1 DOWNTO 0)
 		);
 	END COMPONENT;
 	COMPONENT aftab_stack_ctrl IS
+		GENERIC (n : INTEGER := 3);
 		PORT
 		(
 			clk, rst          : IN STD_LOGIC;
-			call, ret   : IN STD_LOGIC;
+			call, ret		   : IN STD_LOGIC;
 			comp, LSB       : IN STD_LOGIC;
-			stackWrEn, ptrInc, ptrdec, exception : OUT STD_LOGIC
+			ptr            : IN STD_LOGIC_VECTOR(n - 1 DOWNTO 0);
+			stackWrEn, ptrInc, ptrDec, exception, inRegEn : OUT STD_LOGIC
 		);
 	END COMPONENT;
 	COMPONENT aftab_stack IS
@@ -73,14 +74,22 @@ ARCHITECTURE behavioral OF aftab_sh_stack IS
 	SIGNAL inShadowStack    : STD_LOGIC_VECTOR(addr_len-1 DOWNTO 0);
 	SIGNAL ptr  : STD_LOGIC_VECTOR(stack_len_add-1 DOWNTO 0);
 	SIGNAL stackWrEn, push, pop, comp, LSB : STD_LOGIC;
-	SIGNAL ctrl_exeptionFlag, ptr_exeptionFlag, pointerFlagF, pointerFlagE, ptr_rst	: STD_LOGIC;
+	SIGNAL ctrl_exeptionFlag, ptr_rst,inRegEn	: STD_LOGIC;
 BEGIN
 	addr_reg : aftab_register
 	GENERIC MAP(32)
 	PORT MAP
 	(
-		clk, rst,'0', loadCFI, retAddPC, reg_addr
+		clk, rst,'0', inRegEn, addr, reg_addr
 	);
+	inputMux : aftab_mux2
+		GENERIC MAP(addr_len)
+		PORT MAP(
+			funcCall,
+			retAddSysStack,
+			retAddPC,
+			addr
+		);
 	shadowStack : aftab_stack
 		GENERIC MAP(
 		addr_len,
@@ -92,31 +101,31 @@ BEGIN
 		GENERIC MAP(stack_len_add)
 		PORT MAP(
 			clk, ptr_rst,
-			push, pop, pointerFlagF, pointerFlagE,
+			push, pop,
 			ptr
 		);
 	ctrl : aftab_stack_ctrl
+		GENERIC MAP(stack_len_add)
 		PORT MAP(
 			clk, rst,
 			funcCall, funcRet,
 			comp, LSB,
-			stackWrEn, push, pop, ctrl_exeptionFlag
+			ptr,
+			stackWrEn, push, pop, ctrl_exeptionFlag,inRegEn
 		);	
-	mux : aftab_mux2
-		GENERIC MAP(addr_len)
-		PORT MAP(
-			funcCall,
-			retAddSysStack,
-			reg_addr,
-			addr
-		);
+	-- mux : aftab_mux2
+		-- GENERIC MAP(addr_len)
+		-- PORT MAP(
+			-- funcCall,
+			-- retAddSysStack,
+			-- reg_addr,
+			-- addr
+		-- );
 		
-	comp <= '1' WHEN (outShadowStack(addr_len-1 DOWNTO 1) = addr(addr_len-1 DOWNTO 1))	ELSE '0';
-	LSB <= outShadowStack (addr_len-1);
+	comp <= '1' WHEN (outShadowStack(addr_len-1 DOWNTO 1) = reg_addr(addr_len-1 DOWNTO 1))	ELSE '0';
+	LSB <= outShadowStack (0);
 	inShadowStack <= reg_addr (addr_len-1 DOWNTO 1) & comp;
-	ptr_exeptionFlag <= pointerFlagE WHEN (funcRet ='1' and LSB ='0') ELSE
-						'0';
-	stackException <= ctrl_exeptionFlag OR ptr_exeptionFlag;
-	ptr_rst<= rst OR ctrl_exeptionFlag;
+	stackException <= ctrl_exeptionFlag; --  OR pointerFlagE;
+	ptr_rst<= rst OR ctrl_exeptionFlag; --  OR pointerFlagE;
 	
 END behavioral;

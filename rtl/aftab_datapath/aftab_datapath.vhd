@@ -36,6 +36,7 @@
 
 LIBRARY IEEE;
 USE IEEE.STD_LOGIC_1164.ALL;
+
 ENTITY aftab_datapath IS
 	GENERIC
 		(len : INTEGER := 32);
@@ -174,6 +175,7 @@ ENTITY aftab_datapath IS
 		ldMieUieField                  : OUT STD_LOGIC;
 		interruptRaise                 : OUT STD_LOGIC;
 		exceptionRaise                 : OUT STD_LOGIC;
+		outPCout                       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
 		delegationMode                 : OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
 		previousPRV                    : OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
 		modeTvec                       : OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
@@ -247,6 +249,7 @@ ARCHITECTURE behavioral OF aftab_datapath IS
 
 BEGIN
 
+	outPCout <= outPC;
 	-- if CSR register is not implemented the access cannot be considered valid (Illegal Instr).
 	-- modified Luca
 	csr_address_ctrl: ENTITY WORK.aftab_csr_address_ctrl
@@ -674,10 +677,10 @@ BEGIN
 		inReg  => exceptionSources,
 		outReg => tempFlags);
 	----------*************-----------
-	exceptionSources   <= cfiExceptionFlag & ecallFlag & dividedByZeroFlag & 
+	exceptionSources   <= '0' & ecallFlag & dividedByZeroFlag & 
 						  illegalInstrFlag & instrMisalignedFlag & 
 						  '0' & '0';
-	exceptionldFlags <= ldFlags OR cfiExceptionFlag;
+	exceptionldFlags <= ldFlags; -- OR cfiExceptionFlag;
 	----------*************-----------
 	-- exceptionSources   <= ecallFlag & dividedByZeroFlag & illegalInstrFlag & instrMisalignedFlag &  '0' & '0';
 	instrMisalignedOut <= instrMisalignedFlag;
@@ -702,7 +705,7 @@ BEGIN
 		);
 	----------*************-----------		
 	cfiStack : ENTITY WORK.aftab_sh_stack 
-		GENERIC MAP( 32, 7 )
+		GENERIC MAP( 32, 4 )
 		PORT MAP(
 		clk =>	clk,
 		rst =>	rst,

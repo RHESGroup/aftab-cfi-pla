@@ -801,7 +801,9 @@ BEGIN
 				selAdd       <= '1';
 				ldPC         <= '1';
 				----------*************-----------
-				funcCall <= '1';
+				IF (zero /= '1') THEN
+					funcCall <= '1';
+				END IF;
 				----------*************-----------
 			WHEN JALR =>
 				muxCode      <= iTypeImm;
@@ -812,9 +814,9 @@ BEGIN
 				selP1        <= '1';
 				selAdd       <= '1';
 				----------*************-----------
-				IF (zero = '1') THEN
+				IF (IR = "00000000000000001000000001100111") THEN
 					funcRet <= '1';
-				ELSE
+				ELSIF (zero /= '1') THEN
 					funcCall <= '1';
 				END IF;
 				----------*************-----------
