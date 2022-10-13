@@ -113,19 +113,11 @@ BEGIN
 			ptr,
 			stackWrEn, push, pop, ctrl_exeptionFlag,inRegEn
 		);	
-	-- mux : aftab_mux2
-		-- GENERIC MAP(addr_len)
-		-- PORT MAP(
-			-- funcCall,
-			-- retAddSysStack,
-			-- reg_addr,
-			-- addr
-		-- );
 		
 	comp <= '1' WHEN (outShadowStack(addr_len-1 DOWNTO 1) = reg_addr(addr_len-1 DOWNTO 1))	ELSE '0';
 	LSB <= outShadowStack (0);
 	inShadowStack <= reg_addr (addr_len-1 DOWNTO 1) & comp;
-	stackException <= ctrl_exeptionFlag; --  OR pointerFlagE;
-	ptr_rst<= rst OR ctrl_exeptionFlag; --  OR pointerFlagE;
+	stackException <= ctrl_exeptionFlag; 
+	ptr_rst<= rst OR ctrl_exeptionFlag; 
 	
 END behavioral;
