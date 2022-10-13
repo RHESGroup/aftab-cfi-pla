@@ -175,7 +175,6 @@ ENTITY aftab_datapath IS
 		ldMieUieField                  : OUT STD_LOGIC;
 		interruptRaise                 : OUT STD_LOGIC;
 		exceptionRaise                 : OUT STD_LOGIC;
-		outPCout                       : OUT STD_LOGIC_VECTOR (31 DOWNTO 0);
 		delegationMode                 : OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
 		previousPRV                    : OUT STD_LOGIC_VECTOR (1 DOWNTO 0);
 		modeTvec                       : OUT STD_LOGIC_VECTOR (1 DOWNTO 0)
