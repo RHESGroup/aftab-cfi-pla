@@ -677,10 +677,10 @@ BEGIN
 		inReg  => exceptionSources,
 		outReg => tempFlags);
 	----------*************-----------
-	exceptionSources   <= '0' & ecallFlag & dividedByZeroFlag & 
+	exceptionSources   <= cfiExceptionFlag & ecallFlag & dividedByZeroFlag & 
 						  illegalInstrFlag & instrMisalignedFlag & 
 						  '0' & '0';
-	exceptionldFlags <= ldFlags; -- OR cfiExceptionFlag;
+	exceptionldFlags <= ldFlags OR cfiExceptionFlag;
 	----------*************-----------
 	-- exceptionSources   <= ecallFlag & dividedByZeroFlag & illegalInstrFlag & instrMisalignedFlag &  '0' & '0';
 	instrMisalignedOut <= instrMisalignedFlag;
