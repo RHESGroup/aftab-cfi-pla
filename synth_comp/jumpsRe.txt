@@ -1,3 +1,6 @@
+each jump add 16 clk more to runtime
+
+
 _______________________________  aha-mont64  ______ 
 
 set[]
