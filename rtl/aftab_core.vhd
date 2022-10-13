@@ -57,7 +57,6 @@ ENTITY aftab_core IS
 		userTimerInterrupt       : IN  STD_LOGIC;
 		userSoftwareInterrupt    : IN  STD_LOGIC;
 		platformInterruptSignals : IN  STD_LOGIC_VECTOR (15 DOWNTO 0);
-		outPCout				 : OUT  STD_LOGIC_VECTOR (31 DOWNTO 0);
 		interruptProcessing      : OUT STD_LOGIC
 	);
 END ENTITY;
@@ -318,7 +317,6 @@ BEGIN
 			ldMieReg                       => ldMieReg,
 			ldMieUieField                  => ldMieUieField,
 			interruptRaise                 => interruptRaise,
-			outPCout					   => outPCout,
 			exceptionRaise                 => exceptionRaise,
 			delegationMode                 => delegationMode,
 			previousPRV                    => previousPRV,
