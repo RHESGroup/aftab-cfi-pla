@@ -19,3 +19,8 @@ synth_comp/resource-aftab_pla.jpg
 synth_comp/resource-aftab_pla3.jpg
 synth_comp/resource-aftab_pla2.jpg
 synth_comp/timing.jpg
+rtl/aftab_datapath/writing_PC.vhd
+tb/aftab_testbench.vhd
+tb/aftab_testbench.vhd
+tb/aftab_testbench.vhd
+tb/aftab_testbench.vhd
