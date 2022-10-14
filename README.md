@@ -1,6 +1,4 @@
-<img src="logo.png" style="color:#ffffff" width="400px" />
-
-# CNL_RISC-V - AFTAB
+# CNL_RISC-V - AFTAB (with Control-Flow Integrity security extensions)
 ## 32-bit RV32IM RISC-V core 
 
 AFTAB is an implementation for the RV32IM RISC-V ISA and it is the first microprocessor 
@@ -11,6 +9,10 @@ AFTAB is an in-order, single-issue core with sequential stages and it has
 full support for the base integer instruction set (RV32I) and multiplication instruction set
 extension (RV32M). 
 It implements a subset of the 1.9 privileged specification.
+
+This version contains modification with respect to the original release ( at https://github.com/RHESGroup/aftab ). Modifications were done in order to support the CFI protection framework PROLEPSIS™ ( https://github.com/RHESGroup/prolepsis ). Applications have been added from the Embench IoT project ( https://github.com/embench/embench-iot ), and have been used for benchmarking the protection offered by the framework. 
+
+All the experimental data are reported under the folder `/doc`.
 
 ## Documentation and Requirements
 
@@ -48,6 +50,4 @@ Replace `helloworld` with the test/application you want to run.
 
 ## Disclaimer and Copyright
 
-The project is always running. This is the 1.0 release. Further releases will be done in the future.  
-The project is released under LGPL v3.0 ( https://www.gnu.org/licenses/lgpl-3.0.txt ).
-Copyright (C) 2022 CINI Cybersecurity National Laboratory and University of Teheran.
+All code and material is released under LGPL v3.0 ( https://www.gnu.org/licenses/lgpl-3.0.txt ). Copyright (C) 2022 RHES Group Torino.
